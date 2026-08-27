@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "video_id": "S12_Sandwich_7150991-2470",
+  "dataset": "MOSCATO/CMU-MMAC",
+
+  "video_path": "data/moscato/videos/S12_Sandwich_7150991-2470.avi",
+  "annotations_path": "data/moscato/annotations/gt_annotations_cmu.json",
+  "files_dict_path": "data/moscato/vocabulary/files_dict.json",
+  "state_dict_path": "data/moscato/vocabulary/state_dict.json",
+
+  "target_object": "bread slices",
+
+  "clip_start_global": 2824,
+  "clip_end_global": 6714,
+  "expected_raw_frames": 6714,
+  "fps": 30,
+  "width": 800,
+  "height": 600,
+
+  "work_dir": "data/moscato/work/S12_Sandwich_7150991-2470",
+  "runs_dir": "runs/S12_Sandwich_7150991-2470",
+
+  "vlm_backend": "claude",
+  "vlm_model": "claude-haiku-4-5-20251001",
+  "mapper_model": "claude-haiku-4-5-20251001",
+  "sample_rate": "per_segment",
+  "skip_states": ""
+}

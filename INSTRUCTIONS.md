@@ -33,6 +33,10 @@ submoduled here — it is a separate clone that these scripts locate by path.
 | [run_inference.py](run_inference.py) | Loads a VidOSC checkpoint, runs a forward pass on a feature file, prints a per-second state timeline, optionally logs to W&B | **Yes** (`model.FeatTimeTransformer`) |
 | [describe_states.py](describe_states.py) | Runs inference, groups the timeline into segments, captions one frame per segment with a VLM | Yes (indirectly, via `run_inference`) |
 | [vidosc_path.py](vidosc_path.py) | Locates the upstream checkout and puts it on `sys.path` | — |
+| [moscato/](moscato/) | Benchmarks the pipeline on MOSCATO and scores it with the TubeletGraph evaluator — see [MOSCATO.md](MOSCATO.md) | Yes (via `run_inference`) |
+| [configs/moscato/](configs/moscato/) | One JSON per benchmarked video: clip bounds, target object, fps, paths | — |
+| [scripts/setup_moscato_data.sh](scripts/setup_moscato_data.sh) | Places the MOSCATO annotations/vocabulary and tells you where to get the video | — |
+| [tests/](tests/) | `pytest tests/test_moscato.py` — alignment, evaluator parity, ground-truth firewall | — |
 | [environment_mac.yml](environment_mac.yml) | macOS / Apple Silicon conda env (replaces upstream's Linux-only `environment.yml`) | — |
 | [patches/](patches/) | Local modifications to upstream VidOSC, kept as a diff so no upstream code lands in this repo | — |
 

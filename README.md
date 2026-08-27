@@ -143,6 +143,21 @@ browning at edges."
 
 ---
 
+### 5. Benchmarking against MOSCATO
+
+The four state labels are useful, but they are not *scored* anywhere in the
+sections above — you get a timeline and captions, not a number. The
+[moscato/](moscato/) package closes that: it projects this pipeline's output onto
+[MOSCATO's](https://github.com/eelhami/iccv25_moscato) per-frame object-state
+annotations and scores it with the same evaluator the TubeletGraph experiment
+uses, so TubeletGraph, VidOSC, and VidOSC + Claude are directly comparable.
+
+It adds no dependency on the rest of the repo's internals — the VidOSC and Claude
+stages are imported unchanged. See [MOSCATO.md](MOSCATO.md) for setup, commands,
+what has actually been verified, and what the early runs revealed.
+
+---
+
 ## A worked example
 
 Running `describe_states.py` on a `browning_apple` clip with the Claude backend,
@@ -241,6 +256,8 @@ description.
 ## Further reading
 
 - [INSTRUCTIONS.md](INSTRUCTIONS.md) — installation, commands, flags, troubleshooting
+- [MOSCATO.md](MOSCATO.md) — benchmarking this pipeline on MOSCATO under the same
+  evaluation protocol as the TubeletGraph experiment
 - [patches/README.md](patches/README.md) — what's modified in upstream and why
 - [VidOSC paper](https://arxiv.org/abs/2312.11782) · [project page](https://vision.cs.utexas.edu/projects/VidOSC/)
 

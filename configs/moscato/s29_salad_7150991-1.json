@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "video_id": "S29_Salad_7150991-1",
+  "dataset": "MOSCATO/CMU-MMAC",
+
+  "video_path": "data/moscato/videos/S29_Salad_7150991-1.avi",
+  "annotations_path": "data/moscato/annotations/gt_annotations_cmu.json",
+  "files_dict_path": "data/moscato/vocabulary/files_dict.json",
+  "state_dict_path": "data/moscato/vocabulary/state_dict.json",
+
+  "target_object": "vegetables",
+
+  "clip_start_global": 1469,
+  "clip_end_global": 4679,
+  "expected_raw_frames": 8080,
+  "fps": 30,
+  "width": 1024,
+  "height": 768,
+
+  "work_dir": "data/moscato/work/S29_Salad_7150991-1",
+  "runs_dir": "runs/S29_Salad_7150991-1",
+
+  "vlm_backend": "claude",
+  "vlm_model": "claude-haiku-4-5-20251001",
+  "mapper_model": "claude-haiku-4-5-20251001",
+  "sample_rate": "per_segment",
+  "skip_states": ""
+}

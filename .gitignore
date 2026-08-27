@@ -38,3 +38,12 @@ build/
 # Conda env (installed locally, not committed)
 *.tar.bz2
 *.conda
+
+# MOSCATO / CMU-MMAC experiment. data/ is already ignored above; these entries
+# cover the run outputs and the source video wherever it lands.
+runs/
+*.avi
+data/moscato/
+
+# Local run scripts. These hold API keys and machine-specific paths.
+*.local.sh
