@@ -111,7 +111,7 @@ def predict(
     from describe_states import group_segments
 
     from moscato import describe as moscato_describe
-    from extract_features import extract_clip_features, extract_frames_1fps
+    from extract_features import extract_clip_features
     from run_inference import STATE_NAMES, run_inference as vidosc_run_inference
 
     full_config = load_config(config_path)
@@ -282,14 +282,61 @@ def predict(
     print(f"\n{len(segments)} VidOSC segment(s) at sample_rate={effective_sample_rate}")
 
     # -- 5. Claude descriptions ------------------------------------------
-    # Frames are re-decoded at 1 fps from the same clip video the features came
-    # from, so the frame Claude sees is the frame VidOSC scored.
-    frames_1fps = extract_frames_1fps(str(clip_video))
-    if len(frames_1fps) < num_timesteps:
-        raise ValueError(
-            f"1-fps decode produced {len(frames_1fps)} frames but VidOSC produced "
-            f"{num_timesteps} timesteps; the clip video and features disagree."
-        )
+    # Read the full-resolution local frame straight from the prepared frames
+    # directory -- the SAME file the vocabulary mapper reads.
+    #
+    # This deliberately does NOT use extract_frames_1fps: that helper scales to
+    # 224x224 for CLIP's input, which for a 1024x768 source is both a heavy
+    # downscale and an aspect-ratio squash. Captioning those thumbnails produced
+    # descriptions like "red cabbage" and "liquified in a bottle" for a carrot
+    # and cucumber salad, while the mapper -- reading full-resolution frames --
+    # saw something entirely different. Both stages now see identical pixels.
+    from PIL import Image
+
+    def representative_frame(local: int) -> "np.ndarray":
+        path = frames_dir / f"{local:07d}.jpg"
+        if not path.is_file():
+            raise FileNotFoundError(
+                f"{path} is missing; re-run the prepare stage."
+            )
+        with Image.open(path) as image:
+            return np.asarray(image.convert("RGB"))
+
+    UNINFORMATIVE = ("not visible", "not clearly visible", "cannot see", "too blurry")
+
+    def is_uninformative(description: str) -> bool:
+        head = description.strip().lower()[:60]
+        return any(marker in head for marker in UNINFORMATIVE)
+
+    def candidate_local_frames(segment: dict[str, Any]) -> list[int]:
+        """Midpoint first, then 25% and 75% within the segment.
+
+        A single representative frame is fragile in egocentric video: the
+        midpoint of a segment can land on a motion-blurred frame where the
+        object genuinely is not visible. That gets *worse* with ordered
+        decoding, because 3 long segments mean 3 samples for the whole clip
+        while argmax's 12 short ones average the risk away. Fall back to other
+        frames in the same segment rather than forcing a guess on a blur.
+        """
+        start, end = int(segment["start"]), int(segment["end"])
+        offsets = [0.5, 0.25, 0.75] if end > start else [0.5]
+        seen, frames = set(), []
+        for offset in offsets:
+            timestep = start + int(round((end - start) * offset))
+            local = frame_mapping.representative_local_frame(
+                timestep, fps, num_local_frames
+            )
+            if local not in seen:
+                seen.add(local)
+                frames.append(local)
+        return frames
+
+    probe = representative_frame(int(segments[0]["representative_local_frame"]))
+    description_frame_size = {"height": int(probe.shape[0]), "width": int(probe.shape[1])}
+    print(
+        f"Description frames: {description_frame_size['width']}x"
+        f"{description_frame_size['height']} (full resolution, as the mapper sees)"
+    )
 
     vlm_model_name = vlm_model or config.get("vlm_model", "claude-haiku-4-5-20251001")
     effective_prompt_mode = prompt_mode or config.get("prompt_mode", "neutral")
@@ -306,11 +353,28 @@ def predict(
     claude_raw: list[dict[str, Any]] = []
     for segment in segments:
         timestep = int(segment["representative_vidosc_timestep"])
-        frame = frames_1fps[timestep]
+        attempts: list[dict[str, Any]] = []
         if dry_run:
+            local = int(segment["representative_local_frame"])
             description = "(dry run - no VLM call)"
         else:
-            description = backend.describe(frame, target_object, segment["vidosc_state"])
+            for local in candidate_local_frames(segment):
+                description = backend.describe(
+                    representative_frame(local), target_object, segment["vidosc_state"]
+                )
+                attempts.append({"local_frame": local, "description": description})
+                if not is_uninformative(description):
+                    break
+            else:
+                print(
+                    f"  (every sampled frame in t={segment['start']}-{segment['end']}s "
+                    f"was uninformative; keeping the last)"
+                )
+        # The frame that produced the kept description, which may not be the midpoint.
+        segment["representative_local_frame"] = int(local)
+        segment["representative_global_frame"] = clip_start + int(local)
+        segment["representative_timestamp_s"] = round(local / fps, 6)
+        segment["description_frame_attempts"] = attempts
         segment["claude_description"] = description
         claude_raw.append(
             {
@@ -496,12 +560,6 @@ def predict(
             "sample_rate": effective_sample_rate,
             "skip_states": "",
             "prompt_mode": effective_prompt_mode,
-            "prompt_mode_note": (
-                "neutral: the VidOSC label is withheld from the description "
-                "prompt, so a mislabelled segment cannot steer the caption. "
-                "stated_state: upstream describe_states.build_prompt, which "
-                "names the label."
-            ),
             "vidosc_state_shown_to_vlm": effective_prompt_mode == "stated_state",
             "ground_truth_shown_to_vlm": False,
         },

@@ -435,6 +435,37 @@ argmax   0-19 initial | 20 end | 21-27 initial | 28-79 end | 80-81 initial |
 ordered  0-11 initial | 12-50 transitioning | 51-106 end
 ```
 
+### First live results — and a baseline that reframes them
+
+S29_Salad, `chopping.ckpt`, `vegetables`, neutral prompt, Claude Haiku 4.5:
+
+| | argmax | ordered |
+|---|---:|---:|
+| segments | 12 | 3 |
+| accuracy | **0.6224** | 0.5278 |
+| micro-F1 | **0.5357** | 0.4543 |
+| correct frames | 1981 / 3183 | 1680 / 3183 |
+
+**Ordered decoding scored worse than argmax, despite the better boundary.** The
+temporal fix did not translate into a benchmark gain.
+
+Now the number that matters most:
+
+| trivial baseline | accuracy |
+|---|---:|
+| predict `chopped` for every frame | **0.5564** |
+
+Ground truth is `chopped` for 56 % of evaluated frames, so a constant predictor
+beats ordered decoding and comes within 7 points of argmax. **Neither decode
+mode has demonstrated it is doing something a majority-class guess would not.**
+Argmax's apparent lead comes largely from labelling more of the timeline
+`chopped` — it mapped 8 of its 12 segments to that state — rather than from
+localising the transformation better.
+
+Read the decode comparison as: ordered fixes a real defect in the *inference
+path*, and the pipeline is not yet good enough downstream for that to show up in
+the score.
+
 ### What this does and does not establish
 
 It establishes that the **inference path is now correct**: the decoder produces a
@@ -442,11 +473,25 @@ temporally valid sequence, the boundary lands 3 seconds from ground truth rather
 than 20, and segmentation, captioning, and event conversion all consume the
 decoded labels.
 
-It does **not** establish a benchmark improvement. Accuracy, micro-F1 and F1-max
-depend on the Claude descriptions and the vocabulary mapping downstream of the
-decoder, and no live run has been done under either mode. A better boundary is a
-necessary condition for a better score, not a sufficient one. Run both modes
-live before claiming anything about benchmark performance.
+It does **not** establish a benchmark improvement — the live runs above show the
+opposite. A better boundary is a necessary condition for a better score, not a
+sufficient one, and the bottleneck is downstream: Claude's descriptions.
+
+Three description defects found by running it, in order of size:
+
+1. **Captions were built from 224×224 thumbnails.** `extract_frames_1fps` scales
+   to CLIP's input size, and reusing it for captioning fed Claude a squashed
+   thumbnail of a 1024×768 frame while the *mapper* read the full-resolution
+   file. Fixing it moved argmax from 0.5187 to 0.6224 accuracy. Both stages now
+   read the same file; `tests/test_moscato.py` locks that in.
+2. **One frame per segment is fragile, and worse with fewer segments.** The
+   midpoint of the ordered run's 39-second middle segment landed on a
+   motion-blurred frame; Claude correctly answered "not visible", which has no
+   canonical MOSCATO state, and the mapper crashed. The describer now falls back
+   to the 25 % and 75 % points before giving up.
+3. **Claude still hallucinates on clear frames.** A cucumber being sliced was
+   described as "two black olives and a red pepper". Haiku 4.5 at this frame
+   size is the current ceiling; a stronger model is the obvious next lever.
 
 
 ## Known caveats

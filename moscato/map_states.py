@@ -42,6 +42,10 @@ from .config import assert_no_ground_truth, canonical_states, vocabulary_digest
 
 DEFAULT_MAPPER_MODEL = "claude-haiku-4-5-20251001"
 MAX_ATTEMPTS = 3
+# 64 was too tight: the model sometimes reasons for a sentence before naming a
+# state, and the answer was truncated mid-word ("...the closest match is: **disc").
+# The reply is still one short state string; this is headroom, not licence.
+MAX_TOKENS = 256
 
 
 def normalize_candidate(
@@ -84,8 +88,35 @@ def build_mapping_prompt(
         "and no explanation. The selected state must describe the current visual "
         f"state of the target object {target_object!r} at local frame {local_frame}.\n\n"
         f"RAW_VIDOSC_CONTEXT={json.dumps(raw_context, sort_keys=True)}\n\n"
-        f"ALLOWED_STATES={json.dumps(allowed)}"
+        f"ALLOWED_STATES={json.dumps(allowed)}\n\n"
+        "If the description says the object is not visible, judge from the frame "
+        "itself -- you can see it. Answer with the state string alone, on one "
+        "line, with no reasoning and no formatting."
     )
+
+
+def extract_canonical_state(response: str, allowed: list[str]) -> str | None:
+    """Last-resort salvage from a reply that refused to be just the state.
+
+    Used only after :func:`normalize_candidate` has rejected every attempt.
+    Returns a state only when the reply is *unambiguous*: exactly one allowed
+    state appears, after discarding nested matches so "on dish" beats the "on"
+    inside it. Anything ambiguous returns None and the caller still raises. The
+    raw reply is preserved in the run artifacts either way, and the mapping
+    records that a salvage happened.
+    """
+    lowered = response.strip().lower()
+    # Word boundaries, not bare substrings: "on" is a canonical CMU state and
+    # matches inside "only" and "appropriate", which made every reply that used
+    # those words look ambiguous and defeated the salvage entirely.
+    hits = {
+        state
+        for state in allowed
+        if re.search(rf"\b{re.escape(state)}\b", lowered)
+    }
+    # Drop states that are merely nested in another hit ("on" inside "on dish").
+    hits = {a for a in hits if not any(a != b and a in b for b in hits)}
+    return hits.pop() if len(hits) == 1 else None
 
 
 class ClaudeMapper:
@@ -134,7 +165,7 @@ class ClaudeMapper:
                 )
             message = self.client.messages.create(
                 model=self.model,
-                max_tokens=64,
+                max_tokens=MAX_TOKENS,
                 system=self.SYSTEM,
                 messages=[
                     {
@@ -161,7 +192,11 @@ class ClaudeMapper:
                 return normalize_candidate(raw_response, state_dict, allowed), responses
             except ValueError:
                 if attempt == MAX_ATTEMPTS - 1:
-                    raise
+                    salvaged = extract_canonical_state(raw_response, allowed)
+                    if salvaged is None:
+                        raise
+                    responses.append(f"[salvaged unambiguous state: {salvaged}]")
+                    return salvaged, responses
         raise AssertionError("unreachable")
 
 

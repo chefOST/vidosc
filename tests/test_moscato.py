@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import io
 import json
 from pathlib import Path
 import sys
@@ -515,3 +516,77 @@ def test_ordered_segments_convert_to_the_unchanged_event_schema():
     assert events["initial_state"] == segments[0]["mapped_moscato_state"]
     assert len(events["transitions"]) == len(segments) - 1
     assert len(densify(events, STATE_DICT)) == num_timesteps * fps
+
+
+# --------------------------------------------------------------------------
+# Description frames must match the mapper's frames
+# --------------------------------------------------------------------------
+
+def test_describer_does_not_use_the_clip_scaling_helper():
+    """extract_frames_1fps scales to 224x224 for CLIP; captions must not use it.
+
+    Captioning those squashed thumbnails produced "red cabbage" and "liquified
+    in a bottle" for a carrot-and-cucumber salad, while the mapper -- reading
+    full-resolution frames -- saw something else entirely.
+    """
+    source = (
+        Path(__file__).resolve().parent.parent / "moscato" / "run_experiment.py"
+    ).read_text()
+    predict = source[source.index("def predict("):source.index("# ---------------------------------------------------------------------------\n# evaluate")]
+    # A mention in a comment is fine (the comment explains why not to use it);
+    # a call or an import is not.
+    assert "extract_frames_1fps(" not in predict, (
+        "predict() calls extract_frames_1fps again — captions would be 224x224"
+    )
+    assert "import extract_frames_1fps" not in predict
+    assert ", extract_frames_1fps" not in predict
+
+
+def test_extract_frames_1fps_still_downscales():
+    """Guards the assumption above: if upstream stops scaling, revisit this."""
+    from extract_features import extract_frames_1fps
+    import inspect
+
+    body = inspect.getsource(extract_frames_1fps)
+    assert '"scale", 224, 224' in body or "scale\", 224, 224" in body
+
+
+REAL_FRAMES = (
+    Path(__file__).resolve().parent.parent
+    / "data/moscato/work/S29_Salad_7150991-1/frames"
+)
+
+
+@pytest.mark.skipif(not REAL_FRAMES.is_dir(), reason="prepared frames not present")
+def test_describer_and_mapper_read_identical_pixels():
+    """Both stages must resolve a segment to the same file, at full resolution."""
+    import numpy as np
+    from PIL import Image
+
+    local = 150
+    path = REAL_FRAMES / f"{local:07d}.jpg"
+
+    # What the mapper passes to the API (raw file bytes).
+    mapper_bytes = path.read_bytes()
+    # What the describer now builds its JPEG from.
+    with Image.open(path) as image:
+        describer_array = np.asarray(image.convert("RGB"))
+
+    assert np.array_equal(
+        describer_array, np.asarray(Image.open(io.BytesIO(mapper_bytes)).convert("RGB"))
+    )
+    assert describer_array.shape[0] > 224 and describer_array.shape[1] > 224, (
+        f"frames are {describer_array.shape}, expected full resolution"
+    )
+
+
+def test_salvage_matches_whole_words_only():
+    """"on" is a canonical CMU state; it must not match inside "only"."""
+    from moscato.map_states import extract_canonical_state
+
+    allowed = ["on", "on dish", "empty", "chopped"]
+    reply = "wait, i need to return an allowed state only. the answer is:\n\nempty"
+    assert extract_canonical_state(reply, allowed) == "empty"
+    assert extract_canonical_state("it is on dish", allowed) == "on dish"
+    assert extract_canonical_state("either chopped or empty", allowed) is None
+    assert extract_canonical_state("not visible", allowed) is None
