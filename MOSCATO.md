@@ -123,7 +123,8 @@ python -m moscato.run_experiment evaluate --config $CFG --run-name baseline
 | `--prompt-mode {neutral,stated_state}` | `neutral` | Whether Claude is told the VidOSC label — see [Findings](#findings-so-far) |
 | `--sample-rate {per_segment,per_second}` | `per_segment` | One Claude call per segment, or one per second |
 | `--force` | off | Overwrite an existing run directory |
-| `--wandb-project NAME` | — | Publish under the same `word_accuracy/*` namespace as TubeletGraph |
+| `--no-wandb` | off | Skip W&B logging (**on by default**) — see [Weights & Biases](#weights--biases) |
+| `--wandb-project` / `--wandb-entity` | `VidOSC + MOSCATO` / `chefOST` | Override the W&B destination |
 
 `prepare` is idempotent — it reuses decoded frames, the clip MP4, and extracted
 features. Only `predict` costs money: 2 Claude calls per segment.
@@ -132,6 +133,38 @@ For a repeatable local invocation, keep a `*.local.sh` wrapper — that pattern 
 gitignored, so it can safely hold your key.
 
 ---
+
+## Weights & Biases
+
+Logging is **on by default**, to `chefOST` / `VidOSC + MOSCATO`. Pass
+`--no-wandb` to skip it. Credentials come from `wandb login` (`~/.netrc`) or
+`WANDB_API_KEY` — either works.
+
+> The project name contains a literal `+`. The W&B UI shows it URL-encoded as
+> `VidOSC %2B MOSCATO`; that is the URL, not the name. Passing the encoded form
+> would create a second, wrongly-named project.
+
+Each stage logs its own run, so a run that fails before scoring still leaves a
+trace:
+
+| Stage | Run name | `job_type` | Contents |
+|---|---|---|---|
+| `predict` | `<run-name>-predict` | `prediction` | Decode mode and detection indices, per-second table (decoded label **and** raw argmax side by side), segment table with the representative frame and Claude's description, timeline image, and the prediction artifacts |
+| `evaluate` | `vidosc-claude-<run-name>` | `evaluation` | `word_accuracy/*` metrics, F1 threshold curve, per-frame table, scored artifacts |
+
+Both carry the same config axes and the same `decode:` / `prompt:` tags, so an
+argmax-vs-ordered comparison can be grouped on one axis across both job types:
+
+```
+decode_mode  prompt_mode  num_segments  checkpoint  video_id  clip bounds  fps ...
+```
+
+The `word_accuracy/*` namespace is unchanged from the TubeletGraph port, so runs
+in this project are directly comparable with the `tubeletgraph` project.
+
+Ground truth is not available during `predict` and none is logged there; metrics
+appear only in the evaluation run.
+
 
 ## Configured experiments
 

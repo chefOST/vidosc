@@ -49,6 +49,7 @@ from moscato.config import (
 )
 from moscato.evaluate import score_run
 from moscato.inspect_video import validate as validate_alignment
+from moscato.log_wandb import WANDB_ENTITY, WANDB_PROJECT
 from moscato.map_states import DEFAULT_MAPPER_MODEL, ClaudeMapper, map_segments
 
 DEFAULT_CONFIG = Path(__file__).resolve().parent.parent / "configs/moscato/s12_sandwich_7150991-2470.json"
@@ -98,6 +99,9 @@ def predict(
     skip_states: str | None = None,
     prompt_mode: str | None = None,
     decode_mode: str | None = None,
+    use_wandb: bool = True,
+    wandb_project: str = WANDB_PROJECT,
+    wandb_entity: str = WANDB_ENTITY,
     dry_run: bool = False,
     force: bool = False,
 ) -> dict[str, Any]:
@@ -519,6 +523,26 @@ def predict(
         ),
     }
     write_json(run_dir / "manifest.json", manifest)
+
+    # -- 11. W&B ------------------------------------------------------------
+    if use_wandb:
+        from moscato.log_wandb import log_prediction
+
+        try:
+            result = log_prediction(
+                manifest=manifest,
+                segments=segments,
+                vidosc_predictions=load_json(run_dir / "vidosc_predictions.json")["predictions"],
+                project=wandb_project,
+                entity=wandb_entity,
+                run_name=resolved_run,
+                run_dir=run_dir,
+            )
+            print(f"W&B (prediction): {result['run_url']}")
+        except Exception as error:
+            # Logging must never destroy a completed run's artifacts.
+            print(f"W&B logging skipped: {type(error).__name__}: {error}")
+
     print(f"\nRun directory: {run_dir}")
     return manifest
 
@@ -531,8 +555,9 @@ def evaluate(
     config_path: Path,
     *,
     run_name: str,
-    wandb_project: str = "",
-    wandb_entity: str = "",
+    use_wandb: bool = True,
+    wandb_project: str = WANDB_PROJECT,
+    wandb_entity: str = WANDB_ENTITY,
 ) -> dict[str, Any]:
     config = load_config(config_path)
     resolved_run = _run_name(run_name)
@@ -567,8 +592,8 @@ def evaluate(
     except ImportError as error:
         print(f"Skipping GT timeline ({error}); pip install matplotlib")
 
-    if wandb_project:
-        from moscato.log_wandb import log_evaluation
+    if use_wandb:
+        from moscato.log_wandb import log_evaluation, run_config
 
         with (run_dir / "per_frame_predictions_scored.csv").open(encoding="utf-8", newline="") as handle:
             import csv
@@ -586,7 +611,7 @@ def evaluate(
                 "evaluation": run_dir / "evaluation.json",
                 "frames": run_dir / "per_frame_predictions_scored.csv",
             },
-            config=load_json(run_dir / "manifest.json"),
+            config=run_config(load_json(run_dir / "manifest.json")),
         )
         print(json.dumps(result, indent=2))
 
@@ -618,8 +643,12 @@ def main() -> None:
                              "stated_state: upstream behaviour, names the label in the prompt.")
     parser.add_argument("--dry-run", action="store_true", help="Skip every VLM call")
     parser.add_argument("--force", action="store_true", help="Overwrite an existing run directory")
-    parser.add_argument("--wandb-project", default="", help="Log the evaluation to this W&B project")
-    parser.add_argument("--wandb-entity", default="")
+    parser.add_argument("--no-wandb", action="store_true",
+                        help="Skip Weights & Biases logging (on by default)")
+    parser.add_argument("--wandb-project", default=WANDB_PROJECT,
+                        help=f"W&B project (default: {WANDB_PROJECT!r})")
+    parser.add_argument("--wandb-entity", default=WANDB_ENTITY,
+                        help=f"W&B entity (default: {WANDB_ENTITY!r})")
     args = parser.parse_args()
 
     resolved_run = _run_name(args.run_name)
@@ -641,6 +670,9 @@ def main() -> None:
             sample_rate=args.sample_rate,
             prompt_mode=args.prompt_mode,
             decode_mode=args.decode_mode,
+            use_wandb=not args.no_wandb,
+            wandb_project=args.wandb_project,
+            wandb_entity=args.wandb_entity,
             dry_run=args.dry_run,
             force=args.force,
         )
@@ -648,6 +680,7 @@ def main() -> None:
         evaluate(
             args.config,
             run_name=resolved_run,
+            use_wandb=not args.no_wandb,
             wandb_project=args.wandb_project,
             wandb_entity=args.wandb_entity,
         )
