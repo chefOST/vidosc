@@ -466,6 +466,57 @@ Read the decode comparison as: ordered fixes a real defect in the *inference
 path*, and the pipeline is not yet good enough downstream for that to show up in
 the score.
 
+### Model sweep: better models scored worse
+
+| decode | describer | mapper | accuracy | micro-F1 |
+|---|---|---|---:|---:|
+| argmax | Haiku 4.5 | Haiku 4.5 | **0.6224** | 0.5357 |
+| argmax | Sonnet 5 | Haiku 4.5 | 0.4910 | 0.4227 |
+| argmax | Sonnet 5 | Sonnet 5 | 0.4533 | 0.3902 |
+| ordered | Haiku 4.5 | Haiku 4.5 | 0.5278 | 0.4543 |
+| ordered | Sonnet 5 | Haiku 4.5 | 0.5278 | 0.4543 |
+| ordered | Sonnet 5 | Sonnet 5 | 0.5278 | 0.4543 |
+| *constant `chopped`* | — | — | *0.5564* | — |
+
+Sonnet 5's descriptions are unambiguously better. Haiku called a sliced cucumber
+"two black olives"; Sonnet produced "a carrot is being sliced into small round
+orange discs on a wooden cutting board, with a whole cucumber lying uncut
+beside it" — accurate to the frame. **Accuracy still fell by 13 points.**
+
+The per-state breakdown explains it. Score is almost entirely a function of how
+many frames get mapped to `chopped`:
+
+| run | frames mapped `chopped` | of those, correct |
+|---|---:|---:|
+| argmax / Haiku | 2343 | 1771 (76 %) |
+| argmax / Sonnet | 1833 | 1261 (69 %) |
+| ordered / either | 1680 | **1680 (100 %)** |
+
+Every other predicted state — `cooked`, `clean`, `peeled`, `in use`, `covered`,
+`inside`, `placed` — scores near zero. Haiku's vaguer captions pushed the mapper
+toward `chopped` more often, and `chopped` is the majority class. Sonnet's
+precise captions led the mapper to specific states that are *defensible
+descriptions of the frame* but not MOSCATO's label for it.
+
+Note the third row: ordered decoding's `chopped` span is **100 % precise**. The
+boundary is right. It simply covers less of the timeline than argmax's
+scattergun, and its other two segments never map correctly.
+
+### The real ceiling is task definition, not model quality
+
+MOSCATO labels `vegetables` as `separated` for the first 47 seconds. Sonnet
+described that period accurately — "a whole carrot, uncut and unpeeled, lies on
+a cutting board while a plastic-wrapped, sealed package of leafy greens is held
+unopened". The mapper chose `clean`, then `covered`, then `inside`. None is
+wrong about the *image*; none is MOSCATO's label.
+
+`separated` is an annotation-scheme concept about where the vegetables are in
+the recipe, not a visual property recoverable from one frame. No amount of VLM
+capability closes that gap, and a stronger model widens it by being more
+specific. Raising model quality is not the lever here; the candidates are richer
+temporal context for the mapper, few-shot examples of the vocabulary's intent,
+or accepting that some MOSCATO states are out of reach for a single-frame method.
+
 ### What this does and does not establish
 
 It establishes that the **inference path is now correct**: the decoder produces a
