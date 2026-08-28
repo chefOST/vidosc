@@ -367,3 +367,151 @@ def test_neutral_describe_sends_no_label_to_the_api():
     for label in VIDOSC_LABELS:
         assert label not in body, f"{label} leaked into the request body"
     assert "temperature" not in sent  # removed in anthropic SDK 1.x
+
+
+# --------------------------------------------------------------------------
+# Temporal decoding
+# --------------------------------------------------------------------------
+
+import numpy as np  # noqa: E402
+
+from moscato import decode as moscato_decode  # noqa: E402
+
+BACKGROUND, INITIAL, TRANSITIONING, END = 0, 1, 2, 3
+
+
+def _probs_from_labels(labels, peak=0.7):
+    """Build a (T, 4) probability array whose argmax is `labels`."""
+    probs = np.full((len(labels), 4), (1.0 - peak) / 3.0)
+    for t, label in enumerate(labels):
+        probs[t] = (1.0 - peak) / 3.0
+        probs[t, label] = peak
+    return probs
+
+
+def test_argmax_decoding_is_unchanged():
+    """The baseline must stay exactly numpy argmax over the class axis."""
+    rng = np.random.default_rng(0)
+    probs = rng.random((40, 4))
+    labels, info = moscato_decode.decode("argmax", probs)
+    assert np.array_equal(labels, probs.argmax(axis=-1))
+    assert info["mode"] == "argmax"
+    assert info["temporal_constraint"].startswith("none")
+
+
+def test_argmax_still_permits_backward_flips():
+    """Documents *why* ordered exists -- argmax is free to go end -> initial."""
+    flipping = [INITIAL] * 5 + [END] * 5 + [INITIAL] * 5 + [END] * 5
+    labels, info = moscato_decode.decode("argmax", _probs_from_labels(flipping))
+    assert np.array_equal(labels, flipping)
+    assert np.any(np.diff(labels) < 0)
+    assert info["num_segments"] == 4
+
+
+def test_ordered_decoding_never_moves_backward():
+    rng = np.random.default_rng(1)
+    for _ in range(25):
+        probs = rng.random((rng.integers(3, 60), 4))
+        labels, _ = moscato_decode.decode("ordered", probs)
+        assert np.all(np.diff(labels) >= 0), f"backward transition in {labels}"
+
+
+def test_ordered_decoding_on_a_pathologically_flipping_input():
+    """The case that motivated this: argmax fragments, ordered does not."""
+    flipping = ([INITIAL] * 5 + [END] * 5) * 6
+    probs = _probs_from_labels(flipping)
+
+    argmax_labels, argmax_info = moscato_decode.decode("argmax", probs)
+    ordered_labels, ordered_info = moscato_decode.decode("ordered", probs)
+
+    assert argmax_info["num_segments"] == 12
+    assert ordered_info["num_segments"] <= 3
+    assert np.any(np.diff(argmax_labels) < 0)
+    assert np.all(np.diff(ordered_labels) >= 0)
+
+
+@pytest.mark.parametrize("num_timesteps", [3, 4, 17, 107, 250])
+def test_decoder_output_length_matches_input_timesteps(num_timesteps):
+    rng = np.random.default_rng(num_timesteps)
+    probs = rng.random((num_timesteps, 4))
+    for mode in moscato_decode.DECODE_MODES:
+        labels, info = moscato_decode.decode(mode, probs)
+        assert labels.shape == (num_timesteps,)
+        assert info["num_timesteps"] == num_timesteps
+
+
+def test_ordered_decoding_selects_every_sequential_state():
+    """The DP places one index per state, so all three must appear."""
+    rng = np.random.default_rng(7)
+    labels, info = moscato_decode.decode("ordered", rng.random((80, 4)))
+    assert set(labels.tolist()) == set(moscato_decode.SEQUENTIAL_STATES)
+    assert BACKGROUND not in labels.tolist()
+    assert info["emits_background"] is False
+    idx = info["detection_indices"]
+    assert idx["initial_state"] < idx["transitioning"] < idx["end_state"]
+
+
+def test_ordered_decoding_rejects_too_few_timesteps():
+    with pytest.raises(ValueError, match="at least 3 timesteps"):
+        moscato_decode.decode("ordered", np.random.default_rng(0).random((2, 4)))
+
+
+def test_ordered_decoding_rejects_wrong_class_count():
+    with pytest.raises(ValueError, match="4 classes"):
+        moscato_decode.decode("ordered", np.random.default_rng(0).random((10, 5)))
+
+
+def test_unknown_decode_mode_is_rejected():
+    with pytest.raises(ValueError, match="decode mode must be one of"):
+        moscato_decode.decode("viterbi", np.random.default_rng(0).random((10, 4)))
+
+
+def test_segmentation_consumes_decoded_labels_not_raw_argmax():
+    """group_segments must see the decoder's output, not run_inference's argmax."""
+    from describe_states import group_segments
+
+    flipping = ([INITIAL] * 5 + [END] * 5) * 6
+    probs = _probs_from_labels(flipping)
+
+    argmax_labels, _ = moscato_decode.decode("argmax", probs)
+    ordered_labels, _ = moscato_decode.decode("ordered", probs)
+
+    assert len(group_segments(argmax_labels)) == 12
+    ordered_segments = group_segments(ordered_labels)
+    assert len(ordered_segments) <= 3
+    # Segment boundaries follow the decoded sequence exactly.
+    rebuilt = []
+    for start, end, state in ordered_segments:
+        rebuilt.extend([state] * (end - start + 1))
+    assert np.array_equal(rebuilt, ordered_labels)
+
+
+def test_ordered_segments_convert_to_the_unchanged_event_schema():
+    """Ordered output must still flow through segments_to_events untouched."""
+    from describe_states import group_segments
+
+    probs = _probs_from_labels(([INITIAL] * 5 + [END] * 5) * 6)
+    labels, _ = moscato_decode.decode("ordered", probs)
+    raw = group_segments(labels)
+
+    names = {1: "initial_state", 2: "transitioning", 3: "end_state"}
+    allowed = ["whole", "sliced", "on dish"]
+    segments = [
+        {
+            "start": int(s),
+            "end": int(e),
+            "vidosc_state": names[int(st)],
+            "claude_description": "d",
+            "mapped_moscato_state": allowed[i % len(allowed)],
+        }
+        for i, (s, e, st) in enumerate(raw)
+    ]
+    fps, num_timesteps = 30, len(labels)
+    events = segments_to_events.build_events(
+        video_id="V", target_object="o", clip_start_global=0,
+        num_local_frames=num_timesteps * fps, fps=fps,
+        num_timesteps=num_timesteps, segments=segments,
+    )
+    assert events["initial_state"] == segments[0]["mapped_moscato_state"]
+    assert len(events["transitions"]) == len(segments) - 1
+    assert len(densify(events, STATE_DICT)) == num_timesteps * fps

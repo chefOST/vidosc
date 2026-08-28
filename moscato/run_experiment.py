@@ -36,6 +36,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from moscato import decode as moscato_decode
 from moscato import frame_mapping, prepare_clip, segments_to_events, visualize
 from moscato.config import (
     assert_no_ground_truth,
@@ -96,6 +97,7 @@ def predict(
     sample_rate: str | None = None,
     skip_states: str | None = None,
     prompt_mode: str | None = None,
+    decode_mode: str | None = None,
     dry_run: bool = False,
     force: bool = False,
 ) -> dict[str, Any]:
@@ -156,10 +158,25 @@ def predict(
         extract_clip_features(str(clip_video), str(feat_path))
 
     # -- 2. VidOSC --------------------------------------------------------
-    predicted, probs = vidosc_run_inference(
+    argmax_predicted, probs = vidosc_run_inference(
         str(feat_path), str(ckpt), str(obj_feat) if obj_feat else None, use_wandb=False
     )
-    num_timesteps = int(len(predicted))
+    num_timesteps = int(len(argmax_predicted))
+
+    # Decode BEFORE segment grouping: everything downstream -- segments, the
+    # frames Claude sees, the MOSCATO events -- consumes `predicted`, so the
+    # decode mode has to be applied here and nowhere else.
+    effective_decode_mode = decode_mode or config.get("decode", "argmax")
+    predicted, decode_info = moscato_decode.decode(effective_decode_mode, probs)
+    print(
+        f"Decode mode: {effective_decode_mode} "
+        f"({decode_info['num_segments']} segments over {num_timesteps} timesteps)"
+    )
+    if effective_decode_mode == "argmax" and not np.array_equal(predicted, argmax_predicted):
+        raise AssertionError(
+            "argmax decoding diverged from run_inference's own argmax; the "
+            "baseline path must stay byte-identical to the pre-existing behaviour."
+        )
 
     import torch
 
@@ -187,12 +204,14 @@ def predict(
             "video_id": video_id,
             "checkpoint": str(ckpt),
             "num_vidosc_timesteps": num_timesteps,
+            "decode": decode_info,
             "state_names": {str(k): v for k, v in STATE_NAMES.items()},
             "predictions": [
                 {
                     "vidosc_timestep": int(timestep),
                     "state_index": int(state_index),
                     "state": STATE_NAMES[int(state_index)],
+                    "argmax_state": STATE_NAMES[int(argmax_predicted[timestep])],
                     "confidence": float(probs[timestep, state_index]),
                     "probabilities": {
                         STATE_NAMES[index]: float(probs[timestep, index])
@@ -437,6 +456,7 @@ def predict(
         "source_video_sha256": prepare_metadata.get("source_video_sha256"),
         "clip_video": str(clip_video),
         "vidosc": {
+            "decode": decode_info,
             "checkpoint": str(ckpt),
             "checkpoint_sha256": sha256(ckpt),
             "checkpoint_expects_input_dim": ckpt_input_dim,
@@ -589,6 +609,10 @@ def main() -> None:
     parser.add_argument("--vlm-model", default=None)
     parser.add_argument("--mapper-model", default=None)
     parser.add_argument("--sample-rate", choices=["per_segment", "per_second"], default=None)
+    parser.add_argument("--decode", dest="decode_mode", choices=["argmax", "ordered"], default=None,
+                        help="argmax (default): independent per-timestep argmax, the pre-existing "
+                             "baseline. ordered: VidOSC's ordering-constrained DP, which forbids "
+                             "backward state transitions.")
     parser.add_argument("--prompt-mode", choices=["neutral", "stated_state"], default=None,
                         help="neutral (default): withhold the VidOSC label from Claude. "
                              "stated_state: upstream behaviour, names the label in the prompt.")
@@ -616,6 +640,7 @@ def main() -> None:
             mapper_model=args.mapper_model,
             sample_rate=args.sample_rate,
             prompt_mode=args.prompt_mode,
+            decode_mode=args.decode_mode,
             dry_run=args.dry_run,
             force=args.force,
         )

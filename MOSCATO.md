@@ -38,7 +38,7 @@ and scores it on per-frame accuracy, micro-precision, micro-F1, and F1-max.
 |---|---|
 | Frame alignment | **Verified against the real S29 video** — see [Findings](#findings-so-far) |
 | Full chain, dry run | End to end on the real video, no API calls |
-| VidOSC inference | Runs; output quality is poor — see [Findings](#findings-so-far) |
+| VidOSC inference | Runs. `--decode ordered` fixes the fragmentation; see [Decoding](#decoding-argmax-vs-ordered) |
 | Claude descriptions | Ran once under the old prompt and produced hallucinated captions. Prompt reworked, **not yet re-run** |
 | Vocabulary mapping | Crashed on an SDK incompatibility; fixed, **not yet run live** |
 | Evaluation | Runs, but no meaningful numbers yet — no complete live run has happened |
@@ -119,6 +119,7 @@ python -m moscato.run_experiment evaluate --config $CFG --run-name baseline
 | Flag | Default | Purpose |
 |---|---|---|
 | `--dry-run` | off | Exercise the whole chain with zero API calls |
+| `--decode {argmax,ordered}` | `argmax` | Temporal decoding — see [Decoding](#decoding-argmax-vs-ordered) |
 | `--prompt-mode {neutral,stated_state}` | `neutral` | Whether Claude is told the VidOSC label — see [Findings](#findings-so-far) |
 | `--sample-rate {per_segment,per_second}` | `per_segment` | One Claude call per segment, or one per second |
 | `--force` | off | Overwrite an existing run directory |
@@ -309,23 +310,11 @@ The `inspect` gate also caught a real error: S29 is **1024×768**, not the
 can never select them. The transition is the shortest and hardest state to
 localize even upstream; the feature approximations below make it worse.
 
-### The ordering constraint is implemented but unused
+### The ordering constraint is now wired in — see [Decoding](#decoding-argmax-vs-ordered)
 
-`run_inference.py` decodes with plain `argmax`. VidOSC's actual method enforces
-temporal ordering at decode time, and `patches/` implements it
-(`ordered_state_indices`, an O(T·S) dynamic program). Nothing calls it — upstream
-also defaults `infer_ordering = False`, so this is faithful rather than a porting
-bug. It matters:
-
-| Decode | initial→end boundary | vs. GT (48.0 s) |
-|---|---|---|
-| argmax (what runs today) | t = 28 s | **20 s early** |
-| ordered DP (unused) | t = 51 s | **3 s late** |
-
-Ordering also forbids end → initial → end, so it would eliminate the 12-segment
-flip-flopping argmax produces. The catch: `ordered_state_indices` returns three
-*frame indices*, not a dense timeline, so adopting it needs an explicit
-densification policy. Not implemented.
+Previously `run_inference.py`'s plain `argmax` was the only decode path, and the
+ordering-constrained DP in `patches/` was never called. It is now selectable via
+`--decode ordered`. The comparison is below.
 
 ### The description prompt was leaking the label
 
@@ -346,6 +335,86 @@ verbatim prompt text are recorded per response in `claude_raw.json`.
 **The neutral prompt has not yet been run live.**
 
 ---
+
+## Decoding: argmax vs. ordered
+
+### Why independent argmax fragments the timeline
+
+`run_inference.py` decodes each second independently: `probs.argmax(-1)`.
+Nothing ties timestep *t* to timestep *t−1*, so whenever two classes are close
+in probability, ordinary noise flips the label back and forth. On S29 the model
+is genuinely uncertain in places — `initial_state` and `end_state` sit at 0.45–0.55
+across several stretches — and the result is a timeline that changes state 12
+times, including `end_state → initial_state` transitions that are physically
+impossible: chopped vegetables do not become unchopped.
+
+That fragmentation is not merely cosmetic. Every segment boundary spawns a Claude
+call on a mid-flicker representative frame, and every segment becomes a
+transition in the MOSCATO event schema, so a decode artifact propagates all the
+way into the scored predictions.
+
+### What ordered decoding does
+
+VidOSC specifies a temporal-ordering constraint at decode time. It is implemented
+in `patches/0001-macos-and-multi-transition-states.patch` as
+`task.ordered_state_indices`, an O(T·S) dynamic program, and
+`moscato/decode.py` **calls that function directly** — with the same argument
+slice upstream uses in `FrameCls.infer_state_idx`:
+
+```python
+pred_idx = ordered_state_indices(prob[:, 1:])
+```
+
+Upstream leaves it off by default (`self.infer_ordering = False`), which is why
+the argmax path was faithful rather than buggy.
+
+The DP returns **three frame indices, one per state** — VidOSC's own protocol is
+to detect a representative frame per state, not to label a timeline. MOSCATO
+scores every frame, so `moscato/decode.py` adds one documented densification
+step:
+
+> state *k* holds from detection index *k* until detection index *k+1*; the
+> first state extends back to t=0 and the last runs to the end.
+
+The alternative — treating `idx[0]` as an onset and calling everything before it
+`background` — was rejected on evidence: background peaks at p=0.050 across the
+whole clip while `initial_state` wins argmax outright over the same span.
+
+**Ordered mode never emits `background`.** That follows from the reused
+algorithm, not from a choice made here: upstream slices the background column off
+before the DP sees it. Use `argmax` where background genuinely needs predicting.
+
+### Measured on S29_Salad_7150991-1 (`chopping.ckpt`, `vegetables`)
+
+| | argmax | ordered |
+|---|---:|---:|
+| segments | **12** | **3** |
+| `transitioning` ever selected | no | yes |
+| monotonic (no backward flips) | no | yes |
+| first `end_state` onset | t=20 s | t=51 s |
+| main `end_state` onset | t=28 s | t=51 s |
+| error vs. GT boundary (48.0 s) | **−20 s** | **+3 s** |
+
+```
+argmax   0-19 initial | 20 end | 21-27 initial | 28-79 end | 80-81 initial |
+         82-86 end | 87 initial | 88 end | 89 initial | 90-96 end |
+         97-99 initial | 100-106 end
+ordered  0-11 initial | 12-50 transitioning | 51-106 end
+```
+
+### What this does and does not establish
+
+It establishes that the **inference path is now correct**: the decoder produces a
+temporally valid sequence, the boundary lands 3 seconds from ground truth rather
+than 20, and segmentation, captioning, and event conversion all consume the
+decoded labels.
+
+It does **not** establish a benchmark improvement. Accuracy, micro-F1 and F1-max
+depend on the Claude descriptions and the vocabulary mapping downstream of the
+decoder, and no live run has been done under either mode. A better boundary is a
+necessary condition for a better score, not a sufficient one. Run both modes
+live before claiming anything about benchmark performance.
+
 
 ## Known caveats
 
