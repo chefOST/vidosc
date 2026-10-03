@@ -13,9 +13,13 @@ Neither document's results should be attributed to the other method.
   Sample frames are consistent with the annotation timeline. Formal timing
   metadata still requires review; do not assume the generic 10-FPS README
   description applies to this file.
-- 18 regression tests passed locally, including a forward pass with the real
+- 25 evaluation and extraction regression tests passed locally, including a forward pass with the real
   checkpoint on **synthetic inputs**. This verifies loading, not model accuracy.
-- No real-video feature extraction, prediction run, or benchmark result yet.
+- Genuine InternVideo global feature extraction is implemented in
+  `moscato/extract_internvideo.py`; the full 107-second S29 clip produced a
+  verified `[107, 768]` finite, L2-normalized tensor on CPU in about 186 seconds.
+  Outputs are local under `data/moscato/features/s29-global/`.
+  There is still no complete 1,536-dimensional input or benchmark result.
 - No training and no Claude/API calls are involved in this baseline.
 
 The checkpoint, video, annotations, virtual environment and generated outputs
@@ -34,7 +38,49 @@ InternVideo features concatenated together. The repository's older
 produce the full required input. This adapter rejects mismatched dimensions
 and does not silently zero-pad them. Matching dimensions alone do not establish
 feature compatibility: backbone, preprocessing, temporal sampling and layout
-must also be checked. Feature-model setup was paused at the user's request.
+must also be checked. The user has now downloaded InternVideo-MM-L-14 and the
+local encoder setup is working on CPU.
+
+## Extract global features from the downloaded video
+
+Install `requirements-features.txt`, then clone the official source:
+
+```bash
+pip install -r requirements-features.txt
+git clone --depth 1 --filter=blob:none --sparse \
+  https://github.com/OpenGVLab/InternVideo.git ../internvideo-upstream
+git -C ../internvideo-upstream sparse-checkout set \
+  InternVideo1/Pretrain/Multi-Modalities-Pretraining
+```
+
+The locally tested source commit is
+`3965eef16e2dadd0ea6c8d0cc29c8a3039df52e3`. The extractor loads only the official
+visual encoder and preprocessing code, avoiding the demo's macOS-incompatible
+decord dependency. It decodes sequentially to preserve exact frame numbering.
+
+```bash
+python -m moscato.extract_internvideo \
+  --video data/moscato/videos/S29_Salad_7150991-1.avi \
+  --video-id S29_Salad_7150991-1 --object vegetables \
+  --checkpoint "$HOME/Downloads/InternVideo-MM-L-14.ckpt" \
+  --source ../internvideo-upstream \
+  --output data/moscato/features/s29-global \
+  --start-frame 1469 --end-frame 4679 --fps 30 --device cpu
+```
+
+This generates `global_features.pth.tar` and `feature_manifest.json` with
+checkpoint/video/feature hashes, sampled frame IDs, and preprocessing details.
+It uses eight uniformly sampled frames per one-second window and normalizes
+each feature vector. Exact temporal extraction parity with the original
+VidOSC training features is **not yet verified** and is marked in the manifest.
+The output contains only the 768-dimensional global half. It must not be
+passed alone to the downloaded 1,536-dimensional multitask checkpoint.
+
+Run the extraction and evaluation regression tests with:
+
+```bash
+python -m pytest -q tests/test_baseline.py tests/test_internvideo_features.py
+```
 
 ## Files
 
@@ -125,6 +171,8 @@ the official protocol before comparing published benchmark numbers.
 - [User-provided ChangeIt checkpoints](https://drive.google.com/drive/folders/1UyRQ_dlT0AjeCLM3LlxnjFtRRUm7Fowj)
 - Multitask state checkpoint SHA256:
   `e6d1fa0d4708c8dffecba2a37f25149cc80c85fed33e6d4537bcaf98b0d94d36`
+- Downloaded InternVideo-MM-L-14 checkpoint SHA256:
+  `a508e42229072f84a3fcd5fc3acdb7ebc969b27519ee1f56dac9996999cd40f6`
 - [MOSCATO annotations in chefOST-data](https://github.com/chefOST/chefOST-data)
 - [MOSCATO authors' dataset documentation](https://github.com/eelhami/iccv25_moscato)
 - [CMU source video archive](http://kitchen.cs.cmu.edu/Main/S29_Salad_Video.zip)
