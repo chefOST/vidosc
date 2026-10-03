@@ -1,5 +1,9 @@
 # What this pipeline does
 
+For the work-in-progress VidOSC-only MOSCATO evaluator on `pritika/main`, see
+[MOSCATO_BASELINE.md](MOSCATO_BASELINE.md). It includes checkpoint compatibility,
+tests, setup steps, and the remaining requirements before real-video scoring.
+
 A conceptual overview of the VIDOSC-pipeline project: the research problem it
 addresses, what upstream VidOSC contributes, and what this repo adds on top.
 
