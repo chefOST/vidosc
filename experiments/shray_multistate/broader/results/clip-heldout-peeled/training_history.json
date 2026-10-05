@@ -1,0 +1,210 @@
+[
+  {
+    "stage": "head",
+    "epoch": 1,
+    "loss": 0.3785002641379833,
+    "validation": {
+      "micro_f1": 0.2022921123437878,
+      "precision": 0.23276374150810758,
+      "macro_f1_gt_present": 0.38155219565916465,
+      "threshold": 0.1,
+      "smoothing": 5,
+      "selection_unit": "equal weight per object/video unit"
+    }
+  },
+  {
+    "stage": "head",
+    "epoch": 20,
+    "loss": 0.17948088760022074,
+    "validation": {
+      "micro_f1": 0.4426423084246555,
+      "precision": 0.3862316183084282,
+      "macro_f1_gt_present": 0.5053656353002306,
+      "threshold": 0.25,
+      "smoothing": 5,
+      "selection_unit": "equal weight per object/video unit"
+    }
+  },
+  {
+    "stage": "head",
+    "epoch": 40,
+    "loss": 0.1529799756826833,
+    "validation": {
+      "micro_f1": 0.4353030429585433,
+      "precision": 0.3650576328745079,
+      "macro_f1_gt_present": 0.5094323518412108,
+      "threshold": 0.25,
+      "smoothing": 5,
+      "selection_unit": "equal weight per object/video unit"
+    }
+  },
+  {
+    "stage": "head",
+    "epoch": 60,
+    "loss": 0.1369071361841634,
+    "validation": {
+      "micro_f1": 0.4229655941051876,
+      "precision": 0.33578311817690254,
+      "macro_f1_gt_present": 0.5294144940832185,
+      "threshold": 0.2,
+      "smoothing": 5,
+      "selection_unit": "equal weight per object/video unit"
+    }
+  },
+  {
+    "stage": "head",
+    "epoch": 80,
+    "loss": 0.12344616756308824,
+    "validation": {
+      "micro_f1": 0.4229041490065188,
+      "precision": 0.35564705685001285,
+      "macro_f1_gt_present": 0.500811860754834,
+      "threshold": 0.25,
+      "smoothing": 5,
+      "selection_unit": "equal weight per object/video unit"
+    }
+  },
+  {
+    "stage": "head",
+    "epoch": 100,
+    "loss": 0.11143197218189016,
+    "validation": {
+      "micro_f1": 0.4214283675697942,
+      "precision": 0.3403189244118624,
+      "macro_f1_gt_present": 0.5349403579660671,
+      "threshold": 0.2,
+      "smoothing": 5,
+      "selection_unit": "equal weight per object/video unit"
+    }
+  },
+  {
+    "stage": "head",
+    "epoch": 120,
+    "loss": 0.10218418552540243,
+    "validation": {
+      "micro_f1": 0.4160781172939642,
+      "precision": 0.3595707497188852,
+      "macro_f1_gt_present": 0.49076475229699457,
+      "threshold": 0.25,
+      "smoothing": 1,
+      "selection_unit": "equal weight per object/video unit"
+    }
+  },
+  {
+    "stage": "head",
+    "epoch": 140,
+    "loss": 0.09540735877817497,
+    "validation": {
+      "micro_f1": 0.41768885148069357,
+      "precision": 0.3474910244116603,
+      "macro_f1_gt_present": 0.518368219861382,
+      "threshold": 0.2,
+      "smoothing": 3,
+      "selection_unit": "equal weight per object/video unit"
+    }
+  },
+  {
+    "stage": "head",
+    "epoch": 160,
+    "loss": 0.0903364562545903,
+    "validation": {
+      "micro_f1": 0.41197077192826137,
+      "precision": 0.34201275685475085,
+      "macro_f1_gt_present": 0.4988080681564959,
+      "threshold": 0.2,
+      "smoothing": 5,
+      "selection_unit": "equal weight per object/video unit"
+    }
+  },
+  {
+    "stage": "head",
+    "epoch": 180,
+    "loss": 0.08612819347763434,
+    "validation": {
+      "micro_f1": 0.40320361427295703,
+      "precision": 0.3423061811999929,
+      "macro_f1_gt_present": 0.49225758721614643,
+      "threshold": 0.2,
+      "smoothing": 1,
+      "selection_unit": "equal weight per object/video unit"
+    }
+  },
+  {
+    "stage": "head",
+    "epoch": 200,
+    "loss": 0.08249933022307232,
+    "validation": {
+      "micro_f1": 0.40549812201070745,
+      "precision": 0.3776869648873113,
+      "macro_f1_gt_present": 0.42645798541548896,
+      "threshold": 0.3,
+      "smoothing": 5,
+      "selection_unit": "equal weight per object/video unit"
+    }
+  },
+  {
+    "stage": "finetune",
+    "epoch": 1,
+    "loss": 0.17720049631316215,
+    "validation": {
+      "micro_f1": 0.42978322862551144,
+      "precision": 0.38770514821302055,
+      "macro_f1_gt_present": 0.47736831368625454,
+      "threshold": 0.25,
+      "smoothing": 5,
+      "selection_unit": "equal weight per object/video unit"
+    }
+  },
+  {
+    "stage": "finetune",
+    "epoch": 10,
+    "loss": 0.1643874073633924,
+    "validation": {
+      "micro_f1": 0.43474156167700373,
+      "precision": 0.37016033222072364,
+      "macro_f1_gt_present": 0.506710997779262,
+      "threshold": 0.25,
+      "smoothing": 5,
+      "selection_unit": "equal weight per object/video unit"
+    }
+  },
+  {
+    "stage": "finetune",
+    "epoch": 20,
+    "loss": 0.15332053741440177,
+    "validation": {
+      "micro_f1": 0.4434985554306944,
+      "precision": 0.3752102996123405,
+      "macro_f1_gt_present": 0.5162932197042289,
+      "threshold": 0.25,
+      "smoothing": 5,
+      "selection_unit": "equal weight per object/video unit"
+    }
+  },
+  {
+    "stage": "finetune",
+    "epoch": 30,
+    "loss": 0.14374096994288266,
+    "validation": {
+      "micro_f1": 0.4292389231512135,
+      "precision": 0.3627644755021005,
+      "macro_f1_gt_present": 0.5061580442508575,
+      "threshold": 0.25,
+      "smoothing": 5,
+      "selection_unit": "equal weight per object/video unit"
+    }
+  },
+  {
+    "stage": "finetune",
+    "epoch": 40,
+    "loss": 0.13532422250136733,
+    "validation": {
+      "micro_f1": 0.4151210746142794,
+      "precision": 0.35544422983527996,
+      "macro_f1_gt_present": 0.4959475545500126,
+      "threshold": 0.25,
+      "smoothing": 1,
+      "selection_unit": "equal weight per object/video unit"
+    }
+  }
+]

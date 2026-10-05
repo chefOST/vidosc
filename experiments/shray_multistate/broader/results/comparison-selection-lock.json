@@ -1,0 +1,77 @@
+{
+  "protocol_sha256": "e22e453196cec4a9a9d8065d76caed766e03c8e43b6ce94ee6b024d41b2e450c",
+  "runs": {
+    "clip": {
+      "validation": {
+        "stage": "finetune",
+        "epoch": 1,
+        "policy": {
+          "micro_f1": 0.4389524414579711,
+          "precision": 0.3382635376631996,
+          "macro_f1_gt_present": 0.5285232619021099,
+          "threshold": 0.25,
+          "smoothing": 5,
+          "selection_unit": "equal weight per object/video unit"
+        }
+      },
+      "checkpoint_sha256": "91b734f6fea982db6b41de570531ede1b662cf7684f4d2714f43845e6f706522",
+      "selection_sha256": "0a6a1c22382f334db5137e88cf422da65bf7c435442f61f1b4fa74cd5ff97cab",
+      "training_protocol_sha256": "e22e453196cec4a9a9d8065d76caed766e03c8e43b6ce94ee6b024d41b2e450c"
+    },
+    "clip_slowfast": {
+      "validation": {
+        "stage": "head",
+        "epoch": 120,
+        "policy": {
+          "micro_f1": 0.4487546785505273,
+          "precision": 0.34825469599149045,
+          "macro_f1_gt_present": 0.5643651393754006,
+          "threshold": 0.2,
+          "smoothing": 5,
+          "selection_unit": "equal weight per object/video unit"
+        }
+      },
+      "checkpoint_sha256": "789229ed150a326cff59e377516089c072a9297df11c65d9b85aa6090eab83ec",
+      "selection_sha256": "17af54d4ebe90b8b2269ecc13df8ca5be0d1bec7621d007381efbefd8848eab2",
+      "training_protocol_sha256": "e22e453196cec4a9a9d8065d76caed766e03c8e43b6ce94ee6b024d41b2e450c"
+    },
+    "clip-manual": {
+      "validation": {
+        "stage": "finetune",
+        "epoch": 1,
+        "policy": {
+          "micro_f1": 0.5391466589310671,
+          "precision": 0.45070012358710587,
+          "macro_f1_gt_present": 0.584915491078657,
+          "threshold": 0.2,
+          "smoothing": 5,
+          "selection_unit": "equal weight per object/video unit"
+        }
+      },
+      "checkpoint_sha256": "61cc4a3f4b177d655190410f19128d723bad3a7167682a76bba13016bae55e84",
+      "selection_sha256": "80bed4b9209bb0aced757275943271fc3ec1281121d6bede5b68eb30926e7391",
+      "training_protocol_sha256": "4223769a54ebbee1ee4a44549c7767cc433c220602f809c64f355ac07f0b6859"
+    },
+    "clip-heldout-peeled": {
+      "validation": {
+        "stage": "finetune",
+        "epoch": 20,
+        "policy": {
+          "micro_f1": 0.4434985554306944,
+          "precision": 0.3752102996123405,
+          "macro_f1_gt_present": 0.5162932197042289,
+          "threshold": 0.25,
+          "smoothing": 5,
+          "selection_unit": "equal weight per object/video unit"
+        }
+      },
+      "checkpoint_sha256": "c218a59e3945aced1eafd3a0bb43d17f57e67678d75c0a8f2a9bd5b7e516ed3e",
+      "selection_sha256": "b549f98ece4219fd90e6e8367d76770659ba0d430394ad1cd128fd8d7072de7d",
+      "training_protocol_sha256": "e22e453196cec4a9a9d8065d76caed766e03c8e43b6ce94ee6b024d41b2e450c"
+    }
+  },
+  "selected_regular_model": "clip-manual",
+  "selection_criterion": "validation-only equal object/video mean micro-F1; precision breaks ties",
+  "test_labels_used": false,
+  "test_scores_used": false
+}

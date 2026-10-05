@@ -1,0 +1,36 @@
+{
+  "broader_tests": 14,
+  "legacy_tests": 9,
+  "all_passed": true,
+  "gpu_real_training_frames": {
+    "clip": {
+      "real_video": "S07_Salad_7150991-2095",
+      "samples": 3,
+      "minimum_cosine": 1.0,
+      "maximum_absolute_error_normalized": 5.178153514862061e-07
+    },
+    "slowfast": {
+      "real_video": "S07_Salad_7150991-2095",
+      "samples": 3,
+      "minimum_cosine": 1.0000001192092896,
+      "maximum_absolute_error_normalized": 1.7136335372924805e-07
+    },
+    "slowfast_half": {
+      "real_video": "S07_Salad_7150991-2095",
+      "samples": 3,
+      "minimum_cosine": 0.9999894499778748,
+      "maximum_absolute_error_normalized": 0.000934898853302002
+    }
+  },
+  "teammate_tracked_source_changes": false,
+  "annotation_alignment_preflight": "passed all 20 train/validation units; uncovered annotation tail excluded",
+  "shared_video_context_gradient_equivalence": "passed",
+  "real_trained_checkpoint_interfaces": "all four passed 3/5/77-candidate and object-query checks",
+  "checkpoint_and_prediction_hashes_unchanged": {
+    "clip": true,
+    "clip_slowfast": true,
+    "clip-manual": true,
+    "clip-heldout-peeled": true
+  },
+  "manual_annotation_clock_units_passed": 9
+}

@@ -1,0 +1,76 @@
+{
+  "selected_model": "clip-manual",
+  "object_query_normalization": {
+    "batter": {
+      "object_query_seen_in_training": false,
+      "absolute_normalized_query_max": 7.777864456176758,
+      "absolute_normalized_query_p95": 4.412225246429443,
+      "candidate_mean_offset_from_fixed_training_center_norm": 0.5883185267448425
+    },
+    "bread slices": {
+      "object_query_seen_in_training": true,
+      "absolute_normalized_query_max": 1.8619824647903442,
+      "absolute_normalized_query_p95": 1.8464722633361816,
+      "candidate_mean_offset_from_fixed_training_center_norm": 0.3880378007888794
+    },
+    "cheese": {
+      "object_query_seen_in_training": false,
+      "absolute_normalized_query_max": 5.125252723693848,
+      "absolute_normalized_query_p95": 2.851764440536499,
+      "candidate_mean_offset_from_fixed_training_center_norm": 0.43410417437553406
+    },
+    "egg mixture": {
+      "object_query_seen_in_training": false,
+      "absolute_normalized_query_max": 6.765396595001221,
+      "absolute_normalized_query_p95": 3.570265769958496,
+      "candidate_mean_offset_from_fixed_training_center_norm": 0.5233525633811951
+    },
+    "eggs": {
+      "object_query_seen_in_training": true,
+      "absolute_normalized_query_max": 1.057434320449829,
+      "absolute_normalized_query_p95": 1.0491701364517212,
+      "candidate_mean_offset_from_fixed_training_center_norm": 0.3425418436527252
+    },
+    "vegetables": {
+      "object_query_seen_in_training": true,
+      "absolute_normalized_query_max": 1.5036193132400513,
+      "absolute_normalized_query_p95": 1.4878851175308228,
+      "candidate_mean_offset_from_fixed_training_center_norm": 0.32939690351486206
+    }
+  },
+  "interpretation": "Large normalized unseen-query inputs and changed candidate noun offsets are possible contributors to unstable unseen-object scores; these diagnostics do not establish a causal explanation.",
+  "egg_mixture_example": {
+    "top1_counts_on_known_frames": {
+      "relocated": 3051,
+      "seasoned": 900
+    },
+    "top1_hit": 1.0,
+    "multi_label_f1": 0.4010908771003783,
+    "exact_label_set_accuracy": 0.0,
+    "gt_states": [
+      "beaten",
+      "flipped",
+      "in-pan",
+      "relocated",
+      "seasoned",
+      "served",
+      "solid"
+    ],
+    "predicted_states": [
+      "beaten",
+      "cooked",
+      "cracked",
+      "egg-covered",
+      "full",
+      "in bowl",
+      "in-oven",
+      "mixed",
+      "poured",
+      "ready-to-cook",
+      "relocated",
+      "seasoned"
+    ]
+  },
+  "next_experiment": "Test query-based candidate centering, normalization for unseen object names, loss treatment for unseen state candidates, and real object features; use new held-out recordings for a fresh accuracy claim.",
+  "models_or_predictions_modified": false
+}

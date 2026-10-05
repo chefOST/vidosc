@@ -1,0 +1,19 @@
+{
+  "declared_utc": "2026-10-05T00:39:30.508072+00:00",
+  "trigger": "Pseudo-supervised CLIP validation F1 approximately ties constant prior; training audit shows persistent automatic labels.",
+  "choice": "Compare four-human-video training using identical architecture, epoch budgets, validation/test units, and selection metric.",
+  "test_labels_or_scores_used_for_this_choice": false,
+  "test_prediction_files_exist": false,
+  "source": "Published human CMU annotations, copied only into the own workspace; source files unchanged.",
+  "manual_train_videos": [
+    "S41_Salad_7150991-349",
+    "S08_Eggs_7150991-727",
+    "S24_Brownie_7150991-483",
+    "S12_Sandwich_7150991-2470"
+  ],
+  "manual_train_units": 4,
+  "egg_mixture_direct_training_available": false,
+  "confounds": "Both training recordings and supervision source change; this does not isolate a causal label-quality effect.",
+  "protocol_sha256": "4223769a54ebbee1ee4a44549c7767cc433c220602f809c64f355ac07f0b6859",
+  "training_labels_sha256": "bf0adca7a5c4e3335111f4c88143d4f8665416f8bb45318e02dd18be998882e9"
+}

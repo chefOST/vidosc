@@ -1,0 +1,13 @@
+# External model/data artifacts are not part of the source contribution.
+__pycache__/
+*.py[cod]
+*.pt
+*.pth
+*.pyth
+*.ckpt
+*.onnx
+*.avi
+*.mp4
+*.zip
+*.local.ps1
+broader/local-predictions/

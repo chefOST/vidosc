@@ -1,0 +1,15 @@
+{
+  "training_video": "S07_Salad_7150991-2095",
+  "samples": 163,
+  "labelled_samples": 106,
+  "shape": [
+    163,
+    77
+  ],
+  "loss_finite": true,
+  "encoder_gradients_finite": true,
+  "encoder_gradient_sum": 870.705517962575,
+  "forward_backward_seconds": 1.3307957001961768,
+  "upstream_source_sha256_unchanged": "f8fde90c4b065d2f80189a9b35c1b4111f0b4a59a695cbc531298c188ea86068",
+  "test_labels_opened": false
+}

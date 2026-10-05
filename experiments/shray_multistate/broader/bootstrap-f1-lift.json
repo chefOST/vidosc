@@ -1,0 +1,13 @@
+{
+  "comparison": "validation-selected model minus matched prior",
+  "unit": "paired whole-video resampling, keeping all targets within each sampled recording",
+  "seed": 42,
+  "replicates": 5000,
+  "recordings": 5,
+  "mean_unit_f1_difference": 0.018212962505492925,
+  "exploratory_95_percentile_interval": [
+    -0.08514145095920947,
+    0.09686893020924756
+  ],
+  "warning": "Five recordings from one kitchen; not a broad reliability guarantee."
+}

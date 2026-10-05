@@ -1,0 +1,10 @@
+{
+  "validation_selected_model": "clip-manual",
+  "mean_test_multi_label_f1": 0.3025800445608678,
+  "mean_test_top1_label_hit": 0.4263166998113905,
+  "prior_mean_test_f1": 0.28436708205537486,
+  "strongest_constant_prior_test_f1": 0.38095299896318974,
+  "accuracy_goal_achieved": false,
+  "heldout_peeled_mean_f1_over_positive_units": 0.0,
+  "internvideo": "pending checkpoint"
+}

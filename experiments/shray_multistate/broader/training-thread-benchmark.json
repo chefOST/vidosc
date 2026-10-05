@@ -1,0 +1,39 @@
+{
+  "video": "S07_Salad_7150991-2095",
+  "test_labels_used": false,
+  "benchmark_only_dropout_disabled": true,
+  "results": {
+    "1": {
+      "forward_backward_seconds": [
+        1.5124882999807596,
+        1.3032476999796927,
+        2.3403056000825018
+      ],
+      "gradient_cosine_vs_one_thread": 1.0000407695770264
+    },
+    "2": {
+      "forward_backward_seconds": [
+        1.1778579000383615,
+        1.0499146000947803,
+        1.0029827000107616
+      ],
+      "gradient_cosine_vs_one_thread": 1.0000407695770264
+    },
+    "4": {
+      "forward_backward_seconds": [
+        0.8345977000426501,
+        2.1212369001004845,
+        1.2519336000550538
+      ],
+      "gradient_cosine_vs_one_thread": 1.0000407695770264
+    },
+    "8": {
+      "forward_backward_seconds": [
+        1.2397194001823664,
+        0.998477199813351,
+        0.8198162000626326
+      ],
+      "gradient_cosine_vs_one_thread": 1.000040888786316
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "video": "S13_Brownie_7150991-631",
+  "decoded_frame_count": 20510,
+  "annotation_array_length": 18131,
+  "annotation_fps": 30,
+  "inspection_frame": 7200,
+  "inspection_time_seconds": 240,
+  "human_labels": [
+    "relocated",
+    "cracked",
+    "cracked",
+    "in bowl"
+  ],
+  "qualitative_observation": "Frame shows an egg being cracked over the mixing bowl, consistent with the indexed labels. Uncovered trailing frames are excluded as unknown; labels retain original frame indices."
+}

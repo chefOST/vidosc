@@ -1,0 +1,226 @@
+{
+  "passed": true,
+  "test_labels_opened": false,
+  "units": {
+    "S07_Salad_7150991-2095::vegetables": {
+      "split": "train",
+      "video_fps": 30.0,
+      "annotation_fps": 10,
+      "raw_video_frames": 9741,
+      "annotation_frames": 3248,
+      "duration_difference_seconds": 0.10000000000002274,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 2119
+    },
+    "S07_Eggs_7150991-1466::eggs": {
+      "split": "train",
+      "video_fps": 30.0,
+      "annotation_fps": 10,
+      "raw_video_frames": 11359,
+      "annotation_frames": 3787,
+      "duration_difference_seconds": 0.06666666666666288,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 3450
+    },
+    "S07_Eggs_7150991-1466::egg mixture": {
+      "split": "train",
+      "video_fps": 30.0,
+      "annotation_fps": 10,
+      "raw_video_frames": 11359,
+      "annotation_frames": 3787,
+      "duration_difference_seconds": 0.06666666666666288,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 3399
+    },
+    "S07_Brownie_7150991-1431::eggs": {
+      "split": "train",
+      "video_fps": 30.0,
+      "annotation_fps": 10,
+      "raw_video_frames": 11370,
+      "annotation_frames": 3791,
+      "duration_difference_seconds": 0.10000000000002274,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 3265
+    },
+    "S07_Sandwich_7150991-2343::bread slices": {
+      "split": "train",
+      "video_fps": 30.0,
+      "annotation_fps": 10,
+      "raw_video_frames": 5933,
+      "annotation_frames": 1979,
+      "duration_difference_seconds": 0.13333333333332575,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 1538
+    },
+    "S18_Salad_7150991-649::vegetables": {
+      "split": "train",
+      "video_fps": 30.0,
+      "annotation_fps": 10,
+      "raw_video_frames": 6765,
+      "annotation_frames": 2256,
+      "duration_difference_seconds": 0.09999999999999432,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 1746
+    },
+    "S18_Eggs_7150991-3391::eggs": {
+      "split": "train",
+      "video_fps": 30.0,
+      "annotation_fps": 10,
+      "raw_video_frames": 11516,
+      "annotation_frames": 3840,
+      "duration_difference_seconds": 0.13333333333332575,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 3335
+    },
+    "S18_Eggs_7150991-3391::egg mixture": {
+      "split": "train",
+      "video_fps": 30.0,
+      "annotation_fps": 10,
+      "raw_video_frames": 11516,
+      "annotation_frames": 3840,
+      "duration_difference_seconds": 0.13333333333332575,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 3228
+    },
+    "S18_Brownie_7150991-885::eggs": {
+      "split": "train",
+      "video_fps": 30.0,
+      "annotation_fps": 10,
+      "raw_video_frames": 13440,
+      "annotation_frames": 4481,
+      "duration_difference_seconds": 0.10000000000002274,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 3894
+    },
+    "S18_Sandwich_7150991-893::bread slices": {
+      "split": "train",
+      "video_fps": 30.0,
+      "annotation_fps": 10,
+      "raw_video_frames": 6077,
+      "annotation_frames": 2027,
+      "duration_difference_seconds": 0.13333333333332575,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 1531
+    },
+    "S33_Salad_7150991-85::vegetables": {
+      "split": "train",
+      "video_fps": 30.0,
+      "annotation_fps": 10,
+      "raw_video_frames": 15669,
+      "annotation_frames": 5224,
+      "duration_difference_seconds": 0.10000000000002274,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 3551
+    },
+    "S33_Eggs_7150991-461::eggs": {
+      "split": "train",
+      "video_fps": 30.0,
+      "annotation_fps": 10,
+      "raw_video_frames": 7890,
+      "annotation_frames": 2631,
+      "duration_difference_seconds": 0.10000000000002274,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 2187
+    },
+    "S33_Eggs_7150991-461::egg mixture": {
+      "split": "train",
+      "video_fps": 30.0,
+      "annotation_fps": 10,
+      "raw_video_frames": 7890,
+      "annotation_frames": 2631,
+      "duration_difference_seconds": 0.10000000000002274,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 1681
+    },
+    "S33_Brownie_7150991-211::eggs": {
+      "split": "train",
+      "video_fps": 30.0,
+      "annotation_fps": 10,
+      "raw_video_frames": 14797,
+      "annotation_frames": 4933,
+      "duration_difference_seconds": 0.06666666666666288,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 4453
+    },
+    "S33_Sandwich_7150991-3::bread slices": {
+      "split": "train",
+      "video_fps": 30.0,
+      "annotation_fps": 10,
+      "raw_video_frames": 7127,
+      "annotation_frames": 2377,
+      "duration_difference_seconds": 0.13333333333332575,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 1730
+    },
+    "S29_Salad_7150991-1::vegetables": {
+      "split": "validation",
+      "video_fps": 30.0,
+      "annotation_fps": 30,
+      "raw_video_frames": 8080,
+      "annotation_frames": 8080,
+      "duration_difference_seconds": 0.0,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 5600
+    },
+    "S09_Eggs_7150991-1050::eggs": {
+      "split": "validation",
+      "video_fps": 30.0,
+      "annotation_fps": 30,
+      "raw_video_frames": 7293,
+      "annotation_frames": 7293,
+      "duration_difference_seconds": 0.0,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 1887
+    },
+    "S09_Eggs_7150991-1050::egg mixture": {
+      "split": "validation",
+      "video_fps": 30.0,
+      "annotation_fps": 30,
+      "raw_video_frames": 7293,
+      "annotation_frames": 7293,
+      "duration_difference_seconds": 0.0,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 2060
+    },
+    "S13_Brownie_7150991-631::eggs": {
+      "split": "validation",
+      "video_fps": 30.0,
+      "annotation_fps": 30,
+      "raw_video_frames": 20510,
+      "annotation_frames": 18131,
+      "duration_difference_seconds": 79.29999999999995,
+      "trailing_frames_outside_annotation_coverage": 2379,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 2193
+    },
+    "S31_Sandwich_7150991-1::bread slices": {
+      "split": "validation",
+      "video_fps": 30.0,
+      "annotation_fps": 30,
+      "raw_video_frames": 6703,
+      "annotation_frames": 6703,
+      "duration_difference_seconds": 0.0,
+      "trailing_frames_outside_annotation_coverage": 0,
+      "all_labels_canonical_or_known_alias": true,
+      "known_annotation_frames": 5695
+    }
+  }
+}

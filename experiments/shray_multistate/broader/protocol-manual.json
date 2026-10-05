@@ -1,0 +1,71 @@
+{
+  "seed": 42,
+  "sample_seconds": 2,
+  "training_label_fps": 30,
+  "evaluation_label_fps": 30,
+  "clip_model": "ViT-L-14-quickgelu",
+  "clip_pretrained": "openai",
+  "heldout_states": [
+    "peeled"
+  ],
+  "train": [
+    "S41_Salad_7150991-349",
+    "S08_Eggs_7150991-727",
+    "S24_Brownie_7150991-483",
+    "S12_Sandwich_7150991-2470"
+  ],
+  "validation": [
+    "S29_Salad_7150991-1",
+    "S09_Eggs_7150991-1050",
+    "S13_Brownie_7150991-631",
+    "S31_Sandwich_7150991-1"
+  ],
+  "test": [
+    "S15_Salad_7150991-451",
+    "S16_Eggs_7150991-858",
+    "S19_Brownie_7150991-848",
+    "S36_Sandwich_7150991-165",
+    "S20_Pizza_7150991-180"
+  ],
+  "objects_by_recipe": {
+    "Salad": [
+      "vegetables"
+    ],
+    "Eggs": [
+      "eggs",
+      "egg mixture"
+    ],
+    "Brownie": [
+      "eggs"
+    ],
+    "Sandwich": [
+      "bread slices"
+    ],
+    "Pizza": [
+      "cheese",
+      "batter"
+    ]
+  },
+  "primary_metric": "macro mean object/video micro-F1; all methods use validation-only global threshold/smoothing",
+  "training": "four human-ground-truth training videos; subjects separate from validation/test",
+  "scope": "Manual-supervised comparison with four training videos and four target units; same locked validation and fresh test recordings as the 12-video pseudo-supervised pilot. S08 has no separate egg-mixture training annotation.",
+  "previously_examined_development": [
+    "S29_Salad_7150991-1",
+    "S41_Salad_7150991-349",
+    "S48_Salad_7150991-222"
+  ],
+  "test_labels_examined_for_model_selection": false,
+  "split_planning": "Video/object names and label inventories were inspected to plan coverage. This is not a blinded or official full benchmark.",
+  "feature_backbones": [
+    "clip"
+  ],
+  "comparison_models": [
+    "clip-manual"
+  ],
+  "feature_threads": 8,
+  "epochs": 200,
+  "finetune_epochs": 40,
+  "heldout_state_protocol": "Remove held-out names from training candidates/loss and ignore supervised training/validation frames carrying those names. Temporal context and pretrained encoders may still contain visual exposure; this tests unseen labelled states, not never-seen pixels.",
+  "run_suffix": "-manual",
+  "train_labels_file": "manual_train_labels.json"
+}

@@ -1,0 +1,221 @@
+{
+  "units": {
+    "S07_Salad_7150991-2095::vegetables": {
+      "total_frames_at_10fps": 3248,
+      "empty_frames": 1129,
+      "multi_label_frames": 1781,
+      "state_positive_frame_counts": {
+        "peeled": 2119,
+        "chopped": 1781
+      },
+      "label_source": "automatic MOSCATO pseudo labels, not manual human ground truth"
+    },
+    "S07_Eggs_7150991-1466::eggs": {
+      "total_frames_at_10fps": 3787,
+      "empty_frames": 337,
+      "multi_label_frames": 3450,
+      "state_positive_frame_counts": {
+        "cracked": 3450,
+        "scattered": 3450,
+        "empty": 3450
+      },
+      "label_source": "automatic MOSCATO pseudo labels, not manual human ground truth"
+    },
+    "S07_Eggs_7150991-1466::egg mixture": {
+      "total_frames_at_10fps": 3787,
+      "empty_frames": 388,
+      "multi_label_frames": 3399,
+      "state_positive_frame_counts": {
+        "creamy": 3399,
+        "beaten": 3302,
+        "mixed": 3399,
+        "seasoned": 3178,
+        "smooth": 2676,
+        "poured": 2447,
+        "in-pan": 2447,
+        "partially-empty": 2447,
+        "empty": 2447
+      },
+      "label_source": "automatic MOSCATO pseudo labels, not manual human ground truth"
+    },
+    "S07_Brownie_7150991-1431::eggs": {
+      "total_frames_at_10fps": 3791,
+      "empty_frames": 526,
+      "multi_label_frames": 3265,
+      "state_positive_frame_counts": {
+        "in bowl": 3265,
+        "cracked": 116,
+        "beaten": 2134,
+        "mixed": 3149,
+        "smooth": 1015
+      },
+      "label_source": "automatic MOSCATO pseudo labels, not manual human ground truth"
+    },
+    "S07_Sandwich_7150991-2343::bread slices": {
+      "total_frames_at_10fps": 1979,
+      "empty_frames": 441,
+      "multi_label_frames": 1538,
+      "state_positive_frame_counts": {
+        "on dish": 1538,
+        "placed": 1538,
+        "covered": 1136,
+        "peanut butter topped": 316,
+        "topped": 316,
+        "coated": 316,
+        "oily": 634,
+        "jam-topped": 820,
+        "scattered": 318,
+        "pressed-together": 502,
+        "full": 502
+      },
+      "label_source": "automatic MOSCATO pseudo labels, not manual human ground truth"
+    },
+    "S18_Salad_7150991-649::vegetables": {
+      "total_frames_at_10fps": 2256,
+      "empty_frames": 510,
+      "multi_label_frames": 1746,
+      "state_positive_frame_counts": {
+        "scattered": 1038,
+        "chopped": 1133,
+        "peeled": 1515,
+        "seasoned": 708
+      },
+      "label_source": "automatic MOSCATO pseudo labels, not manual human ground truth"
+    },
+    "S18_Eggs_7150991-3391::eggs": {
+      "total_frames_at_10fps": 3840,
+      "empty_frames": 505,
+      "multi_label_frames": 3335,
+      "state_positive_frame_counts": {
+        "cracked": 3335,
+        "in bowl": 3335,
+        "scattered": 3335,
+        "discarded": 3335,
+        "empty": 3335
+      },
+      "label_source": "automatic MOSCATO pseudo labels, not manual human ground truth"
+    },
+    "S18_Eggs_7150991-3391::egg mixture": {
+      "total_frames_at_10fps": 3840,
+      "empty_frames": 612,
+      "multi_label_frames": 3023,
+      "state_positive_frame_counts": {
+        "mixed": 730,
+        "flavored": 3023,
+        "seasoned": 3023,
+        "cooked": 1194,
+        "poured": 1194,
+        "in-pan": 1194,
+        "flipped": 1198
+      },
+      "label_source": "automatic MOSCATO pseudo labels, not manual human ground truth"
+    },
+    "S18_Brownie_7150991-885::eggs": {
+      "total_frames_at_10fps": 4481,
+      "empty_frames": 587,
+      "multi_label_frames": 3894,
+      "state_positive_frame_counts": {
+        "cracked": 3894,
+        "scattered": 1330,
+        "empty": 1330,
+        "mixed": 2564
+      },
+      "label_source": "automatic MOSCATO pseudo labels, not manual human ground truth"
+    },
+    "S18_Sandwich_7150991-893::bread slices": {
+      "total_frames_at_10fps": 2027,
+      "empty_frames": 496,
+      "multi_label_frames": 1531,
+      "state_positive_frame_counts": {
+        "relocated": 347,
+        "on dish": 997,
+        "jam-topped": 285,
+        "peanut butter topped": 365,
+        "scattered": 365,
+        "coated": 899,
+        "oily": 899,
+        "pressed-together": 534,
+        "assembled": 534,
+        "double-layered": 534
+      },
+      "label_source": "automatic MOSCATO pseudo labels, not manual human ground truth"
+    },
+    "S33_Salad_7150991-85::vegetables": {
+      "total_frames_at_10fps": 5224,
+      "empty_frames": 1673,
+      "multi_label_frames": 2894,
+      "state_positive_frame_counts": {
+        "chopped": 3551,
+        "peeled": 2894,
+        "seasoned": 277
+      },
+      "label_source": "automatic MOSCATO pseudo labels, not manual human ground truth"
+    },
+    "S33_Eggs_7150991-461::eggs": {
+      "total_frames_at_10fps": 2631,
+      "empty_frames": 444,
+      "multi_label_frames": 182,
+      "state_positive_frame_counts": {
+        "cracked": 182,
+        "scattered": 182,
+        "discarded": 182,
+        "empty": 182,
+        "mixed": 2005
+      },
+      "label_source": "automatic MOSCATO pseudo labels, not manual human ground truth"
+    },
+    "S33_Eggs_7150991-461::egg mixture": {
+      "total_frames_at_10fps": 2631,
+      "empty_frames": 950,
+      "multi_label_frames": 1681,
+      "state_positive_frame_counts": {
+        "churned": 645,
+        "beaten": 645,
+        "mixed": 1681,
+        "seasoned": 1570,
+        "flavored": 534,
+        "cooked": 1036,
+        "poured": 1036,
+        "in-pan": 1036
+      },
+      "label_source": "automatic MOSCATO pseudo labels, not manual human ground truth"
+    },
+    "S33_Brownie_7150991-211::eggs": {
+      "total_frames_at_10fps": 4933,
+      "empty_frames": 480,
+      "multi_label_frames": 4453,
+      "state_positive_frame_counts": {
+        "cracked": 747,
+        "discarded": 394,
+        "separated": 394,
+        "empty": 394,
+        "in bowl": 4059,
+        "beaten": 353,
+        "mixed": 4059,
+        "smooth": 2431
+      },
+      "label_source": "automatic MOSCATO pseudo labels, not manual human ground truth"
+    },
+    "S33_Sandwich_7150991-3::bread slices": {
+      "total_frames_at_10fps": 2377,
+      "empty_frames": 647,
+      "multi_label_frames": 1730,
+      "state_positive_frame_counts": {
+        "relocated": 317,
+        "on dish": 1730,
+        "placed": 1414,
+        "covered": 1097,
+        "peanut butter topped": 877,
+        "topped": 1097,
+        "coated": 877,
+        "jam-topped": 536,
+        "peanut-butter-and-jam-covered": 536,
+        "pressed-together": 316
+      },
+      "label_source": "automatic MOSCATO pseudo labels, not manual human ground truth"
+    }
+  },
+  "inspection_sheet": "training-pseudo-label-samples.png",
+  "sampling": "25/50/75 percent positions among nonempty training pseudo-label frames",
+  "human_annotation_corrections_applied": false
+}

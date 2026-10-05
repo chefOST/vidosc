@@ -1,0 +1,81 @@
+{
+  "runs": {
+    "clip": {
+      "training_video_used": "S07_Salad_7150991-2095",
+      "test_labels_opened": false,
+      "candidate_subset_max_logit_error": {
+        "3": 1.9073486328125e-06,
+        "5": 1.9073486328125e-06,
+        "77": 0.0
+      },
+      "object_query_max_logit_change": 5.362325668334961,
+      "selected_stage": "finetune",
+      "encoder_state_tensors_changed_from_original": 40,
+      "output_shape": [
+        163,
+        77
+      ],
+      "all_scores_finite": true,
+      "heldout_labels_excluded_from_training": true,
+      "checkpoint_sha256": "91b734f6fea982db6b41de570531ede1b662cf7684f4d2714f43845e6f706522"
+    },
+    "clip_slowfast": {
+      "training_video_used": "S07_Salad_7150991-2095",
+      "test_labels_opened": false,
+      "candidate_subset_max_logit_error": {
+        "3": 1.9073486328125e-06,
+        "5": 1.9073486328125e-06,
+        "77": 0.0
+      },
+      "object_query_max_logit_change": 7.312497615814209,
+      "selected_stage": "head",
+      "encoder_state_tensors_changed_from_original": 0,
+      "output_shape": [
+        163,
+        77
+      ],
+      "all_scores_finite": true,
+      "heldout_labels_excluded_from_training": true,
+      "checkpoint_sha256": "789229ed150a326cff59e377516089c072a9297df11c65d9b85aa6090eab83ec"
+    },
+    "clip-manual": {
+      "training_video_used": "S41_Salad_7150991-349",
+      "test_labels_opened": false,
+      "candidate_subset_max_logit_error": {
+        "3": 9.5367431640625e-07,
+        "5": 9.5367431640625e-07,
+        "77": 0.0
+      },
+      "object_query_max_logit_change": 5.027069568634033,
+      "selected_stage": "finetune",
+      "encoder_state_tensors_changed_from_original": 40,
+      "output_shape": [
+        118,
+        77
+      ],
+      "all_scores_finite": true,
+      "heldout_labels_excluded_from_training": true,
+      "checkpoint_sha256": "61cc4a3f4b177d655190410f19128d723bad3a7167682a76bba13016bae55e84"
+    },
+    "clip-heldout-peeled": {
+      "training_video_used": "S07_Salad_7150991-2095",
+      "test_labels_opened": false,
+      "candidate_subset_max_logit_error": {
+        "3": 1.430511474609375e-06,
+        "5": 1.430511474609375e-06,
+        "77": 0.0
+      },
+      "object_query_max_logit_change": 5.349475383758545,
+      "selected_stage": "finetune",
+      "encoder_state_tensors_changed_from_original": 40,
+      "output_shape": [
+        163,
+        77
+      ],
+      "all_scores_finite": true,
+      "heldout_labels_excluded_from_training": true,
+      "checkpoint_sha256": "c218a59e3945aced1eafd3a0bb43d17f57e67678d75c0a8f2a9bd5b7e516ed3e"
+    }
+  },
+  "upstream_model_source_sha256": "f8fde90c4b065d2f80189a9b35c1b4111f0b4a59a695cbc531298c188ea86068"
+}

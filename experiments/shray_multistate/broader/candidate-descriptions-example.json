@@ -1,0 +1,6 @@
+[
+  {"state": "whole", "description": "A photo of whole uncut vegetables."},
+  {"state": "peeled", "description": "A photo of vegetables with their outer skin removed."},
+  {"state": "chopped", "description": "A photo of vegetables cut into small pieces."},
+  {"state": "mayonnaise-mixed", "description": "A photo of chopped vegetables mixed with mayonnaise."}
+]

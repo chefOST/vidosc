@@ -1,0 +1,28 @@
+{
+  "branch": "shray/feat/multistate-vidosc",
+  "verification_stage": "local packaging checks before publication",
+  "repository_folder": "experiments/shray_multistate",
+  "existing_tests_passed": {
+    "legacy": 9,
+    "broader": 14,
+    "total": 23
+  },
+  "real_checkpoint_inference": {
+    "model": "clip-manual",
+    "video_id": "S15_Salad_7150991-451",
+    "candidate_states": [
+      "peeled",
+      "chopped",
+      "mayonnaise-mixed"
+    ],
+    "sample_count": 65,
+    "matches_original_saved_predictions": true,
+    "max_absolute_score_difference": 1.7881393432617188e-07
+  },
+  "original_source_and_evidence_unchanged": true,
+  "existing_tracked_repository_files_unchanged": true,
+  "committed": false,
+  "pushed": false,
+  "accuracy_claim_changed": false,
+  "large_artifacts_in_source_folder": false
+}

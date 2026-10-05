@@ -1,0 +1,4825 @@
+{
+  "S15_Salad_7150991-451::vegetables": [
+    {
+      "state": "chopped",
+      "start_frame": 0,
+      "end_frame_exclusive": 3888,
+      "start_s": 0.0,
+      "end_s_exclusive": 129.6
+    },
+    {
+      "state": "peeled",
+      "start_frame": 0,
+      "end_frame_exclusive": 3888,
+      "start_s": 0.0,
+      "end_s_exclusive": 129.6
+    },
+    {
+      "state": "seasoned",
+      "start_frame": 0,
+      "end_frame_exclusive": 540,
+      "start_s": 0.0,
+      "end_s_exclusive": 18.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 1260,
+      "end_frame_exclusive": 1860,
+      "start_s": 42.0,
+      "end_s_exclusive": 62.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 1920,
+      "end_frame_exclusive": 2340,
+      "start_s": 64.0,
+      "end_s_exclusive": 78.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 2880,
+      "end_frame_exclusive": 3060,
+      "start_s": 96.0,
+      "end_s_exclusive": 102.0
+    },
+    {
+      "state": "seasoned",
+      "start_frame": 3240,
+      "end_frame_exclusive": 3888,
+      "start_s": 108.0,
+      "end_s_exclusive": 129.6
+    }
+  ],
+  "S16_Eggs_7150991-858::eggs": [
+    {
+      "state": "cracked",
+      "start_frame": 0,
+      "end_frame_exclusive": 6900,
+      "start_s": 0.0,
+      "end_s_exclusive": 230.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 0,
+      "end_frame_exclusive": 1260,
+      "start_s": 0.0,
+      "end_s_exclusive": 42.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 0,
+      "end_frame_exclusive": 2520,
+      "start_s": 0.0,
+      "end_s_exclusive": 84.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 0,
+      "end_frame_exclusive": 6900,
+      "start_s": 0.0,
+      "end_s_exclusive": 230.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 480,
+      "end_frame_exclusive": 1020,
+      "start_s": 16.0,
+      "end_s_exclusive": 34.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 900,
+      "end_frame_exclusive": 960,
+      "start_s": 30.0,
+      "end_s_exclusive": 32.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 1020,
+      "end_frame_exclusive": 1140,
+      "start_s": 34.0,
+      "end_s_exclusive": 38.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 1020,
+      "end_frame_exclusive": 1080,
+      "start_s": 34.0,
+      "end_s_exclusive": 36.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 1440,
+      "end_frame_exclusive": 1500,
+      "start_s": 48.0,
+      "end_s_exclusive": 50.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 1560,
+      "end_frame_exclusive": 2460,
+      "start_s": 52.0,
+      "end_s_exclusive": 82.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 1680,
+      "end_frame_exclusive": 4080,
+      "start_s": 56.0,
+      "end_s_exclusive": 136.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 1740,
+      "end_frame_exclusive": 2460,
+      "start_s": 58.0,
+      "end_s_exclusive": 82.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 2700,
+      "end_frame_exclusive": 3480,
+      "start_s": 90.0,
+      "end_s_exclusive": 116.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 2760,
+      "end_frame_exclusive": 3060,
+      "start_s": 92.0,
+      "end_s_exclusive": 102.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 3120,
+      "end_frame_exclusive": 3360,
+      "start_s": 104.0,
+      "end_s_exclusive": 112.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 3120,
+      "end_frame_exclusive": 3720,
+      "start_s": 104.0,
+      "end_s_exclusive": 124.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 3840,
+      "end_frame_exclusive": 4500,
+      "start_s": 128.0,
+      "end_s_exclusive": 150.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 3900,
+      "end_frame_exclusive": 4140,
+      "start_s": 130.0,
+      "end_s_exclusive": 138.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 3900,
+      "end_frame_exclusive": 4080,
+      "start_s": 130.0,
+      "end_s_exclusive": 136.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 4680,
+      "end_frame_exclusive": 4860,
+      "start_s": 156.0,
+      "end_s_exclusive": 162.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 4800,
+      "end_frame_exclusive": 5160,
+      "start_s": 160.0,
+      "end_s_exclusive": 172.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 4860,
+      "end_frame_exclusive": 5040,
+      "start_s": 162.0,
+      "end_s_exclusive": 168.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 5460,
+      "end_frame_exclusive": 5880,
+      "start_s": 182.0,
+      "end_s_exclusive": 196.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 5460,
+      "end_frame_exclusive": 6240,
+      "start_s": 182.0,
+      "end_s_exclusive": 208.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 5580,
+      "end_frame_exclusive": 6000,
+      "start_s": 186.0,
+      "end_s_exclusive": 200.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 5640,
+      "end_frame_exclusive": 5820,
+      "start_s": 188.0,
+      "end_s_exclusive": 194.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 6180,
+      "end_frame_exclusive": 6240,
+      "start_s": 206.0,
+      "end_s_exclusive": 208.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 6360,
+      "end_frame_exclusive": 6420,
+      "start_s": 212.0,
+      "end_s_exclusive": 214.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 6480,
+      "end_frame_exclusive": 6660,
+      "start_s": 216.0,
+      "end_s_exclusive": 222.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 6600,
+      "end_frame_exclusive": 6660,
+      "start_s": 220.0,
+      "end_s_exclusive": 222.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 6660,
+      "end_frame_exclusive": 7320,
+      "start_s": 222.0,
+      "end_s_exclusive": 244.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 6840,
+      "end_frame_exclusive": 7402,
+      "start_s": 228.0,
+      "end_s_exclusive": 246.73333333333332
+    },
+    {
+      "state": "scattered",
+      "start_frame": 7380,
+      "end_frame_exclusive": 7402,
+      "start_s": 246.0,
+      "end_s_exclusive": 246.73333333333332
+    }
+  ],
+  "S16_Eggs_7150991-858::egg mixture": [
+    {
+      "state": "flavored",
+      "start_frame": 0,
+      "end_frame_exclusive": 780,
+      "start_s": 0.0,
+      "end_s_exclusive": 26.0
+    },
+    {
+      "state": "seasoned",
+      "start_frame": 0,
+      "end_frame_exclusive": 7402,
+      "start_s": 0.0,
+      "end_s_exclusive": 246.73333333333332
+    },
+    {
+      "state": "creamy",
+      "start_frame": 60,
+      "end_frame_exclusive": 1740,
+      "start_s": 2.0,
+      "end_s_exclusive": 58.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 180,
+      "end_frame_exclusive": 300,
+      "start_s": 6.0,
+      "end_s_exclusive": 10.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 420,
+      "end_frame_exclusive": 1800,
+      "start_s": 14.0,
+      "end_s_exclusive": 60.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 420,
+      "end_frame_exclusive": 1740,
+      "start_s": 14.0,
+      "end_s_exclusive": 58.0
+    },
+    {
+      "state": "poured",
+      "start_frame": 480,
+      "end_frame_exclusive": 720,
+      "start_s": 16.0,
+      "end_s_exclusive": 24.0
+    },
+    {
+      "state": "in-pan",
+      "start_frame": 540,
+      "end_frame_exclusive": 720,
+      "start_s": 18.0,
+      "end_s_exclusive": 24.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 600,
+      "end_frame_exclusive": 780,
+      "start_s": 20.0,
+      "end_s_exclusive": 26.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 1140,
+      "end_frame_exclusive": 1260,
+      "start_s": 38.0,
+      "end_s_exclusive": 42.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 1140,
+      "end_frame_exclusive": 1380,
+      "start_s": 38.0,
+      "end_s_exclusive": 46.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 1260,
+      "end_frame_exclusive": 1320,
+      "start_s": 42.0,
+      "end_s_exclusive": 44.0
+    },
+    {
+      "state": "in-pan",
+      "start_frame": 1260,
+      "end_frame_exclusive": 1380,
+      "start_s": 42.0,
+      "end_s_exclusive": 46.0
+    },
+    {
+      "state": "poured",
+      "start_frame": 1260,
+      "end_frame_exclusive": 1500,
+      "start_s": 42.0,
+      "end_s_exclusive": 50.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 1440,
+      "end_frame_exclusive": 2820,
+      "start_s": 48.0,
+      "end_s_exclusive": 94.0
+    },
+    {
+      "state": "creamy",
+      "start_frame": 1980,
+      "end_frame_exclusive": 2100,
+      "start_s": 66.0,
+      "end_s_exclusive": 70.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 2040,
+      "end_frame_exclusive": 4860,
+      "start_s": 68.0,
+      "end_s_exclusive": 162.0
+    },
+    {
+      "state": "churned",
+      "start_frame": 2400,
+      "end_frame_exclusive": 3000,
+      "start_s": 80.0,
+      "end_s_exclusive": 100.0
+    },
+    {
+      "state": "creamy",
+      "start_frame": 2400,
+      "end_frame_exclusive": 7402,
+      "start_s": 80.0,
+      "end_s_exclusive": 246.73333333333332
+    },
+    {
+      "state": "mixed",
+      "start_frame": 2400,
+      "end_frame_exclusive": 7402,
+      "start_s": 80.0,
+      "end_s_exclusive": 246.73333333333332
+    },
+    {
+      "state": "poured",
+      "start_frame": 2940,
+      "end_frame_exclusive": 7402,
+      "start_s": 98.0,
+      "end_s_exclusive": 246.73333333333332
+    },
+    {
+      "state": "in-pan",
+      "start_frame": 3060,
+      "end_frame_exclusive": 7402,
+      "start_s": 102.0,
+      "end_s_exclusive": 246.73333333333332
+    },
+    {
+      "state": "flavored",
+      "start_frame": 3120,
+      "end_frame_exclusive": 3540,
+      "start_s": 104.0,
+      "end_s_exclusive": 118.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 3360,
+      "end_frame_exclusive": 3900,
+      "start_s": 112.0,
+      "end_s_exclusive": 130.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 3360,
+      "end_frame_exclusive": 6480,
+      "start_s": 112.0,
+      "end_s_exclusive": 216.0
+    },
+    {
+      "state": "warm",
+      "start_frame": 3360,
+      "end_frame_exclusive": 3900,
+      "start_s": 112.0,
+      "end_s_exclusive": 130.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 3420,
+      "end_frame_exclusive": 3840,
+      "start_s": 114.0,
+      "end_s_exclusive": 128.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 3600,
+      "end_frame_exclusive": 3660,
+      "start_s": 120.0,
+      "end_s_exclusive": 122.0
+    },
+    {
+      "state": "cooked",
+      "start_frame": 3660,
+      "end_frame_exclusive": 3840,
+      "start_s": 122.0,
+      "end_s_exclusive": 128.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 3840,
+      "end_frame_exclusive": 4140,
+      "start_s": 128.0,
+      "end_s_exclusive": 138.0
+    },
+    {
+      "state": "cooked",
+      "start_frame": 3900,
+      "end_frame_exclusive": 7402,
+      "start_s": 130.0,
+      "end_s_exclusive": 246.73333333333332
+    },
+    {
+      "state": "empty",
+      "start_frame": 4080,
+      "end_frame_exclusive": 4920,
+      "start_s": 136.0,
+      "end_s_exclusive": 164.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 4080,
+      "end_frame_exclusive": 4260,
+      "start_s": 136.0,
+      "end_s_exclusive": 142.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 4080,
+      "end_frame_exclusive": 4920,
+      "start_s": 136.0,
+      "end_s_exclusive": 164.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 4080,
+      "end_frame_exclusive": 7402,
+      "start_s": 136.0,
+      "end_s_exclusive": 246.73333333333332
+    },
+    {
+      "state": "warm",
+      "start_frame": 4080,
+      "end_frame_exclusive": 4860,
+      "start_s": 136.0,
+      "end_s_exclusive": 162.0
+    },
+    {
+      "state": "cracked",
+      "start_frame": 4140,
+      "end_frame_exclusive": 4440,
+      "start_s": 138.0,
+      "end_s_exclusive": 148.0
+    },
+    {
+      "state": "denser",
+      "start_frame": 4140,
+      "end_frame_exclusive": 4500,
+      "start_s": 138.0,
+      "end_s_exclusive": 150.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 4140,
+      "end_frame_exclusive": 4380,
+      "start_s": 138.0,
+      "end_s_exclusive": 146.0
+    },
+    {
+      "state": "thin",
+      "start_frame": 4140,
+      "end_frame_exclusive": 4500,
+      "start_s": 138.0,
+      "end_s_exclusive": 150.0
+    },
+    {
+      "state": "leftover",
+      "start_frame": 4200,
+      "end_frame_exclusive": 4320,
+      "start_s": 140.0,
+      "end_s_exclusive": 144.0
+    },
+    {
+      "state": "in-oven",
+      "start_frame": 4560,
+      "end_frame_exclusive": 7402,
+      "start_s": 152.0,
+      "end_s_exclusive": 246.73333333333332
+    },
+    {
+      "state": "thin",
+      "start_frame": 4680,
+      "end_frame_exclusive": 4860,
+      "start_s": 156.0,
+      "end_s_exclusive": 162.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 5280,
+      "end_frame_exclusive": 5340,
+      "start_s": 176.0,
+      "end_s_exclusive": 178.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 5280,
+      "end_frame_exclusive": 5340,
+      "start_s": 176.0,
+      "end_s_exclusive": 178.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 5460,
+      "end_frame_exclusive": 5520,
+      "start_s": 182.0,
+      "end_s_exclusive": 184.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 5460,
+      "end_frame_exclusive": 5520,
+      "start_s": 182.0,
+      "end_s_exclusive": 184.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 5700,
+      "end_frame_exclusive": 5880,
+      "start_s": 190.0,
+      "end_s_exclusive": 196.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 6120,
+      "end_frame_exclusive": 6660,
+      "start_s": 204.0,
+      "end_s_exclusive": 222.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 6120,
+      "end_frame_exclusive": 6480,
+      "start_s": 204.0,
+      "end_s_exclusive": 216.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 6120,
+      "end_frame_exclusive": 6480,
+      "start_s": 204.0,
+      "end_s_exclusive": 216.0
+    },
+    {
+      "state": "thin",
+      "start_frame": 6180,
+      "end_frame_exclusive": 6360,
+      "start_s": 206.0,
+      "end_s_exclusive": 212.0
+    },
+    {
+      "state": "warm",
+      "start_frame": 6180,
+      "end_frame_exclusive": 6360,
+      "start_s": 206.0,
+      "end_s_exclusive": 212.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 6720,
+      "end_frame_exclusive": 6960,
+      "start_s": 224.0,
+      "end_s_exclusive": 232.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 7200,
+      "end_frame_exclusive": 7320,
+      "start_s": 240.0,
+      "end_s_exclusive": 244.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 7320,
+      "end_frame_exclusive": 7402,
+      "start_s": 244.0,
+      "end_s_exclusive": 246.73333333333332
+    },
+    {
+      "state": "smooth",
+      "start_frame": 7320,
+      "end_frame_exclusive": 7402,
+      "start_s": 244.0,
+      "end_s_exclusive": 246.73333333333332
+    },
+    {
+      "state": "empty",
+      "start_frame": 7380,
+      "end_frame_exclusive": 7402,
+      "start_s": 246.0,
+      "end_s_exclusive": 246.73333333333332
+    },
+    {
+      "state": "liquefied",
+      "start_frame": 7380,
+      "end_frame_exclusive": 7402,
+      "start_s": 246.0,
+      "end_s_exclusive": 246.73333333333332
+    }
+  ],
+  "S19_Brownie_7150991-848::eggs": [
+    {
+      "state": "cracked",
+      "start_frame": 0,
+      "end_frame_exclusive": 3900,
+      "start_s": 0.0,
+      "end_s_exclusive": 130.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 0,
+      "end_frame_exclusive": 3900,
+      "start_s": 0.0,
+      "end_s_exclusive": 130.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 0,
+      "end_frame_exclusive": 660,
+      "start_s": 0.0,
+      "end_s_exclusive": 22.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 0,
+      "end_frame_exclusive": 60,
+      "start_s": 0.0,
+      "end_s_exclusive": 2.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 0,
+      "end_frame_exclusive": 5460,
+      "start_s": 0.0,
+      "end_s_exclusive": 182.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 360,
+      "end_frame_exclusive": 1260,
+      "start_s": 12.0,
+      "end_s_exclusive": 42.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 360,
+      "end_frame_exclusive": 600,
+      "start_s": 12.0,
+      "end_s_exclusive": 20.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 660,
+      "end_frame_exclusive": 720,
+      "start_s": 22.0,
+      "end_s_exclusive": 24.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 660,
+      "end_frame_exclusive": 960,
+      "start_s": 22.0,
+      "end_s_exclusive": 32.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 780,
+      "end_frame_exclusive": 2640,
+      "start_s": 26.0,
+      "end_s_exclusive": 88.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 840,
+      "end_frame_exclusive": 3000,
+      "start_s": 28.0,
+      "end_s_exclusive": 100.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 1320,
+      "end_frame_exclusive": 1380,
+      "start_s": 44.0,
+      "end_s_exclusive": 46.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 1440,
+      "end_frame_exclusive": 2520,
+      "start_s": 48.0,
+      "end_s_exclusive": 84.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 1500,
+      "end_frame_exclusive": 1920,
+      "start_s": 50.0,
+      "end_s_exclusive": 64.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 1920,
+      "end_frame_exclusive": 2160,
+      "start_s": 64.0,
+      "end_s_exclusive": 72.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 2160,
+      "end_frame_exclusive": 2940,
+      "start_s": 72.0,
+      "end_s_exclusive": 98.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 2820,
+      "end_frame_exclusive": 8760,
+      "start_s": 94.0,
+      "end_s_exclusive": 292.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 2880,
+      "end_frame_exclusive": 4800,
+      "start_s": 96.0,
+      "end_s_exclusive": 160.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 2940,
+      "end_frame_exclusive": 3240,
+      "start_s": 98.0,
+      "end_s_exclusive": 108.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 3300,
+      "end_frame_exclusive": 3840,
+      "start_s": 110.0,
+      "end_s_exclusive": 128.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 3720,
+      "end_frame_exclusive": 4140,
+      "start_s": 124.0,
+      "end_s_exclusive": 138.0
+    },
+    {
+      "state": "cracked",
+      "start_frame": 3960,
+      "end_frame_exclusive": 10440,
+      "start_s": 132.0,
+      "end_s_exclusive": 348.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 4140,
+      "end_frame_exclusive": 4320,
+      "start_s": 138.0,
+      "end_s_exclusive": 144.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 4140,
+      "end_frame_exclusive": 4320,
+      "start_s": 138.0,
+      "end_s_exclusive": 144.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 4320,
+      "end_frame_exclusive": 4500,
+      "start_s": 144.0,
+      "end_s_exclusive": 150.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 4500,
+      "end_frame_exclusive": 4920,
+      "start_s": 150.0,
+      "end_s_exclusive": 164.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 4500,
+      "end_frame_exclusive": 5460,
+      "start_s": 150.0,
+      "end_s_exclusive": 182.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 4980,
+      "end_frame_exclusive": 5940,
+      "start_s": 166.0,
+      "end_s_exclusive": 198.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 4980,
+      "end_frame_exclusive": 5520,
+      "start_s": 166.0,
+      "end_s_exclusive": 184.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 5460,
+      "end_frame_exclusive": 11280,
+      "start_s": 182.0,
+      "end_s_exclusive": 376.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 5820,
+      "end_frame_exclusive": 6060,
+      "start_s": 194.0,
+      "end_s_exclusive": 202.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 7380,
+      "end_frame_exclusive": 7560,
+      "start_s": 246.0,
+      "end_s_exclusive": 252.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 8460,
+      "end_frame_exclusive": 8640,
+      "start_s": 282.0,
+      "end_s_exclusive": 288.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 9060,
+      "end_frame_exclusive": 11760,
+      "start_s": 302.0,
+      "end_s_exclusive": 392.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 9540,
+      "end_frame_exclusive": 9780,
+      "start_s": 318.0,
+      "end_s_exclusive": 326.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 10380,
+      "end_frame_exclusive": 10980,
+      "start_s": 346.0,
+      "end_s_exclusive": 366.0
+    },
+    {
+      "state": "cracked",
+      "start_frame": 10920,
+      "end_frame_exclusive": 14520,
+      "start_s": 364.0,
+      "end_s_exclusive": 484.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 11040,
+      "end_frame_exclusive": 11580,
+      "start_s": 368.0,
+      "end_s_exclusive": 386.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 11160,
+      "end_frame_exclusive": 11580,
+      "start_s": 372.0,
+      "end_s_exclusive": 386.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 11340,
+      "end_frame_exclusive": 15000,
+      "start_s": 378.0,
+      "end_s_exclusive": 500.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 11640,
+      "end_frame_exclusive": 11820,
+      "start_s": 388.0,
+      "end_s_exclusive": 394.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 12240,
+      "end_frame_exclusive": 12540,
+      "start_s": 408.0,
+      "end_s_exclusive": 418.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 12720,
+      "end_frame_exclusive": 15000,
+      "start_s": 424.0,
+      "end_s_exclusive": 500.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 12960,
+      "end_frame_exclusive": 13440,
+      "start_s": 432.0,
+      "end_s_exclusive": 448.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 13620,
+      "end_frame_exclusive": 14820,
+      "start_s": 454.0,
+      "end_s_exclusive": 494.0
+    },
+    {
+      "state": "cracked",
+      "start_frame": 14820,
+      "end_frame_exclusive": 15755,
+      "start_s": 494.0,
+      "end_s_exclusive": 525.1666666666666
+    },
+    {
+      "state": "empty",
+      "start_frame": 15000,
+      "end_frame_exclusive": 15240,
+      "start_s": 500.0,
+      "end_s_exclusive": 508.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 15000,
+      "end_frame_exclusive": 15240,
+      "start_s": 500.0,
+      "end_s_exclusive": 508.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 15180,
+      "end_frame_exclusive": 15660,
+      "start_s": 506.0,
+      "end_s_exclusive": 522.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 15600,
+      "end_frame_exclusive": 15755,
+      "start_s": 520.0,
+      "end_s_exclusive": 525.1666666666666
+    },
+    {
+      "state": "empty",
+      "start_frame": 15660,
+      "end_frame_exclusive": 15755,
+      "start_s": 522.0,
+      "end_s_exclusive": 525.1666666666666
+    }
+  ],
+  "S36_Sandwich_7150991-165::bread slices": [
+    {
+      "state": "assembled",
+      "start_frame": 0,
+      "end_frame_exclusive": 60,
+      "start_s": 0.0,
+      "end_s_exclusive": 2.0
+    },
+    {
+      "state": "jam-topped",
+      "start_frame": 0,
+      "end_frame_exclusive": 480,
+      "start_s": 0.0,
+      "end_s_exclusive": 16.0
+    },
+    {
+      "state": "on dish",
+      "start_frame": 0,
+      "end_frame_exclusive": 4468,
+      "start_s": 0.0,
+      "end_s_exclusive": 148.93333333333334
+    },
+    {
+      "state": "peanut butter topped",
+      "start_frame": 0,
+      "end_frame_exclusive": 120,
+      "start_s": 0.0,
+      "end_s_exclusive": 4.0
+    },
+    {
+      "state": "peanut-butter-and-jam-covered",
+      "start_frame": 0,
+      "end_frame_exclusive": 240,
+      "start_s": 0.0,
+      "end_s_exclusive": 8.0
+    },
+    {
+      "state": "placed",
+      "start_frame": 0,
+      "end_frame_exclusive": 4468,
+      "start_s": 0.0,
+      "end_s_exclusive": 148.93333333333334
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 0,
+      "end_frame_exclusive": 240,
+      "start_s": 0.0,
+      "end_s_exclusive": 8.0
+    },
+    {
+      "state": "served",
+      "start_frame": 0,
+      "end_frame_exclusive": 120,
+      "start_s": 0.0,
+      "end_s_exclusive": 4.0
+    },
+    {
+      "state": "relocated",
+      "start_frame": 60,
+      "end_frame_exclusive": 3000,
+      "start_s": 2.0,
+      "end_s_exclusive": 100.0
+    },
+    {
+      "state": "full",
+      "start_frame": 180,
+      "end_frame_exclusive": 300,
+      "start_s": 6.0,
+      "end_s_exclusive": 10.0
+    },
+    {
+      "state": "topped",
+      "start_frame": 180,
+      "end_frame_exclusive": 300,
+      "start_s": 6.0,
+      "end_s_exclusive": 10.0
+    },
+    {
+      "state": "jam-topped",
+      "start_frame": 660,
+      "end_frame_exclusive": 2040,
+      "start_s": 22.0,
+      "end_s_exclusive": 68.0
+    },
+    {
+      "state": "on top",
+      "start_frame": 900,
+      "end_frame_exclusive": 1320,
+      "start_s": 30.0,
+      "end_s_exclusive": 44.0
+    },
+    {
+      "state": "peanut butter topped",
+      "start_frame": 900,
+      "end_frame_exclusive": 1320,
+      "start_s": 30.0,
+      "end_s_exclusive": 44.0
+    },
+    {
+      "state": "topped",
+      "start_frame": 900,
+      "end_frame_exclusive": 1320,
+      "start_s": 30.0,
+      "end_s_exclusive": 44.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 1080,
+      "end_frame_exclusive": 1260,
+      "start_s": 36.0,
+      "end_s_exclusive": 42.0
+    },
+    {
+      "state": "on tray",
+      "start_frame": 1200,
+      "end_frame_exclusive": 1260,
+      "start_s": 40.0,
+      "end_s_exclusive": 42.0
+    },
+    {
+      "state": "on top",
+      "start_frame": 1440,
+      "end_frame_exclusive": 2040,
+      "start_s": 48.0,
+      "end_s_exclusive": 68.0
+    },
+    {
+      "state": "peanut butter topped",
+      "start_frame": 1440,
+      "end_frame_exclusive": 1500,
+      "start_s": 48.0,
+      "end_s_exclusive": 50.0
+    },
+    {
+      "state": "topped",
+      "start_frame": 1440,
+      "end_frame_exclusive": 1500,
+      "start_s": 48.0,
+      "end_s_exclusive": 50.0
+    },
+    {
+      "state": "topped",
+      "start_frame": 1560,
+      "end_frame_exclusive": 1920,
+      "start_s": 52.0,
+      "end_s_exclusive": 64.0
+    },
+    {
+      "state": "covered",
+      "start_frame": 1620,
+      "end_frame_exclusive": 1860,
+      "start_s": 54.0,
+      "end_s_exclusive": 62.0
+    },
+    {
+      "state": "full",
+      "start_frame": 1620,
+      "end_frame_exclusive": 1860,
+      "start_s": 54.0,
+      "end_s_exclusive": 62.0
+    },
+    {
+      "state": "peanut butter topped",
+      "start_frame": 1620,
+      "end_frame_exclusive": 1680,
+      "start_s": 54.0,
+      "end_s_exclusive": 56.0
+    },
+    {
+      "state": "jam-topped",
+      "start_frame": 2100,
+      "end_frame_exclusive": 2160,
+      "start_s": 70.0,
+      "end_s_exclusive": 72.0
+    },
+    {
+      "state": "on top",
+      "start_frame": 2280,
+      "end_frame_exclusive": 4440,
+      "start_s": 76.0,
+      "end_s_exclusive": 148.0
+    },
+    {
+      "state": "topped",
+      "start_frame": 2280,
+      "end_frame_exclusive": 4468,
+      "start_s": 76.0,
+      "end_s_exclusive": 148.93333333333334
+    },
+    {
+      "state": "peanut butter topped",
+      "start_frame": 2400,
+      "end_frame_exclusive": 4468,
+      "start_s": 80.0,
+      "end_s_exclusive": 148.93333333333334
+    },
+    {
+      "state": "covered",
+      "start_frame": 2460,
+      "end_frame_exclusive": 4468,
+      "start_s": 82.0,
+      "end_s_exclusive": 148.93333333333334
+    },
+    {
+      "state": "jam-topped",
+      "start_frame": 2460,
+      "end_frame_exclusive": 4468,
+      "start_s": 82.0,
+      "end_s_exclusive": 148.93333333333334
+    },
+    {
+      "state": "full",
+      "start_frame": 2520,
+      "end_frame_exclusive": 4468,
+      "start_s": 84.0,
+      "end_s_exclusive": 148.93333333333334
+    },
+    {
+      "state": "coated",
+      "start_frame": 2700,
+      "end_frame_exclusive": 4468,
+      "start_s": 90.0,
+      "end_s_exclusive": 148.93333333333334
+    },
+    {
+      "state": "on tray",
+      "start_frame": 2700,
+      "end_frame_exclusive": 4140,
+      "start_s": 90.0,
+      "end_s_exclusive": 138.0
+    },
+    {
+      "state": "peanut-butter-and-jam-covered",
+      "start_frame": 2940,
+      "end_frame_exclusive": 3000,
+      "start_s": 98.0,
+      "end_s_exclusive": 100.0
+    },
+    {
+      "state": "peanut-butter-and-jam-covered",
+      "start_frame": 3120,
+      "end_frame_exclusive": 4468,
+      "start_s": 104.0,
+      "end_s_exclusive": 148.93333333333334
+    },
+    {
+      "state": "less-covered",
+      "start_frame": 3240,
+      "end_frame_exclusive": 3780,
+      "start_s": 108.0,
+      "end_s_exclusive": 126.0
+    },
+    {
+      "state": "served",
+      "start_frame": 3420,
+      "end_frame_exclusive": 3480,
+      "start_s": 114.0,
+      "end_s_exclusive": 116.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 3480,
+      "end_frame_exclusive": 3720,
+      "start_s": 116.0,
+      "end_s_exclusive": 124.0
+    },
+    {
+      "state": "served",
+      "start_frame": 3600,
+      "end_frame_exclusive": 3660,
+      "start_s": 120.0,
+      "end_s_exclusive": 122.0
+    },
+    {
+      "state": "less-covered",
+      "start_frame": 3960,
+      "end_frame_exclusive": 4140,
+      "start_s": 132.0,
+      "end_s_exclusive": 138.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 4080,
+      "end_frame_exclusive": 4468,
+      "start_s": 136.0,
+      "end_s_exclusive": 148.93333333333334
+    },
+    {
+      "state": "double-layered",
+      "start_frame": 4260,
+      "end_frame_exclusive": 4468,
+      "start_s": 142.0,
+      "end_s_exclusive": 148.93333333333334
+    },
+    {
+      "state": "assembled",
+      "start_frame": 4320,
+      "end_frame_exclusive": 4468,
+      "start_s": 144.0,
+      "end_s_exclusive": 148.93333333333334
+    },
+    {
+      "state": "oily",
+      "start_frame": 4320,
+      "end_frame_exclusive": 4468,
+      "start_s": 144.0,
+      "end_s_exclusive": 148.93333333333334
+    },
+    {
+      "state": "in-pan",
+      "start_frame": 4440,
+      "end_frame_exclusive": 4468,
+      "start_s": 148.0,
+      "end_s_exclusive": 148.93333333333334
+    }
+  ],
+  "S20_Pizza_7150991-180::cheese": [
+    {
+      "state": "added",
+      "start_frame": 0,
+      "end_frame_exclusive": 120,
+      "start_s": 0.0,
+      "end_s_exclusive": 4.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 0,
+      "end_frame_exclusive": 120,
+      "start_s": 0.0,
+      "end_s_exclusive": 4.0
+    },
+    {
+      "state": "chopped",
+      "start_frame": 0,
+      "end_frame_exclusive": 3240,
+      "start_s": 0.0,
+      "end_s_exclusive": 108.0
+    },
+    {
+      "state": "creamy",
+      "start_frame": 0,
+      "end_frame_exclusive": 60,
+      "start_s": 0.0,
+      "end_s_exclusive": 2.0
+    },
+    {
+      "state": "full",
+      "start_frame": 0,
+      "end_frame_exclusive": 1140,
+      "start_s": 0.0,
+      "end_s_exclusive": 38.0
+    },
+    {
+      "state": "grated",
+      "start_frame": 0,
+      "end_frame_exclusive": 420,
+      "start_s": 0.0,
+      "end_s_exclusive": 14.0
+    },
+    {
+      "state": "grinded",
+      "start_frame": 0,
+      "end_frame_exclusive": 420,
+      "start_s": 0.0,
+      "end_s_exclusive": 14.0
+    },
+    {
+      "state": "juiced",
+      "start_frame": 0,
+      "end_frame_exclusive": 120,
+      "start_s": 0.0,
+      "end_s_exclusive": 4.0
+    },
+    {
+      "state": "less-covered",
+      "start_frame": 0,
+      "end_frame_exclusive": 1920,
+      "start_s": 0.0,
+      "end_s_exclusive": 64.0
+    },
+    {
+      "state": "peeled",
+      "start_frame": 0,
+      "end_frame_exclusive": 1860,
+      "start_s": 0.0,
+      "end_s_exclusive": 62.0
+    },
+    {
+      "state": "placed",
+      "start_frame": 0,
+      "end_frame_exclusive": 2340,
+      "start_s": 0.0,
+      "end_s_exclusive": 78.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 0,
+      "end_frame_exclusive": 420,
+      "start_s": 0.0,
+      "end_s_exclusive": 14.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 0,
+      "end_frame_exclusive": 420,
+      "start_s": 0.0,
+      "end_s_exclusive": 14.0
+    },
+    {
+      "state": "seasoned",
+      "start_frame": 0,
+      "end_frame_exclusive": 600,
+      "start_s": 0.0,
+      "end_s_exclusive": 20.0
+    },
+    {
+      "state": "speckled",
+      "start_frame": 0,
+      "end_frame_exclusive": 480,
+      "start_s": 0.0,
+      "end_s_exclusive": 16.0
+    },
+    {
+      "state": "thin",
+      "start_frame": 0,
+      "end_frame_exclusive": 60,
+      "start_s": 0.0,
+      "end_s_exclusive": 2.0
+    },
+    {
+      "state": "seasoning",
+      "start_frame": 120,
+      "end_frame_exclusive": 300,
+      "start_s": 4.0,
+      "end_s_exclusive": 10.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 180,
+      "end_frame_exclusive": 420,
+      "start_s": 6.0,
+      "end_s_exclusive": 14.0
+    },
+    {
+      "state": "added",
+      "start_frame": 360,
+      "end_frame_exclusive": 1680,
+      "start_s": 12.0,
+      "end_s_exclusive": 56.0
+    },
+    {
+      "state": "cracked",
+      "start_frame": 360,
+      "end_frame_exclusive": 480,
+      "start_s": 12.0,
+      "end_s_exclusive": 16.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 420,
+      "end_frame_exclusive": 3900,
+      "start_s": 14.0,
+      "end_s_exclusive": 130.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 420,
+      "end_frame_exclusive": 960,
+      "start_s": 14.0,
+      "end_s_exclusive": 32.0
+    },
+    {
+      "state": "creamy",
+      "start_frame": 480,
+      "end_frame_exclusive": 540,
+      "start_s": 16.0,
+      "end_s_exclusive": 18.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 660,
+      "end_frame_exclusive": 3600,
+      "start_s": 22.0,
+      "end_s_exclusive": 120.0
+    },
+    {
+      "state": "cracked",
+      "start_frame": 720,
+      "end_frame_exclusive": 1020,
+      "start_s": 24.0,
+      "end_s_exclusive": 34.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 720,
+      "end_frame_exclusive": 1020,
+      "start_s": 24.0,
+      "end_s_exclusive": 34.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 720,
+      "end_frame_exclusive": 1260,
+      "start_s": 24.0,
+      "end_s_exclusive": 42.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 720,
+      "end_frame_exclusive": 780,
+      "start_s": 24.0,
+      "end_s_exclusive": 26.0
+    },
+    {
+      "state": "speckled",
+      "start_frame": 720,
+      "end_frame_exclusive": 1260,
+      "start_s": 24.0,
+      "end_s_exclusive": 42.0
+    },
+    {
+      "state": "warm",
+      "start_frame": 720,
+      "end_frame_exclusive": 780,
+      "start_s": 24.0,
+      "end_s_exclusive": 26.0
+    },
+    {
+      "state": "grinded",
+      "start_frame": 780,
+      "end_frame_exclusive": 1020,
+      "start_s": 26.0,
+      "end_s_exclusive": 34.0
+    },
+    {
+      "state": "seasoned",
+      "start_frame": 780,
+      "end_frame_exclusive": 1140,
+      "start_s": 26.0,
+      "end_s_exclusive": 38.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 840,
+      "end_frame_exclusive": 1020,
+      "start_s": 28.0,
+      "end_s_exclusive": 34.0
+    },
+    {
+      "state": "on dish",
+      "start_frame": 900,
+      "end_frame_exclusive": 2760,
+      "start_s": 30.0,
+      "end_s_exclusive": 92.0
+    },
+    {
+      "state": "creamy",
+      "start_frame": 960,
+      "end_frame_exclusive": 1140,
+      "start_s": 32.0,
+      "end_s_exclusive": 38.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 960,
+      "end_frame_exclusive": 1200,
+      "start_s": 32.0,
+      "end_s_exclusive": 40.0
+    },
+    {
+      "state": "separated",
+      "start_frame": 960,
+      "end_frame_exclusive": 1020,
+      "start_s": 32.0,
+      "end_s_exclusive": 34.0
+    },
+    {
+      "state": "covered",
+      "start_frame": 1080,
+      "end_frame_exclusive": 1140,
+      "start_s": 36.0,
+      "end_s_exclusive": 38.0
+    },
+    {
+      "state": "cracked",
+      "start_frame": 1080,
+      "end_frame_exclusive": 1200,
+      "start_s": 36.0,
+      "end_s_exclusive": 40.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 1080,
+      "end_frame_exclusive": 1140,
+      "start_s": 36.0,
+      "end_s_exclusive": 38.0
+    },
+    {
+      "state": "stuffed",
+      "start_frame": 1080,
+      "end_frame_exclusive": 1440,
+      "start_s": 36.0,
+      "end_s_exclusive": 48.0
+    },
+    {
+      "state": "covered",
+      "start_frame": 1200,
+      "end_frame_exclusive": 1320,
+      "start_s": 40.0,
+      "end_s_exclusive": 44.0
+    },
+    {
+      "state": "full",
+      "start_frame": 1200,
+      "end_frame_exclusive": 1380,
+      "start_s": 40.0,
+      "end_s_exclusive": 46.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 1320,
+      "end_frame_exclusive": 1860,
+      "start_s": 44.0,
+      "end_s_exclusive": 62.0
+    },
+    {
+      "state": "relocated",
+      "start_frame": 1320,
+      "end_frame_exclusive": 2640,
+      "start_s": 44.0,
+      "end_s_exclusive": 88.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 1440,
+      "end_frame_exclusive": 2460,
+      "start_s": 48.0,
+      "end_s_exclusive": 82.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 1440,
+      "end_frame_exclusive": 2400,
+      "start_s": 48.0,
+      "end_s_exclusive": 80.0
+    },
+    {
+      "state": "cracked",
+      "start_frame": 1560,
+      "end_frame_exclusive": 1620,
+      "start_s": 52.0,
+      "end_s_exclusive": 54.0
+    },
+    {
+      "state": "cracked",
+      "start_frame": 1800,
+      "end_frame_exclusive": 3660,
+      "start_s": 60.0,
+      "end_s_exclusive": 122.0
+    },
+    {
+      "state": "separated",
+      "start_frame": 1800,
+      "end_frame_exclusive": 2400,
+      "start_s": 60.0,
+      "end_s_exclusive": 80.0
+    },
+    {
+      "state": "peeled",
+      "start_frame": 1980,
+      "end_frame_exclusive": 2280,
+      "start_s": 66.0,
+      "end_s_exclusive": 76.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 2340,
+      "end_frame_exclusive": 3360,
+      "start_s": 78.0,
+      "end_s_exclusive": 112.0
+    },
+    {
+      "state": "added",
+      "start_frame": 2520,
+      "end_frame_exclusive": 3300,
+      "start_s": 84.0,
+      "end_s_exclusive": 110.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 2580,
+      "end_frame_exclusive": 3000,
+      "start_s": 86.0,
+      "end_s_exclusive": 100.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 2580,
+      "end_frame_exclusive": 2880,
+      "start_s": 86.0,
+      "end_s_exclusive": 96.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 2580,
+      "end_frame_exclusive": 2880,
+      "start_s": 86.0,
+      "end_s_exclusive": 96.0
+    },
+    {
+      "state": "crumbly",
+      "start_frame": 2640,
+      "end_frame_exclusive": 3180,
+      "start_s": 88.0,
+      "end_s_exclusive": 106.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 2940,
+      "end_frame_exclusive": 4620,
+      "start_s": 98.0,
+      "end_s_exclusive": 154.0
+    },
+    {
+      "state": "sprayed",
+      "start_frame": 3000,
+      "end_frame_exclusive": 3300,
+      "start_s": 100.0,
+      "end_s_exclusive": 110.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 3180,
+      "end_frame_exclusive": 3420,
+      "start_s": 106.0,
+      "end_s_exclusive": 114.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 3180,
+      "end_frame_exclusive": 3360,
+      "start_s": 106.0,
+      "end_s_exclusive": 112.0
+    },
+    {
+      "state": "sprayed",
+      "start_frame": 3360,
+      "end_frame_exclusive": 3780,
+      "start_s": 112.0,
+      "end_s_exclusive": 126.0
+    },
+    {
+      "state": "chopped",
+      "start_frame": 3420,
+      "end_frame_exclusive": 16311,
+      "start_s": 114.0,
+      "end_s_exclusive": 543.7
+    },
+    {
+      "state": "coated",
+      "start_frame": 3420,
+      "end_frame_exclusive": 3780,
+      "start_s": 114.0,
+      "end_s_exclusive": 126.0
+    },
+    {
+      "state": "peeled",
+      "start_frame": 3420,
+      "end_frame_exclusive": 16311,
+      "start_s": 114.0,
+      "end_s_exclusive": 543.7
+    },
+    {
+      "state": "speckled",
+      "start_frame": 3480,
+      "end_frame_exclusive": 3780,
+      "start_s": 116.0,
+      "end_s_exclusive": 126.0
+    },
+    {
+      "state": "coating",
+      "start_frame": 3540,
+      "end_frame_exclusive": 3720,
+      "start_s": 118.0,
+      "end_s_exclusive": 124.0
+    },
+    {
+      "state": "grinded",
+      "start_frame": 3540,
+      "end_frame_exclusive": 3720,
+      "start_s": 118.0,
+      "end_s_exclusive": 124.0
+    },
+    {
+      "state": "seasoned",
+      "start_frame": 3540,
+      "end_frame_exclusive": 3780,
+      "start_s": 118.0,
+      "end_s_exclusive": 126.0
+    },
+    {
+      "state": "added",
+      "start_frame": 3600,
+      "end_frame_exclusive": 3780,
+      "start_s": 120.0,
+      "end_s_exclusive": 126.0
+    },
+    {
+      "state": "covered",
+      "start_frame": 3600,
+      "end_frame_exclusive": 3780,
+      "start_s": 120.0,
+      "end_s_exclusive": 126.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 3780,
+      "end_frame_exclusive": 4440,
+      "start_s": 126.0,
+      "end_s_exclusive": 148.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 4260,
+      "end_frame_exclusive": 4500,
+      "start_s": 142.0,
+      "end_s_exclusive": 150.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 4440,
+      "end_frame_exclusive": 4740,
+      "start_s": 148.0,
+      "end_s_exclusive": 158.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 4440,
+      "end_frame_exclusive": 4800,
+      "start_s": 148.0,
+      "end_s_exclusive": 160.0
+    },
+    {
+      "state": "grinded",
+      "start_frame": 4500,
+      "end_frame_exclusive": 4800,
+      "start_s": 150.0,
+      "end_s_exclusive": 160.0
+    },
+    {
+      "state": "seasoned",
+      "start_frame": 4500,
+      "end_frame_exclusive": 5640,
+      "start_s": 150.0,
+      "end_s_exclusive": 188.0
+    },
+    {
+      "state": "coated",
+      "start_frame": 4680,
+      "end_frame_exclusive": 6780,
+      "start_s": 156.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "speckled",
+      "start_frame": 4680,
+      "end_frame_exclusive": 4740,
+      "start_s": 156.0,
+      "end_s_exclusive": 158.0
+    },
+    {
+      "state": "less-covered",
+      "start_frame": 4740,
+      "end_frame_exclusive": 6420,
+      "start_s": 158.0,
+      "end_s_exclusive": 214.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 4740,
+      "end_frame_exclusive": 4800,
+      "start_s": 158.0,
+      "end_s_exclusive": 160.0
+    },
+    {
+      "state": "covered",
+      "start_frame": 4800,
+      "end_frame_exclusive": 6780,
+      "start_s": 160.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 4800,
+      "end_frame_exclusive": 6840,
+      "start_s": 160.0,
+      "end_s_exclusive": 228.0
+    },
+    {
+      "state": "placed",
+      "start_frame": 4800,
+      "end_frame_exclusive": 4860,
+      "start_s": 160.0,
+      "end_s_exclusive": 162.0
+    },
+    {
+      "state": "sprayed",
+      "start_frame": 4800,
+      "end_frame_exclusive": 5880,
+      "start_s": 160.0,
+      "end_s_exclusive": 196.0
+    },
+    {
+      "state": "grinded",
+      "start_frame": 4860,
+      "end_frame_exclusive": 5040,
+      "start_s": 162.0,
+      "end_s_exclusive": 168.0
+    },
+    {
+      "state": "in-pan",
+      "start_frame": 4860,
+      "end_frame_exclusive": 7680,
+      "start_s": 162.0,
+      "end_s_exclusive": 256.0
+    },
+    {
+      "state": "peanut butter topped",
+      "start_frame": 4860,
+      "end_frame_exclusive": 6780,
+      "start_s": 162.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "batter-covered",
+      "start_frame": 4920,
+      "end_frame_exclusive": 6780,
+      "start_s": 164.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "coating",
+      "start_frame": 4920,
+      "end_frame_exclusive": 4980,
+      "start_s": 164.0,
+      "end_s_exclusive": 166.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 4920,
+      "end_frame_exclusive": 5040,
+      "start_s": 164.0,
+      "end_s_exclusive": 168.0
+    },
+    {
+      "state": "coating",
+      "start_frame": 5040,
+      "end_frame_exclusive": 5580,
+      "start_s": 168.0,
+      "end_s_exclusive": 186.0
+    },
+    {
+      "state": "on dish",
+      "start_frame": 5040,
+      "end_frame_exclusive": 6780,
+      "start_s": 168.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "placed",
+      "start_frame": 5040,
+      "end_frame_exclusive": 5100,
+      "start_s": 168.0,
+      "end_s_exclusive": 170.0
+    },
+    {
+      "state": "topped",
+      "start_frame": 5040,
+      "end_frame_exclusive": 5100,
+      "start_s": 168.0,
+      "end_s_exclusive": 170.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 5100,
+      "end_frame_exclusive": 5340,
+      "start_s": 170.0,
+      "end_s_exclusive": 178.0
+    },
+    {
+      "state": "added",
+      "start_frame": 5160,
+      "end_frame_exclusive": 5880,
+      "start_s": 172.0,
+      "end_s_exclusive": 196.0
+    },
+    {
+      "state": "jam-topped",
+      "start_frame": 5160,
+      "end_frame_exclusive": 5280,
+      "start_s": 172.0,
+      "end_s_exclusive": 176.0
+    },
+    {
+      "state": "placed",
+      "start_frame": 5160,
+      "end_frame_exclusive": 5340,
+      "start_s": 172.0,
+      "end_s_exclusive": 178.0
+    },
+    {
+      "state": "topped",
+      "start_frame": 5160,
+      "end_frame_exclusive": 5340,
+      "start_s": 172.0,
+      "end_s_exclusive": 178.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 5340,
+      "end_frame_exclusive": 6780,
+      "start_s": 178.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "poured",
+      "start_frame": 5340,
+      "end_frame_exclusive": 5520,
+      "start_s": 178.0,
+      "end_s_exclusive": 184.0
+    },
+    {
+      "state": "wet",
+      "start_frame": 5340,
+      "end_frame_exclusive": 5520,
+      "start_s": 178.0,
+      "end_s_exclusive": 184.0
+    },
+    {
+      "state": "placed",
+      "start_frame": 5400,
+      "end_frame_exclusive": 6480,
+      "start_s": 180.0,
+      "end_s_exclusive": 216.0
+    },
+    {
+      "state": "topped",
+      "start_frame": 5400,
+      "end_frame_exclusive": 6060,
+      "start_s": 180.0,
+      "end_s_exclusive": 202.0
+    },
+    {
+      "state": "full",
+      "start_frame": 5580,
+      "end_frame_exclusive": 5880,
+      "start_s": 186.0,
+      "end_s_exclusive": 196.0
+    },
+    {
+      "state": "jam-topped",
+      "start_frame": 5580,
+      "end_frame_exclusive": 6960,
+      "start_s": 186.0,
+      "end_s_exclusive": 232.0
+    },
+    {
+      "state": "peanut-butter-and-jam-covered",
+      "start_frame": 5640,
+      "end_frame_exclusive": 6960,
+      "start_s": 188.0,
+      "end_s_exclusive": 232.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 5700,
+      "end_frame_exclusive": 6000,
+      "start_s": 190.0,
+      "end_s_exclusive": 200.0
+    },
+    {
+      "state": "poured",
+      "start_frame": 5760,
+      "end_frame_exclusive": 6060,
+      "start_s": 192.0,
+      "end_s_exclusive": 202.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 5820,
+      "end_frame_exclusive": 6060,
+      "start_s": 194.0,
+      "end_s_exclusive": 202.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 5880,
+      "end_frame_exclusive": 6060,
+      "start_s": 196.0,
+      "end_s_exclusive": 202.0
+    },
+    {
+      "state": "full",
+      "start_frame": 5940,
+      "end_frame_exclusive": 6000,
+      "start_s": 198.0,
+      "end_s_exclusive": 200.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 6120,
+      "end_frame_exclusive": 6300,
+      "start_s": 204.0,
+      "end_s_exclusive": 210.0
+    },
+    {
+      "state": "topped",
+      "start_frame": 6120,
+      "end_frame_exclusive": 6720,
+      "start_s": 204.0,
+      "end_s_exclusive": 224.0
+    },
+    {
+      "state": "poured",
+      "start_frame": 6300,
+      "end_frame_exclusive": 6840,
+      "start_s": 210.0,
+      "end_s_exclusive": 228.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 6300,
+      "end_frame_exclusive": 7740,
+      "start_s": 210.0,
+      "end_s_exclusive": 258.0
+    },
+    {
+      "state": "topped with pepperoni",
+      "start_frame": 6300,
+      "end_frame_exclusive": 6840,
+      "start_s": 210.0,
+      "end_s_exclusive": 228.0
+    },
+    {
+      "state": "seasoned",
+      "start_frame": 6360,
+      "end_frame_exclusive": 7620,
+      "start_s": 212.0,
+      "end_s_exclusive": 254.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 6480,
+      "end_frame_exclusive": 6600,
+      "start_s": 216.0,
+      "end_s_exclusive": 220.0
+    },
+    {
+      "state": "cooked",
+      "start_frame": 6780,
+      "end_frame_exclusive": 7140,
+      "start_s": 226.0,
+      "end_s_exclusive": 238.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 6780,
+      "end_frame_exclusive": 7020,
+      "start_s": 226.0,
+      "end_s_exclusive": 234.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 6840,
+      "end_frame_exclusive": 7020,
+      "start_s": 228.0,
+      "end_s_exclusive": 234.0
+    },
+    {
+      "state": "grinded",
+      "start_frame": 6840,
+      "end_frame_exclusive": 7620,
+      "start_s": 228.0,
+      "end_s_exclusive": 254.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 6900,
+      "end_frame_exclusive": 7140,
+      "start_s": 230.0,
+      "end_s_exclusive": 238.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 7260,
+      "end_frame_exclusive": 8100,
+      "start_s": 242.0,
+      "end_s_exclusive": 270.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 7320,
+      "end_frame_exclusive": 8640,
+      "start_s": 244.0,
+      "end_s_exclusive": 288.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 7380,
+      "end_frame_exclusive": 8700,
+      "start_s": 246.0,
+      "end_s_exclusive": 290.0
+    },
+    {
+      "state": "poured",
+      "start_frame": 7380,
+      "end_frame_exclusive": 7740,
+      "start_s": 246.0,
+      "end_s_exclusive": 258.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 7500,
+      "end_frame_exclusive": 7680,
+      "start_s": 250.0,
+      "end_s_exclusive": 256.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 7980,
+      "end_frame_exclusive": 10320,
+      "start_s": 266.0,
+      "end_s_exclusive": 344.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 8160,
+      "end_frame_exclusive": 8280,
+      "start_s": 272.0,
+      "end_s_exclusive": 276.0
+    },
+    {
+      "state": "solid",
+      "start_frame": 8520,
+      "end_frame_exclusive": 8580,
+      "start_s": 284.0,
+      "end_s_exclusive": 286.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 8580,
+      "end_frame_exclusive": 8700,
+      "start_s": 286.0,
+      "end_s_exclusive": 290.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 8700,
+      "end_frame_exclusive": 9000,
+      "start_s": 290.0,
+      "end_s_exclusive": 300.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 8940,
+      "end_frame_exclusive": 9060,
+      "start_s": 298.0,
+      "end_s_exclusive": 302.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 8940,
+      "end_frame_exclusive": 9720,
+      "start_s": 298.0,
+      "end_s_exclusive": 324.0
+    },
+    {
+      "state": "seasoned",
+      "start_frame": 9000,
+      "end_frame_exclusive": 9660,
+      "start_s": 300.0,
+      "end_s_exclusive": 322.0
+    },
+    {
+      "state": "solid",
+      "start_frame": 9060,
+      "end_frame_exclusive": 9240,
+      "start_s": 302.0,
+      "end_s_exclusive": 308.0
+    },
+    {
+      "state": "cracked",
+      "start_frame": 9120,
+      "end_frame_exclusive": 9300,
+      "start_s": 304.0,
+      "end_s_exclusive": 310.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 9180,
+      "end_frame_exclusive": 9600,
+      "start_s": 306.0,
+      "end_s_exclusive": 320.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 9660,
+      "end_frame_exclusive": 9780,
+      "start_s": 322.0,
+      "end_s_exclusive": 326.0
+    },
+    {
+      "state": "seasoned",
+      "start_frame": 9780,
+      "end_frame_exclusive": 10020,
+      "start_s": 326.0,
+      "end_s_exclusive": 334.0
+    },
+    {
+      "state": "solid",
+      "start_frame": 9780,
+      "end_frame_exclusive": 10020,
+      "start_s": 326.0,
+      "end_s_exclusive": 334.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 9840,
+      "end_frame_exclusive": 10380,
+      "start_s": 328.0,
+      "end_s_exclusive": 346.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 9900,
+      "end_frame_exclusive": 10020,
+      "start_s": 330.0,
+      "end_s_exclusive": 334.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 10020,
+      "end_frame_exclusive": 10260,
+      "start_s": 334.0,
+      "end_s_exclusive": 342.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 10020,
+      "end_frame_exclusive": 10080,
+      "start_s": 334.0,
+      "end_s_exclusive": 336.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 10080,
+      "end_frame_exclusive": 10200,
+      "start_s": 336.0,
+      "end_s_exclusive": 340.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 10260,
+      "end_frame_exclusive": 10560,
+      "start_s": 342.0,
+      "end_s_exclusive": 352.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 10380,
+      "end_frame_exclusive": 10500,
+      "start_s": 346.0,
+      "end_s_exclusive": 350.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 10500,
+      "end_frame_exclusive": 10680,
+      "start_s": 350.0,
+      "end_s_exclusive": 356.0
+    },
+    {
+      "state": "less-covered",
+      "start_frame": 10560,
+      "end_frame_exclusive": 10620,
+      "start_s": 352.0,
+      "end_s_exclusive": 354.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 10560,
+      "end_frame_exclusive": 11040,
+      "start_s": 352.0,
+      "end_s_exclusive": 368.0
+    },
+    {
+      "state": "cracked",
+      "start_frame": 10620,
+      "end_frame_exclusive": 10680,
+      "start_s": 354.0,
+      "end_s_exclusive": 356.0
+    },
+    {
+      "state": "placed",
+      "start_frame": 10620,
+      "end_frame_exclusive": 10740,
+      "start_s": 354.0,
+      "end_s_exclusive": 358.0
+    },
+    {
+      "state": "scooped-out",
+      "start_frame": 10620,
+      "end_frame_exclusive": 10800,
+      "start_s": 354.0,
+      "end_s_exclusive": 360.0
+    },
+    {
+      "state": "grinded",
+      "start_frame": 10740,
+      "end_frame_exclusive": 11100,
+      "start_s": 358.0,
+      "end_s_exclusive": 370.0
+    },
+    {
+      "state": "seasoned",
+      "start_frame": 10800,
+      "end_frame_exclusive": 11100,
+      "start_s": 360.0,
+      "end_s_exclusive": 370.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 10860,
+      "end_frame_exclusive": 11280,
+      "start_s": 362.0,
+      "end_s_exclusive": 376.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 10860,
+      "end_frame_exclusive": 11280,
+      "start_s": 362.0,
+      "end_s_exclusive": 376.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 10860,
+      "end_frame_exclusive": 11040,
+      "start_s": 362.0,
+      "end_s_exclusive": 368.0
+    },
+    {
+      "state": "solid",
+      "start_frame": 10860,
+      "end_frame_exclusive": 11040,
+      "start_s": 362.0,
+      "end_s_exclusive": 368.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 11100,
+      "end_frame_exclusive": 11340,
+      "start_s": 370.0,
+      "end_s_exclusive": 378.0
+    },
+    {
+      "state": "peanut-butter-and-jam-covered",
+      "start_frame": 11160,
+      "end_frame_exclusive": 11340,
+      "start_s": 372.0,
+      "end_s_exclusive": 378.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 11220,
+      "end_frame_exclusive": 11520,
+      "start_s": 374.0,
+      "end_s_exclusive": 384.0
+    },
+    {
+      "state": "cracked",
+      "start_frame": 11400,
+      "end_frame_exclusive": 11520,
+      "start_s": 380.0,
+      "end_s_exclusive": 384.0
+    },
+    {
+      "state": "speckled",
+      "start_frame": 11400,
+      "end_frame_exclusive": 11520,
+      "start_s": 380.0,
+      "end_s_exclusive": 384.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 11580,
+      "end_frame_exclusive": 11880,
+      "start_s": 386.0,
+      "end_s_exclusive": 396.0
+    },
+    {
+      "state": "grinded",
+      "start_frame": 11760,
+      "end_frame_exclusive": 13140,
+      "start_s": 392.0,
+      "end_s_exclusive": 438.0
+    },
+    {
+      "state": "seasoned",
+      "start_frame": 11760,
+      "end_frame_exclusive": 12540,
+      "start_s": 392.0,
+      "end_s_exclusive": 418.0
+    },
+    {
+      "state": "speckled",
+      "start_frame": 11820,
+      "end_frame_exclusive": 12300,
+      "start_s": 394.0,
+      "end_s_exclusive": 410.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 11940,
+      "end_frame_exclusive": 12420,
+      "start_s": 398.0,
+      "end_s_exclusive": 414.0
+    },
+    {
+      "state": "coated",
+      "start_frame": 12000,
+      "end_frame_exclusive": 12420,
+      "start_s": 400.0,
+      "end_s_exclusive": 414.0
+    },
+    {
+      "state": "solid",
+      "start_frame": 12000,
+      "end_frame_exclusive": 12180,
+      "start_s": 400.0,
+      "end_s_exclusive": 406.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 12060,
+      "end_frame_exclusive": 12300,
+      "start_s": 402.0,
+      "end_s_exclusive": 410.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 12300,
+      "end_frame_exclusive": 12480,
+      "start_s": 410.0,
+      "end_s_exclusive": 416.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 12300,
+      "end_frame_exclusive": 12480,
+      "start_s": 410.0,
+      "end_s_exclusive": 416.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 12420,
+      "end_frame_exclusive": 12960,
+      "start_s": 414.0,
+      "end_s_exclusive": 432.0
+    },
+    {
+      "state": "flipped",
+      "start_frame": 12480,
+      "end_frame_exclusive": 12720,
+      "start_s": 416.0,
+      "end_s_exclusive": 424.0
+    },
+    {
+      "state": "scooped-out",
+      "start_frame": 12480,
+      "end_frame_exclusive": 13500,
+      "start_s": 416.0,
+      "end_s_exclusive": 450.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 12540,
+      "end_frame_exclusive": 13200,
+      "start_s": 418.0,
+      "end_s_exclusive": 440.0
+    },
+    {
+      "state": "placed",
+      "start_frame": 12600,
+      "end_frame_exclusive": 12900,
+      "start_s": 420.0,
+      "end_s_exclusive": 430.0
+    },
+    {
+      "state": "solid",
+      "start_frame": 12600,
+      "end_frame_exclusive": 13020,
+      "start_s": 420.0,
+      "end_s_exclusive": 434.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 12660,
+      "end_frame_exclusive": 13020,
+      "start_s": 422.0,
+      "end_s_exclusive": 434.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 12720,
+      "end_frame_exclusive": 12900,
+      "start_s": 424.0,
+      "end_s_exclusive": 430.0
+    },
+    {
+      "state": "speckled",
+      "start_frame": 12840,
+      "end_frame_exclusive": 13800,
+      "start_s": 428.0,
+      "end_s_exclusive": 460.0
+    },
+    {
+      "state": "cracked",
+      "start_frame": 12960,
+      "end_frame_exclusive": 13080,
+      "start_s": 432.0,
+      "end_s_exclusive": 436.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 13440,
+      "end_frame_exclusive": 13620,
+      "start_s": 448.0,
+      "end_s_exclusive": 454.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 13620,
+      "end_frame_exclusive": 13980,
+      "start_s": 454.0,
+      "end_s_exclusive": 466.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 13680,
+      "end_frame_exclusive": 14880,
+      "start_s": 456.0,
+      "end_s_exclusive": 496.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 13860,
+      "end_frame_exclusive": 14340,
+      "start_s": 462.0,
+      "end_s_exclusive": 478.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 13920,
+      "end_frame_exclusive": 14460,
+      "start_s": 464.0,
+      "end_s_exclusive": 482.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 14100,
+      "end_frame_exclusive": 14640,
+      "start_s": 470.0,
+      "end_s_exclusive": 488.0
+    },
+    {
+      "state": "jam-topped",
+      "start_frame": 14400,
+      "end_frame_exclusive": 14520,
+      "start_s": 480.0,
+      "end_s_exclusive": 484.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 14400,
+      "end_frame_exclusive": 14460,
+      "start_s": 480.0,
+      "end_s_exclusive": 482.0
+    },
+    {
+      "state": "grinded",
+      "start_frame": 14700,
+      "end_frame_exclusive": 15180,
+      "start_s": 490.0,
+      "end_s_exclusive": 506.0
+    },
+    {
+      "state": "seasoned",
+      "start_frame": 14700,
+      "end_frame_exclusive": 16311,
+      "start_s": 490.0,
+      "end_s_exclusive": 543.7
+    },
+    {
+      "state": "smooth",
+      "start_frame": 14760,
+      "end_frame_exclusive": 15000,
+      "start_s": 492.0,
+      "end_s_exclusive": 500.0
+    },
+    {
+      "state": "solid",
+      "start_frame": 14760,
+      "end_frame_exclusive": 15000,
+      "start_s": 492.0,
+      "end_s_exclusive": 500.0
+    },
+    {
+      "state": "speckled",
+      "start_frame": 14760,
+      "end_frame_exclusive": 15180,
+      "start_s": 492.0,
+      "end_s_exclusive": 506.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 14820,
+      "end_frame_exclusive": 14880,
+      "start_s": 494.0,
+      "end_s_exclusive": 496.0
+    },
+    {
+      "state": "grated",
+      "start_frame": 14880,
+      "end_frame_exclusive": 15120,
+      "start_s": 496.0,
+      "end_s_exclusive": 504.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 14880,
+      "end_frame_exclusive": 15180,
+      "start_s": 496.0,
+      "end_s_exclusive": 506.0
+    },
+    {
+      "state": "seasoning",
+      "start_frame": 14940,
+      "end_frame_exclusive": 15120,
+      "start_s": 498.0,
+      "end_s_exclusive": 504.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 15000,
+      "end_frame_exclusive": 15240,
+      "start_s": 500.0,
+      "end_s_exclusive": 508.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 15000,
+      "end_frame_exclusive": 15960,
+      "start_s": 500.0,
+      "end_s_exclusive": 532.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 15180,
+      "end_frame_exclusive": 15660,
+      "start_s": 506.0,
+      "end_s_exclusive": 522.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 15180,
+      "end_frame_exclusive": 15360,
+      "start_s": 506.0,
+      "end_s_exclusive": 512.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 15360,
+      "end_frame_exclusive": 15600,
+      "start_s": 512.0,
+      "end_s_exclusive": 520.0
+    },
+    {
+      "state": "cracked",
+      "start_frame": 15360,
+      "end_frame_exclusive": 15660,
+      "start_s": 512.0,
+      "end_s_exclusive": 522.0
+    },
+    {
+      "state": "grinded",
+      "start_frame": 15360,
+      "end_frame_exclusive": 16311,
+      "start_s": 512.0,
+      "end_s_exclusive": 543.7
+    },
+    {
+      "state": "seasoning",
+      "start_frame": 15360,
+      "end_frame_exclusive": 15540,
+      "start_s": 512.0,
+      "end_s_exclusive": 518.0
+    },
+    {
+      "state": "juiced",
+      "start_frame": 15420,
+      "end_frame_exclusive": 15600,
+      "start_s": 514.0,
+      "end_s_exclusive": 520.0
+    },
+    {
+      "state": "solid",
+      "start_frame": 15420,
+      "end_frame_exclusive": 15540,
+      "start_s": 514.0,
+      "end_s_exclusive": 518.0
+    },
+    {
+      "state": "speckled",
+      "start_frame": 15420,
+      "end_frame_exclusive": 16311,
+      "start_s": 514.0,
+      "end_s_exclusive": 543.7
+    },
+    {
+      "state": "coated",
+      "start_frame": 15480,
+      "end_frame_exclusive": 15660,
+      "start_s": 516.0,
+      "end_s_exclusive": 522.0
+    },
+    {
+      "state": "scooped-out",
+      "start_frame": 15780,
+      "end_frame_exclusive": 15900,
+      "start_s": 526.0,
+      "end_s_exclusive": 530.0
+    },
+    {
+      "state": "cracked",
+      "start_frame": 15840,
+      "end_frame_exclusive": 16311,
+      "start_s": 528.0,
+      "end_s_exclusive": 543.7
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 15840,
+      "end_frame_exclusive": 16140,
+      "start_s": 528.0,
+      "end_s_exclusive": 538.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 15840,
+      "end_frame_exclusive": 15900,
+      "start_s": 528.0,
+      "end_s_exclusive": 530.0
+    },
+    {
+      "state": "solid",
+      "start_frame": 15840,
+      "end_frame_exclusive": 16080,
+      "start_s": 528.0,
+      "end_s_exclusive": 536.0
+    },
+    {
+      "state": "thin",
+      "start_frame": 15840,
+      "end_frame_exclusive": 16311,
+      "start_s": 528.0,
+      "end_s_exclusive": 543.7
+    },
+    {
+      "state": "assembled",
+      "start_frame": 15900,
+      "end_frame_exclusive": 15960,
+      "start_s": 530.0,
+      "end_s_exclusive": 532.0
+    },
+    {
+      "state": "grated",
+      "start_frame": 16080,
+      "end_frame_exclusive": 16260,
+      "start_s": 536.0,
+      "end_s_exclusive": 542.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 16200,
+      "end_frame_exclusive": 16311,
+      "start_s": 540.0,
+      "end_s_exclusive": 543.7
+    }
+  ],
+  "S20_Pizza_7150991-180::batter": [
+    {
+      "state": "chopped",
+      "start_frame": 0,
+      "end_frame_exclusive": 3180,
+      "start_s": 0.0,
+      "end_s_exclusive": 106.0
+    },
+    {
+      "state": "creamy",
+      "start_frame": 0,
+      "end_frame_exclusive": 180,
+      "start_s": 0.0,
+      "end_s_exclusive": 6.0
+    },
+    {
+      "state": "peeled",
+      "start_frame": 0,
+      "end_frame_exclusive": 480,
+      "start_s": 0.0,
+      "end_s_exclusive": 16.0
+    },
+    {
+      "state": "seasoned",
+      "start_frame": 0,
+      "end_frame_exclusive": 1740,
+      "start_s": 0.0,
+      "end_s_exclusive": 58.0
+    },
+    {
+      "state": "cooked",
+      "start_frame": 180,
+      "end_frame_exclusive": 360,
+      "start_s": 6.0,
+      "end_s_exclusive": 12.0
+    },
+    {
+      "state": "in-pan",
+      "start_frame": 180,
+      "end_frame_exclusive": 360,
+      "start_s": 6.0,
+      "end_s_exclusive": 12.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 240,
+      "end_frame_exclusive": 360,
+      "start_s": 8.0,
+      "end_s_exclusive": 12.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 360,
+      "end_frame_exclusive": 1620,
+      "start_s": 12.0,
+      "end_s_exclusive": 54.0
+    },
+    {
+      "state": "creamy",
+      "start_frame": 420,
+      "end_frame_exclusive": 1980,
+      "start_s": 14.0,
+      "end_s_exclusive": 66.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 480,
+      "end_frame_exclusive": 1140,
+      "start_s": 16.0,
+      "end_s_exclusive": 38.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 480,
+      "end_frame_exclusive": 600,
+      "start_s": 16.0,
+      "end_s_exclusive": 20.0
+    },
+    {
+      "state": "peeled",
+      "start_frame": 780,
+      "end_frame_exclusive": 16311,
+      "start_s": 26.0,
+      "end_s_exclusive": 543.7
+    },
+    {
+      "state": "less-covered",
+      "start_frame": 840,
+      "end_frame_exclusive": 3480,
+      "start_s": 28.0,
+      "end_s_exclusive": 116.0
+    },
+    {
+      "state": "seasoning",
+      "start_frame": 900,
+      "end_frame_exclusive": 1560,
+      "start_s": 30.0,
+      "end_s_exclusive": 52.0
+    },
+    {
+      "state": "egg-covered",
+      "start_frame": 1020,
+      "end_frame_exclusive": 1080,
+      "start_s": 34.0,
+      "end_s_exclusive": 36.0
+    },
+    {
+      "state": "covered",
+      "start_frame": 1080,
+      "end_frame_exclusive": 1140,
+      "start_s": 36.0,
+      "end_s_exclusive": 38.0
+    },
+    {
+      "state": "placed",
+      "start_frame": 1080,
+      "end_frame_exclusive": 2520,
+      "start_s": 36.0,
+      "end_s_exclusive": 84.0
+    },
+    {
+      "state": "topped",
+      "start_frame": 1080,
+      "end_frame_exclusive": 1140,
+      "start_s": 36.0,
+      "end_s_exclusive": 38.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 1200,
+      "end_frame_exclusive": 3900,
+      "start_s": 40.0,
+      "end_s_exclusive": 130.0
+    },
+    {
+      "state": "cooked",
+      "start_frame": 1200,
+      "end_frame_exclusive": 1740,
+      "start_s": 40.0,
+      "end_s_exclusive": 58.0
+    },
+    {
+      "state": "covered",
+      "start_frame": 1200,
+      "end_frame_exclusive": 2280,
+      "start_s": 40.0,
+      "end_s_exclusive": 76.0
+    },
+    {
+      "state": "in-pan",
+      "start_frame": 1200,
+      "end_frame_exclusive": 2040,
+      "start_s": 40.0,
+      "end_s_exclusive": 68.0
+    },
+    {
+      "state": "on dish",
+      "start_frame": 1200,
+      "end_frame_exclusive": 2880,
+      "start_s": 40.0,
+      "end_s_exclusive": 96.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 1200,
+      "end_frame_exclusive": 1860,
+      "start_s": 40.0,
+      "end_s_exclusive": 62.0
+    },
+    {
+      "state": "topped",
+      "start_frame": 1200,
+      "end_frame_exclusive": 1380,
+      "start_s": 40.0,
+      "end_s_exclusive": 46.0
+    },
+    {
+      "state": "warm",
+      "start_frame": 1200,
+      "end_frame_exclusive": 3480,
+      "start_s": 40.0,
+      "end_s_exclusive": 116.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 1260,
+      "end_frame_exclusive": 3600,
+      "start_s": 42.0,
+      "end_s_exclusive": 120.0
+    },
+    {
+      "state": "served",
+      "start_frame": 1260,
+      "end_frame_exclusive": 2460,
+      "start_s": 42.0,
+      "end_s_exclusive": 82.0
+    },
+    {
+      "state": "added",
+      "start_frame": 1320,
+      "end_frame_exclusive": 2520,
+      "start_s": 44.0,
+      "end_s_exclusive": 84.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 1320,
+      "end_frame_exclusive": 1500,
+      "start_s": 44.0,
+      "end_s_exclusive": 50.0
+    },
+    {
+      "state": "flipped",
+      "start_frame": 1320,
+      "end_frame_exclusive": 1860,
+      "start_s": 44.0,
+      "end_s_exclusive": 62.0
+    },
+    {
+      "state": "poured",
+      "start_frame": 1320,
+      "end_frame_exclusive": 2040,
+      "start_s": 44.0,
+      "end_s_exclusive": 68.0
+    },
+    {
+      "state": "stuffed",
+      "start_frame": 1320,
+      "end_frame_exclusive": 1860,
+      "start_s": 44.0,
+      "end_s_exclusive": 62.0
+    },
+    {
+      "state": "relocated",
+      "start_frame": 1380,
+      "end_frame_exclusive": 2520,
+      "start_s": 46.0,
+      "end_s_exclusive": 84.0
+    },
+    {
+      "state": "scattered",
+      "start_frame": 1380,
+      "end_frame_exclusive": 3120,
+      "start_s": 46.0,
+      "end_s_exclusive": 104.0
+    },
+    {
+      "state": "batter-covered",
+      "start_frame": 1440,
+      "end_frame_exclusive": 1620,
+      "start_s": 48.0,
+      "end_s_exclusive": 54.0
+    },
+    {
+      "state": "egg-covered",
+      "start_frame": 1440,
+      "end_frame_exclusive": 1800,
+      "start_s": 48.0,
+      "end_s_exclusive": 60.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 1440,
+      "end_frame_exclusive": 2340,
+      "start_s": 48.0,
+      "end_s_exclusive": 78.0
+    },
+    {
+      "state": "full",
+      "start_frame": 1440,
+      "end_frame_exclusive": 2640,
+      "start_s": 48.0,
+      "end_s_exclusive": 88.0
+    },
+    {
+      "state": "in use",
+      "start_frame": 1440,
+      "end_frame_exclusive": 2280,
+      "start_s": 48.0,
+      "end_s_exclusive": 76.0
+    },
+    {
+      "state": "on top",
+      "start_frame": 1440,
+      "end_frame_exclusive": 1620,
+      "start_s": 48.0,
+      "end_s_exclusive": 54.0
+    },
+    {
+      "state": "topped",
+      "start_frame": 1440,
+      "end_frame_exclusive": 1860,
+      "start_s": 48.0,
+      "end_s_exclusive": 62.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 1500,
+      "end_frame_exclusive": 1860,
+      "start_s": 50.0,
+      "end_s_exclusive": 62.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 1500,
+      "end_frame_exclusive": 1740,
+      "start_s": 50.0,
+      "end_s_exclusive": 58.0
+    },
+    {
+      "state": "sprayed",
+      "start_frame": 1500,
+      "end_frame_exclusive": 1620,
+      "start_s": 50.0,
+      "end_s_exclusive": 54.0
+    },
+    {
+      "state": "leftover",
+      "start_frame": 1560,
+      "end_frame_exclusive": 1740,
+      "start_s": 52.0,
+      "end_s_exclusive": 58.0
+    },
+    {
+      "state": "separated",
+      "start_frame": 1560,
+      "end_frame_exclusive": 2400,
+      "start_s": 52.0,
+      "end_s_exclusive": 80.0
+    },
+    {
+      "state": "partially-empty",
+      "start_frame": 1620,
+      "end_frame_exclusive": 2340,
+      "start_s": 54.0,
+      "end_s_exclusive": 78.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 1680,
+      "end_frame_exclusive": 1980,
+      "start_s": 56.0,
+      "end_s_exclusive": 66.0
+    },
+    {
+      "state": "jam-topped",
+      "start_frame": 1680,
+      "end_frame_exclusive": 1980,
+      "start_s": 56.0,
+      "end_s_exclusive": 66.0
+    },
+    {
+      "state": "on top",
+      "start_frame": 1680,
+      "end_frame_exclusive": 1740,
+      "start_s": 56.0,
+      "end_s_exclusive": 58.0
+    },
+    {
+      "state": "inside",
+      "start_frame": 1740,
+      "end_frame_exclusive": 1860,
+      "start_s": 58.0,
+      "end_s_exclusive": 62.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 1920,
+      "end_frame_exclusive": 2040,
+      "start_s": 64.0,
+      "end_s_exclusive": 68.0
+    },
+    {
+      "state": "flipped",
+      "start_frame": 1920,
+      "end_frame_exclusive": 2040,
+      "start_s": 64.0,
+      "end_s_exclusive": 68.0
+    },
+    {
+      "state": "utilized",
+      "start_frame": 1980,
+      "end_frame_exclusive": 2040,
+      "start_s": 66.0,
+      "end_s_exclusive": 68.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 2100,
+      "end_frame_exclusive": 2280,
+      "start_s": 70.0,
+      "end_s_exclusive": 76.0
+    },
+    {
+      "state": "flipped",
+      "start_frame": 2100,
+      "end_frame_exclusive": 2220,
+      "start_s": 70.0,
+      "end_s_exclusive": 74.0
+    },
+    {
+      "state": "utilized",
+      "start_frame": 2100,
+      "end_frame_exclusive": 2220,
+      "start_s": 70.0,
+      "end_s_exclusive": 74.0
+    },
+    {
+      "state": "leftover",
+      "start_frame": 2160,
+      "end_frame_exclusive": 2220,
+      "start_s": 72.0,
+      "end_s_exclusive": 74.0
+    },
+    {
+      "state": "churned",
+      "start_frame": 2340,
+      "end_frame_exclusive": 3180,
+      "start_s": 78.0,
+      "end_s_exclusive": 106.0
+    },
+    {
+      "state": "cracked",
+      "start_frame": 2340,
+      "end_frame_exclusive": 3300,
+      "start_s": 78.0,
+      "end_s_exclusive": 110.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 2340,
+      "end_frame_exclusive": 2400,
+      "start_s": 78.0,
+      "end_s_exclusive": 80.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 2400,
+      "end_frame_exclusive": 2520,
+      "start_s": 80.0,
+      "end_s_exclusive": 84.0
+    },
+    {
+      "state": "creamy",
+      "start_frame": 2520,
+      "end_frame_exclusive": 9120,
+      "start_s": 84.0,
+      "end_s_exclusive": 304.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 2520,
+      "end_frame_exclusive": 3900,
+      "start_s": 84.0,
+      "end_s_exclusive": 130.0
+    },
+    {
+      "state": "crumbly",
+      "start_frame": 2580,
+      "end_frame_exclusive": 3000,
+      "start_s": 86.0,
+      "end_s_exclusive": 100.0
+    },
+    {
+      "state": "seasoned",
+      "start_frame": 2580,
+      "end_frame_exclusive": 16311,
+      "start_s": 86.0,
+      "end_s_exclusive": 543.7
+    },
+    {
+      "state": "dirty",
+      "start_frame": 2700,
+      "end_frame_exclusive": 3180,
+      "start_s": 90.0,
+      "end_s_exclusive": 106.0
+    },
+    {
+      "state": "added",
+      "start_frame": 2760,
+      "end_frame_exclusive": 3120,
+      "start_s": 92.0,
+      "end_s_exclusive": 104.0
+    },
+    {
+      "state": "full",
+      "start_frame": 2820,
+      "end_frame_exclusive": 2880,
+      "start_s": 94.0,
+      "end_s_exclusive": 96.0
+    },
+    {
+      "state": "jam-topped",
+      "start_frame": 2820,
+      "end_frame_exclusive": 2880,
+      "start_s": 94.0,
+      "end_s_exclusive": 96.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 2880,
+      "end_frame_exclusive": 4620,
+      "start_s": 96.0,
+      "end_s_exclusive": 154.0
+    },
+    {
+      "state": "discarded",
+      "start_frame": 2940,
+      "end_frame_exclusive": 3000,
+      "start_s": 98.0,
+      "end_s_exclusive": 100.0
+    },
+    {
+      "state": "full",
+      "start_frame": 2940,
+      "end_frame_exclusive": 3060,
+      "start_s": 98.0,
+      "end_s_exclusive": 102.0
+    },
+    {
+      "state": "jam-topped",
+      "start_frame": 2940,
+      "end_frame_exclusive": 3060,
+      "start_s": 98.0,
+      "end_s_exclusive": 102.0
+    },
+    {
+      "state": "on dish",
+      "start_frame": 2940,
+      "end_frame_exclusive": 3060,
+      "start_s": 98.0,
+      "end_s_exclusive": 102.0
+    },
+    {
+      "state": "coated",
+      "start_frame": 3180,
+      "end_frame_exclusive": 3300,
+      "start_s": 106.0,
+      "end_s_exclusive": 110.0
+    },
+    {
+      "state": "empty",
+      "start_frame": 3240,
+      "end_frame_exclusive": 3480,
+      "start_s": 108.0,
+      "end_s_exclusive": 116.0
+    },
+    {
+      "state": "churned",
+      "start_frame": 3300,
+      "end_frame_exclusive": 3360,
+      "start_s": 110.0,
+      "end_s_exclusive": 112.0
+    },
+    {
+      "state": "coated",
+      "start_frame": 3360,
+      "end_frame_exclusive": 6840,
+      "start_s": 112.0,
+      "end_s_exclusive": 228.0
+    },
+    {
+      "state": "egg-covered",
+      "start_frame": 3360,
+      "end_frame_exclusive": 3480,
+      "start_s": 112.0,
+      "end_s_exclusive": 116.0
+    },
+    {
+      "state": "grinded",
+      "start_frame": 3360,
+      "end_frame_exclusive": 3720,
+      "start_s": 112.0,
+      "end_s_exclusive": 124.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 3360,
+      "end_frame_exclusive": 3480,
+      "start_s": 112.0,
+      "end_s_exclusive": 116.0
+    },
+    {
+      "state": "sticky",
+      "start_frame": 3420,
+      "end_frame_exclusive": 3660,
+      "start_s": 114.0,
+      "end_s_exclusive": 122.0
+    },
+    {
+      "state": "chopped",
+      "start_frame": 3480,
+      "end_frame_exclusive": 16311,
+      "start_s": 116.0,
+      "end_s_exclusive": 543.7
+    },
+    {
+      "state": "seasoning",
+      "start_frame": 3600,
+      "end_frame_exclusive": 3780,
+      "start_s": 120.0,
+      "end_s_exclusive": 126.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 3900,
+      "end_frame_exclusive": 4860,
+      "start_s": 130.0,
+      "end_s_exclusive": 162.0
+    },
+    {
+      "state": "cooked",
+      "start_frame": 3900,
+      "end_frame_exclusive": 8040,
+      "start_s": 130.0,
+      "end_s_exclusive": 268.0
+    },
+    {
+      "state": "diluted",
+      "start_frame": 3900,
+      "end_frame_exclusive": 4440,
+      "start_s": 130.0,
+      "end_s_exclusive": 148.0
+    },
+    {
+      "state": "egg-coated",
+      "start_frame": 3900,
+      "end_frame_exclusive": 6840,
+      "start_s": 130.0,
+      "end_s_exclusive": 228.0
+    },
+    {
+      "state": "in-oven",
+      "start_frame": 3900,
+      "end_frame_exclusive": 7740,
+      "start_s": 130.0,
+      "end_s_exclusive": 258.0
+    },
+    {
+      "state": "in-pan",
+      "start_frame": 3900,
+      "end_frame_exclusive": 9120,
+      "start_s": 130.0,
+      "end_s_exclusive": 304.0
+    },
+    {
+      "state": "liquefied",
+      "start_frame": 3900,
+      "end_frame_exclusive": 4680,
+      "start_s": 130.0,
+      "end_s_exclusive": 156.0
+    },
+    {
+      "state": "poured",
+      "start_frame": 3900,
+      "end_frame_exclusive": 8100,
+      "start_s": 130.0,
+      "end_s_exclusive": 270.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 3900,
+      "end_frame_exclusive": 7380,
+      "start_s": 130.0,
+      "end_s_exclusive": 246.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 3900,
+      "end_frame_exclusive": 8100,
+      "start_s": 130.0,
+      "end_s_exclusive": 270.0
+    },
+    {
+      "state": "solid",
+      "start_frame": 3900,
+      "end_frame_exclusive": 4260,
+      "start_s": 130.0,
+      "end_s_exclusive": 142.0
+    },
+    {
+      "state": "sprayed",
+      "start_frame": 3900,
+      "end_frame_exclusive": 4500,
+      "start_s": 130.0,
+      "end_s_exclusive": 150.0
+    },
+    {
+      "state": "coating",
+      "start_frame": 4140,
+      "end_frame_exclusive": 4500,
+      "start_s": 138.0,
+      "end_s_exclusive": 150.0
+    },
+    {
+      "state": "less-covered",
+      "start_frame": 4140,
+      "end_frame_exclusive": 4440,
+      "start_s": 138.0,
+      "end_s_exclusive": 148.0
+    },
+    {
+      "state": "thin",
+      "start_frame": 4140,
+      "end_frame_exclusive": 4260,
+      "start_s": 138.0,
+      "end_s_exclusive": 142.0
+    },
+    {
+      "state": "egg-covered",
+      "start_frame": 4200,
+      "end_frame_exclusive": 4380,
+      "start_s": 140.0,
+      "end_s_exclusive": 146.0
+    },
+    {
+      "state": "beaten",
+      "start_frame": 4260,
+      "end_frame_exclusive": 4500,
+      "start_s": 142.0,
+      "end_s_exclusive": 150.0
+    },
+    {
+      "state": "grinded",
+      "start_frame": 4260,
+      "end_frame_exclusive": 4740,
+      "start_s": 142.0,
+      "end_s_exclusive": 158.0
+    },
+    {
+      "state": "solid",
+      "start_frame": 4320,
+      "end_frame_exclusive": 4620,
+      "start_s": 144.0,
+      "end_s_exclusive": 154.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 4440,
+      "end_frame_exclusive": 4500,
+      "start_s": 148.0,
+      "end_s_exclusive": 150.0
+    },
+    {
+      "state": "covered",
+      "start_frame": 4680,
+      "end_frame_exclusive": 6780,
+      "start_s": 156.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "egg-covered",
+      "start_frame": 4680,
+      "end_frame_exclusive": 6780,
+      "start_s": 156.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 4680,
+      "end_frame_exclusive": 4740,
+      "start_s": 156.0,
+      "end_s_exclusive": 158.0
+    },
+    {
+      "state": "less-covered",
+      "start_frame": 4680,
+      "end_frame_exclusive": 6780,
+      "start_s": 156.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "seasoning",
+      "start_frame": 4680,
+      "end_frame_exclusive": 5820,
+      "start_s": 156.0,
+      "end_s_exclusive": 194.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 4800,
+      "end_frame_exclusive": 5340,
+      "start_s": 160.0,
+      "end_s_exclusive": 178.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 4800,
+      "end_frame_exclusive": 6780,
+      "start_s": 160.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "peanut butter topped",
+      "start_frame": 4800,
+      "end_frame_exclusive": 6780,
+      "start_s": 160.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "placed",
+      "start_frame": 4800,
+      "end_frame_exclusive": 4860,
+      "start_s": 160.0,
+      "end_s_exclusive": 162.0
+    },
+    {
+      "state": "sprayed",
+      "start_frame": 4800,
+      "end_frame_exclusive": 6780,
+      "start_s": 160.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "topped",
+      "start_frame": 4800,
+      "end_frame_exclusive": 6780,
+      "start_s": 160.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "coating",
+      "start_frame": 4860,
+      "end_frame_exclusive": 5820,
+      "start_s": 162.0,
+      "end_s_exclusive": 194.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 4860,
+      "end_frame_exclusive": 5040,
+      "start_s": 162.0,
+      "end_s_exclusive": 168.0
+    },
+    {
+      "state": "thin",
+      "start_frame": 4860,
+      "end_frame_exclusive": 6420,
+      "start_s": 162.0,
+      "end_s_exclusive": 214.0
+    },
+    {
+      "state": "cheese-covered",
+      "start_frame": 4920,
+      "end_frame_exclusive": 6780,
+      "start_s": 164.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "solid",
+      "start_frame": 4920,
+      "end_frame_exclusive": 5040,
+      "start_s": 164.0,
+      "end_s_exclusive": 168.0
+    },
+    {
+      "state": "batter-covered",
+      "start_frame": 4980,
+      "end_frame_exclusive": 6780,
+      "start_s": 166.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "placed",
+      "start_frame": 4980,
+      "end_frame_exclusive": 6780,
+      "start_s": 166.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "added",
+      "start_frame": 5040,
+      "end_frame_exclusive": 6360,
+      "start_s": 168.0,
+      "end_s_exclusive": 212.0
+    },
+    {
+      "state": "on dish",
+      "start_frame": 5040,
+      "end_frame_exclusive": 6780,
+      "start_s": 168.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "vegetable-covered",
+      "start_frame": 5040,
+      "end_frame_exclusive": 5100,
+      "start_s": 168.0,
+      "end_s_exclusive": 170.0
+    },
+    {
+      "state": "jam-topped",
+      "start_frame": 5100,
+      "end_frame_exclusive": 5340,
+      "start_s": 170.0,
+      "end_s_exclusive": 178.0
+    },
+    {
+      "state": "peanut-butter-and-jam-covered",
+      "start_frame": 5100,
+      "end_frame_exclusive": 6840,
+      "start_s": 170.0,
+      "end_s_exclusive": 228.0
+    },
+    {
+      "state": "sticky",
+      "start_frame": 5100,
+      "end_frame_exclusive": 5820,
+      "start_s": 170.0,
+      "end_s_exclusive": 194.0
+    },
+    {
+      "state": "topped with pepperoni",
+      "start_frame": 5100,
+      "end_frame_exclusive": 6840,
+      "start_s": 170.0,
+      "end_s_exclusive": 228.0
+    },
+    {
+      "state": "stuffed",
+      "start_frame": 5160,
+      "end_frame_exclusive": 5280,
+      "start_s": 172.0,
+      "end_s_exclusive": 176.0
+    },
+    {
+      "state": "vegetable-covered",
+      "start_frame": 5160,
+      "end_frame_exclusive": 5880,
+      "start_s": 172.0,
+      "end_s_exclusive": 196.0
+    },
+    {
+      "state": "diluted",
+      "start_frame": 5220,
+      "end_frame_exclusive": 5280,
+      "start_s": 174.0,
+      "end_s_exclusive": 176.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 5340,
+      "end_frame_exclusive": 6720,
+      "start_s": 178.0,
+      "end_s_exclusive": 224.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 5400,
+      "end_frame_exclusive": 5880,
+      "start_s": 180.0,
+      "end_s_exclusive": 196.0
+    },
+    {
+      "state": "jam-topped",
+      "start_frame": 5520,
+      "end_frame_exclusive": 6840,
+      "start_s": 184.0,
+      "end_s_exclusive": 228.0
+    },
+    {
+      "state": "stuffed",
+      "start_frame": 5520,
+      "end_frame_exclusive": 5880,
+      "start_s": 184.0,
+      "end_s_exclusive": 196.0
+    },
+    {
+      "state": "flipped",
+      "start_frame": 5580,
+      "end_frame_exclusive": 5820,
+      "start_s": 186.0,
+      "end_s_exclusive": 194.0
+    },
+    {
+      "state": "diluted",
+      "start_frame": 5640,
+      "end_frame_exclusive": 5820,
+      "start_s": 188.0,
+      "end_s_exclusive": 194.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 5700,
+      "end_frame_exclusive": 6180,
+      "start_s": 190.0,
+      "end_s_exclusive": 206.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 5820,
+      "end_frame_exclusive": 6120,
+      "start_s": 194.0,
+      "end_s_exclusive": 204.0
+    },
+    {
+      "state": "liquefied",
+      "start_frame": 5940,
+      "end_frame_exclusive": 6120,
+      "start_s": 198.0,
+      "end_s_exclusive": 204.0
+    },
+    {
+      "state": "seasoning",
+      "start_frame": 6060,
+      "end_frame_exclusive": 6300,
+      "start_s": 202.0,
+      "end_s_exclusive": 210.0
+    },
+    {
+      "state": "vegetable-covered",
+      "start_frame": 6060,
+      "end_frame_exclusive": 6300,
+      "start_s": 202.0,
+      "end_s_exclusive": 210.0
+    },
+    {
+      "state": "coating",
+      "start_frame": 6120,
+      "end_frame_exclusive": 6420,
+      "start_s": 204.0,
+      "end_s_exclusive": 214.0
+    },
+    {
+      "state": "diluted",
+      "start_frame": 6120,
+      "end_frame_exclusive": 6300,
+      "start_s": 204.0,
+      "end_s_exclusive": 210.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 6120,
+      "end_frame_exclusive": 6240,
+      "start_s": 204.0,
+      "end_s_exclusive": 208.0
+    },
+    {
+      "state": "sticky",
+      "start_frame": 6120,
+      "end_frame_exclusive": 6300,
+      "start_s": 204.0,
+      "end_s_exclusive": 210.0
+    },
+    {
+      "state": "stuffed",
+      "start_frame": 6120,
+      "end_frame_exclusive": 6360,
+      "start_s": 204.0,
+      "end_s_exclusive": 212.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 6300,
+      "end_frame_exclusive": 6720,
+      "start_s": 210.0,
+      "end_s_exclusive": 224.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 6480,
+      "end_frame_exclusive": 6720,
+      "start_s": 216.0,
+      "end_s_exclusive": 224.0
+    },
+    {
+      "state": "thin",
+      "start_frame": 6480,
+      "end_frame_exclusive": 6780,
+      "start_s": 216.0,
+      "end_s_exclusive": 226.0
+    },
+    {
+      "state": "added",
+      "start_frame": 6600,
+      "end_frame_exclusive": 6720,
+      "start_s": 220.0,
+      "end_s_exclusive": 224.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 6900,
+      "end_frame_exclusive": 7200,
+      "start_s": 230.0,
+      "end_s_exclusive": 240.0
+    },
+    {
+      "state": "coated",
+      "start_frame": 6960,
+      "end_frame_exclusive": 7080,
+      "start_s": 232.0,
+      "end_s_exclusive": 236.0
+    },
+    {
+      "state": "egg-coated",
+      "start_frame": 6960,
+      "end_frame_exclusive": 7860,
+      "start_s": 232.0,
+      "end_s_exclusive": 262.0
+    },
+    {
+      "state": "grinded",
+      "start_frame": 6960,
+      "end_frame_exclusive": 7320,
+      "start_s": 232.0,
+      "end_s_exclusive": 244.0
+    },
+    {
+      "state": "seasoning",
+      "start_frame": 6960,
+      "end_frame_exclusive": 7200,
+      "start_s": 232.0,
+      "end_s_exclusive": 240.0
+    },
+    {
+      "state": "coated",
+      "start_frame": 7140,
+      "end_frame_exclusive": 8100,
+      "start_s": 238.0,
+      "end_s_exclusive": 270.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 7200,
+      "end_frame_exclusive": 8100,
+      "start_s": 240.0,
+      "end_s_exclusive": 270.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 7320,
+      "end_frame_exclusive": 7380,
+      "start_s": 244.0,
+      "end_s_exclusive": 246.0
+    },
+    {
+      "state": "liquefied",
+      "start_frame": 7320,
+      "end_frame_exclusive": 7680,
+      "start_s": 244.0,
+      "end_s_exclusive": 256.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 7320,
+      "end_frame_exclusive": 10740,
+      "start_s": 244.0,
+      "end_s_exclusive": 358.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 7380,
+      "end_frame_exclusive": 7800,
+      "start_s": 246.0,
+      "end_s_exclusive": 260.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 7440,
+      "end_frame_exclusive": 8700,
+      "start_s": 248.0,
+      "end_s_exclusive": 290.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 7740,
+      "end_frame_exclusive": 7920,
+      "start_s": 258.0,
+      "end_s_exclusive": 264.0
+    },
+    {
+      "state": "added",
+      "start_frame": 7800,
+      "end_frame_exclusive": 7920,
+      "start_s": 260.0,
+      "end_s_exclusive": 264.0
+    },
+    {
+      "state": "sprayed",
+      "start_frame": 7800,
+      "end_frame_exclusive": 7860,
+      "start_s": 260.0,
+      "end_s_exclusive": 262.0
+    },
+    {
+      "state": "egg-covered",
+      "start_frame": 8040,
+      "end_frame_exclusive": 8160,
+      "start_s": 268.0,
+      "end_s_exclusive": 272.0
+    },
+    {
+      "state": "in bowl",
+      "start_frame": 8100,
+      "end_frame_exclusive": 8400,
+      "start_s": 270.0,
+      "end_s_exclusive": 280.0
+    },
+    {
+      "state": "coated",
+      "start_frame": 8160,
+      "end_frame_exclusive": 8280,
+      "start_s": 272.0,
+      "end_s_exclusive": 276.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 8160,
+      "end_frame_exclusive": 8280,
+      "start_s": 272.0,
+      "end_s_exclusive": 276.0
+    },
+    {
+      "state": "poured",
+      "start_frame": 8160,
+      "end_frame_exclusive": 8280,
+      "start_s": 272.0,
+      "end_s_exclusive": 276.0
+    },
+    {
+      "state": "cooked",
+      "start_frame": 8520,
+      "end_frame_exclusive": 8760,
+      "start_s": 284.0,
+      "end_s_exclusive": 292.0
+    },
+    {
+      "state": "solid",
+      "start_frame": 8520,
+      "end_frame_exclusive": 8760,
+      "start_s": 284.0,
+      "end_s_exclusive": 292.0
+    },
+    {
+      "state": "flipped",
+      "start_frame": 8580,
+      "end_frame_exclusive": 9000,
+      "start_s": 286.0,
+      "end_s_exclusive": 300.0
+    },
+    {
+      "state": "poured",
+      "start_frame": 8580,
+      "end_frame_exclusive": 9000,
+      "start_s": 286.0,
+      "end_s_exclusive": 300.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 8580,
+      "end_frame_exclusive": 8700,
+      "start_s": 286.0,
+      "end_s_exclusive": 290.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 8580,
+      "end_frame_exclusive": 8940,
+      "start_s": 286.0,
+      "end_s_exclusive": 298.0
+    },
+    {
+      "state": "liquefied",
+      "start_frame": 8640,
+      "end_frame_exclusive": 8700,
+      "start_s": 288.0,
+      "end_s_exclusive": 290.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 8640,
+      "end_frame_exclusive": 9000,
+      "start_s": 288.0,
+      "end_s_exclusive": 300.0
+    },
+    {
+      "state": "egg-coated",
+      "start_frame": 8820,
+      "end_frame_exclusive": 8880,
+      "start_s": 294.0,
+      "end_s_exclusive": 296.0
+    },
+    {
+      "state": "liquefied",
+      "start_frame": 8820,
+      "end_frame_exclusive": 8880,
+      "start_s": 294.0,
+      "end_s_exclusive": 296.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 9180,
+      "end_frame_exclusive": 9780,
+      "start_s": 306.0,
+      "end_s_exclusive": 326.0
+    },
+    {
+      "state": "flipped",
+      "start_frame": 9240,
+      "end_frame_exclusive": 12000,
+      "start_s": 308.0,
+      "end_s_exclusive": 400.0
+    },
+    {
+      "state": "in-pan",
+      "start_frame": 9300,
+      "end_frame_exclusive": 11400,
+      "start_s": 310.0,
+      "end_s_exclusive": 380.0
+    },
+    {
+      "state": "cooked",
+      "start_frame": 9360,
+      "end_frame_exclusive": 9420,
+      "start_s": 312.0,
+      "end_s_exclusive": 314.0
+    },
+    {
+      "state": "mixed",
+      "start_frame": 9360,
+      "end_frame_exclusive": 9420,
+      "start_s": 312.0,
+      "end_s_exclusive": 314.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 9360,
+      "end_frame_exclusive": 9420,
+      "start_s": 312.0,
+      "end_s_exclusive": 314.0
+    },
+    {
+      "state": "creamy",
+      "start_frame": 9420,
+      "end_frame_exclusive": 10080,
+      "start_s": 314.0,
+      "end_s_exclusive": 336.0
+    },
+    {
+      "state": "cooked",
+      "start_frame": 9480,
+      "end_frame_exclusive": 9780,
+      "start_s": 316.0,
+      "end_s_exclusive": 326.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 9480,
+      "end_frame_exclusive": 9600,
+      "start_s": 316.0,
+      "end_s_exclusive": 320.0
+    },
+    {
+      "state": "solid",
+      "start_frame": 9480,
+      "end_frame_exclusive": 10320,
+      "start_s": 316.0,
+      "end_s_exclusive": 344.0
+    },
+    {
+      "state": "cooked",
+      "start_frame": 9900,
+      "end_frame_exclusive": 10440,
+      "start_s": 330.0,
+      "end_s_exclusive": 348.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 9900,
+      "end_frame_exclusive": 10020,
+      "start_s": 330.0,
+      "end_s_exclusive": 334.0
+    },
+    {
+      "state": "poured",
+      "start_frame": 9900,
+      "end_frame_exclusive": 10800,
+      "start_s": 330.0,
+      "end_s_exclusive": 360.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 9900,
+      "end_frame_exclusive": 10560,
+      "start_s": 330.0,
+      "end_s_exclusive": 352.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 9960,
+      "end_frame_exclusive": 10440,
+      "start_s": 332.0,
+      "end_s_exclusive": 348.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 10020,
+      "end_frame_exclusive": 10500,
+      "start_s": 334.0,
+      "end_s_exclusive": 350.0
+    },
+    {
+      "state": "in-oven",
+      "start_frame": 10020,
+      "end_frame_exclusive": 10320,
+      "start_s": 334.0,
+      "end_s_exclusive": 344.0
+    },
+    {
+      "state": "diluted",
+      "start_frame": 10260,
+      "end_frame_exclusive": 10440,
+      "start_s": 342.0,
+      "end_s_exclusive": 348.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 10260,
+      "end_frame_exclusive": 10560,
+      "start_s": 342.0,
+      "end_s_exclusive": 352.0
+    },
+    {
+      "state": "placed",
+      "start_frame": 10440,
+      "end_frame_exclusive": 10620,
+      "start_s": 348.0,
+      "end_s_exclusive": 354.0
+    },
+    {
+      "state": "creamy",
+      "start_frame": 10500,
+      "end_frame_exclusive": 10860,
+      "start_s": 350.0,
+      "end_s_exclusive": 362.0
+    },
+    {
+      "state": "less-covered",
+      "start_frame": 10560,
+      "end_frame_exclusive": 10620,
+      "start_s": 352.0,
+      "end_s_exclusive": 354.0
+    },
+    {
+      "state": "cooked",
+      "start_frame": 10620,
+      "end_frame_exclusive": 11400,
+      "start_s": 354.0,
+      "end_s_exclusive": 380.0
+    },
+    {
+      "state": "egg-coated",
+      "start_frame": 10620,
+      "end_frame_exclusive": 10800,
+      "start_s": 354.0,
+      "end_s_exclusive": 360.0
+    },
+    {
+      "state": "coated",
+      "start_frame": 10740,
+      "end_frame_exclusive": 10800,
+      "start_s": 358.0,
+      "end_s_exclusive": 360.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 10740,
+      "end_frame_exclusive": 10800,
+      "start_s": 358.0,
+      "end_s_exclusive": 360.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 10860,
+      "end_frame_exclusive": 11340,
+      "start_s": 362.0,
+      "end_s_exclusive": 378.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 10980,
+      "end_frame_exclusive": 11340,
+      "start_s": 366.0,
+      "end_s_exclusive": 378.0
+    },
+    {
+      "state": "in-oven",
+      "start_frame": 11040,
+      "end_frame_exclusive": 11340,
+      "start_s": 368.0,
+      "end_s_exclusive": 378.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 11040,
+      "end_frame_exclusive": 11280,
+      "start_s": 368.0,
+      "end_s_exclusive": 376.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 11100,
+      "end_frame_exclusive": 11400,
+      "start_s": 370.0,
+      "end_s_exclusive": 380.0
+    },
+    {
+      "state": "diluted",
+      "start_frame": 11100,
+      "end_frame_exclusive": 11340,
+      "start_s": 370.0,
+      "end_s_exclusive": 378.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 11100,
+      "end_frame_exclusive": 11340,
+      "start_s": 370.0,
+      "end_s_exclusive": 378.0
+    },
+    {
+      "state": "solid",
+      "start_frame": 11100,
+      "end_frame_exclusive": 11340,
+      "start_s": 370.0,
+      "end_s_exclusive": 378.0
+    },
+    {
+      "state": "coated",
+      "start_frame": 11160,
+      "end_frame_exclusive": 11340,
+      "start_s": 372.0,
+      "end_s_exclusive": 378.0
+    },
+    {
+      "state": "poured",
+      "start_frame": 11160,
+      "end_frame_exclusive": 11340,
+      "start_s": 372.0,
+      "end_s_exclusive": 378.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 11340,
+      "end_frame_exclusive": 11580,
+      "start_s": 378.0,
+      "end_s_exclusive": 386.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 11520,
+      "end_frame_exclusive": 11760,
+      "start_s": 384.0,
+      "end_s_exclusive": 392.0
+    },
+    {
+      "state": "cooked",
+      "start_frame": 11520,
+      "end_frame_exclusive": 11760,
+      "start_s": 384.0,
+      "end_s_exclusive": 392.0
+    },
+    {
+      "state": "in-pan",
+      "start_frame": 11520,
+      "end_frame_exclusive": 11760,
+      "start_s": 384.0,
+      "end_s_exclusive": 392.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 11580,
+      "end_frame_exclusive": 11760,
+      "start_s": 386.0,
+      "end_s_exclusive": 392.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 11580,
+      "end_frame_exclusive": 11760,
+      "start_s": 386.0,
+      "end_s_exclusive": 392.0
+    },
+    {
+      "state": "creamy",
+      "start_frame": 11820,
+      "end_frame_exclusive": 13800,
+      "start_s": 394.0,
+      "end_s_exclusive": 460.0
+    },
+    {
+      "state": "flavored",
+      "start_frame": 11820,
+      "end_frame_exclusive": 11940,
+      "start_s": 394.0,
+      "end_s_exclusive": 398.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 11940,
+      "end_frame_exclusive": 12420,
+      "start_s": 398.0,
+      "end_s_exclusive": 414.0
+    },
+    {
+      "state": "coated",
+      "start_frame": 12000,
+      "end_frame_exclusive": 12420,
+      "start_s": 400.0,
+      "end_s_exclusive": 414.0
+    },
+    {
+      "state": "grinded",
+      "start_frame": 12000,
+      "end_frame_exclusive": 12420,
+      "start_s": 400.0,
+      "end_s_exclusive": 414.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 12000,
+      "end_frame_exclusive": 12240,
+      "start_s": 400.0,
+      "end_s_exclusive": 408.0
+    },
+    {
+      "state": "flipped",
+      "start_frame": 12240,
+      "end_frame_exclusive": 14760,
+      "start_s": 408.0,
+      "end_s_exclusive": 492.0
+    },
+    {
+      "state": "cooked",
+      "start_frame": 12300,
+      "end_frame_exclusive": 12480,
+      "start_s": 410.0,
+      "end_s_exclusive": 416.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 12660,
+      "end_frame_exclusive": 13080,
+      "start_s": 422.0,
+      "end_s_exclusive": 436.0
+    },
+    {
+      "state": "egg-covered",
+      "start_frame": 13560,
+      "end_frame_exclusive": 13680,
+      "start_s": 452.0,
+      "end_s_exclusive": 456.0
+    },
+    {
+      "state": "less-covered",
+      "start_frame": 13560,
+      "end_frame_exclusive": 13680,
+      "start_s": 452.0,
+      "end_s_exclusive": 456.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 13560,
+      "end_frame_exclusive": 13680,
+      "start_s": 452.0,
+      "end_s_exclusive": 456.0
+    },
+    {
+      "state": "diluted",
+      "start_frame": 13680,
+      "end_frame_exclusive": 14400,
+      "start_s": 456.0,
+      "end_s_exclusive": 480.0
+    },
+    {
+      "state": "in-pan",
+      "start_frame": 13680,
+      "end_frame_exclusive": 14880,
+      "start_s": 456.0,
+      "end_s_exclusive": 496.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 13680,
+      "end_frame_exclusive": 14760,
+      "start_s": 456.0,
+      "end_s_exclusive": 492.0
+    },
+    {
+      "state": "poured",
+      "start_frame": 13680,
+      "end_frame_exclusive": 14760,
+      "start_s": 456.0,
+      "end_s_exclusive": 492.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 13680,
+      "end_frame_exclusive": 14700,
+      "start_s": 456.0,
+      "end_s_exclusive": 490.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 13680,
+      "end_frame_exclusive": 14700,
+      "start_s": 456.0,
+      "end_s_exclusive": 490.0
+    },
+    {
+      "state": "cooked",
+      "start_frame": 13740,
+      "end_frame_exclusive": 14880,
+      "start_s": 458.0,
+      "end_s_exclusive": 496.0
+    },
+    {
+      "state": "less-covered",
+      "start_frame": 13740,
+      "end_frame_exclusive": 13800,
+      "start_s": 458.0,
+      "end_s_exclusive": 460.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 13800,
+      "end_frame_exclusive": 14640,
+      "start_s": 460.0,
+      "end_s_exclusive": 488.0
+    },
+    {
+      "state": "in-oven",
+      "start_frame": 13920,
+      "end_frame_exclusive": 13980,
+      "start_s": 464.0,
+      "end_s_exclusive": 466.0
+    },
+    {
+      "state": "solid",
+      "start_frame": 13920,
+      "end_frame_exclusive": 14220,
+      "start_s": 464.0,
+      "end_s_exclusive": 474.0
+    },
+    {
+      "state": "diluted",
+      "start_frame": 14520,
+      "end_frame_exclusive": 14580,
+      "start_s": 484.0,
+      "end_s_exclusive": 486.0
+    },
+    {
+      "state": "creamy",
+      "start_frame": 14700,
+      "end_frame_exclusive": 15060,
+      "start_s": 490.0,
+      "end_s_exclusive": 502.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 14760,
+      "end_frame_exclusive": 14820,
+      "start_s": 492.0,
+      "end_s_exclusive": 494.0
+    },
+    {
+      "state": "smooth",
+      "start_frame": 14760,
+      "end_frame_exclusive": 14820,
+      "start_s": 492.0,
+      "end_s_exclusive": 494.0
+    },
+    {
+      "state": "in-oven",
+      "start_frame": 14820,
+      "end_frame_exclusive": 14880,
+      "start_s": 494.0,
+      "end_s_exclusive": 496.0
+    },
+    {
+      "state": "cooked",
+      "start_frame": 14940,
+      "end_frame_exclusive": 15360,
+      "start_s": 498.0,
+      "end_s_exclusive": 512.0
+    },
+    {
+      "state": "in-oven",
+      "start_frame": 15000,
+      "end_frame_exclusive": 15360,
+      "start_s": 500.0,
+      "end_s_exclusive": 512.0
+    },
+    {
+      "state": "assembled",
+      "start_frame": 15120,
+      "end_frame_exclusive": 15360,
+      "start_s": 504.0,
+      "end_s_exclusive": 512.0
+    },
+    {
+      "state": "in-pan",
+      "start_frame": 15120,
+      "end_frame_exclusive": 15360,
+      "start_s": 504.0,
+      "end_s_exclusive": 512.0
+    },
+    {
+      "state": "pressed-together",
+      "start_frame": 15120,
+      "end_frame_exclusive": 15360,
+      "start_s": 504.0,
+      "end_s_exclusive": 512.0
+    },
+    {
+      "state": "ready-to-cook",
+      "start_frame": 15120,
+      "end_frame_exclusive": 15360,
+      "start_s": 504.0,
+      "end_s_exclusive": 512.0
+    },
+    {
+      "state": "oily",
+      "start_frame": 15180,
+      "end_frame_exclusive": 15660,
+      "start_s": 506.0,
+      "end_s_exclusive": 522.0
+    },
+    {
+      "state": "poured",
+      "start_frame": 15180,
+      "end_frame_exclusive": 15360,
+      "start_s": 506.0,
+      "end_s_exclusive": 512.0
+    },
+    {
+      "state": "creamy",
+      "start_frame": 15960,
+      "end_frame_exclusive": 16311,
+      "start_s": 532.0,
+      "end_s_exclusive": 543.7
+    },
+    {
+      "state": "in-pan",
+      "start_frame": 16200,
+      "end_frame_exclusive": 16311,
+      "start_s": 540.0,
+      "end_s_exclusive": 543.7
+    },
+    {
+      "state": "cracked",
+      "start_frame": 16260,
+      "end_frame_exclusive": 16311,
+      "start_s": 542.0,
+      "end_s_exclusive": 543.7
+    },
+    {
+      "state": "smooth",
+      "start_frame": 16260,
+      "end_frame_exclusive": 16311,
+      "start_s": 542.0,
+      "end_s_exclusive": 543.7
+    }
+  ]
+}
