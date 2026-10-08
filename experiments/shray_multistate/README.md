@@ -31,7 +31,8 @@ All learned variants score below that baseline on overall F1. Held-out peeled
 state F1 is zero. SlowFast did not improve this fresh test. These are custom
 CMU MOSCATO pilot results, not an official benchmark or a claim of improvement.
 
-See [architecture](broader/ARCHITECTURE.md), [full report](broader/REPORT.md),
+See [differences from teammates' approaches](METHOD_COMPARISON.md),
+[architecture](broader/ARCHITECTURE.md), [full report](broader/REPORT.md),
 [protocol and experiment details](broader/README.md), and
 [saved comparisons](broader/results/comparison.json).
 
