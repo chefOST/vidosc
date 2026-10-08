@@ -1,0 +1,2 @@
+# Preserve hash-verified Windows artifacts; treat CRLF as line endings in checks.
+* whitespace=cr-at-eol

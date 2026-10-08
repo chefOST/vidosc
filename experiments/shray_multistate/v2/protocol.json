@@ -1,0 +1,151 @@
+{
+  "seed": 42,
+  "train": [
+    "S41_Salad_7150991-349",
+    "S08_Eggs_7150991-727",
+    "S24_Brownie_7150991-483",
+    "S12_Sandwich_7150991-2470",
+    "S15_Salad_7150991-451",
+    "S16_Eggs_7150991-858",
+    "S19_Brownie_7150991-848",
+    "S36_Sandwich_7150991-165",
+    "S15_Pizza_7150991-5341"
+  ],
+  "validation": [
+    "S29_Salad_7150991-1",
+    "S09_Eggs_7150991-1050",
+    "S13_Brownie_7150991-631",
+    "S31_Sandwich_7150991-1",
+    "S20_Pizza_7150991-180"
+  ],
+  "test": [
+    "S17_Salad_7150991-822",
+    "S14_Eggs_7150991-1016",
+    "S37_Brownie_7150991-133",
+    "S55_Pizza_7150991-292"
+  ],
+  "targets": {
+    "S41_Salad_7150991-349": [
+      "vegetables"
+    ],
+    "S08_Eggs_7150991-727": [
+      "eggs"
+    ],
+    "S24_Brownie_7150991-483": [
+      "eggs",
+      "egg mixture"
+    ],
+    "S12_Sandwich_7150991-2470": [
+      "bread slices"
+    ],
+    "S15_Salad_7150991-451": [
+      "vegetables"
+    ],
+    "S16_Eggs_7150991-858": [
+      "eggs",
+      "egg mixture"
+    ],
+    "S19_Brownie_7150991-848": [
+      "eggs",
+      "egg mixture"
+    ],
+    "S36_Sandwich_7150991-165": [
+      "bread slices"
+    ],
+    "S15_Pizza_7150991-5341": [
+      "cheese",
+      "batter"
+    ],
+    "S29_Salad_7150991-1": [
+      "vegetables"
+    ],
+    "S09_Eggs_7150991-1050": [
+      "eggs",
+      "egg mixture"
+    ],
+    "S13_Brownie_7150991-631": [
+      "eggs",
+      "egg mixture"
+    ],
+    "S31_Sandwich_7150991-1": [
+      "bread slices"
+    ],
+    "S20_Pizza_7150991-180": [
+      "cheese",
+      "batter"
+    ],
+    "S17_Salad_7150991-822": [
+      "vegetables"
+    ],
+    "S14_Eggs_7150991-1016": [
+      "eggs"
+    ],
+    "S37_Brownie_7150991-133": [
+      "eggs",
+      "egg mixture"
+    ],
+    "S55_Pizza_7150991-292": [
+      "cheese",
+      "batter"
+    ]
+  },
+  "sample_seconds": 2,
+  "feature_threads": 8,
+  "clip_model": "ViT-L-14-quickgelu",
+  "clip_pretrained": "openai",
+  "objects_by_recipe": {
+    "Salad": [
+      "vegetables"
+    ],
+    "Eggs": [
+      "eggs",
+      "egg mixture"
+    ],
+    "Brownie": [
+      "eggs",
+      "egg mixture"
+    ],
+    "Sandwich": [
+      "bread slices"
+    ],
+    "Pizza": [
+      "cheese",
+      "batter"
+    ]
+  },
+  "training_label_fps": 30,
+  "evaluation_label_fps": 30,
+  "primary_metric": "equal target/video mean micro-F1 on known annotation frames",
+  "training_source": "human annotations; old exposed tests reassigned to development",
+  "scope": "new subjects/recordings, known recipes and target categories; same kitchen; not unseen-object recognition",
+  "split_planning": "video and object names inspected; full annotation source parsed only for splitting; no new-test scores inspected",
+  "head_epochs": 100,
+  "neural_modes": [
+    "original",
+    "stable"
+  ],
+  "stable_changes": [
+    "fixed query scaling",
+    "query-relative text centering"
+  ],
+  "common_changes": [
+    "more human labels",
+    "raw-frame-weighted soft bin targets",
+    "unweighted BCE"
+  ],
+  "prototype_scales": [
+    0,
+    4,
+    12,
+    32
+  ],
+  "prior_mixture_weights": [
+    0,
+    0.25,
+    0.5,
+    0.75,
+    1
+  ],
+  "selection": "validation-only mean F1 then precision; mixture weight zero is a prior-only control, not a learned success",
+  "prediction_lock": "all methods saved before fresh test annotation export/scoring"
+}

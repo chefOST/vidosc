@@ -1,0 +1,250 @@
+{
+  "shared_videos": 21,
+  "median_slowfast_over_clip_ratio": 1.3376548026675255,
+  "slowfast_slower_videos": 17,
+  "source": "Existing full-video feature metadata extraction_seconds; same source video and sample anchors per pair.",
+  "scope": "Earlier pilot extraction runs, not the v2 test and not a controlled hardware benchmark.",
+  "settings": {
+    "clip": "ViT-L/14 quickgelu, one 224px image per sample, batch 8, float32 DirectML",
+    "slowfast": "R50 K400, 32 fast/8 slow frames at 256px, one window per call, float16 DirectML"
+  },
+  "caveats": [
+    "Wall times include preprocessing/decoding and ordinary system contention; execution times were not isolated.",
+    "Some per-video timers contain very large delays; all paired timers are retained, and a median ratio is reported.",
+    "CLIP timing also includes cached VidOSC context computation; SlowFast timing covers motion extraction.",
+    "Different precision and batching; results do not establish intrinsic backbone speed or a 32x speedup."
+  ],
+  "rows": [
+    {
+      "video": "S07_Brownie_7150991-1431",
+      "samples": 190,
+      "clip_seconds": 149.82256780005991,
+      "slowfast_seconds": 193.92753430013545,
+      "slowfast_over_clip_ratio": 1.29438132817837,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "8b0f20edbfc52223550436c03eb40661fea6e0fa576a9e0a4b0e3ba1d9c71cc1",
+      "slowfast_timer_source_sha256": "52eb847de94217ed2cfd28de23c83cededb36773577d22e9258fd1c938878776"
+    },
+    {
+      "video": "S07_Eggs_7150991-1466",
+      "samples": 190,
+      "clip_seconds": 98.69143539993092,
+      "slowfast_seconds": 193.52247650013305,
+      "slowfast_over_clip_ratio": 1.960884201510646,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "83f1ef01a71f9a0a2707bf396f52fee1274858badc619b267b4ba90334ee3785",
+      "slowfast_timer_source_sha256": "4b749f4a01abc17c7523742455d80ac3dcdc1252bf0cd08709e63a3938e627e6"
+    },
+    {
+      "video": "S07_Salad_7150991-2095",
+      "samples": 163,
+      "clip_seconds": 93.54457400017418,
+      "slowfast_seconds": 169.30274700000882,
+      "slowfast_over_clip_ratio": 1.809861756382509,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "47279b6eb28ec5c3bda9ffecf5d68f0e1d0c741bb5fdeef2173f6c11d3c03ee4",
+      "slowfast_timer_source_sha256": "086e79e0d41a8303cf5b576eb17ef1045951decc31a69c4154809a6a61e6975c"
+    },
+    {
+      "video": "S07_Sandwich_7150991-2343",
+      "samples": 99,
+      "clip_seconds": 79.54013660014607,
+      "slowfast_seconds": 97.62820490007289,
+      "slowfast_over_clip_ratio": 1.227408061804782,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "932ee2fa1187d0f1b0e612f7711dec708defd4ee5dcac34aba459ae64085f68e",
+      "slowfast_timer_source_sha256": "ad8e3cb621842564ef4b66acd417f5f08f67eb46aaa88cbc10ec8495a06e49cb"
+    },
+    {
+      "video": "S09_Eggs_7150991-1050",
+      "samples": 122,
+      "clip_seconds": 89.58198479982093,
+      "slowfast_seconds": 119.82977219996974,
+      "slowfast_over_clip_ratio": 1.3376548026675255,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "914eb64042e68c76eadd2527576ab70991e8dcba18c646f6a1b4c3d7e60e8eea",
+      "slowfast_timer_source_sha256": "6039838ab10fa7b6101d24db53780db248684acd4991753192f6e4d991973974"
+    },
+    {
+      "video": "S13_Brownie_7150991-631",
+      "samples": 342,
+      "clip_seconds": 256.10329820006154,
+      "slowfast_seconds": 262.7623000999447,
+      "slowfast_over_clip_ratio": 1.0260012344498637,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "5ac1a054b519a538f363537c3a02e3af3eced11cddc99947404af9bcc6f796c5",
+      "slowfast_timer_source_sha256": "c4cd007230f76b362d90d9f1345e57afc81efb73bd6c93112acf864c9cd2191d"
+    },
+    {
+      "video": "S15_Salad_7150991-451",
+      "samples": 65,
+      "clip_seconds": 49.5470593997743,
+      "slowfast_seconds": 39.92687369999476,
+      "slowfast_over_clip_ratio": 0.8058374035448134,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "55badf0446dedae0a3855358294e70ba15de5378c997409ee9508d53c416384c",
+      "slowfast_timer_source_sha256": "7dda85124c5387d9db38d0d75c660cee1e3721b28e8bea9815692ee09775d0ea"
+    },
+    {
+      "video": "S16_Eggs_7150991-858",
+      "samples": 124,
+      "clip_seconds": 87.04264899995178,
+      "slowfast_seconds": 78.23195579997264,
+      "slowfast_over_clip_ratio": 0.8987772856041637,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "f07d1f7c4fafa6af3a97be1f78391172e85a127a3e6efb8d5f80a8cd55d01d56",
+      "slowfast_timer_source_sha256": "1c8130037a066f0ff18a5509dd172b9d283fcdee9eff1b087b2b80fced66d0c2"
+    },
+    {
+      "video": "S18_Brownie_7150991-885",
+      "samples": 224,
+      "clip_seconds": 180.96951310010627,
+      "slowfast_seconds": 235.6017763998825,
+      "slowfast_over_clip_ratio": 1.3018865573758576,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "ea52ce8110758aee0718f57a2e1dd239261335b43304a1fa38de0183324b8745",
+      "slowfast_timer_source_sha256": "d719f8d5a024bbc4f39c09644a24137747e16692f606b7f7ab00b062ca295b3f"
+    },
+    {
+      "video": "S18_Eggs_7150991-3391",
+      "samples": 192,
+      "clip_seconds": 145.1171345000621,
+      "slowfast_seconds": 202.80559730017558,
+      "slowfast_over_clip_ratio": 1.3975303329882716,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "a4ded1448cd9db9bb09c4f7039287421f40d0b0c6a87eab40b7ca8cfd80ff60b",
+      "slowfast_timer_source_sha256": "1ca14bd784acebc72cb047a7421976b995c60487287d6a7cd9659c79b8ccbed8"
+    },
+    {
+      "video": "S18_Salad_7150991-649",
+      "samples": 113,
+      "clip_seconds": 89.80314849992283,
+      "slowfast_seconds": 115.83230570005253,
+      "slowfast_over_clip_ratio": 1.2898468220204113,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "72dc8abcff59d9dec0b137e6ab1f5c113933952d1ee76f1ebbc7d0f5fe48eeaa",
+      "slowfast_timer_source_sha256": "5e73c404bedf408c1fefc2b7799ce3e80ec8895a0094ec6528c152e9e0e08cca"
+    },
+    {
+      "video": "S18_Sandwich_7150991-893",
+      "samples": 102,
+      "clip_seconds": 78.3602120000869,
+      "slowfast_seconds": 110.39780970010906,
+      "slowfast_over_clip_ratio": 1.4088503193430184,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "a785f295fb8e2ab4b40ed85e7725055bd7bf42f1a3881494d0cd957e7085cdba",
+      "slowfast_timer_source_sha256": "8fea67f65482af0d53bffeee515e55e2191f7d32b840042f55103530428a4067"
+    },
+    {
+      "video": "S19_Brownie_7150991-848",
+      "samples": 263,
+      "clip_seconds": 166.63610500004143,
+      "slowfast_seconds": 172.82981630018912,
+      "slowfast_over_clip_ratio": 1.0371690834957175,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "d8f7e69b37fbb3dc60d999779ef6738d937ab5d993d89067ea47ea1e2900a82e",
+      "slowfast_timer_source_sha256": "cb41f4ab17ed3bcd6c02bd2bdfe16ad1b25d8ad11d5be25d3084d459b9485300"
+    },
+    {
+      "video": "S20_Pizza_7150991-180",
+      "samples": 272,
+      "clip_seconds": 239.28586519998498,
+      "slowfast_seconds": 236.9856716999784,
+      "slowfast_over_clip_ratio": 0.9903872571073759,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "a11d8be26e88c7bdd6d78a0d34fc5f047c0306517f6f73b2c3175d1d6fb5d0a4",
+      "slowfast_timer_source_sha256": "46fe49fb0e9ca2216ce38682f9367e8f8a4b0a3a7019c08db62321beee5ff4b3"
+    },
+    {
+      "video": "S29_Salad_7150991-1",
+      "samples": 135,
+      "clip_seconds": 107.70290499995463,
+      "slowfast_seconds": 144.53054989990778,
+      "slowfast_over_clip_ratio": 1.3419373405013417,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "f7cd72550c666ecdfceb333874d921027633674cdd880b4710f42b077b538665",
+      "slowfast_timer_source_sha256": "7083e855110124d408714c354050e5cbce0a69c6a460f6b5609b83e8484e54fd"
+    },
+    {
+      "video": "S31_Sandwich_7150991-1",
+      "samples": 112,
+      "clip_seconds": 3562.5870071998797,
+      "slowfast_seconds": 72.36556160007603,
+      "slowfast_over_clip_ratio": 0.020312644001066485,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "e9c1c5e704de376e0f54b4f0576404d524a0ff9d0bf56467384515a654188a2a",
+      "slowfast_timer_source_sha256": "6fc954be00210f46d36d07c6090dcbac6d1213144339bd4776fb02b1445f2a75"
+    },
+    {
+      "video": "S33_Brownie_7150991-211",
+      "samples": 247,
+      "clip_seconds": 184.0449572999496,
+      "slowfast_seconds": 3745.8501694998704,
+      "slowfast_over_clip_ratio": 20.3529084657018,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "5d04362bcf5bb864a59bf528e8a6161f2c8ca6d3d4b28bace80ffe63dfc43da9",
+      "slowfast_timer_source_sha256": "05de675c5190912f81c6b8c50d0cb4ba5c7a225e16ab108ab530c591f6395262"
+    },
+    {
+      "video": "S33_Eggs_7150991-461",
+      "samples": 132,
+      "clip_seconds": 113.80093559995294,
+      "slowfast_seconds": 154.83173819980584,
+      "slowfast_over_clip_ratio": 1.3605489039570766,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "9422e6ee4de5e03c2ffa4b798729f6f3dfb24f497a00807178f449d2a3ca18d4",
+      "slowfast_timer_source_sha256": "99eec0f1e6f33b15f40c5c0d66fb1d5e7db5d8c50476a0f6ed14e443ce59f56b"
+    },
+    {
+      "video": "S33_Salad_7150991-85",
+      "samples": 262,
+      "clip_seconds": 218.82708660000935,
+      "slowfast_seconds": 336.3645516000688,
+      "slowfast_over_clip_ratio": 1.5371248451289963,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "7839df883bfcd249896d101b072ebfe0ad904570a8579294a422dd8308d84ea7",
+      "slowfast_timer_source_sha256": "4c69eb70196a76e9fbb50ffffb6ea7f39b290ce9dd626229ec9af9df55146e5f"
+    },
+    {
+      "video": "S33_Sandwich_7150991-3",
+      "samples": 119,
+      "clip_seconds": 102.63045860012062,
+      "slowfast_seconds": 144.88563809986226,
+      "slowfast_over_clip_ratio": 1.4117216280244895,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "50b14bfa509b10b5160aab8f98a2b9a659fd84a4b3c31385259c391b9f0f7015",
+      "slowfast_timer_source_sha256": "a2e4785ea411a6e26895141886973ff5bb2126052db12ce46799753fea629739"
+    },
+    {
+      "video": "S36_Sandwich_7150991-165",
+      "samples": 75,
+      "clip_seconds": 53.74904529983178,
+      "slowfast_seconds": 84.0892853999976,
+      "slowfast_over_clip_ratio": 1.5644796094687246,
+      "clip_backend": "ONNX Runtime DirectML",
+      "slowfast_backend": "ONNX Runtime DirectML",
+      "clip_timer_source_sha256": "6a496bba52308f28646482e6d96427bbc2875e1c94c9de8fb081d00e290b3df6",
+      "slowfast_timer_source_sha256": "b2fdde5b6c5ed261cab8b5d9fdf6e9d8038916e3ffb3b01af719be5ede92c6c3"
+    }
+  ]
+}

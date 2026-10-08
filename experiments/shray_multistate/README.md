@@ -23,7 +23,15 @@ uses the whole video; this is offline analysis rather than causal streaming.
 
 ## Status and measured results
 
-The software interface works; the recognition accuracy goal is not achieved.
+The [accuracy follow-up](v2/README.md) improved the unchanged old checkpoint from
+**35.5% to 53.1% multi-label F1** on the same four new recordings, versus **46.9%**
+for a same-training-data constant prior. The original architecture retrained on
+the new data/loss scored **56.2%**, so the new architecture changes did not
+improve fresh-test F1. Full label-set accuracy is only **1.5%**. See
+[the change walkthrough](v2/CHANGES.md) and [the new report](v2/REPORT.md).
+
+The following numbers describe the preserved earlier pilot, on a different
+test set. The software interface works; reliable recognition remains unresolved.
 On five fresh videos / seven object-video units, the validation-selected model
 has 30.3% mean unit multi-label F1 and 42.6% highest-label agreement. The stronger
 training-frequency baseline has 38.1% F1 and 48.0% highest-label agreement.
@@ -48,6 +56,7 @@ See [differences from teammates' approaches](METHOD_COMPARISON.md),
 | `broader/predict_custom.py` | Inference with supplied descriptions |
 | `broader/protocol*.json`, `metrics.py`, `evaluate_broader.py` | Locked splits and evaluation |
 | `broader/results/` | Original JSON results, selections and provenance; no weights |
+| `v2/` | Human-supervised accuracy follow-up, walkthrough, tests and fresh evaluation |
 | `test_temporal_states.py`, `broader/test_broader.py` | Existing 9 + 14 functional/metric tests |
 
 ## Local use

@@ -1,0 +1,11 @@
+{
+  "validation_selected_model": "stable",
+  "fresh_test_f1": 0.5306831594775071,
+  "prior_f1": 0.468532379341931,
+  "unchanged_legacy_f1": 0.3545174579375978,
+  "test_recordings": 4,
+  "test_units": 6,
+  "beats_same_data_prior": true,
+  "original_artifacts_preserved": true,
+  "scope": "new subjects/recordings, known recipes and target categories; same kitchen; not unseen-object recognition"
+}

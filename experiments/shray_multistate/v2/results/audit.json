@@ -1,0 +1,126 @@
+{
+  "paired_comparisons": {
+    "legacy": {
+      "mean_difference": 0.17616570153990932,
+      "paired_recording_bootstrap_95_percentile_interval": [
+        0.02602941557679402,
+        0.3847848009511972
+      ],
+      "recordings_improved": 4,
+      "recordings": 4
+    },
+    "prior": {
+      "mean_difference": 0.062150780135576116,
+      "paired_recording_bootstrap_95_percentile_interval": [
+        -0.005869349466927909,
+        0.13239270915256898
+      ],
+      "recordings_improved": 3,
+      "recordings": 4
+    },
+    "original": {
+      "mean_difference": -0.03158573293811304,
+      "paired_recording_bootstrap_95_percentile_interval": [
+        -0.08133252493422509,
+        0.018161059057999012
+      ],
+      "recordings_improved": 1,
+      "recordings": 4
+    }
+  },
+  "per_unit_f1": [
+    {
+      "unit": "S17_Salad_7150991-822::vegetables",
+      "legacy": 0.5529450333296907,
+      "prior": 0.5617674580894831,
+      "original": 0.7134406977246233,
+      "stable": 0.6444001204275177,
+      "missed_states": [
+        "added",
+        "mayonnaise-mixed",
+        "mixed",
+        "separated"
+      ],
+      "extra_states": []
+    },
+    {
+      "unit": "S14_Eggs_7150991-1016::eggs",
+      "legacy": 0.3617703656189865,
+      "prior": 0.41484807109300875,
+      "original": 0.42055157522818726,
+      "stable": 0.4179568345323741,
+      "missed_states": [
+        "assembled",
+        "egg-covered",
+        "full",
+        "on dish"
+      ],
+      "extra_states": [
+        "mixed",
+        "poured",
+        "relocated"
+      ]
+    },
+    {
+      "unit": "S37_Brownie_7150991-133::eggs",
+      "legacy": 0.7536254314147308,
+      "prior": 0.29378727346418854,
+      "original": 0.7032207955315387,
+      "stable": 0.5832177662949524,
+      "missed_states": [
+        "scattered",
+        "separated"
+      ],
+      "extra_states": [
+        "beaten"
+      ]
+    },
+    {
+      "unit": "S37_Brownie_7150991-133::egg mixture",
+      "legacy": 0.39127746678920544,
+      "prior": 0.5734858318434523,
+      "original": 0.6468893741578776,
+      "stable": 0.5919354058888943,
+      "missed_states": [
+        "on tray",
+        "ready-to-cook"
+      ],
+      "extra_states": []
+    },
+    {
+      "unit": "S55_Pizza_7150991-292::cheese",
+      "legacy": 0.0,
+      "prior": 0.5946328437917223,
+      "original": 0.582958115183246,
+      "stable": 0.5899537163081949,
+      "missed_states": [
+        "less-covered",
+        "on top",
+        "topped"
+      ],
+      "extra_states": []
+    },
+    {
+      "unit": "S55_Pizza_7150991-292::batter",
+      "legacy": 0.06748645047297334,
+      "prior": 0.37267279776973117,
+      "original": 0.3065527966682482,
+      "stable": 0.3566351134131095,
+      "missed_states": [
+        "stuffed",
+        "topped"
+      ],
+      "extra_states": [
+        "on tray"
+      ]
+    }
+  ],
+  "all_candidate_count": 77,
+  "trained_subset_max_abs_errors": {
+    "3": 2.60770320892334e-08,
+    "5": 2.60770320892334e-08
+  },
+  "saved_prediction_reproduced": true,
+  "frozen_code_models_predictions_and_old_artifacts_verified": true,
+  "uncertainty_note": "Only four recordings. Percentile intervals are exploratory and cannot establish broad reliability."
+}

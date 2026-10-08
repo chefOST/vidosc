@@ -1,0 +1,5946 @@
+{
+  "prior": {
+    "aggregate": {
+      "object_video_units": 6,
+      "macro_over_object_video_units": {
+        "top1_frame_hit_accuracy": 0.5701013753811518,
+        "balanced_top1_label_recall": 0.13253968253968254,
+        "micro_precision": 0.5413922112078385,
+        "micro_recall": 0.41765379827148025,
+        "micro_f1": 0.468532379341931,
+        "macro_f1_gt_present": 0.2898879854881975,
+        "exact_state_set_accuracy": 0.01482780612244898,
+        "mean_frame_jaccard": 0.3178353095203849,
+        "unique_state_count_absolute_error": 3.1666666666666665,
+        "state_set_precision": 0.8055555555555555,
+        "state_set_recall": 0.37222222222222223
+      },
+      "pooled_micro_f1": 0.47523050383677357,
+      "segment_f1_macro_over_units": {
+        "0.1": 0.5057239057239057,
+        "0.25": 0.5057239057239057,
+        "0.5": 0.40078563411896745
+      }
+    },
+    "units": {
+      "S17_Salad_7150991-822::vegetables": {
+        "evaluated_frames": 9456,
+        "skipped_empty_gt_frames": 2882,
+        "published_annotation_array_frames": 12338,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.6242949802594473,
+        "micro_recall": 0.5106248017760863,
+        "micro_f1": 0.5617674580894831,
+        "macro_f1_gt_present": 0.29817945346196195,
+        "top1_frame_hit_accuracy": 0.8728849291801453,
+        "balanced_top1_label_recall": 0.14285714285714285,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.39472846668278144,
+        "gt_unique_states": [
+          "added",
+          "chopped",
+          "in bowl",
+          "mayonnaise-mixed",
+          "mixed",
+          "peeled",
+          "separated"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "chopped",
+          "peeled",
+          "separated"
+        ],
+        "unique_state_count_absolute_error": 4,
+        "state_set_precision": 1.0,
+        "state_set_recall": 0.42857142857142855,
+        "missed_state_names": [
+          "added",
+          "in bowl",
+          "mayonnaise-mixed",
+          "mixed"
+        ],
+        "extra_state_names": [],
+        "counts": {
+          "tp": 17710,
+          "fp": 10658,
+          "fn": 16973
+        },
+        "per_state": {
+          "added": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6832,
+            "predicted_positive_frames": 0
+          },
+          "chopped": {
+            "precision": 0.8728849407783418,
+            "recall": 1.0,
+            "f1": 0.932128740824393,
+            "gt_positive_frames": 8254,
+            "predicted_positive_frames": 9456
+          },
+          "in bowl": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 8254,
+            "predicted_positive_frames": 0
+          },
+          "mayonnaise-mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1158,
+            "predicted_positive_frames": 0
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 729,
+            "predicted_positive_frames": 0
+          },
+          "peeled": {
+            "precision": 0.8754230118443317,
+            "recall": 1.0,
+            "f1": 0.9335739257922635,
+            "gt_positive_frames": 8278,
+            "predicted_positive_frames": 9456
+          },
+          "separated": {
+            "precision": 0.12457698815566835,
+            "recall": 1.0,
+            "f1": 0.2215535076170773,
+            "gt_positive_frames": 1178,
+            "predicted_positive_frames": 9456
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 6,
+            "fp": 3,
+            "fn": 7,
+            "f1": 0.5454545454545454
+          },
+          "0.25": {
+            "tp": 6,
+            "fp": 3,
+            "fn": 7,
+            "f1": 0.5454545454545454
+          },
+          "0.5": {
+            "tp": 6,
+            "fp": 3,
+            "fn": 7,
+            "f1": 0.5454545454545454
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 3.338888888888889,
+        "heldout_states": {}
+      },
+      "S14_Eggs_7150991-1016::eggs": {
+        "evaluated_frames": 6866,
+        "skipped_empty_gt_frames": 3889,
+        "published_annotation_array_frames": 10755,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.43513933391591414,
+        "micro_recall": 0.3963649228319993,
+        "micro_f1": 0.41484807109300875,
+        "macro_f1_gt_present": 0.21235654507651924,
+        "top1_frame_hit_accuracy": 0.334401398897171,
+        "balanced_top1_label_recall": 0.14285714285714285,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.26122196329740754,
+        "gt_unique_states": [
+          "assembled",
+          "beaten",
+          "cracked",
+          "egg-covered",
+          "full",
+          "in bowl",
+          "on dish"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "beaten",
+          "in bowl",
+          "mixed"
+        ],
+        "unique_state_count_absolute_error": 4,
+        "state_set_precision": 0.6666666666666666,
+        "state_set_recall": 0.2857142857142857,
+        "missed_state_names": [
+          "assembled",
+          "cracked",
+          "egg-covered",
+          "full",
+          "on dish"
+        ],
+        "extra_state_names": [
+          "mixed"
+        ],
+        "counts": {
+          "tp": 8963,
+          "fp": 11635,
+          "fn": 13650
+        },
+        "per_state": {
+          "assembled": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 102,
+            "predicted_positive_frames": 0
+          },
+          "beaten": {
+            "precision": 0.9710166035537431,
+            "recall": 1.0,
+            "f1": 0.9852952043153772,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 6866
+          },
+          "cracked": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 97,
+            "predicted_positive_frames": 0
+          },
+          "egg-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 0
+          },
+          "full": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 0
+          },
+          "in bowl": {
+            "precision": 0.33440139819399944,
+            "recall": 1.0,
+            "f1": 0.5012006112202576,
+            "gt_positive_frames": 2296,
+            "predicted_positive_frames": 6866
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 6866
+          },
+          "on dish": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 117,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 6,
+            "fp": 6,
+            "fn": 9,
+            "f1": 0.4444444444444444
+          },
+          "0.25": {
+            "tp": 6,
+            "fp": 6,
+            "fn": 9,
+            "f1": 0.4444444444444444
+          },
+          "0.5": {
+            "tp": 5,
+            "fp": 7,
+            "fn": 10,
+            "f1": 0.37037037037037035
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 0.44000000000000006,
+        "heldout_states": {}
+      },
+      "S37_Brownie_7150991-133::eggs": {
+        "evaluated_frames": 6407,
+        "skipped_empty_gt_frames": 7953,
+        "published_annotation_array_frames": 14360,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.3959731543624161,
+        "micro_recall": 0.23352356406480118,
+        "micro_f1": 0.29378727346418854,
+        "macro_f1_gt_present": 0.19719090426619554,
+        "top1_frame_hit_accuracy": 0.9208678007125854,
+        "balanced_top1_label_recall": 0.14285714285714285,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.16483087694262966,
+        "gt_unique_states": [
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated",
+          "scattered",
+          "separated"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "beaten",
+          "in bowl",
+          "mixed"
+        ],
+        "unique_state_count_absolute_error": 4,
+        "state_set_precision": 0.6666666666666666,
+        "state_set_recall": 0.2857142857142857,
+        "missed_state_names": [
+          "cracked",
+          "poured",
+          "relocated",
+          "scattered",
+          "separated"
+        ],
+        "extra_state_names": [
+          "beaten"
+        ],
+        "counts": {
+          "tp": 7611,
+          "fp": 11610,
+          "fn": 24981
+        },
+        "per_state": {
+          "beaten": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 6407
+          },
+          "cracked": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 0
+          },
+          "in bowl": {
+            "precision": 0.9208678008428282,
+            "recall": 1.0,
+            "f1": 0.9588039327212156,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 6407
+          },
+          "mixed": {
+            "precision": 0.2670516622444202,
+            "recall": 1.0,
+            "f1": 0.42153239714215324,
+            "gt_positive_frames": 1711,
+            "predicted_positive_frames": 6407
+          },
+          "poured": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 0
+          },
+          "relocated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6407,
+            "predicted_positive_frames": 0
+          },
+          "scattered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 874,
+            "predicted_positive_frames": 0
+          },
+          "separated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 2,
+            "fp": 1,
+            "fn": 5,
+            "f1": 0.4
+          },
+          "0.25": {
+            "tp": 2,
+            "fp": 1,
+            "fn": 5,
+            "f1": 0.4
+          },
+          "0.5": {
+            "tp": 1,
+            "fp": 2,
+            "fn": 6,
+            "f1": 0.2
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 8.45,
+        "heldout_states": {}
+      },
+      "S37_Brownie_7150991-133::egg mixture": {
+        "evaluated_frames": 9408,
+        "skipped_empty_gt_frames": 4952,
+        "published_annotation_array_frames": 14360,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.6222363945578231,
+        "micro_recall": 0.5318192141721554,
+        "micro_f1": 0.5734858318434523,
+        "macro_f1_gt_present": 0.30525333065259935,
+        "top1_frame_hit_accuracy": 0.7144982814788818,
+        "balanced_top1_label_recall": 0.2,
+        "exact_state_set_accuracy": 0.08896683673469388,
+        "mean_frame_jaccard": 0.4528946995464852,
+        "gt_unique_states": [
+          "on tray",
+          "poured",
+          "ready-to-cook",
+          "relocated",
+          "scattered"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "poured",
+          "relocated"
+        ],
+        "unique_state_count_absolute_error": 3,
+        "state_set_precision": 1.0,
+        "state_set_recall": 0.4,
+        "missed_state_names": [
+          "on tray",
+          "ready-to-cook",
+          "scattered"
+        ],
+        "extra_state_names": [],
+        "counts": {
+          "tp": 11708,
+          "fp": 7108,
+          "fn": 10307
+        },
+        "per_state": {
+          "on tray": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 3000,
+            "predicted_positive_frames": 0
+          },
+          "poured": {
+            "precision": 0.7144982993197279,
+            "recall": 1.0,
+            "f1": 0.8334779913205208,
+            "gt_positive_frames": 6722,
+            "predicted_positive_frames": 9408
+          },
+          "ready-to-cook": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1422,
+            "predicted_positive_frames": 0
+          },
+          "relocated": {
+            "precision": 0.5299744897959183,
+            "recall": 1.0,
+            "f1": 0.692788661942476,
+            "gt_positive_frames": 4986,
+            "predicted_positive_frames": 9408
+          },
+          "scattered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 5885,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 4,
+            "fp": 2,
+            "fn": 5,
+            "f1": 0.5333333333333333
+          },
+          "0.25": {
+            "tp": 4,
+            "fp": 2,
+            "fn": 5,
+            "f1": 0.5333333333333333
+          },
+          "0.5": {
+            "tp": 3,
+            "fp": 3,
+            "fn": 6,
+            "f1": 0.4
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 0.0,
+        "heldout_states": {}
+      },
+      "S55_Pizza_7150991-292::cheese": {
+        "evaluated_frames": 9608,
+        "skipped_empty_gt_frames": 7473,
+        "published_annotation_array_frames": 17081,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.7725853455453788,
+        "micro_recall": 0.4833101831756229,
+        "micro_f1": 0.5946328437917223,
+        "macro_f1_gt_present": 0.43082498800471375,
+        "top1_frame_hit_accuracy": 0.5779558420181274,
+        "balanced_top1_label_recall": 0.16666666666666666,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.4076637524285318,
+        "gt_unique_states": [
+          "added",
+          "grated",
+          "less-covered",
+          "on top",
+          "scattered",
+          "topped"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "added",
+          "grated",
+          "scattered"
+        ],
+        "unique_state_count_absolute_error": 3,
+        "state_set_precision": 1.0,
+        "state_set_recall": 0.5,
+        "missed_state_names": [
+          "less-covered",
+          "on top",
+          "topped"
+        ],
+        "extra_state_names": [],
+        "counts": {
+          "tp": 22269,
+          "fp": 6555,
+          "fn": 23807
+        },
+        "per_state": {
+          "added": {
+            "precision": 0.5779558701082431,
+            "recall": 1.0,
+            "f1": 0.7325374315678386,
+            "gt_positive_frames": 5553,
+            "predicted_positive_frames": 9608
+          },
+          "grated": {
+            "precision": 0.9870940882597835,
+            "recall": 1.0,
+            "f1": 0.9935051330400168,
+            "gt_positive_frames": 9484,
+            "predicted_positive_frames": 9608
+          },
+          "less-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 9608,
+            "predicted_positive_frames": 0
+          },
+          "on top": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 7232,
+            "predicted_positive_frames": 0
+          },
+          "scattered": {
+            "precision": 0.7527060782681099,
+            "recall": 1.0,
+            "f1": 0.8589073634204275,
+            "gt_positive_frames": 7232,
+            "predicted_positive_frames": 9608
+          },
+          "topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6967,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 3,
+            "fp": 0,
+            "fn": 3,
+            "f1": 0.6666666666666666
+          },
+          "0.25": {
+            "tp": 3,
+            "fp": 0,
+            "fn": 3,
+            "f1": 0.6666666666666666
+          },
+          "0.5": {
+            "tp": 3,
+            "fp": 0,
+            "fn": 3,
+            "f1": 0.6666666666666666
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 36.416666666666664,
+        "heldout_states": {}
+      },
+      "S55_Pizza_7150991-292::batter": {
+        "evaluated_frames": 14606,
+        "skipped_empty_gt_frames": 2475,
+        "published_annotation_array_frames": 17081,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.3981240586060523,
+        "micro_recall": 0.3502801036082164,
+        "micro_f1": 0.37267279776973117,
+        "macro_f1_gt_present": 0.2955226914671952,
+        "top1_frame_hit_accuracy": 0.0,
+        "balanced_top1_label_recall": 0.0,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.22567209822447393,
+        "gt_unique_states": [
+          "saucy",
+          "stuffed",
+          "topped"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "on tray",
+          "saucy"
+        ],
+        "unique_state_count_absolute_error": 1,
+        "state_set_precision": 0.5,
+        "state_set_recall": 0.3333333333333333,
+        "missed_state_names": [
+          "stuffed",
+          "topped"
+        ],
+        "extra_state_names": [
+          "on tray"
+        ],
+        "counts": {
+          "tp": 11630,
+          "fp": 17582,
+          "fn": 21572
+        },
+        "per_state": {
+          "on tray": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 14606
+          },
+          "saucy": {
+            "precision": 0.7962481172121046,
+            "recall": 1.0,
+            "f1": 0.8865680744015856,
+            "gt_positive_frames": 11630,
+            "predicted_positive_frames": 14606
+          },
+          "stuffed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 14606,
+            "predicted_positive_frames": 0
+          },
+          "topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6966,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 2,
+            "fp": 2,
+            "fn": 3,
+            "f1": 0.4444444444444444
+          },
+          "0.25": {
+            "tp": 2,
+            "fp": 2,
+            "fn": 3,
+            "f1": 0.4444444444444444
+          },
+          "0.5": {
+            "tp": 1,
+            "fp": 3,
+            "fn": 4,
+            "f1": 0.2222222222222222
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 0.0,
+        "heldout_states": {}
+      }
+    }
+  },
+  "original": {
+    "aggregate": {
+      "object_video_units": 6,
+      "macro_over_object_video_units": {
+        "top1_frame_hit_accuracy": 0.7260054548581442,
+        "balanced_top1_label_recall": 0.14400465509232116,
+        "micro_precision": 0.6025942667111784,
+        "micro_recall": 0.5354135392518953,
+        "micro_f1": 0.5622688924156202,
+        "macro_f1_gt_present": 0.40455278834980896,
+        "exact_state_set_accuracy": 0.01482780612244898,
+        "mean_frame_jaccard": 0.407611358725803,
+        "unique_state_count_absolute_error": 1.5,
+        "state_set_precision": 0.7361111111111112,
+        "state_set_recall": 0.5246031746031746
+      },
+      "pooled_micro_f1": 0.559750214437518,
+      "segment_f1_macro_over_units": {
+        "0.1": 0.475890550018457,
+        "0.25": 0.475890550018457,
+        "0.5": 0.37069029162052414
+      }
+    },
+    "units": {
+      "S17_Salad_7150991-822::vegetables": {
+        "evaluated_frames": 9456,
+        "skipped_empty_gt_frames": 2882,
+        "published_annotation_array_frames": 12338,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.7122413793103448,
+        "micro_recall": 0.7146440619323587,
+        "micro_f1": 0.7134406977246233,
+        "macro_f1_gt_present": 0.40105751565308445,
+        "top1_frame_hit_accuracy": 0.8728849291801453,
+        "balanced_top1_label_recall": 0.14285714285714285,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.5485418681008782,
+        "gt_unique_states": [
+          "added",
+          "chopped",
+          "in bowl",
+          "mayonnaise-mixed",
+          "mixed",
+          "peeled",
+          "separated"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "chopped",
+          "in bowl",
+          "peeled",
+          "separated"
+        ],
+        "unique_state_count_absolute_error": 3,
+        "state_set_precision": 1.0,
+        "state_set_recall": 0.5714285714285714,
+        "missed_state_names": [
+          "added",
+          "mayonnaise-mixed",
+          "mixed"
+        ],
+        "extra_state_names": [],
+        "counts": {
+          "tp": 24786,
+          "fp": 10014,
+          "fn": 9897
+        },
+        "per_state": {
+          "added": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6832,
+            "predicted_positive_frames": 0
+          },
+          "chopped": {
+            "precision": 0.8728849407783418,
+            "recall": 1.0,
+            "f1": 0.932128740824393,
+            "gt_positive_frames": 8254,
+            "predicted_positive_frames": 9456
+          },
+          "in bowl": {
+            "precision": 0.8898231996550238,
+            "recall": 1.0,
+            "f1": 0.9416999429549344,
+            "gt_positive_frames": 8254,
+            "predicted_positive_frames": 9276
+          },
+          "mayonnaise-mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1158,
+            "predicted_positive_frames": 0
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 729,
+            "predicted_positive_frames": 0
+          },
+          "peeled": {
+            "precision": 0.8754230118443317,
+            "recall": 1.0,
+            "f1": 0.9335739257922635,
+            "gt_positive_frames": 8278,
+            "predicted_positive_frames": 9456
+          },
+          "separated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1178,
+            "predicted_positive_frames": 6612
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 8,
+            "fp": 7,
+            "fn": 5,
+            "f1": 0.5714285714285714
+          },
+          "0.25": {
+            "tp": 8,
+            "fp": 7,
+            "fn": 5,
+            "f1": 0.5714285714285714
+          },
+          "0.5": {
+            "tp": 8,
+            "fp": 7,
+            "fn": 5,
+            "f1": 0.5714285714285714
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 2.975,
+        "heldout_states": {}
+      },
+      "S14_Eggs_7150991-1016::eggs": {
+        "evaluated_frames": 6866,
+        "skipped_empty_gt_frames": 3889,
+        "published_annotation_array_frames": 10755,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.47235848536625696,
+        "micro_recall": 0.3789855392915579,
+        "micro_f1": 0.42055157522818726,
+        "macro_f1_gt_present": 0.26750356616982146,
+        "top1_frame_hit_accuracy": 0.9584910869598389,
+        "balanced_top1_label_recall": 0.21480802826458975,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.2711116197134257,
+        "gt_unique_states": [
+          "assembled",
+          "beaten",
+          "cracked",
+          "egg-covered",
+          "full",
+          "in bowl",
+          "on dish"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "beaten",
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated"
+        ],
+        "unique_state_count_absolute_error": 1,
+        "state_set_precision": 0.5,
+        "state_set_recall": 0.42857142857142855,
+        "missed_state_names": [
+          "assembled",
+          "egg-covered",
+          "full",
+          "on dish"
+        ],
+        "extra_state_names": [
+          "mixed",
+          "poured",
+          "relocated"
+        ],
+        "counts": {
+          "tp": 8570,
+          "fp": 9573,
+          "fn": 14043
+        },
+        "per_state": {
+          "assembled": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 102,
+            "predicted_positive_frames": 0
+          },
+          "beaten": {
+            "precision": 1.0,
+            "recall": 0.9635518224088796,
+            "f1": 0.9814376289053548,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 6424
+          },
+          "cracked": {
+            "precision": 0.04775972427375677,
+            "recall": 1.0,
+            "f1": 0.09116541353383459,
+            "gt_positive_frames": 97,
+            "predicted_positive_frames": 2031
+          },
+          "egg-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 0
+          },
+          "full": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 0
+          },
+          "in bowl": {
+            "precision": 0.7247966041740361,
+            "recall": 0.8924216027874564,
+            "f1": 0.7999219207495608,
+            "gt_positive_frames": 2296,
+            "predicted_positive_frames": 2827
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 3172
+          },
+          "on dish": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 117,
+            "predicted_positive_frames": 0
+          },
+          "poured": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1718
+          },
+          "relocated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1971
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 7,
+            "fp": 21,
+            "fn": 8,
+            "f1": 0.32558139534883723
+          },
+          "0.25": {
+            "tp": 7,
+            "fp": 21,
+            "fn": 8,
+            "f1": 0.32558139534883723
+          },
+          "0.5": {
+            "tp": 4,
+            "fp": 24,
+            "fn": 11,
+            "f1": 0.18604651162790697
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 2.066666666666667,
+        "heldout_states": {}
+      },
+      "S37_Brownie_7150991-133::eggs": {
+        "evaluated_frames": 6407,
+        "skipped_empty_gt_frames": 7953,
+        "published_annotation_array_frames": 14360,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.76204290677268,
+        "micro_recall": 0.6528289150711831,
+        "micro_f1": 0.7032207955315387,
+        "macro_f1_gt_present": 0.615020652911664,
+        "top1_frame_hit_accuracy": 0.7882003784179688,
+        "balanced_top1_label_recall": 0.12055159856558222,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.5391424557961159,
+        "gt_unique_states": [
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated",
+          "scattered",
+          "separated"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "beaten",
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated"
+        ],
+        "unique_state_count_absolute_error": 1,
+        "state_set_precision": 0.8333333333333334,
+        "state_set_recall": 0.7142857142857143,
+        "missed_state_names": [
+          "scattered",
+          "separated"
+        ],
+        "extra_state_names": [
+          "beaten"
+        ],
+        "counts": {
+          "tp": 21277,
+          "fp": 6644,
+          "fn": 11315
+        },
+        "per_state": {
+          "beaten": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 5280
+          },
+          "cracked": {
+            "precision": 0.8650519031141869,
+            "recall": 0.5508474576271186,
+            "f1": 0.6730868799834318,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 3757
+          },
+          "in bowl": {
+            "precision": 0.9208678008428282,
+            "recall": 1.0,
+            "f1": 0.9588039327212156,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 6407
+          },
+          "mixed": {
+            "precision": 1.0,
+            "recall": 0.7071887784921099,
+            "f1": 0.828483396097227,
+            "gt_positive_frames": 1711,
+            "predicted_positive_frames": 1210
+          },
+          "poured": {
+            "precision": 0.9315068493150684,
+            "recall": 0.8067796610169492,
+            "f1": 0.8646684831970936,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 5110
+          },
+          "relocated": {
+            "precision": 1.0,
+            "recall": 0.9609801779303886,
+            "f1": 0.9801018783826807,
+            "gt_positive_frames": 6407,
+            "predicted_positive_frames": 6157
+          },
+          "scattered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 874,
+            "predicted_positive_frames": 0
+          },
+          "separated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 5,
+            "fp": 8,
+            "fn": 2,
+            "f1": 0.5
+          },
+          "0.25": {
+            "tp": 5,
+            "fp": 8,
+            "fn": 2,
+            "f1": 0.5
+          },
+          "0.5": {
+            "tp": 3,
+            "fp": 10,
+            "fn": 4,
+            "f1": 0.3
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 22.322222222222223,
+        "heldout_states": {}
+      },
+      "S37_Brownie_7150991-133::egg mixture": {
+        "evaluated_frames": 9408,
+        "skipped_empty_gt_frames": 4952,
+        "published_annotation_array_frames": 14360,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.662022728353383,
+        "micro_recall": 0.6324324324324324,
+        "micro_f1": 0.6468893741578776,
+        "macro_f1_gt_present": 0.41463604670198206,
+        "top1_frame_hit_accuracy": 0.7493622303009033,
+        "balanced_top1_label_recall": 0.2191444941999455,
+        "exact_state_set_accuracy": 0.08896683673469388,
+        "mean_frame_jaccard": 0.5117541808390023,
+        "gt_unique_states": [
+          "on tray",
+          "poured",
+          "ready-to-cook",
+          "relocated",
+          "scattered"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "poured",
+          "relocated",
+          "scattered"
+        ],
+        "unique_state_count_absolute_error": 2,
+        "state_set_precision": 1.0,
+        "state_set_recall": 0.6,
+        "missed_state_names": [
+          "on tray",
+          "ready-to-cook"
+        ],
+        "extra_state_names": [],
+        "counts": {
+          "tp": 13923,
+          "fp": 7108,
+          "fn": 8092
+        },
+        "per_state": {
+          "on tray": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 3000,
+            "predicted_positive_frames": 0
+          },
+          "poured": {
+            "precision": 0.7144982993197279,
+            "recall": 1.0,
+            "f1": 0.8334779913205208,
+            "gt_positive_frames": 6722,
+            "predicted_positive_frames": 9408
+          },
+          "ready-to-cook": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1422,
+            "predicted_positive_frames": 0
+          },
+          "relocated": {
+            "precision": 0.5299744897959183,
+            "recall": 1.0,
+            "f1": 0.692788661942476,
+            "gt_positive_frames": 4986,
+            "predicted_positive_frames": 9408
+          },
+          "scattered": {
+            "precision": 1.0,
+            "recall": 0.37638062871707734,
+            "f1": 0.5469135802469136,
+            "gt_positive_frames": 5885,
+            "predicted_positive_frames": 2215
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 5,
+            "fp": 2,
+            "fn": 4,
+            "f1": 0.625
+          },
+          "0.25": {
+            "tp": 5,
+            "fp": 2,
+            "fn": 4,
+            "f1": 0.625
+          },
+          "0.5": {
+            "tp": 4,
+            "fp": 3,
+            "fn": 5,
+            "f1": 0.5
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 3.2708333333333335,
+        "heldout_states": {}
+      },
+      "S55_Pizza_7150991-292::cheese": {
+        "evaluated_frames": 9608,
+        "skipped_empty_gt_frames": 7473,
+        "published_annotation_array_frames": 17081,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.7343688167787891,
+        "micro_recall": 0.4833101831756229,
+        "micro_f1": 0.582958115183246,
+        "macro_f1_gt_present": 0.43082498800471375,
+        "top1_frame_hit_accuracy": 0.9870941042900085,
+        "balanced_top1_label_recall": 0.16666666666666666,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.39990236311010663,
+        "gt_unique_states": [
+          "added",
+          "grated",
+          "less-covered",
+          "on top",
+          "scattered",
+          "topped"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "added",
+          "beaten",
+          "grated",
+          "scattered"
+        ],
+        "unique_state_count_absolute_error": 2,
+        "state_set_precision": 0.75,
+        "state_set_recall": 0.5,
+        "missed_state_names": [
+          "less-covered",
+          "on top",
+          "topped"
+        ],
+        "extra_state_names": [
+          "beaten"
+        ],
+        "counts": {
+          "tp": 22269,
+          "fp": 8055,
+          "fn": 23807
+        },
+        "per_state": {
+          "added": {
+            "precision": 0.5779558701082431,
+            "recall": 1.0,
+            "f1": 0.7325374315678386,
+            "gt_positive_frames": 5553,
+            "predicted_positive_frames": 9608
+          },
+          "beaten": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1500
+          },
+          "grated": {
+            "precision": 0.9870940882597835,
+            "recall": 1.0,
+            "f1": 0.9935051330400168,
+            "gt_positive_frames": 9484,
+            "predicted_positive_frames": 9608
+          },
+          "less-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 9608,
+            "predicted_positive_frames": 0
+          },
+          "on top": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 7232,
+            "predicted_positive_frames": 0
+          },
+          "scattered": {
+            "precision": 0.7527060782681099,
+            "recall": 1.0,
+            "f1": 0.8589073634204275,
+            "gt_positive_frames": 7232,
+            "predicted_positive_frames": 9608
+          },
+          "topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6967,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 3,
+            "fp": 3,
+            "fn": 3,
+            "f1": 0.5
+          },
+          "0.25": {
+            "tp": 3,
+            "fp": 3,
+            "fn": 3,
+            "f1": 0.5
+          },
+          "0.5": {
+            "tp": 3,
+            "fp": 3,
+            "fn": 3,
+            "f1": 0.5
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 36.416666666666664,
+        "heldout_states": {}
+      },
+      "S55_Pizza_7150991-292::batter": {
+        "evaluated_frames": 14606,
+        "skipped_empty_gt_frames": 2475,
+        "published_annotation_array_frames": 17081,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.2725312836856165,
+        "micro_recall": 0.3502801036082164,
+        "micro_f1": 0.3065527966682482,
+        "macro_f1_gt_present": 0.29827396065758766,
+        "top1_frame_hit_accuracy": 0.0,
+        "balanced_top1_label_recall": 0.0,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.17521566479528963,
+        "gt_unique_states": [
+          "saucy",
+          "stuffed",
+          "topped"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "cheese-covered",
+          "on tray",
+          "saucy"
+        ],
+        "unique_state_count_absolute_error": 0,
+        "state_set_precision": 0.3333333333333333,
+        "state_set_recall": 0.3333333333333333,
+        "missed_state_names": [
+          "stuffed",
+          "topped"
+        ],
+        "extra_state_names": [
+          "cheese-covered",
+          "on tray"
+        ],
+        "counts": {
+          "tp": 11630,
+          "fp": 31044,
+          "fn": 21572
+        },
+        "per_state": {
+          "cheese-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 13704
+          },
+          "on tray": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 14606
+          },
+          "saucy": {
+            "precision": 0.8096630465051518,
+            "recall": 1.0,
+            "f1": 0.8948218819727629,
+            "gt_positive_frames": 11630,
+            "predicted_positive_frames": 14364
+          },
+          "stuffed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 14606,
+            "predicted_positive_frames": 0
+          },
+          "topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6966,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 2,
+            "fp": 5,
+            "fn": 3,
+            "f1": 0.3333333333333333
+          },
+          "0.25": {
+            "tp": 2,
+            "fp": 5,
+            "fn": 3,
+            "f1": 0.3333333333333333
+          },
+          "0.5": {
+            "tp": 1,
+            "fp": 6,
+            "fn": 4,
+            "f1": 0.16666666666666666
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 0.0,
+        "heldout_states": {}
+      }
+    }
+  },
+  "original_blend": {
+    "aggregate": {
+      "object_video_units": 6,
+      "macro_over_object_video_units": {
+        "top1_frame_hit_accuracy": 0.7260054548581442,
+        "balanced_top1_label_recall": 0.14400465509232116,
+        "micro_precision": 0.6025942667111784,
+        "micro_recall": 0.5354135392518953,
+        "micro_f1": 0.5622688924156202,
+        "macro_f1_gt_present": 0.40455278834980896,
+        "exact_state_set_accuracy": 0.01482780612244898,
+        "mean_frame_jaccard": 0.407611358725803,
+        "unique_state_count_absolute_error": 1.5,
+        "state_set_precision": 0.7361111111111112,
+        "state_set_recall": 0.5246031746031746
+      },
+      "pooled_micro_f1": 0.559750214437518,
+      "segment_f1_macro_over_units": {
+        "0.1": 0.475890550018457,
+        "0.25": 0.475890550018457,
+        "0.5": 0.37069029162052414
+      }
+    },
+    "units": {
+      "S17_Salad_7150991-822::vegetables": {
+        "evaluated_frames": 9456,
+        "skipped_empty_gt_frames": 2882,
+        "published_annotation_array_frames": 12338,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.7122413793103448,
+        "micro_recall": 0.7146440619323587,
+        "micro_f1": 0.7134406977246233,
+        "macro_f1_gt_present": 0.40105751565308445,
+        "top1_frame_hit_accuracy": 0.8728849291801453,
+        "balanced_top1_label_recall": 0.14285714285714285,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.5485418681008782,
+        "gt_unique_states": [
+          "added",
+          "chopped",
+          "in bowl",
+          "mayonnaise-mixed",
+          "mixed",
+          "peeled",
+          "separated"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "chopped",
+          "in bowl",
+          "peeled",
+          "separated"
+        ],
+        "unique_state_count_absolute_error": 3,
+        "state_set_precision": 1.0,
+        "state_set_recall": 0.5714285714285714,
+        "missed_state_names": [
+          "added",
+          "mayonnaise-mixed",
+          "mixed"
+        ],
+        "extra_state_names": [],
+        "counts": {
+          "tp": 24786,
+          "fp": 10014,
+          "fn": 9897
+        },
+        "per_state": {
+          "added": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6832,
+            "predicted_positive_frames": 0
+          },
+          "chopped": {
+            "precision": 0.8728849407783418,
+            "recall": 1.0,
+            "f1": 0.932128740824393,
+            "gt_positive_frames": 8254,
+            "predicted_positive_frames": 9456
+          },
+          "in bowl": {
+            "precision": 0.8898231996550238,
+            "recall": 1.0,
+            "f1": 0.9416999429549344,
+            "gt_positive_frames": 8254,
+            "predicted_positive_frames": 9276
+          },
+          "mayonnaise-mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1158,
+            "predicted_positive_frames": 0
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 729,
+            "predicted_positive_frames": 0
+          },
+          "peeled": {
+            "precision": 0.8754230118443317,
+            "recall": 1.0,
+            "f1": 0.9335739257922635,
+            "gt_positive_frames": 8278,
+            "predicted_positive_frames": 9456
+          },
+          "separated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1178,
+            "predicted_positive_frames": 6612
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 8,
+            "fp": 7,
+            "fn": 5,
+            "f1": 0.5714285714285714
+          },
+          "0.25": {
+            "tp": 8,
+            "fp": 7,
+            "fn": 5,
+            "f1": 0.5714285714285714
+          },
+          "0.5": {
+            "tp": 8,
+            "fp": 7,
+            "fn": 5,
+            "f1": 0.5714285714285714
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 2.975,
+        "heldout_states": {}
+      },
+      "S14_Eggs_7150991-1016::eggs": {
+        "evaluated_frames": 6866,
+        "skipped_empty_gt_frames": 3889,
+        "published_annotation_array_frames": 10755,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.47235848536625696,
+        "micro_recall": 0.3789855392915579,
+        "micro_f1": 0.42055157522818726,
+        "macro_f1_gt_present": 0.26750356616982146,
+        "top1_frame_hit_accuracy": 0.9584910869598389,
+        "balanced_top1_label_recall": 0.21480802826458975,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.2711116197134257,
+        "gt_unique_states": [
+          "assembled",
+          "beaten",
+          "cracked",
+          "egg-covered",
+          "full",
+          "in bowl",
+          "on dish"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "beaten",
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated"
+        ],
+        "unique_state_count_absolute_error": 1,
+        "state_set_precision": 0.5,
+        "state_set_recall": 0.42857142857142855,
+        "missed_state_names": [
+          "assembled",
+          "egg-covered",
+          "full",
+          "on dish"
+        ],
+        "extra_state_names": [
+          "mixed",
+          "poured",
+          "relocated"
+        ],
+        "counts": {
+          "tp": 8570,
+          "fp": 9573,
+          "fn": 14043
+        },
+        "per_state": {
+          "assembled": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 102,
+            "predicted_positive_frames": 0
+          },
+          "beaten": {
+            "precision": 1.0,
+            "recall": 0.9635518224088796,
+            "f1": 0.9814376289053548,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 6424
+          },
+          "cracked": {
+            "precision": 0.04775972427375677,
+            "recall": 1.0,
+            "f1": 0.09116541353383459,
+            "gt_positive_frames": 97,
+            "predicted_positive_frames": 2031
+          },
+          "egg-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 0
+          },
+          "full": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 0
+          },
+          "in bowl": {
+            "precision": 0.7247966041740361,
+            "recall": 0.8924216027874564,
+            "f1": 0.7999219207495608,
+            "gt_positive_frames": 2296,
+            "predicted_positive_frames": 2827
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 3172
+          },
+          "on dish": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 117,
+            "predicted_positive_frames": 0
+          },
+          "poured": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1718
+          },
+          "relocated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1971
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 7,
+            "fp": 21,
+            "fn": 8,
+            "f1": 0.32558139534883723
+          },
+          "0.25": {
+            "tp": 7,
+            "fp": 21,
+            "fn": 8,
+            "f1": 0.32558139534883723
+          },
+          "0.5": {
+            "tp": 4,
+            "fp": 24,
+            "fn": 11,
+            "f1": 0.18604651162790697
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 2.066666666666667,
+        "heldout_states": {}
+      },
+      "S37_Brownie_7150991-133::eggs": {
+        "evaluated_frames": 6407,
+        "skipped_empty_gt_frames": 7953,
+        "published_annotation_array_frames": 14360,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.76204290677268,
+        "micro_recall": 0.6528289150711831,
+        "micro_f1": 0.7032207955315387,
+        "macro_f1_gt_present": 0.615020652911664,
+        "top1_frame_hit_accuracy": 0.7882003784179688,
+        "balanced_top1_label_recall": 0.12055159856558222,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.5391424557961159,
+        "gt_unique_states": [
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated",
+          "scattered",
+          "separated"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "beaten",
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated"
+        ],
+        "unique_state_count_absolute_error": 1,
+        "state_set_precision": 0.8333333333333334,
+        "state_set_recall": 0.7142857142857143,
+        "missed_state_names": [
+          "scattered",
+          "separated"
+        ],
+        "extra_state_names": [
+          "beaten"
+        ],
+        "counts": {
+          "tp": 21277,
+          "fp": 6644,
+          "fn": 11315
+        },
+        "per_state": {
+          "beaten": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 5280
+          },
+          "cracked": {
+            "precision": 0.8650519031141869,
+            "recall": 0.5508474576271186,
+            "f1": 0.6730868799834318,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 3757
+          },
+          "in bowl": {
+            "precision": 0.9208678008428282,
+            "recall": 1.0,
+            "f1": 0.9588039327212156,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 6407
+          },
+          "mixed": {
+            "precision": 1.0,
+            "recall": 0.7071887784921099,
+            "f1": 0.828483396097227,
+            "gt_positive_frames": 1711,
+            "predicted_positive_frames": 1210
+          },
+          "poured": {
+            "precision": 0.9315068493150684,
+            "recall": 0.8067796610169492,
+            "f1": 0.8646684831970936,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 5110
+          },
+          "relocated": {
+            "precision": 1.0,
+            "recall": 0.9609801779303886,
+            "f1": 0.9801018783826807,
+            "gt_positive_frames": 6407,
+            "predicted_positive_frames": 6157
+          },
+          "scattered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 874,
+            "predicted_positive_frames": 0
+          },
+          "separated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 5,
+            "fp": 8,
+            "fn": 2,
+            "f1": 0.5
+          },
+          "0.25": {
+            "tp": 5,
+            "fp": 8,
+            "fn": 2,
+            "f1": 0.5
+          },
+          "0.5": {
+            "tp": 3,
+            "fp": 10,
+            "fn": 4,
+            "f1": 0.3
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 22.322222222222223,
+        "heldout_states": {}
+      },
+      "S37_Brownie_7150991-133::egg mixture": {
+        "evaluated_frames": 9408,
+        "skipped_empty_gt_frames": 4952,
+        "published_annotation_array_frames": 14360,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.662022728353383,
+        "micro_recall": 0.6324324324324324,
+        "micro_f1": 0.6468893741578776,
+        "macro_f1_gt_present": 0.41463604670198206,
+        "top1_frame_hit_accuracy": 0.7493622303009033,
+        "balanced_top1_label_recall": 0.2191444941999455,
+        "exact_state_set_accuracy": 0.08896683673469388,
+        "mean_frame_jaccard": 0.5117541808390023,
+        "gt_unique_states": [
+          "on tray",
+          "poured",
+          "ready-to-cook",
+          "relocated",
+          "scattered"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "poured",
+          "relocated",
+          "scattered"
+        ],
+        "unique_state_count_absolute_error": 2,
+        "state_set_precision": 1.0,
+        "state_set_recall": 0.6,
+        "missed_state_names": [
+          "on tray",
+          "ready-to-cook"
+        ],
+        "extra_state_names": [],
+        "counts": {
+          "tp": 13923,
+          "fp": 7108,
+          "fn": 8092
+        },
+        "per_state": {
+          "on tray": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 3000,
+            "predicted_positive_frames": 0
+          },
+          "poured": {
+            "precision": 0.7144982993197279,
+            "recall": 1.0,
+            "f1": 0.8334779913205208,
+            "gt_positive_frames": 6722,
+            "predicted_positive_frames": 9408
+          },
+          "ready-to-cook": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1422,
+            "predicted_positive_frames": 0
+          },
+          "relocated": {
+            "precision": 0.5299744897959183,
+            "recall": 1.0,
+            "f1": 0.692788661942476,
+            "gt_positive_frames": 4986,
+            "predicted_positive_frames": 9408
+          },
+          "scattered": {
+            "precision": 1.0,
+            "recall": 0.37638062871707734,
+            "f1": 0.5469135802469136,
+            "gt_positive_frames": 5885,
+            "predicted_positive_frames": 2215
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 5,
+            "fp": 2,
+            "fn": 4,
+            "f1": 0.625
+          },
+          "0.25": {
+            "tp": 5,
+            "fp": 2,
+            "fn": 4,
+            "f1": 0.625
+          },
+          "0.5": {
+            "tp": 4,
+            "fp": 3,
+            "fn": 5,
+            "f1": 0.5
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 3.2708333333333335,
+        "heldout_states": {}
+      },
+      "S55_Pizza_7150991-292::cheese": {
+        "evaluated_frames": 9608,
+        "skipped_empty_gt_frames": 7473,
+        "published_annotation_array_frames": 17081,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.7343688167787891,
+        "micro_recall": 0.4833101831756229,
+        "micro_f1": 0.582958115183246,
+        "macro_f1_gt_present": 0.43082498800471375,
+        "top1_frame_hit_accuracy": 0.9870941042900085,
+        "balanced_top1_label_recall": 0.16666666666666666,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.39990236311010663,
+        "gt_unique_states": [
+          "added",
+          "grated",
+          "less-covered",
+          "on top",
+          "scattered",
+          "topped"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "added",
+          "beaten",
+          "grated",
+          "scattered"
+        ],
+        "unique_state_count_absolute_error": 2,
+        "state_set_precision": 0.75,
+        "state_set_recall": 0.5,
+        "missed_state_names": [
+          "less-covered",
+          "on top",
+          "topped"
+        ],
+        "extra_state_names": [
+          "beaten"
+        ],
+        "counts": {
+          "tp": 22269,
+          "fp": 8055,
+          "fn": 23807
+        },
+        "per_state": {
+          "added": {
+            "precision": 0.5779558701082431,
+            "recall": 1.0,
+            "f1": 0.7325374315678386,
+            "gt_positive_frames": 5553,
+            "predicted_positive_frames": 9608
+          },
+          "beaten": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1500
+          },
+          "grated": {
+            "precision": 0.9870940882597835,
+            "recall": 1.0,
+            "f1": 0.9935051330400168,
+            "gt_positive_frames": 9484,
+            "predicted_positive_frames": 9608
+          },
+          "less-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 9608,
+            "predicted_positive_frames": 0
+          },
+          "on top": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 7232,
+            "predicted_positive_frames": 0
+          },
+          "scattered": {
+            "precision": 0.7527060782681099,
+            "recall": 1.0,
+            "f1": 0.8589073634204275,
+            "gt_positive_frames": 7232,
+            "predicted_positive_frames": 9608
+          },
+          "topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6967,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 3,
+            "fp": 3,
+            "fn": 3,
+            "f1": 0.5
+          },
+          "0.25": {
+            "tp": 3,
+            "fp": 3,
+            "fn": 3,
+            "f1": 0.5
+          },
+          "0.5": {
+            "tp": 3,
+            "fp": 3,
+            "fn": 3,
+            "f1": 0.5
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 36.416666666666664,
+        "heldout_states": {}
+      },
+      "S55_Pizza_7150991-292::batter": {
+        "evaluated_frames": 14606,
+        "skipped_empty_gt_frames": 2475,
+        "published_annotation_array_frames": 17081,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.2725312836856165,
+        "micro_recall": 0.3502801036082164,
+        "micro_f1": 0.3065527966682482,
+        "macro_f1_gt_present": 0.29827396065758766,
+        "top1_frame_hit_accuracy": 0.0,
+        "balanced_top1_label_recall": 0.0,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.17521566479528963,
+        "gt_unique_states": [
+          "saucy",
+          "stuffed",
+          "topped"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "cheese-covered",
+          "on tray",
+          "saucy"
+        ],
+        "unique_state_count_absolute_error": 0,
+        "state_set_precision": 0.3333333333333333,
+        "state_set_recall": 0.3333333333333333,
+        "missed_state_names": [
+          "stuffed",
+          "topped"
+        ],
+        "extra_state_names": [
+          "cheese-covered",
+          "on tray"
+        ],
+        "counts": {
+          "tp": 11630,
+          "fp": 31044,
+          "fn": 21572
+        },
+        "per_state": {
+          "cheese-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 13704
+          },
+          "on tray": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 14606
+          },
+          "saucy": {
+            "precision": 0.8096630465051518,
+            "recall": 1.0,
+            "f1": 0.8948218819727629,
+            "gt_positive_frames": 11630,
+            "predicted_positive_frames": 14364
+          },
+          "stuffed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 14606,
+            "predicted_positive_frames": 0
+          },
+          "topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6966,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 2,
+            "fp": 5,
+            "fn": 3,
+            "f1": 0.3333333333333333
+          },
+          "0.25": {
+            "tp": 2,
+            "fp": 5,
+            "fn": 3,
+            "f1": 0.3333333333333333
+          },
+          "0.5": {
+            "tp": 1,
+            "fp": 6,
+            "fn": 4,
+            "f1": 0.16666666666666666
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 0.0,
+        "heldout_states": {}
+      }
+    }
+  },
+  "stable": {
+    "aggregate": {
+      "object_video_units": 6,
+      "macro_over_object_video_units": {
+        "top1_frame_hit_accuracy": 0.7292058865229288,
+        "balanced_top1_label_recall": 0.15134252269442458,
+        "micro_precision": 0.6922777430215049,
+        "micro_recall": 0.4354885140656975,
+        "micro_f1": 0.5306831594775071,
+        "macro_f1_gt_present": 0.34967132706188186,
+        "exact_state_set_accuracy": 0.01482780612244898,
+        "mean_frame_jaccard": 0.3696474947380688,
+        "unique_state_count_absolute_error": 2.0,
+        "state_set_precision": 0.8055555555555557,
+        "state_set_recall": 0.5007936507936508
+      },
+      "pooled_micro_f1": 0.537217077941474,
+      "segment_f1_macro_over_units": {
+        "0.1": 0.40362709186238604,
+        "0.25": 0.32608274078862315,
+        "0.5": 0.2646448322918911
+      }
+    },
+    "units": {
+      "S17_Salad_7150991-822::vegetables": {
+        "evaluated_frames": 9456,
+        "skipped_empty_gt_frames": 2882,
+        "published_annotation_array_frames": 12338,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.9275228860841774,
+        "micro_recall": 0.4937000836144509,
+        "micro_f1": 0.6444001204275177,
+        "macro_f1_gt_present": 0.31991162822240965,
+        "top1_frame_hit_accuracy": 0.8728849291801453,
+        "balanced_top1_label_recall": 0.14285714285714285,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.4833315707839819,
+        "gt_unique_states": [
+          "added",
+          "chopped",
+          "in bowl",
+          "mayonnaise-mixed",
+          "mixed",
+          "peeled",
+          "separated"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "chopped",
+          "in bowl",
+          "peeled"
+        ],
+        "unique_state_count_absolute_error": 4,
+        "state_set_precision": 1.0,
+        "state_set_recall": 0.42857142857142855,
+        "missed_state_names": [
+          "added",
+          "mayonnaise-mixed",
+          "mixed",
+          "separated"
+        ],
+        "extra_state_names": [],
+        "counts": {
+          "tp": 17123,
+          "fp": 1338,
+          "fn": 17560
+        },
+        "per_state": {
+          "added": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6832,
+            "predicted_positive_frames": 0
+          },
+          "chopped": {
+            "precision": 0.8728849407783418,
+            "recall": 1.0,
+            "f1": 0.932128740824393,
+            "gt_positive_frames": 8254,
+            "predicted_positive_frames": 9456
+          },
+          "in bowl": {
+            "precision": 0.9928539526574364,
+            "recall": 0.2693239641385995,
+            "f1": 0.42371104545887733,
+            "gt_positive_frames": 8254,
+            "predicted_positive_frames": 2239
+          },
+          "mayonnaise-mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1158,
+            "predicted_positive_frames": 0
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 729,
+            "predicted_positive_frames": 0
+          },
+          "peeled": {
+            "precision": 0.9822642624889152,
+            "recall": 0.8028509301763711,
+            "f1": 0.8835416112735974,
+            "gt_positive_frames": 8278,
+            "predicted_positive_frames": 6766
+          },
+          "separated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1178,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 7,
+            "fp": 10,
+            "fn": 6,
+            "f1": 0.4666666666666667
+          },
+          "0.25": {
+            "tp": 5,
+            "fp": 12,
+            "fn": 8,
+            "f1": 0.3333333333333333
+          },
+          "0.5": {
+            "tp": 5,
+            "fp": 12,
+            "fn": 8,
+            "f1": 0.3333333333333333
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 6.446666666666667,
+        "heldout_states": {}
+      },
+      "S14_Eggs_7150991-1016::eggs": {
+        "evaluated_frames": 6866,
+        "skipped_empty_gt_frames": 3889,
+        "published_annotation_array_frames": 10755,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.5983356677927,
+        "micro_recall": 0.3211427055233715,
+        "micro_f1": 0.4179568345323741,
+        "macro_f1_gt_present": 0.25267161952978917,
+        "top1_frame_hit_accuracy": 0.8936790227890015,
+        "balanced_top1_label_recall": 0.21534854068645498,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.269529288557835,
+        "gt_unique_states": [
+          "assembled",
+          "beaten",
+          "cracked",
+          "egg-covered",
+          "full",
+          "in bowl",
+          "on dish"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "beaten",
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated"
+        ],
+        "unique_state_count_absolute_error": 1,
+        "state_set_precision": 0.5,
+        "state_set_recall": 0.42857142857142855,
+        "missed_state_names": [
+          "assembled",
+          "egg-covered",
+          "full",
+          "on dish"
+        ],
+        "extra_state_names": [
+          "mixed",
+          "poured",
+          "relocated"
+        ],
+        "counts": {
+          "tp": 7262,
+          "fp": 4875,
+          "fn": 15351
+        },
+        "per_state": {
+          "assembled": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 102,
+            "predicted_positive_frames": 0
+          },
+          "beaten": {
+            "precision": 1.0,
+            "recall": 0.7448627568621569,
+            "f1": 0.8537780452161953,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 4966
+          },
+          "cracked": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 97,
+            "predicted_positive_frames": 1952
+          },
+          "egg-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 0
+          },
+          "full": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 0
+          },
+          "in bowl": {
+            "precision": 0.8431876606683805,
+            "recall": 1.0,
+            "f1": 0.9149232914923291,
+            "gt_positive_frames": 2296,
+            "predicted_positive_frames": 2723
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 480
+          },
+          "on dish": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 117,
+            "predicted_positive_frames": 0
+          },
+          "poured": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 592
+          },
+          "relocated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1424
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 6,
+            "fp": 13,
+            "fn": 9,
+            "f1": 0.35294117647058826
+          },
+          "0.25": {
+            "tp": 6,
+            "fp": 13,
+            "fn": 9,
+            "f1": 0.35294117647058826
+          },
+          "0.5": {
+            "tp": 4,
+            "fp": 15,
+            "fn": 11,
+            "f1": 0.23529411764705882
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 3.9458333333333337,
+        "heldout_states": {}
+      },
+      "S37_Brownie_7150991-133::eggs": {
+        "evaluated_frames": 6407,
+        "skipped_empty_gt_frames": 7953,
+        "published_annotation_array_frames": 14360,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.7657006035815833,
+        "micro_recall": 0.47097447226313205,
+        "micro_f1": 0.5832177662949524,
+        "macro_f1_gt_present": 0.4498589968513468,
+        "top1_frame_hit_accuracy": 0.8553144931793213,
+        "balanced_top1_label_recall": 0.13199787913567598,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.40182835737697603,
+        "gt_unique_states": [
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated",
+          "scattered",
+          "separated"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "beaten",
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated"
+        ],
+        "unique_state_count_absolute_error": 1,
+        "state_set_precision": 0.8333333333333334,
+        "state_set_recall": 0.7142857142857143,
+        "missed_state_names": [
+          "scattered",
+          "separated"
+        ],
+        "extra_state_names": [
+          "beaten"
+        ],
+        "counts": {
+          "tp": 15350,
+          "fp": 4697,
+          "fn": 17242
+        },
+        "per_state": {
+          "beaten": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 3840
+          },
+          "cracked": {
+            "precision": 0.8976608187134503,
+            "recall": 0.5203389830508475,
+            "f1": 0.6587982832618026,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 3420
+          },
+          "in bowl": {
+            "precision": 0.918580375782881,
+            "recall": 0.9694915254237289,
+            "f1": 0.9433495505895935,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 6227
+          },
+          "mixed": {
+            "precision": 1.0,
+            "recall": 0.11104617182933957,
+            "f1": 0.1998947922146239,
+            "gt_positive_frames": 1711,
+            "predicted_positive_frames": 190
+          },
+          "poured": {
+            "precision": 1.0,
+            "recall": 0.4186440677966102,
+            "f1": 0.5902031063321386,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 2470
+          },
+          "relocated": {
+            "precision": 1.0,
+            "recall": 0.6087092242859372,
+            "f1": 0.7567672455612691,
+            "gt_positive_frames": 6407,
+            "predicted_positive_frames": 3900
+          },
+          "scattered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 874,
+            "predicted_positive_frames": 0
+          },
+          "separated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 4,
+            "fp": 17,
+            "fn": 3,
+            "f1": 0.2857142857142857
+          },
+          "0.25": {
+            "tp": 1,
+            "fp": 20,
+            "fn": 6,
+            "f1": 0.07142857142857142
+          },
+          "0.5": {
+            "tp": 1,
+            "fp": 20,
+            "fn": 6,
+            "f1": 0.07142857142857142
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 23.166666666666668,
+        "heldout_states": {}
+      },
+      "S37_Brownie_7150991-133::egg mixture": {
+        "evaluated_frames": 9408,
+        "skipped_empty_gt_frames": 4952,
+        "published_annotation_array_frames": 14360,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.6326804816288564,
+        "micro_recall": 0.556120826709062,
+        "micro_f1": 0.5919354058888943,
+        "macro_f1_gt_present": 0.3385866639859327,
+        "top1_frame_hit_accuracy": 0.7662627696990967,
+        "balanced_top1_label_recall": 0.22139936481475714,
+        "exact_state_set_accuracy": 0.08896683673469388,
+        "mean_frame_jaccard": 0.4671113236961451,
+        "gt_unique_states": [
+          "on tray",
+          "poured",
+          "ready-to-cook",
+          "relocated",
+          "scattered"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "poured",
+          "relocated",
+          "scattered"
+        ],
+        "unique_state_count_absolute_error": 2,
+        "state_set_precision": 1.0,
+        "state_set_recall": 0.6,
+        "missed_state_names": [
+          "on tray",
+          "ready-to-cook"
+        ],
+        "extra_state_names": [],
+        "counts": {
+          "tp": 12243,
+          "fp": 7108,
+          "fn": 9772
+        },
+        "per_state": {
+          "on tray": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 3000,
+            "predicted_positive_frames": 0
+          },
+          "poured": {
+            "precision": 0.7144982993197279,
+            "recall": 1.0,
+            "f1": 0.8334779913205208,
+            "gt_positive_frames": 6722,
+            "predicted_positive_frames": 9408
+          },
+          "ready-to-cook": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1422,
+            "predicted_positive_frames": 0
+          },
+          "relocated": {
+            "precision": 0.5299744897959183,
+            "recall": 1.0,
+            "f1": 0.692788661942476,
+            "gt_positive_frames": 4986,
+            "predicted_positive_frames": 9408
+          },
+          "scattered": {
+            "precision": 1.0,
+            "recall": 0.09090909090909091,
+            "f1": 0.16666666666666666,
+            "gt_positive_frames": 5885,
+            "predicted_positive_frames": 535
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 5,
+            "fp": 3,
+            "fn": 4,
+            "f1": 0.5882352941176471
+          },
+          "0.25": {
+            "tp": 4,
+            "fp": 4,
+            "fn": 5,
+            "f1": 0.47058823529411764
+          },
+          "0.5": {
+            "tp": 3,
+            "fp": 5,
+            "fn": 6,
+            "f1": 0.35294117647058826
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 0.0,
+        "heldout_states": {}
+      },
+      "S55_Pizza_7150991-292::cheese": {
+        "evaluated_frames": 9608,
+        "skipped_empty_gt_frames": 7473,
+        "published_annotation_array_frames": 17081,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.7913014899211218,
+        "micro_recall": 0.4702882194634951,
+        "micro_f1": 0.5899537163081949,
+        "macro_f1_gt_present": 0.42905050191728034,
+        "top1_frame_hit_accuracy": 0.9870941042900085,
+        "balanced_top1_label_recall": 0.1964522086725166,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.4035265750763253,
+        "gt_unique_states": [
+          "added",
+          "grated",
+          "less-covered",
+          "on top",
+          "scattered",
+          "topped"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "added",
+          "grated",
+          "scattered"
+        ],
+        "unique_state_count_absolute_error": 3,
+        "state_set_precision": 1.0,
+        "state_set_recall": 0.5,
+        "missed_state_names": [
+          "less-covered",
+          "on top",
+          "topped"
+        ],
+        "extra_state_names": [],
+        "counts": {
+          "tp": 21669,
+          "fp": 5715,
+          "fn": 24407
+        },
+        "per_state": {
+          "added": {
+            "precision": 0.5933157642549114,
+            "recall": 0.8919502971366828,
+            "f1": 0.7126106035537012,
+            "gt_positive_frames": 5553,
+            "predicted_positive_frames": 8348
+          },
+          "grated": {
+            "precision": 0.9870940882597835,
+            "recall": 1.0,
+            "f1": 0.9935051330400168,
+            "gt_positive_frames": 9484,
+            "predicted_positive_frames": 9608
+          },
+          "less-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 9608,
+            "predicted_positive_frames": 0
+          },
+          "on top": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 7232,
+            "predicted_positive_frames": 0
+          },
+          "scattered": {
+            "precision": 0.7670767925328807,
+            "recall": 1.0,
+            "f1": 0.868187274909964,
+            "gt_positive_frames": 7232,
+            "predicted_positive_frames": 9428
+          },
+          "topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6967,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 3,
+            "fp": 4,
+            "fn": 3,
+            "f1": 0.46153846153846156
+          },
+          "0.25": {
+            "tp": 3,
+            "fp": 4,
+            "fn": 3,
+            "f1": 0.46153846153846156
+          },
+          "0.5": {
+            "tp": 3,
+            "fp": 4,
+            "fn": 3,
+            "f1": 0.46153846153846156
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 27.027777777777782,
+        "heldout_states": {}
+      },
+      "S55_Pizza_7150991-292::batter": {
+        "evaluated_frames": 14606,
+        "skipped_empty_gt_frames": 2475,
+        "published_annotation_array_frames": 17081,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.43812532912058977,
+        "micro_recall": 0.3007047768206735,
+        "micro_f1": 0.3566351134131095,
+        "macro_f1_gt_present": 0.30794855186453224,
+        "top1_frame_hit_accuracy": 0.0,
+        "balanced_top1_label_recall": 0.0,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.19255785293714908,
+        "gt_unique_states": [
+          "saucy",
+          "stuffed",
+          "topped"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "on tray",
+          "saucy"
+        ],
+        "unique_state_count_absolute_error": 1,
+        "state_set_precision": 0.5,
+        "state_set_recall": 0.3333333333333333,
+        "missed_state_names": [
+          "stuffed",
+          "topped"
+        ],
+        "extra_state_names": [
+          "on tray"
+        ],
+        "counts": {
+          "tp": 9984,
+          "fp": 12804,
+          "fn": 23218
+        },
+        "per_state": {
+          "on tray": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 12804
+          },
+          "saucy": {
+            "precision": 1.0,
+            "recall": 0.858469475494411,
+            "f1": 0.9238456555935968,
+            "gt_positive_frames": 11630,
+            "predicted_positive_frames": 9984
+          },
+          "stuffed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 14606,
+            "predicted_positive_frames": 0
+          },
+          "topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6966,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 2,
+            "fp": 8,
+            "fn": 3,
+            "f1": 0.26666666666666666
+          },
+          "0.25": {
+            "tp": 2,
+            "fp": 8,
+            "fn": 3,
+            "f1": 0.26666666666666666
+          },
+          "0.5": {
+            "tp": 1,
+            "fp": 9,
+            "fn": 4,
+            "f1": 0.13333333333333333
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 13.433333333333334,
+        "heldout_states": {}
+      }
+    }
+  },
+  "stable_blend": {
+    "aggregate": {
+      "object_video_units": 6,
+      "macro_over_object_video_units": {
+        "top1_frame_hit_accuracy": 0.7292058865229288,
+        "balanced_top1_label_recall": 0.15134252269442458,
+        "micro_precision": 0.6922777430215049,
+        "micro_recall": 0.4354885140656975,
+        "micro_f1": 0.5306831594775071,
+        "macro_f1_gt_present": 0.34967132706188186,
+        "exact_state_set_accuracy": 0.01482780612244898,
+        "mean_frame_jaccard": 0.3696474947380688,
+        "unique_state_count_absolute_error": 2.0,
+        "state_set_precision": 0.8055555555555557,
+        "state_set_recall": 0.5007936507936508
+      },
+      "pooled_micro_f1": 0.537217077941474,
+      "segment_f1_macro_over_units": {
+        "0.1": 0.40362709186238604,
+        "0.25": 0.32608274078862315,
+        "0.5": 0.2646448322918911
+      }
+    },
+    "units": {
+      "S17_Salad_7150991-822::vegetables": {
+        "evaluated_frames": 9456,
+        "skipped_empty_gt_frames": 2882,
+        "published_annotation_array_frames": 12338,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.9275228860841774,
+        "micro_recall": 0.4937000836144509,
+        "micro_f1": 0.6444001204275177,
+        "macro_f1_gt_present": 0.31991162822240965,
+        "top1_frame_hit_accuracy": 0.8728849291801453,
+        "balanced_top1_label_recall": 0.14285714285714285,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.4833315707839819,
+        "gt_unique_states": [
+          "added",
+          "chopped",
+          "in bowl",
+          "mayonnaise-mixed",
+          "mixed",
+          "peeled",
+          "separated"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "chopped",
+          "in bowl",
+          "peeled"
+        ],
+        "unique_state_count_absolute_error": 4,
+        "state_set_precision": 1.0,
+        "state_set_recall": 0.42857142857142855,
+        "missed_state_names": [
+          "added",
+          "mayonnaise-mixed",
+          "mixed",
+          "separated"
+        ],
+        "extra_state_names": [],
+        "counts": {
+          "tp": 17123,
+          "fp": 1338,
+          "fn": 17560
+        },
+        "per_state": {
+          "added": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6832,
+            "predicted_positive_frames": 0
+          },
+          "chopped": {
+            "precision": 0.8728849407783418,
+            "recall": 1.0,
+            "f1": 0.932128740824393,
+            "gt_positive_frames": 8254,
+            "predicted_positive_frames": 9456
+          },
+          "in bowl": {
+            "precision": 0.9928539526574364,
+            "recall": 0.2693239641385995,
+            "f1": 0.42371104545887733,
+            "gt_positive_frames": 8254,
+            "predicted_positive_frames": 2239
+          },
+          "mayonnaise-mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1158,
+            "predicted_positive_frames": 0
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 729,
+            "predicted_positive_frames": 0
+          },
+          "peeled": {
+            "precision": 0.9822642624889152,
+            "recall": 0.8028509301763711,
+            "f1": 0.8835416112735974,
+            "gt_positive_frames": 8278,
+            "predicted_positive_frames": 6766
+          },
+          "separated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1178,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 7,
+            "fp": 10,
+            "fn": 6,
+            "f1": 0.4666666666666667
+          },
+          "0.25": {
+            "tp": 5,
+            "fp": 12,
+            "fn": 8,
+            "f1": 0.3333333333333333
+          },
+          "0.5": {
+            "tp": 5,
+            "fp": 12,
+            "fn": 8,
+            "f1": 0.3333333333333333
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 6.446666666666667,
+        "heldout_states": {}
+      },
+      "S14_Eggs_7150991-1016::eggs": {
+        "evaluated_frames": 6866,
+        "skipped_empty_gt_frames": 3889,
+        "published_annotation_array_frames": 10755,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.5983356677927,
+        "micro_recall": 0.3211427055233715,
+        "micro_f1": 0.4179568345323741,
+        "macro_f1_gt_present": 0.25267161952978917,
+        "top1_frame_hit_accuracy": 0.8936790227890015,
+        "balanced_top1_label_recall": 0.21534854068645498,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.269529288557835,
+        "gt_unique_states": [
+          "assembled",
+          "beaten",
+          "cracked",
+          "egg-covered",
+          "full",
+          "in bowl",
+          "on dish"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "beaten",
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated"
+        ],
+        "unique_state_count_absolute_error": 1,
+        "state_set_precision": 0.5,
+        "state_set_recall": 0.42857142857142855,
+        "missed_state_names": [
+          "assembled",
+          "egg-covered",
+          "full",
+          "on dish"
+        ],
+        "extra_state_names": [
+          "mixed",
+          "poured",
+          "relocated"
+        ],
+        "counts": {
+          "tp": 7262,
+          "fp": 4875,
+          "fn": 15351
+        },
+        "per_state": {
+          "assembled": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 102,
+            "predicted_positive_frames": 0
+          },
+          "beaten": {
+            "precision": 1.0,
+            "recall": 0.7448627568621569,
+            "f1": 0.8537780452161953,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 4966
+          },
+          "cracked": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 97,
+            "predicted_positive_frames": 1952
+          },
+          "egg-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 0
+          },
+          "full": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 0
+          },
+          "in bowl": {
+            "precision": 0.8431876606683805,
+            "recall": 1.0,
+            "f1": 0.9149232914923291,
+            "gt_positive_frames": 2296,
+            "predicted_positive_frames": 2723
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 480
+          },
+          "on dish": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 117,
+            "predicted_positive_frames": 0
+          },
+          "poured": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 592
+          },
+          "relocated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1424
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 6,
+            "fp": 13,
+            "fn": 9,
+            "f1": 0.35294117647058826
+          },
+          "0.25": {
+            "tp": 6,
+            "fp": 13,
+            "fn": 9,
+            "f1": 0.35294117647058826
+          },
+          "0.5": {
+            "tp": 4,
+            "fp": 15,
+            "fn": 11,
+            "f1": 0.23529411764705882
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 3.9458333333333337,
+        "heldout_states": {}
+      },
+      "S37_Brownie_7150991-133::eggs": {
+        "evaluated_frames": 6407,
+        "skipped_empty_gt_frames": 7953,
+        "published_annotation_array_frames": 14360,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.7657006035815833,
+        "micro_recall": 0.47097447226313205,
+        "micro_f1": 0.5832177662949524,
+        "macro_f1_gt_present": 0.4498589968513468,
+        "top1_frame_hit_accuracy": 0.8553144931793213,
+        "balanced_top1_label_recall": 0.13199787913567598,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.40182835737697603,
+        "gt_unique_states": [
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated",
+          "scattered",
+          "separated"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "beaten",
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated"
+        ],
+        "unique_state_count_absolute_error": 1,
+        "state_set_precision": 0.8333333333333334,
+        "state_set_recall": 0.7142857142857143,
+        "missed_state_names": [
+          "scattered",
+          "separated"
+        ],
+        "extra_state_names": [
+          "beaten"
+        ],
+        "counts": {
+          "tp": 15350,
+          "fp": 4697,
+          "fn": 17242
+        },
+        "per_state": {
+          "beaten": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 3840
+          },
+          "cracked": {
+            "precision": 0.8976608187134503,
+            "recall": 0.5203389830508475,
+            "f1": 0.6587982832618026,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 3420
+          },
+          "in bowl": {
+            "precision": 0.918580375782881,
+            "recall": 0.9694915254237289,
+            "f1": 0.9433495505895935,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 6227
+          },
+          "mixed": {
+            "precision": 1.0,
+            "recall": 0.11104617182933957,
+            "f1": 0.1998947922146239,
+            "gt_positive_frames": 1711,
+            "predicted_positive_frames": 190
+          },
+          "poured": {
+            "precision": 1.0,
+            "recall": 0.4186440677966102,
+            "f1": 0.5902031063321386,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 2470
+          },
+          "relocated": {
+            "precision": 1.0,
+            "recall": 0.6087092242859372,
+            "f1": 0.7567672455612691,
+            "gt_positive_frames": 6407,
+            "predicted_positive_frames": 3900
+          },
+          "scattered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 874,
+            "predicted_positive_frames": 0
+          },
+          "separated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 4,
+            "fp": 17,
+            "fn": 3,
+            "f1": 0.2857142857142857
+          },
+          "0.25": {
+            "tp": 1,
+            "fp": 20,
+            "fn": 6,
+            "f1": 0.07142857142857142
+          },
+          "0.5": {
+            "tp": 1,
+            "fp": 20,
+            "fn": 6,
+            "f1": 0.07142857142857142
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 23.166666666666668,
+        "heldout_states": {}
+      },
+      "S37_Brownie_7150991-133::egg mixture": {
+        "evaluated_frames": 9408,
+        "skipped_empty_gt_frames": 4952,
+        "published_annotation_array_frames": 14360,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.6326804816288564,
+        "micro_recall": 0.556120826709062,
+        "micro_f1": 0.5919354058888943,
+        "macro_f1_gt_present": 0.3385866639859327,
+        "top1_frame_hit_accuracy": 0.7662627696990967,
+        "balanced_top1_label_recall": 0.22139936481475714,
+        "exact_state_set_accuracy": 0.08896683673469388,
+        "mean_frame_jaccard": 0.4671113236961451,
+        "gt_unique_states": [
+          "on tray",
+          "poured",
+          "ready-to-cook",
+          "relocated",
+          "scattered"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "poured",
+          "relocated",
+          "scattered"
+        ],
+        "unique_state_count_absolute_error": 2,
+        "state_set_precision": 1.0,
+        "state_set_recall": 0.6,
+        "missed_state_names": [
+          "on tray",
+          "ready-to-cook"
+        ],
+        "extra_state_names": [],
+        "counts": {
+          "tp": 12243,
+          "fp": 7108,
+          "fn": 9772
+        },
+        "per_state": {
+          "on tray": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 3000,
+            "predicted_positive_frames": 0
+          },
+          "poured": {
+            "precision": 0.7144982993197279,
+            "recall": 1.0,
+            "f1": 0.8334779913205208,
+            "gt_positive_frames": 6722,
+            "predicted_positive_frames": 9408
+          },
+          "ready-to-cook": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1422,
+            "predicted_positive_frames": 0
+          },
+          "relocated": {
+            "precision": 0.5299744897959183,
+            "recall": 1.0,
+            "f1": 0.692788661942476,
+            "gt_positive_frames": 4986,
+            "predicted_positive_frames": 9408
+          },
+          "scattered": {
+            "precision": 1.0,
+            "recall": 0.09090909090909091,
+            "f1": 0.16666666666666666,
+            "gt_positive_frames": 5885,
+            "predicted_positive_frames": 535
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 5,
+            "fp": 3,
+            "fn": 4,
+            "f1": 0.5882352941176471
+          },
+          "0.25": {
+            "tp": 4,
+            "fp": 4,
+            "fn": 5,
+            "f1": 0.47058823529411764
+          },
+          "0.5": {
+            "tp": 3,
+            "fp": 5,
+            "fn": 6,
+            "f1": 0.35294117647058826
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 0.0,
+        "heldout_states": {}
+      },
+      "S55_Pizza_7150991-292::cheese": {
+        "evaluated_frames": 9608,
+        "skipped_empty_gt_frames": 7473,
+        "published_annotation_array_frames": 17081,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.7913014899211218,
+        "micro_recall": 0.4702882194634951,
+        "micro_f1": 0.5899537163081949,
+        "macro_f1_gt_present": 0.42905050191728034,
+        "top1_frame_hit_accuracy": 0.9870941042900085,
+        "balanced_top1_label_recall": 0.1964522086725166,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.4035265750763253,
+        "gt_unique_states": [
+          "added",
+          "grated",
+          "less-covered",
+          "on top",
+          "scattered",
+          "topped"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "added",
+          "grated",
+          "scattered"
+        ],
+        "unique_state_count_absolute_error": 3,
+        "state_set_precision": 1.0,
+        "state_set_recall": 0.5,
+        "missed_state_names": [
+          "less-covered",
+          "on top",
+          "topped"
+        ],
+        "extra_state_names": [],
+        "counts": {
+          "tp": 21669,
+          "fp": 5715,
+          "fn": 24407
+        },
+        "per_state": {
+          "added": {
+            "precision": 0.5933157642549114,
+            "recall": 0.8919502971366828,
+            "f1": 0.7126106035537012,
+            "gt_positive_frames": 5553,
+            "predicted_positive_frames": 8348
+          },
+          "grated": {
+            "precision": 0.9870940882597835,
+            "recall": 1.0,
+            "f1": 0.9935051330400168,
+            "gt_positive_frames": 9484,
+            "predicted_positive_frames": 9608
+          },
+          "less-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 9608,
+            "predicted_positive_frames": 0
+          },
+          "on top": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 7232,
+            "predicted_positive_frames": 0
+          },
+          "scattered": {
+            "precision": 0.7670767925328807,
+            "recall": 1.0,
+            "f1": 0.868187274909964,
+            "gt_positive_frames": 7232,
+            "predicted_positive_frames": 9428
+          },
+          "topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6967,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 3,
+            "fp": 4,
+            "fn": 3,
+            "f1": 0.46153846153846156
+          },
+          "0.25": {
+            "tp": 3,
+            "fp": 4,
+            "fn": 3,
+            "f1": 0.46153846153846156
+          },
+          "0.5": {
+            "tp": 3,
+            "fp": 4,
+            "fn": 3,
+            "f1": 0.46153846153846156
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 27.027777777777782,
+        "heldout_states": {}
+      },
+      "S55_Pizza_7150991-292::batter": {
+        "evaluated_frames": 14606,
+        "skipped_empty_gt_frames": 2475,
+        "published_annotation_array_frames": 17081,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.43812532912058977,
+        "micro_recall": 0.3007047768206735,
+        "micro_f1": 0.3566351134131095,
+        "macro_f1_gt_present": 0.30794855186453224,
+        "top1_frame_hit_accuracy": 0.0,
+        "balanced_top1_label_recall": 0.0,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.19255785293714908,
+        "gt_unique_states": [
+          "saucy",
+          "stuffed",
+          "topped"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "on tray",
+          "saucy"
+        ],
+        "unique_state_count_absolute_error": 1,
+        "state_set_precision": 0.5,
+        "state_set_recall": 0.3333333333333333,
+        "missed_state_names": [
+          "stuffed",
+          "topped"
+        ],
+        "extra_state_names": [
+          "on tray"
+        ],
+        "counts": {
+          "tp": 9984,
+          "fp": 12804,
+          "fn": 23218
+        },
+        "per_state": {
+          "on tray": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 12804
+          },
+          "saucy": {
+            "precision": 1.0,
+            "recall": 0.858469475494411,
+            "f1": 0.9238456555935968,
+            "gt_positive_frames": 11630,
+            "predicted_positive_frames": 9984
+          },
+          "stuffed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 14606,
+            "predicted_positive_frames": 0
+          },
+          "topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6966,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 2,
+            "fp": 8,
+            "fn": 3,
+            "f1": 0.26666666666666666
+          },
+          "0.25": {
+            "tp": 2,
+            "fp": 8,
+            "fn": 3,
+            "f1": 0.26666666666666666
+          },
+          "0.5": {
+            "tp": 1,
+            "fp": 9,
+            "fn": 4,
+            "f1": 0.13333333333333333
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 13.433333333333334,
+        "heldout_states": {}
+      }
+    }
+  },
+  "prototype": {
+    "aggregate": {
+      "object_video_units": 6,
+      "macro_over_object_video_units": {
+        "top1_frame_hit_accuracy": 0.5903882384300232,
+        "balanced_top1_label_recall": 0.12805332598585165,
+        "micro_precision": 0.5463506365065344,
+        "micro_recall": 0.5569809419246179,
+        "micro_f1": 0.5422221767443626,
+        "macro_f1_gt_present": 0.4151648572039605,
+        "exact_state_set_accuracy": 0.02545705782312925,
+        "mean_frame_jaccard": 0.39332463691315894,
+        "unique_state_count_absolute_error": 1.6666666666666667,
+        "state_set_precision": 0.6924603174603176,
+        "state_set_recall": 0.5817460317460318
+      },
+      "pooled_micro_f1": 0.5395266797076295,
+      "segment_f1_macro_over_units": {
+        "0.1": 0.4845042569859977,
+        "0.25": 0.4845042569859977,
+        "0.5": 0.3862067000761462
+      }
+    },
+    "units": {
+      "S17_Salad_7150991-822::vegetables": {
+        "evaluated_frames": 9456,
+        "skipped_empty_gt_frames": 2882,
+        "published_annotation_array_frames": 12338,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.6655104636374147,
+        "micro_recall": 0.6638410748781824,
+        "micro_f1": 0.6646747210554425,
+        "macro_f1_gt_present": 0.40310590227230847,
+        "top1_frame_hit_accuracy": 0.8728849291801453,
+        "balanced_top1_label_recall": 0.14285714285714285,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.5013284586254129,
+        "gt_unique_states": [
+          "added",
+          "chopped",
+          "in bowl",
+          "mayonnaise-mixed",
+          "mixed",
+          "peeled",
+          "separated"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "chopped",
+          "in bowl",
+          "mayonnaise-mixed",
+          "peeled",
+          "separated"
+        ],
+        "unique_state_count_absolute_error": 2,
+        "state_set_precision": 1.0,
+        "state_set_recall": 0.7142857142857143,
+        "missed_state_names": [
+          "added",
+          "mixed"
+        ],
+        "extra_state_names": [],
+        "counts": {
+          "tp": 23024,
+          "fp": 11572,
+          "fn": 11659
+        },
+        "per_state": {
+          "added": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6832,
+            "predicted_positive_frames": 0
+          },
+          "chopped": {
+            "precision": 0.8728849407783418,
+            "recall": 1.0,
+            "f1": 0.932128740824393,
+            "gt_positive_frames": 8254,
+            "predicted_positive_frames": 9456
+          },
+          "in bowl": {
+            "precision": 0.8548906048906049,
+            "recall": 0.6438090622728374,
+            "f1": 0.7344851416724257,
+            "gt_positive_frames": 8254,
+            "predicted_positive_frames": 6216
+          },
+          "mayonnaise-mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1158,
+            "predicted_positive_frames": 12
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 729,
+            "predicted_positive_frames": 0
+          },
+          "peeled": {
+            "precision": 0.8754230118443317,
+            "recall": 1.0,
+            "f1": 0.9335739257922635,
+            "gt_positive_frames": 8278,
+            "predicted_positive_frames": 9456
+          },
+          "separated": {
+            "precision": 0.12457698815566835,
+            "recall": 1.0,
+            "f1": 0.2215535076170773,
+            "gt_positive_frames": 1178,
+            "predicted_positive_frames": 9456
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 9,
+            "fp": 9,
+            "fn": 4,
+            "f1": 0.5806451612903226
+          },
+          "0.25": {
+            "tp": 9,
+            "fp": 9,
+            "fn": 4,
+            "f1": 0.5806451612903226
+          },
+          "0.5": {
+            "tp": 7,
+            "fp": 11,
+            "fn": 6,
+            "f1": 0.45161290322580644
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 2.861904761904762,
+        "heldout_states": {}
+      },
+      "S14_Eggs_7150991-1016::eggs": {
+        "evaluated_frames": 6866,
+        "skipped_empty_gt_frames": 3889,
+        "published_annotation_array_frames": 10755,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.33196541110948263,
+        "micro_recall": 0.40065449077964005,
+        "micro_f1": 0.36308987075443344,
+        "macro_f1_gt_present": 0.24803337303193504,
+        "top1_frame_hit_accuracy": 0.8769298195838928,
+        "balanced_top1_label_recall": 0.17029699784298988,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.22307852357371727,
+        "gt_unique_states": [
+          "assembled",
+          "beaten",
+          "cracked",
+          "egg-covered",
+          "full",
+          "in bowl",
+          "on dish"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "beaten",
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated"
+        ],
+        "unique_state_count_absolute_error": 1,
+        "state_set_precision": 0.5,
+        "state_set_recall": 0.42857142857142855,
+        "missed_state_names": [
+          "assembled",
+          "egg-covered",
+          "full",
+          "on dish"
+        ],
+        "extra_state_names": [
+          "mixed",
+          "poured",
+          "relocated"
+        ],
+        "counts": {
+          "tp": 9060,
+          "fp": 18232,
+          "fn": 13553
+        },
+        "per_state": {
+          "assembled": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 102,
+            "predicted_positive_frames": 0
+          },
+          "beaten": {
+            "precision": 0.9710166035537431,
+            "recall": 1.0,
+            "f1": 0.9852952043153772,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 6866
+          },
+          "cracked": {
+            "precision": 0.023992085085332675,
+            "recall": 1.0,
+            "f1": 0.04685990338164251,
+            "gt_positive_frames": 97,
+            "predicted_positive_frames": 4043
+          },
+          "egg-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 0
+          },
+          "full": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 0
+          },
+          "in bowl": {
+            "precision": 0.5433033601514434,
+            "recall": 1.0,
+            "f1": 0.7040785035265256,
+            "gt_positive_frames": 2296,
+            "predicted_positive_frames": 4226
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 5928
+          },
+          "on dish": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 117,
+            "predicted_positive_frames": 0
+          },
+          "poured": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 2783
+          },
+          "relocated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 3446
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 7,
+            "fp": 31,
+            "fn": 8,
+            "f1": 0.2641509433962264
+          },
+          "0.25": {
+            "tp": 7,
+            "fp": 31,
+            "fn": 8,
+            "f1": 0.2641509433962264
+          },
+          "0.5": {
+            "tp": 5,
+            "fp": 33,
+            "fn": 10,
+            "f1": 0.18867924528301888
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 0.44000000000000006,
+        "heldout_states": {}
+      },
+      "S37_Brownie_7150991-133::eggs": {
+        "evaluated_frames": 6407,
+        "skipped_empty_gt_frames": 7953,
+        "published_annotation_array_frames": 14360,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.6942118784947862,
+        "micro_recall": 0.7047128129602357,
+        "micro_f1": 0.699422933447021,
+        "macro_f1_gt_present": 0.6035217601581832,
+        "top1_frame_hit_accuracy": 0.44904011487960815,
+        "balanced_top1_label_recall": 0.06924523759764875,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.5408474362118812,
+        "gt_unique_states": [
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated",
+          "scattered",
+          "separated"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "beaten",
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated"
+        ],
+        "unique_state_count_absolute_error": 1,
+        "state_set_precision": 0.8333333333333334,
+        "state_set_recall": 0.7142857142857143,
+        "missed_state_names": [
+          "scattered",
+          "separated"
+        ],
+        "extra_state_names": [
+          "beaten"
+        ],
+        "counts": {
+          "tp": 22968,
+          "fp": 10117,
+          "fn": 9624
+        },
+        "per_state": {
+          "beaten": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 6337
+          },
+          "cracked": {
+            "precision": 0.907767873385483,
+            "recall": 0.8457627118644068,
+            "f1": 0.8756690357111521,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 5497
+          },
+          "in bowl": {
+            "precision": 0.9208678008428282,
+            "recall": 1.0,
+            "f1": 0.9588039327212156,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 6407
+          },
+          "mixed": {
+            "precision": 0.4309823677581864,
+            "recall": 1.0,
+            "f1": 0.6023587396585108,
+            "gt_positive_frames": 1711,
+            "predicted_positive_frames": 3970
+          },
+          "poured": {
+            "precision": 0.9067500459812396,
+            "recall": 0.8355932203389831,
+            "f1": 0.8697186204463262,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 5437
+          },
+          "relocated": {
+            "precision": 1.0,
+            "recall": 0.8486030903699079,
+            "f1": 0.9181019925700776,
+            "gt_positive_frames": 6407,
+            "predicted_positive_frames": 5437
+          },
+          "scattered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 874,
+            "predicted_positive_frames": 0
+          },
+          "separated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 5,
+            "fp": 4,
+            "fn": 2,
+            "f1": 0.625
+          },
+          "0.25": {
+            "tp": 5,
+            "fp": 4,
+            "fn": 2,
+            "f1": 0.625
+          },
+          "0.5": {
+            "tp": 5,
+            "fp": 4,
+            "fn": 2,
+            "f1": 0.625
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 20.1,
+        "heldout_states": {}
+      },
+      "S37_Brownie_7150991-133::egg mixture": {
+        "evaluated_frames": 9408,
+        "skipped_empty_gt_frames": 4952,
+        "published_annotation_array_frames": 14360,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.5615530629853321,
+        "micro_recall": 0.7390869861458097,
+        "micro_f1": 0.638203569327319,
+        "macro_f1_gt_present": 0.5099804282894274,
+        "top1_frame_hit_accuracy": 0.7655187249183655,
+        "balanced_top1_label_recall": 0.21925391095066185,
+        "exact_state_set_accuracy": 0.1527423469387755,
+        "mean_frame_jaccard": 0.5119029903628118,
+        "gt_unique_states": [
+          "on tray",
+          "poured",
+          "ready-to-cook",
+          "relocated",
+          "scattered"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "beaten",
+          "in-pan",
+          "poured",
+          "ready-to-cook",
+          "relocated",
+          "scattered",
+          "seasoned"
+        ],
+        "unique_state_count_absolute_error": 2,
+        "state_set_precision": 0.5714285714285714,
+        "state_set_recall": 0.8,
+        "missed_state_names": [
+          "on tray"
+        ],
+        "extra_state_names": [
+          "beaten",
+          "in-pan",
+          "seasoned"
+        ],
+        "counts": {
+          "tp": 16271,
+          "fp": 12704,
+          "fn": 5744
+        },
+        "per_state": {
+          "beaten": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1687
+          },
+          "in-pan": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 967
+          },
+          "on tray": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 3000,
+            "predicted_positive_frames": 0
+          },
+          "poured": {
+            "precision": 0.7144982993197279,
+            "recall": 1.0,
+            "f1": 0.8334779913205208,
+            "gt_positive_frames": 6722,
+            "predicted_positive_frames": 9408
+          },
+          "ready-to-cook": {
+            "precision": 0.1710794297352342,
+            "recall": 0.29535864978902954,
+            "f1": 0.2166623678101625,
+            "gt_positive_frames": 1422,
+            "predicted_positive_frames": 2455
+          },
+          "relocated": {
+            "precision": 0.5299744897959183,
+            "recall": 1.0,
+            "f1": 0.692788661942476,
+            "gt_positive_frames": 4986,
+            "predicted_positive_frames": 9408
+          },
+          "scattered": {
+            "precision": 0.945242984257358,
+            "recall": 0.7039932030586237,
+            "f1": 0.8069731203739774,
+            "gt_positive_frames": 5885,
+            "predicted_positive_frames": 4383
+          },
+          "seasoned": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 667
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 8,
+            "fp": 16,
+            "fn": 1,
+            "f1": 0.48484848484848486
+          },
+          "0.25": {
+            "tp": 8,
+            "fp": 16,
+            "fn": 1,
+            "f1": 0.48484848484848486
+          },
+          "0.5": {
+            "tp": 4,
+            "fp": 20,
+            "fn": 5,
+            "f1": 0.24242424242424243
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 2.0208333333333335,
+        "heldout_states": {}
+      },
+      "S55_Pizza_7150991-292::cheese": {
+        "evaluated_frames": 9608,
+        "skipped_empty_gt_frames": 7473,
+        "published_annotation_array_frames": 17081,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.7725853455453788,
+        "micro_recall": 0.4833101831756229,
+        "micro_f1": 0.5946328437917223,
+        "macro_f1_gt_present": 0.43082498800471375,
+        "top1_frame_hit_accuracy": 0.5779558420181274,
+        "balanced_top1_label_recall": 0.16666666666666666,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.4076637524285318,
+        "gt_unique_states": [
+          "added",
+          "grated",
+          "less-covered",
+          "on top",
+          "scattered",
+          "topped"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "added",
+          "grated",
+          "scattered"
+        ],
+        "unique_state_count_absolute_error": 3,
+        "state_set_precision": 1.0,
+        "state_set_recall": 0.5,
+        "missed_state_names": [
+          "less-covered",
+          "on top",
+          "topped"
+        ],
+        "extra_state_names": [],
+        "counts": {
+          "tp": 22269,
+          "fp": 6555,
+          "fn": 23807
+        },
+        "per_state": {
+          "added": {
+            "precision": 0.5779558701082431,
+            "recall": 1.0,
+            "f1": 0.7325374315678386,
+            "gt_positive_frames": 5553,
+            "predicted_positive_frames": 9608
+          },
+          "grated": {
+            "precision": 0.9870940882597835,
+            "recall": 1.0,
+            "f1": 0.9935051330400168,
+            "gt_positive_frames": 9484,
+            "predicted_positive_frames": 9608
+          },
+          "less-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 9608,
+            "predicted_positive_frames": 0
+          },
+          "on top": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 7232,
+            "predicted_positive_frames": 0
+          },
+          "scattered": {
+            "precision": 0.7527060782681099,
+            "recall": 1.0,
+            "f1": 0.8589073634204275,
+            "gt_positive_frames": 7232,
+            "predicted_positive_frames": 9608
+          },
+          "topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6967,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 3,
+            "fp": 0,
+            "fn": 3,
+            "f1": 0.6666666666666666
+          },
+          "0.25": {
+            "tp": 3,
+            "fp": 0,
+            "fn": 3,
+            "f1": 0.6666666666666666
+          },
+          "0.5": {
+            "tp": 3,
+            "fp": 0,
+            "fn": 3,
+            "f1": 0.6666666666666666
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 36.416666666666664,
+        "heldout_states": {}
+      },
+      "S55_Pizza_7150991-292::batter": {
+        "evaluated_frames": 14606,
+        "skipped_empty_gt_frames": 2475,
+        "published_annotation_array_frames": 17081,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.2522776572668113,
+        "micro_recall": 0.3502801036082164,
+        "micro_f1": 0.2933091220902373,
+        "macro_f1_gt_present": 0.2955226914671952,
+        "top1_frame_hit_accuracy": 0.0,
+        "balanced_top1_label_recall": 0.0,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.1751266602765987,
+        "gt_unique_states": [
+          "saucy",
+          "stuffed",
+          "topped"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "cheese-covered",
+          "empty",
+          "on tray",
+          "saucy"
+        ],
+        "unique_state_count_absolute_error": 1,
+        "state_set_precision": 0.25,
+        "state_set_recall": 0.3333333333333333,
+        "missed_state_names": [
+          "stuffed",
+          "topped"
+        ],
+        "extra_state_names": [
+          "cheese-covered",
+          "empty",
+          "on tray"
+        ],
+        "counts": {
+          "tp": 11630,
+          "fp": 34470,
+          "fn": 21572
+        },
+        "per_state": {
+          "cheese-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 13886
+          },
+          "empty": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 3002
+          },
+          "on tray": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 14606
+          },
+          "saucy": {
+            "precision": 0.7962481172121046,
+            "recall": 1.0,
+            "f1": 0.8865680744015856,
+            "gt_positive_frames": 11630,
+            "predicted_positive_frames": 14606
+          },
+          "stuffed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 14606,
+            "predicted_positive_frames": 0
+          },
+          "topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6966,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 2,
+            "fp": 7,
+            "fn": 3,
+            "f1": 0.2857142857142857
+          },
+          "0.25": {
+            "tp": 2,
+            "fp": 7,
+            "fn": 3,
+            "f1": 0.2857142857142857
+          },
+          "0.5": {
+            "tp": 1,
+            "fp": 8,
+            "fn": 4,
+            "f1": 0.14285714285714285
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 0.0,
+        "heldout_states": {}
+      }
+    }
+  },
+  "legacy": {
+    "aggregate": {
+      "object_video_units": 6,
+      "macro_over_object_video_units": {
+        "top1_frame_hit_accuracy": 0.42947838455438614,
+        "balanced_top1_label_recall": 0.1169260283650591,
+        "micro_precision": 0.3288114350266236,
+        "micro_recall": 0.4862674698257932,
+        "micro_f1": 0.3545174579375978,
+        "macro_f1_gt_present": 0.34248290979924345,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.25147020328793673,
+        "unique_state_count_absolute_error": 16.333333333333332,
+        "state_set_precision": 0.39686147186147186,
+        "state_set_recall": 0.5666666666666667
+      },
+      "pooled_micro_f1": 0.17379758552663135,
+      "segment_f1_macro_over_units": {
+        "0.1": 0.2785047504115918,
+        "0.25": 0.2555547261515238,
+        "0.5": 0.23149703280707645
+      }
+    },
+    "units": {
+      "S17_Salad_7150991-822::vegetables": {
+        "evaluated_frames": 9456,
+        "skipped_empty_gt_frames": 2882,
+        "published_annotation_array_frames": 12338,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.6029141417580173,
+        "micro_recall": 0.5106248017760863,
+        "micro_f1": 0.5529450333296907,
+        "macro_f1_gt_present": 0.30562759028359593,
+        "top1_frame_hit_accuracy": 0.8208544850349426,
+        "balanced_top1_label_recall": 0.2567111960082886,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.3989092337442591,
+        "gt_unique_states": [
+          "added",
+          "chopped",
+          "in bowl",
+          "mayonnaise-mixed",
+          "mixed",
+          "peeled",
+          "separated"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "chopped",
+          "coated",
+          "mayonnaise-mixed",
+          "peeled",
+          "separated"
+        ],
+        "unique_state_count_absolute_error": 2,
+        "state_set_precision": 0.8,
+        "state_set_recall": 0.5714285714285714,
+        "missed_state_names": [
+          "added",
+          "in bowl",
+          "mixed"
+        ],
+        "extra_state_names": [
+          "coated"
+        ],
+        "counts": {
+          "tp": 17710,
+          "fp": 11664,
+          "fn": 16973
+        },
+        "per_state": {
+          "added": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6832,
+            "predicted_positive_frames": 0
+          },
+          "chopped": {
+            "precision": 0.8728849407783418,
+            "recall": 1.0,
+            "f1": 0.932128740824393,
+            "gt_positive_frames": 8254,
+            "predicted_positive_frames": 9456
+          },
+          "coated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 672
+          },
+          "in bowl": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 8254,
+            "predicted_positive_frames": 0
+          },
+          "mayonnaise-mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1158,
+            "predicted_positive_frames": 1272
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 729,
+            "predicted_positive_frames": 0
+          },
+          "peeled": {
+            "precision": 0.9718243719182906,
+            "recall": 1.0,
+            "f1": 0.9857108835437008,
+            "gt_positive_frames": 8278,
+            "predicted_positive_frames": 8518
+          },
+          "separated": {
+            "precision": 0.12457698815566835,
+            "recall": 1.0,
+            "f1": 0.2215535076170773,
+            "gt_positive_frames": 1178,
+            "predicted_positive_frames": 9456
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 6,
+            "fp": 8,
+            "fn": 7,
+            "f1": 0.4444444444444444
+          },
+          "0.25": {
+            "tp": 6,
+            "fp": 8,
+            "fn": 7,
+            "f1": 0.4444444444444444
+          },
+          "0.5": {
+            "tp": 6,
+            "fp": 8,
+            "fn": 7,
+            "f1": 0.4444444444444444
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 3.338888888888889,
+        "heldout_states": {}
+      },
+      "S14_Eggs_7150991-1016::eggs": {
+        "evaluated_frames": 6866,
+        "skipped_empty_gt_frames": 3889,
+        "published_annotation_array_frames": 10755,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.26419013869371294,
+        "micro_recall": 0.5736523238844912,
+        "micro_f1": 0.3617703656189865,
+        "macro_f1_gt_present": 0.34428386925852844,
+        "top1_frame_hit_accuracy": 0.22604136168956757,
+        "balanced_top1_label_recall": 0.09656545545047288,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.22101474358246861,
+        "gt_unique_states": [
+          "assembled",
+          "beaten",
+          "cracked",
+          "egg-covered",
+          "full",
+          "in bowl",
+          "on dish"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "beaten",
+          "cooked",
+          "cracked",
+          "egg-covered",
+          "full",
+          "in bowl",
+          "in-oven",
+          "mixed",
+          "poured",
+          "ready-to-cook",
+          "relocated",
+          "seasoned"
+        ],
+        "unique_state_count_absolute_error": 5,
+        "state_set_precision": 0.4166666666666667,
+        "state_set_recall": 0.7142857142857143,
+        "missed_state_names": [
+          "assembled",
+          "on dish"
+        ],
+        "extra_state_names": [
+          "cooked",
+          "in-oven",
+          "mixed",
+          "poured",
+          "ready-to-cook",
+          "relocated",
+          "seasoned"
+        ],
+        "counts": {
+          "tp": 12972,
+          "fp": 36129,
+          "fn": 9641
+        },
+        "per_state": {
+          "assembled": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 102,
+            "predicted_positive_frames": 0
+          },
+          "beaten": {
+            "precision": 1.0,
+            "recall": 0.9571021448927554,
+            "f1": 0.9780809319435929,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 6381
+          },
+          "cooked": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 2100
+          },
+          "cracked": {
+            "precision": 0.009802465468587554,
+            "recall": 0.6804123711340206,
+            "f1": 0.019326500732064423,
+            "gt_positive_frames": 97,
+            "predicted_positive_frames": 6733
+          },
+          "egg-covered": {
+            "precision": 1.0,
+            "recall": 0.06299685015749212,
+            "f1": 0.11852688020318894,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 420
+          },
+          "full": {
+            "precision": 1.0,
+            "recall": 0.5849707514624268,
+            "f1": 0.7381470616068894,
+            "gt_positive_frames": 6667,
+            "predicted_positive_frames": 3900
+          },
+          "in bowl": {
+            "precision": 0.39116551357104845,
+            "recall": 0.9603658536585366,
+            "f1": 0.5559057103239632,
+            "gt_positive_frames": 2296,
+            "predicted_positive_frames": 5637
+          },
+          "in-oven": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 240
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 5111
+          },
+          "on dish": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 117,
+            "predicted_positive_frames": 0
+          },
+          "poured": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 6673
+          },
+          "ready-to-cook": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1980
+          },
+          "relocated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 6866
+          },
+          "seasoned": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 3060
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 8,
+            "fp": 42,
+            "fn": 7,
+            "f1": 0.24615384615384617
+          },
+          "0.25": {
+            "tp": 8,
+            "fp": 42,
+            "fn": 7,
+            "f1": 0.24615384615384617
+          },
+          "0.5": {
+            "tp": 6,
+            "fp": 44,
+            "fn": 9,
+            "f1": 0.18461538461538463
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 2.5805555555555557,
+        "heldout_states": {}
+      },
+      "S37_Brownie_7150991-133::eggs": {
+        "evaluated_frames": 6407,
+        "skipped_empty_gt_frames": 7953,
+        "published_annotation_array_frames": 14360,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.7603447737422316,
+        "micro_recall": 0.7470238095238095,
+        "micro_f1": 0.7536254314147308,
+        "macro_f1_gt_present": 0.5886533388368134,
+        "top1_frame_hit_accuracy": 1.0,
+        "balanced_top1_label_recall": 0.14827951873159312,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.6014626859015808,
+        "gt_unique_states": [
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated",
+          "scattered",
+          "separated"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "beaten",
+          "cracked",
+          "in bowl",
+          "mixed",
+          "poured",
+          "relocated"
+        ],
+        "unique_state_count_absolute_error": 1,
+        "state_set_precision": 0.8333333333333334,
+        "state_set_recall": 0.7142857142857143,
+        "missed_state_names": [
+          "scattered",
+          "separated"
+        ],
+        "extra_state_names": [
+          "beaten"
+        ],
+        "counts": {
+          "tp": 24347,
+          "fp": 7674,
+          "fn": 8245
+        },
+        "per_state": {
+          "beaten": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 6190
+          },
+          "cracked": {
+            "precision": 0.9208678008428282,
+            "recall": 1.0,
+            "f1": 0.9588039327212156,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 6407
+          },
+          "in bowl": {
+            "precision": 0.9208678008428282,
+            "recall": 1.0,
+            "f1": 0.9588039327212156,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 6407
+          },
+          "mixed": {
+            "precision": 0.6666666666666666,
+            "recall": 0.1402688486265342,
+            "f1": 0.2317720907774022,
+            "gt_positive_frames": 1711,
+            "predicted_positive_frames": 360
+          },
+          "poured": {
+            "precision": 0.944,
+            "recall": 1.0,
+            "f1": 0.9711934156378601,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 6250
+          },
+          "relocated": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "gt_positive_frames": 6407,
+            "predicted_positive_frames": 6407
+          },
+          "scattered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 874,
+            "predicted_positive_frames": 0
+          },
+          "separated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 5900,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 5,
+            "fp": 3,
+            "fn": 2,
+            "f1": 0.6666666666666666
+          },
+          "0.25": {
+            "tp": 4,
+            "fp": 4,
+            "fn": 3,
+            "f1": 0.5333333333333333
+          },
+          "0.5": {
+            "tp": 4,
+            "fp": 4,
+            "fn": 3,
+            "f1": 0.5333333333333333
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 5.683333333333333,
+        "heldout_states": {}
+      },
+      "S37_Brownie_7150991-133::egg mixture": {
+        "evaluated_frames": 9408,
+        "skipped_empty_gt_frames": 4952,
+        "published_annotation_array_frames": 14360,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.30948982289188476,
+        "micro_recall": 0.5318192141721554,
+        "micro_f1": 0.39127746678920544,
+        "macro_f1_gt_present": 0.30525333065259935,
+        "top1_frame_hit_accuracy": 0.5299744606018066,
+        "balanced_top1_label_recall": 0.2,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.25363077522675737,
+        "gt_unique_states": [
+          "on tray",
+          "poured",
+          "ready-to-cook",
+          "relocated",
+          "scattered"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "beaten",
+          "cracked",
+          "in bowl",
+          "jam-topped",
+          "peanut-butter-and-jam-covered",
+          "poured",
+          "relocated"
+        ],
+        "unique_state_count_absolute_error": 2,
+        "state_set_precision": 0.2857142857142857,
+        "state_set_recall": 0.4,
+        "missed_state_names": [
+          "on tray",
+          "ready-to-cook",
+          "scattered"
+        ],
+        "extra_state_names": [
+          "beaten",
+          "cracked",
+          "in bowl",
+          "jam-topped",
+          "peanut-butter-and-jam-covered"
+        ],
+        "counts": {
+          "tp": 11708,
+          "fp": 26122,
+          "fn": 10307
+        },
+        "per_state": {
+          "beaten": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 547
+          },
+          "cracked": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 9228
+          },
+          "in bowl": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 9009
+          },
+          "jam-topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 115
+          },
+          "on tray": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 3000,
+            "predicted_positive_frames": 0
+          },
+          "peanut-butter-and-jam-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 115
+          },
+          "poured": {
+            "precision": 0.7144982993197279,
+            "recall": 1.0,
+            "f1": 0.8334779913205208,
+            "gt_positive_frames": 6722,
+            "predicted_positive_frames": 9408
+          },
+          "ready-to-cook": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 1422,
+            "predicted_positive_frames": 0
+          },
+          "relocated": {
+            "precision": 0.5299744897959183,
+            "recall": 1.0,
+            "f1": 0.692788661942476,
+            "gt_positive_frames": 4986,
+            "predicted_positive_frames": 9408
+          },
+          "scattered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 5885,
+            "predicted_positive_frames": 0
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 4,
+            "fp": 14,
+            "fn": 5,
+            "f1": 0.2962962962962963
+          },
+          "0.25": {
+            "tp": 4,
+            "fp": 14,
+            "fn": 5,
+            "f1": 0.2962962962962963
+          },
+          "0.5": {
+            "tp": 3,
+            "fp": 15,
+            "fn": 6,
+            "f1": 0.2222222222222222
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 0.0,
+        "heldout_states": {}
+      },
+      "S55_Pizza_7150991-292::cheese": {
+        "evaluated_frames": 9608,
+        "skipped_empty_gt_frames": 7473,
+        "published_annotation_array_frames": 17081,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.0,
+        "micro_recall": 0.0,
+        "micro_f1": 0.0,
+        "macro_f1_gt_present": 0.0,
+        "top1_frame_hit_accuracy": 0.0,
+        "balanced_top1_label_recall": 0.0,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.0,
+        "gt_unique_states": [
+          "added",
+          "grated",
+          "less-covered",
+          "on top",
+          "scattered",
+          "topped"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "assembled",
+          "batter-covered",
+          "beaten",
+          "chopped",
+          "churned",
+          "coated",
+          "coating",
+          "covered",
+          "cracked",
+          "double-layered",
+          "egg-coated",
+          "flipped",
+          "in bowl",
+          "jam-topped",
+          "juiced",
+          "mayonnaise-mixed",
+          "mixed",
+          "peanut butter topped",
+          "peanut-butter-and-jam-covered",
+          "peeled",
+          "poured",
+          "pressed-together",
+          "relocated",
+          "scooped-out",
+          "separated",
+          "solid",
+          "sprayed",
+          "sticky",
+          "stuffed",
+          "thin",
+          "vegetable-covered"
+        ],
+        "unique_state_count_absolute_error": 25,
+        "state_set_precision": 0.0,
+        "state_set_recall": 0.0,
+        "missed_state_names": [
+          "added",
+          "grated",
+          "less-covered",
+          "on top",
+          "scattered",
+          "topped"
+        ],
+        "extra_state_names": [
+          "assembled",
+          "batter-covered",
+          "beaten",
+          "chopped",
+          "churned",
+          "coated",
+          "coating",
+          "covered",
+          "cracked",
+          "double-layered",
+          "egg-coated",
+          "flipped",
+          "in bowl",
+          "jam-topped",
+          "juiced",
+          "mayonnaise-mixed",
+          "mixed",
+          "peanut butter topped",
+          "peanut-butter-and-jam-covered",
+          "peeled",
+          "poured",
+          "pressed-together",
+          "relocated",
+          "scooped-out",
+          "separated",
+          "solid",
+          "sprayed",
+          "sticky",
+          "stuffed",
+          "thin",
+          "vegetable-covered"
+        ],
+        "counts": {
+          "tp": 0,
+          "fp": 127945,
+          "fn": 46076
+        },
+        "per_state": {
+          "added": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 5553,
+            "predicted_positive_frames": 0
+          },
+          "assembled": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 9608
+          },
+          "batter-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1200
+          },
+          "beaten": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 2460
+          },
+          "chopped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 9608
+          },
+          "churned": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 2760
+          },
+          "coated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 9608
+          },
+          "coating": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 5845
+          },
+          "covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 180
+          },
+          "cracked": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 8168
+          },
+          "double-layered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1405
+          },
+          "egg-coated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1045
+          },
+          "flipped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 480
+          },
+          "grated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 9484,
+            "predicted_positive_frames": 0
+          },
+          "in bowl": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 5083
+          },
+          "jam-topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 840
+          },
+          "juiced": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 300
+          },
+          "less-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 9608,
+            "predicted_positive_frames": 0
+          },
+          "mayonnaise-mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 9445
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 2400
+          },
+          "on top": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 7232,
+            "predicted_positive_frames": 0
+          },
+          "peanut butter topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 2220
+          },
+          "peanut-butter-and-jam-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 3120
+          },
+          "peeled": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 9608
+          },
+          "poured": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 7723
+          },
+          "pressed-together": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 6368
+          },
+          "relocated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 7603
+          },
+          "scattered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 7232,
+            "predicted_positive_frames": 0
+          },
+          "scooped-out": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 3145
+          },
+          "separated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 7928
+          },
+          "solid": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1765
+          },
+          "sprayed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 4080
+          },
+          "sticky": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1165
+          },
+          "stuffed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1560
+          },
+          "thin": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 180
+          },
+          "topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6967,
+            "predicted_positive_frames": 0
+          },
+          "vegetable-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1045
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 0,
+            "fp": 140,
+            "fn": 6,
+            "f1": 0.0
+          },
+          "0.25": {
+            "tp": 0,
+            "fp": 140,
+            "fn": 6,
+            "f1": 0.0
+          },
+          "0.5": {
+            "tp": 0,
+            "fp": 140,
+            "fn": 6,
+            "f1": 0.0
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": null,
+        "heldout_states": {}
+      },
+      "S55_Pizza_7150991-292::batter": {
+        "evaluated_frames": 14606,
+        "skipped_empty_gt_frames": 2475,
+        "published_annotation_array_frames": 17081,
+        "trailing_frames_outside_published_annotation_coverage": 0,
+        "micro_precision": 0.03592973307389503,
+        "micro_recall": 0.554484669598217,
+        "micro_f1": 0.06748645047297334,
+        "macro_f1_gt_present": 0.5110793297639235,
+        "top1_frame_hit_accuracy": 0.0,
+        "balanced_top1_label_recall": 0.0,
+        "exact_state_set_accuracy": 0.0,
+        "mean_frame_jaccard": 0.03380378127255441,
+        "gt_unique_states": [
+          "saucy",
+          "stuffed",
+          "topped"
+        ],
+        "predicted_unique_states_on_annotated_frames": [
+          "added",
+          "assembled",
+          "batter-covered",
+          "beaten",
+          "cheese-covered",
+          "chopped",
+          "churned",
+          "clean",
+          "coated",
+          "coating",
+          "cooked",
+          "covered",
+          "cracked",
+          "creamy",
+          "crumbly",
+          "diluted",
+          "discarded",
+          "double-layered",
+          "egg-coated",
+          "empty",
+          "flavored",
+          "flipped",
+          "full",
+          "grated",
+          "grinded",
+          "in bowl",
+          "in use",
+          "in-pan",
+          "inside",
+          "jam-topped",
+          "juiced",
+          "leftover",
+          "less-covered",
+          "liquefied",
+          "mayonnaise-mixed",
+          "mixed",
+          "oily",
+          "on",
+          "on dish",
+          "on top",
+          "on tray",
+          "partially-empty",
+          "peanut butter topped",
+          "peanut-butter-and-jam-covered",
+          "peeled",
+          "placed",
+          "poured",
+          "pressed-together",
+          "ready-to-cook",
+          "relocated",
+          "saucy",
+          "scattered",
+          "scooped-out",
+          "separated",
+          "served",
+          "solid",
+          "speckled",
+          "sprayed",
+          "sticky",
+          "stuffed",
+          "thin",
+          "topped",
+          "utilized",
+          "vegetable-covered",
+          "wet",
+          "yellow"
+        ],
+        "unique_state_count_absolute_error": 63,
+        "state_set_precision": 0.045454545454545456,
+        "state_set_recall": 1.0,
+        "missed_state_names": [],
+        "extra_state_names": [
+          "added",
+          "assembled",
+          "batter-covered",
+          "beaten",
+          "cheese-covered",
+          "chopped",
+          "churned",
+          "clean",
+          "coated",
+          "coating",
+          "cooked",
+          "covered",
+          "cracked",
+          "creamy",
+          "crumbly",
+          "diluted",
+          "discarded",
+          "double-layered",
+          "egg-coated",
+          "empty",
+          "flavored",
+          "flipped",
+          "full",
+          "grated",
+          "grinded",
+          "in bowl",
+          "in use",
+          "in-pan",
+          "inside",
+          "jam-topped",
+          "juiced",
+          "leftover",
+          "less-covered",
+          "liquefied",
+          "mayonnaise-mixed",
+          "mixed",
+          "oily",
+          "on",
+          "on dish",
+          "on top",
+          "on tray",
+          "partially-empty",
+          "peanut butter topped",
+          "peanut-butter-and-jam-covered",
+          "peeled",
+          "placed",
+          "poured",
+          "pressed-together",
+          "ready-to-cook",
+          "relocated",
+          "scattered",
+          "scooped-out",
+          "separated",
+          "served",
+          "solid",
+          "speckled",
+          "sprayed",
+          "sticky",
+          "thin",
+          "utilized",
+          "vegetable-covered",
+          "wet",
+          "yellow"
+        ],
+        "counts": {
+          "tp": 18410,
+          "fp": 493979,
+          "fn": 14792
+        },
+        "per_state": {
+          "added": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 10962
+          },
+          "assembled": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 13464
+          },
+          "batter-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 2160
+          },
+          "beaten": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 11742
+          },
+          "cheese-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 600
+          },
+          "chopped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 14606
+          },
+          "churned": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 10302
+          },
+          "clean": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 180
+          },
+          "coated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 13224
+          },
+          "coating": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 11562
+          },
+          "cooked": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1740
+          },
+          "covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 240
+          },
+          "cracked": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 14366
+          },
+          "creamy": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 7542
+          },
+          "crumbly": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 5022
+          },
+          "diluted": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 4722
+          },
+          "discarded": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 14186
+          },
+          "double-layered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 14426
+          },
+          "egg-coated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 7242
+          },
+          "empty": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 6704
+          },
+          "flavored": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 4337
+          },
+          "flipped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 14246
+          },
+          "full": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 2940
+          },
+          "grated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 360
+          },
+          "grinded": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 6402
+          },
+          "in bowl": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 11444
+          },
+          "in use": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1080
+          },
+          "in-pan": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1260
+          },
+          "inside": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 11384
+          },
+          "jam-topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 8159
+          },
+          "juiced": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 9299
+          },
+          "leftover": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 11022
+          },
+          "less-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 4140
+          },
+          "liquefied": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 5220
+          },
+          "mayonnaise-mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 13284
+          },
+          "mixed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 11664
+          },
+          "oily": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 3960
+          },
+          "on": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1560
+          },
+          "on dish": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 5084
+          },
+          "on top": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 600
+          },
+          "on tray": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 960
+          },
+          "partially-empty": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 3362
+          },
+          "peanut butter topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 4320
+          },
+          "peanut-butter-and-jam-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 9924
+          },
+          "peeled": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 14426
+          },
+          "placed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 13104
+          },
+          "poured": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 13466
+          },
+          "pressed-together": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 13946
+          },
+          "ready-to-cook": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 600
+          },
+          "relocated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 13106
+          },
+          "saucy": {
+            "precision": 0.8326984126984127,
+            "recall": 0.45107480653482374,
+            "f1": 0.5851645287228109,
+            "gt_positive_frames": 11630,
+            "predicted_positive_frames": 6300
+          },
+          "scattered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 11864
+          },
+          "scooped-out": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 13406
+          },
+          "separated": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 14426
+          },
+          "served": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 2100
+          },
+          "solid": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 7380
+          },
+          "speckled": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 1560
+          },
+          "sprayed": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 12384
+          },
+          "sticky": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 12624
+          },
+          "stuffed": {
+            "precision": 1.0,
+            "recall": 0.9012734492674244,
+            "f1": 0.9480734605689594,
+            "gt_positive_frames": 14606,
+            "predicted_positive_frames": 13164
+          },
+          "thin": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 4680
+          },
+          "topped": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 6966,
+            "predicted_positive_frames": 360
+          },
+          "utilized": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 9042
+          },
+          "vegetable-covered": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 6462
+          },
+          "wet": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 3882
+          },
+          "yellow": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "gt_positive_frames": 0,
+            "predicted_positive_frames": 13104
+          }
+        },
+        "segment_metrics": {
+          "0.1": {
+            "tp": 4,
+            "fp": 449,
+            "fn": 1,
+            "f1": 0.017467248908296942
+          },
+          "0.25": {
+            "tp": 3,
+            "fp": 450,
+            "fn": 2,
+            "f1": 0.013100436681222707
+          },
+          "0.5": {
+            "tp": 1,
+            "fp": 452,
+            "fn": 4,
+            "f1": 0.004366812227074236
+          }
+        },
+        "matched_segment_endpoint_mae_seconds_iou_0.5": 0.0,
+        "heldout_states": {}
+      }
+    }
+  }
+}

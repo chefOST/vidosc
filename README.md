@@ -13,10 +13,18 @@ Full-frame features are used; object tracking and crops remain unimplemented.
 
 ## Status
 
-Feature extraction, training, inference and evaluation completed for a custom
-CMU MOSCATO pilot. All 23 tests passed. On five fresh videos, the
-validation-selected model scored **30.3% multi-label F1**, below the stronger
-constant-prior baseline's **38.1%**. Reliable recognition is unresolved.
+The [accuracy follow-up](experiments/shray_multistate/v2/README.md) uses broader
+human-labelled training and a revised loss. On the same four new recordings,
+the validation-selected model scored **53.1% multi-label F1**, versus **35.5%**
+for the unchanged old checkpoint and **46.9%** for a constant-prior baseline.
+The retrained original architecture scored **56.2%**; the new architecture
+changes did not improve test F1. Full label-set accuracy is only **1.5%**.
+
+See [what changed and what the gains mean](experiments/shray_multistate/v2/CHANGES.md)
+and the [results, chart and limitations](experiments/shray_multistate/v2/REPORT.md).
+All 23 existing tests and four follow-up tests pass. The earlier pilot's
+30.3% F1 was on a different test set; its evidence remains preserved. Reliable
+recognition and unseen-object/state generalization remain unresolved.
 
 ## Run checks
 
@@ -40,5 +48,7 @@ caches. Large artifacts are excluded from Git.
 - [Differences from teammates' approaches](experiments/shray_multistate/METHOD_COMPARISON.md)
 - [Architecture](experiments/shray_multistate/broader/ARCHITECTURE.md)
 - [Evaluation results and limitations](experiments/shray_multistate/broader/REPORT.md)
+- [Latest accuracy changes and direct comparisons](experiments/shray_multistate/v2/CHANGES.md)
+- [Latest fresh-recording evaluation](experiments/shray_multistate/v2/REPORT.md)
 
 Implementation is in `experiments/shray_multistate/`.

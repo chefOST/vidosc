@@ -1,0 +1,10 @@
+{
+  "sha256": "af11dac9a0890c45f699b4dfbbc0aeee5e7af062d588248a6ec45b66b6fe1330",
+  "all_methods_saved_before_test_labels": true,
+  "feature_hashes": {
+    "S17_Salad_7150991-822": "fcefbde43540316323b14904b1bd3f84faec0da544e16c5dc39275a695233111",
+    "S14_Eggs_7150991-1016": "3edf1c1802e51f24411ddab54a1ee2246248390c023da91e69ab4d2b6d837261",
+    "S37_Brownie_7150991-133": "50ddf32a7046f69b5dbf53497daa9d8c77eb8bbadf15e2127af828cf780acf81",
+    "S55_Pizza_7150991-292": "695ee107e72ff24bf1e14e6bda8aa188e66dc9a5a92c419383fedbcfd42b1bb0"
+  }
+}
