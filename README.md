@@ -1,4 +1,4 @@
-# Shray's multi-state VidOSC experiment
+# Multi-state VidOSC experiment
 
 This contributor branch, `shray/feat/multistate-vidosc`, extends pretrained
 VidOSC with a trainable object-conditioned text scorer. It predicts named,
@@ -41,8 +41,4 @@ caches. Large artifacts are excluded from Git.
 - [Architecture](experiments/shray_multistate/broader/ARCHITECTURE.md)
 - [Evaluation results and limitations](experiments/shray_multistate/broader/REPORT.md)
 
-Shray's implementation is in `experiments/shray_multistate/`. This branch
-extends Michelle's populated branch; her implementation remains available.
-See [Michelle's original pipeline overview](https://github.com/chefOST/vidosc/blob/11dcdf3abe20c088dd2da2ebc15d1e62853e3e7a/README.md).
-Keep future implementation changes in Shray's folder; coordinate shared-module
-changes with their contributors.
+Implementation is in `experiments/shray_multistate/`.
