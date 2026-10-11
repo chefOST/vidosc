@@ -4,6 +4,8 @@ This adds a fixed-label-mapping transfer evaluator without Claude or training.
 The existing `MOSCATO.md` describes a separate VidOSC + Claude experiment.
 Neither document's results should be attributed to the other method.
 
+For the five-frame remote detector setup, see [MODAL.md](MODAL.md).
+
 ## Current status
 
 - Official ChangeIt multitask `state_best.ckpt` downloaded and loaded locally.
@@ -20,6 +22,9 @@ Neither document's results should be attributed to the other method.
   verified `[107, 768]` finite, L2-normalized tensor on CPU in about 186 seconds.
   Outputs are local under `data/moscato/features/s29-global/`.
   There is still no complete 1,536-dimensional input or benchmark result.
+- A five-frame hand/object detector smoke test completed on Modal CPU; see
+  `MODAL.md`. Object selection remains unreliable and full object features are
+  not yet extracted. T4 execution requires a Modal payment method.
 - No training and no Claude/API calls are involved in this baseline.
 
 The checkpoint, video, annotations, virtual environment and generated outputs
