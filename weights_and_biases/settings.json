@@ -1,0 +1,7 @@
+{
+  "entity": "chefOST",
+  "projects": {
+    "experiments": "vidosc-experiments",
+    "full-evals": "vidosc - full evals"
+  }
+}
