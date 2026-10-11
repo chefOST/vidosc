@@ -1,0 +1,16 @@
+{
+  "video_id": "S29_Salad_7150991-1",
+  "video_source": "http://kitchen.cs.cmu.edu/Main/S29_Salad_Video.zip",
+  "video_sha256": "42e25a90420437aced54d7929a573795e3776b7f570fe67c878383419f94ecfc",
+  "annotation_sha256": "41ddb05eb3b8dd3fd1eb159d10c29e8d2eba95bbdd3fd2cf697a202cf943f912",
+  "annotation_count": 8080,
+  "decoded_video_frames": 8080,
+  "video_fps": 30,
+  "duration_seconds": 269.3333333333333,
+  "width": 1024,
+  "height": 768,
+  "inferred_annotation_fps": 30,
+  "verified": false,
+  "evidence": "8080 decoded frames at 30 FPS match 8080 annotation entries. Visual spot checks at frames 1469, 2800, 3000, 3700, and 4600 are broadly consistent. Scores assume zero-based one-entry-per-raw-frame alignment; exact transition timing is not formally verified.",
+  "annotation_fps": 30
+}

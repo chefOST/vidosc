@@ -45,7 +45,7 @@ def download_weights():
         raise ValueError('Unexpected checkpoint format')
 
 
-image = (
+base_image = (
     modal.Image.debian_slim(python_version='3.11')
     .apt_install('git')
     .pip_install('torch==2.6.0', 'torchvision==0.21.0', 'numpy==1.26.4',
@@ -55,8 +55,8 @@ image = (
     .run_commands('git clone https://github.com/ddshan/hand_object_detector.git /opt/hand-object',
                   f'git -C /opt/hand-object checkout {COMMIT}')
     .run_function(download_weights)
-    .add_local_file(ROOT / 'moscato/hand_object.py', '/root/hand_object.py')
 )
+image = base_image.add_local_file(ROOT / 'moscato/hand_object.py', '/root/hand_object.py')
 
 
 def detect_frames(frames: list[tuple[int, bytes]], video_hash: str, device: str):

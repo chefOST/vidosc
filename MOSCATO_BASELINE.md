@@ -6,6 +6,8 @@ Neither document's results should be attributed to the other method.
 
 For the five-frame remote detector setup, see [MODAL.md](MODAL.md).
 
+For the first full exploratory Modal run, see [EXPLORATORY_RUN.md](EXPLORATORY_RUN.md).
+
 ## Current status
 
 - Official ChangeIt multitask `state_best.ckpt` downloaded and loaded locally.
@@ -15,16 +17,18 @@ For the five-frame remote detector setup, see [MODAL.md](MODAL.md).
   Sample frames are consistent with the annotation timeline. Formal timing
   metadata still requires review; do not assume the generic 10-FPS README
   description applies to this file.
-- 25 evaluation and extraction regression tests passed locally, including a forward pass with the real
+- 31 evaluation, extraction, crop-policy, and mapping tests passed locally, including a forward pass with the real
   checkpoint on **synthetic inputs**. This verifies loading, not model accuracy.
 - Genuine InternVideo global feature extraction is implemented in
   `moscato/extract_internvideo.py`; the full 107-second S29 clip produced a
   verified `[107, 768]` finite, L2-normalized tensor on CPU in about 186 seconds.
   Outputs are local under `data/moscato/features/s29-global/`.
-  There is still no complete 1,536-dimensional input or benchmark result.
+  The first complete exploratory input and real-video run now exist; see
+  `EXPLORATORY_RUN.md` and `docs/s29_exploratory_results.md`. Scores are provisional.
 - A five-frame hand/object detector smoke test completed on Modal CPU; see
-  `MODAL.md`. Object selection remains unreliable and full object features are
-  not yet extracted. T4 execution requires a Modal payment method.
+  `MODAL.md`. Object selection remains imperfect; full object features were
+  extracted for 91/107 intervals in the subsequent full run (16 use explicit
+  zero-object fallback). T4 execution requires a Modal payment method.
 - No training and no Claude/API calls are involved in this baseline.
 
 The checkpoint, video, annotations, virtual environment and generated outputs
@@ -159,8 +163,9 @@ output directories; the commands refuse existing ones.
 
 This is a **single video/object clip transfer baseline**, not a reproduction of
 the entire MOSCATO benchmark. It has no confirmed official-evaluator parity.
-There is no learned MOSCATO classification head, ordering decoder, multi-video
-aggregation, or automatic object localization in this addition.
+There is no learned MOSCATO classification head, ordering decoder, or multi-video
+aggregation. The exploratory object-localization policy is documented separately
+in EXPLORATORY_RUN.md.
 
 Scores are projected by summing mutually exclusive source-class probabilities
 for each target state. Unmapped GT states remain in evaluation as misses.
@@ -168,7 +173,8 @@ Empty GT entries are skipped and split temporal segments. Frame F1-Max sweeps
 0.1 through 0.9; mAP averages classes with positive GT within the evaluated clip.
 Segment F1 uses one-to-one same-label matching at IoU 0.1, 0.25 and 0.5, with a
 fixed decision threshold of 0.5 by default. These choices must be reconciled with
-the official protocol before comparing published benchmark numbers.
+the official protocol before comparing published benchmark numbers. Explicit diagnostic scoring can use
+`--allow-unverified-timing`, which keeps timing unverified and marks scores provisional.
 
 ## Data and model sources
 

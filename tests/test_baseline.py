@@ -102,6 +102,17 @@ def test_scoring_real_schema_and_integrity_checks(tmp_path):
     evaluate_run(args)
     assert read(tmp_path/'scores/evaluation.json')['f1_max']['f1']==1
     assert digest(run/'probabilities.npz')==before
+    provisional = read(timing)
+    provisional['verified'] = False
+    timing.write_text(json.dumps(provisional))
+    args.output = str(tmp_path/'diagnostic')
+    with pytest.raises(ValueError, match='allow-unverified-timing'):
+        evaluate_run(args)
+    args.allow_unverified_timing = True
+    evaluate_run(args)
+    diagnostic = read(tmp_path/'diagnostic/evaluation.json')
+    assert diagnostic['provisional'] is True
+    assert diagnostic['timing_verified'] is False
     np.savez(run/'probabilities.npz',mapped=np.zeros((2,2)))
     with pytest.raises(ValueError,match='changed after inference'):
         evaluate_run(args)
@@ -126,6 +137,11 @@ def test_downloaded_checkpoint_loads_and_runs_without_training_framework(tmp_pat
     assert state.shape==(3,52)
     assert action.shape==(3,28)
     np.testing.assert_allclose(state.sum(axis=1),1,atol=1e-6)
+    padded, padded_action, padded_info = predict(CHECKPOINT, f, UPSTREAM, pad_to=5)
+    assert padded.shape == (3,52) and padded_action.shape == (3,28)
+    assert padded_info['transformer_timesteps'] == 5
+    with pytest.raises(ValueError, match='padding length'):
+        predict(CHECKPOINT, f, UPSTREAM, pad_to=2)
     torch.save(torch.zeros(3,768),f)
     with pytest.raises(ValueError,match='No zero padding'):
         predict(CHECKPOINT,f,UPSTREAM)

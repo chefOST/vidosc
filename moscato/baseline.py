@@ -94,7 +94,7 @@ def predict_run(args):
     out = Path(args.output)
     if out.exists():
         raise FileExistsError(f"Use a fresh output directory: {out}")
-    state, action, info = predict(args.checkpoint, args.features, args.upstream, args.heads)
+    state, action, info = predict(args.checkpoint, args.features, args.upstream, args.heads, pad_to=getattr(args, "pad_to", 0))
     if mapping.get("checkpoint_sha256") != digest(args.checkpoint):
         raise ValueError("Mapping checkpoint digest mismatch; verify output class indices")
     scores = project_scores(state, mapping["source_index_to_states"], vocabulary)
@@ -131,8 +131,11 @@ def evaluate_run(args):
     if digest(args.state_dict) != manifest["state_dict_sha256"]:
         raise ValueError("Vocabulary changed after inference")
     timing = read(args.timing)
-    if timing.get("verified") is not True or not timing.get("evidence"):
-        raise ValueError("Timing needs verified=true and evidence from matching video/annotations")
+    if not timing.get("evidence"):
+        raise ValueError("Timing needs documented evidence even for diagnostic scoring")
+    timing_verified = timing.get("verified") is True
+    if not timing_verified and not getattr(args, "allow_unverified_timing", False):
+        raise ValueError("Timing needs verified=true; use --allow-unverified-timing only for explicitly provisional diagnostics")
     fm = manifest["feature_manifest"]
     if timing.get("video_id") != fm["video_id"] or timing.get("video_sha256") != fm["video_sha256"]:
         raise ValueError("Timing metadata refers to a different source video")
@@ -163,6 +166,8 @@ def evaluate_run(args):
         "state_order": vocab, "mapped_states": sorted(mapped_labels),
         "unmapped_gt_states": [vocab[i] for i in np.flatnonzero(truth.any(axis=0)) if vocab[i] not in mapped_labels],
         "annotation_sha256": digest(args.annotations), "timing": timing,
+        "timing_verified": timing_verified,
+        "provisional": not timing_verified or not manifest.get("feature_compatibility_verified", False),
         "predictions_sha256": digest(run / "probabilities.npz"),
         "prediction_manifest_sha256": digest(run / "manifest.json")})
     # Unmapped GT states remain negatives in predictions, and count as misses.
@@ -190,10 +195,13 @@ def main():
     for name in ("checkpoint", "features", "feature-manifest", "mapping", "state-dict", "upstream", "output"):
         predict.add_argument("--" + name, required=True)
     predict.add_argument("--heads", type=int, default=4)
+    predict.add_argument("--pad-to", type=int, default=0, help="Explicit temporal padding; original ChangeIt loader uses 900")
     evaluate = commands.add_parser("evaluate")
     for name in ("run", "annotations", "state-dict", "timing", "output"):
         evaluate.add_argument("--" + name, required=True)
     evaluate.add_argument("--threshold", type=float, default=0.5)
+    evaluate.add_argument("--allow-unverified-timing", action="store_true",
+                          help="Diagnostic scores under a documented timing assumption; marked provisional")
     args = parser.parse_args()
     if args.command == "predict":
         predict_run(args)

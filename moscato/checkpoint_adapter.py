@@ -36,7 +36,7 @@ def inspect_weights(weights):
             "max_timesteps": int(weights["pos_encoder.pe"].shape[1])}
 
 
-def predict(checkpoint, features, upstream, heads=4):
+def predict(checkpoint, features, upstream, heads=4, pad_to=0):
     weights = read_weights(checkpoint)
     info = inspect_weights(weights)
     path = Path(upstream) / "model.py"
@@ -58,12 +58,19 @@ def predict(checkpoint, features, upstream, heads=4):
         raise ValueError(f"Expected {info['input_dim']} feature dimensions; got {feat.shape[1]}. No zero padding is performed.")
     if len(feat) > info["max_timesteps"] or not torch.isfinite(feat).all():
         raise ValueError("Features exceed positional capacity or contain non-finite values")
+    length = len(feat)
+    if pad_to:
+        if pad_to < length or pad_to > info['max_timesteps']:
+            raise ValueError('Invalid temporal padding length')
+        feat = torch.cat((feat, feat.new_zeros((pad_to-length, feat.shape[1]))))
+    info['input_timesteps'] = length
+    info['transformer_timesteps'] = len(feat)
     with torch.inference_mode():
         result = model(feat.float().unsqueeze(0))
         if isinstance(result, dict):
-            state = torch.softmax(result["state"], -1).numpy()
-            action = torch.softmax(result["action"], -1).numpy()
+            state = torch.softmax(result["state"], -1).numpy()[:length]
+            action = torch.softmax(result["action"], -1).numpy()[:length]
         else:
-            state = torch.softmax(result, -1).numpy()
+            state = torch.softmax(result, -1).numpy()[:length]
             action = None
     return state, action, info
