@@ -1,0 +1,15 @@
+{
+ "soiled": ["dirty", "covered", "coated", "coating", "sticky", "vegetable-covered", "egg-covered", "egg-coated", "batter-covered"],
+ "spread-topped": ["jam-topped", "peanut butter topped", "peanut-butter-and-jam-covered", "topped", "topped with pepperoni", "cheese-covered", "saucy"],
+ "full": ["full", "stuffed", "omelet-filled"],
+ "depleted": ["partially-empty", "empty", "scooped-out", "less-covered", "utilized"],
+ "prepared": ["assembled", "ready-to-cook", "served"],
+ "placed": ["on dish", "on tray", "on bread", "on top", "placed", "relocated", "inside", "in bowl", "in-pan", "in-oven"],
+ "dispersed": ["scattered", "added", "sprayed"],
+ "mixed": ["mixed", "beaten", "churned", "mayonnaise-mixed"],
+ "texture": ["smooth", "creamy", "thin", "denser", "liquefied", "diluted"],
+ "seasoned": ["seasoned", "seasoning", "flavored"],
+ "cut": ["chopped", "grated"],
+ "heated": ["cooked", "warm", "on"],
+ "opened": ["cracked", "separated"]
+}

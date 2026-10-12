@@ -1,3 +1,25 @@
-/wandb/
+wandb/
 __pycache__/
 *.pyc
+.venv
+.claude
+.DS_Store
+
+# local notes and papers
+notes.md
+*.pdf
+
+# pipeline data and outputs
+data/
+runs/
+
+# VidOSC data, checkpoints and logs (download per VidOSC/README.md)
+VidOSC/data_changeit/
+VidOSC/checkpoints_changeit/
+VidOSC/checkpoints/
+VidOSC/logs/
+
+# external code and weights (see docs/setup.md)
+third_party/InternVideo/
+third_party/weights/
+*.ckpt
