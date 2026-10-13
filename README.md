@@ -1,5 +1,7 @@
 # What this pipeline does
 
+For ChefOST's current evaluation targets, see [frame-averaged precision and recall (detail)](https://github.com/chefOST/vidosc/blob/main/README.md#metrics). This branch's MOSCATO scripts still report legacy frame-hit accuracy and micro scores; implementation of the current targets is pending. See [MOSCATO.md](MOSCATO.md) for the existing evaluator.
+
 A conceptual overview of the VIDOSC-pipeline project: the research problem it
 addresses, what upstream VidOSC contributes, and what this repo adds on top.
 
