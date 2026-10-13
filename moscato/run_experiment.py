@@ -512,7 +512,7 @@ def evaluate(
     *,
     run_name: str,
     wandb_project: str = "",
-    wandb_entity: str = "",
+    wandb_entity: str = "chefOST",
 ) -> dict[str, Any]:
     config = load_config(config_path)
     resolved_run = _run_name(run_name)
@@ -595,7 +595,7 @@ def main() -> None:
     parser.add_argument("--dry-run", action="store_true", help="Skip every VLM call")
     parser.add_argument("--force", action="store_true", help="Overwrite an existing run directory")
     parser.add_argument("--wandb-project", default="", help="Log the evaluation to this W&B project")
-    parser.add_argument("--wandb-entity", default="")
+    parser.add_argument("--wandb-entity", default="chefOST")
     args = parser.parse_args()
 
     resolved_run = _run_name(args.run_name)

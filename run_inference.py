@@ -51,8 +51,8 @@ STATE_COLORS = {
     3: "#2196f3",
 }
 
-WANDB_ENTITY = "m22jeon-university-of-waterloo"
-WANDB_PROJECT = "ChefOST"
+WANDB_ENTITY = "chefOST"
+WANDB_PROJECT = "vidosc-experiments"
 
 
 def _checkpoint_config(ckpt_path: str) -> tuple[int, int]:
