@@ -62,4 +62,4 @@ improvement over the team.
 - [Raf's tracking implementation](https://github.com/chefOST/chefOST-ml/blob/5bfb5c4699a964d74be6b85e87baa9269d2d3b25/src/object_state_tracking.py)
 - [Ego4D prototype](https://github.com/chefOST/ego4d-pseudo-labels/blob/01c287e3910b3b7e00b81af29a5875c613a7114f/README.md)
 - [Shared data](https://github.com/chefOST/chefOST-data/blob/6b9fa8ddb66a1fcdf276d29fab63520db9f42312/README.md)
-- [Project guide](https://github.com/chefOST/.github-private/blob/6530b4e6d38782676dabcb9632289fe719984d8c/profile/README.md)
+- [Project guide](https://github.com/chefOST/.github/blob/6530b4e6d38782676dabcb9632289fe719984d8c/profile/README.md)
