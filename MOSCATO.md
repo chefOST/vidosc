@@ -1,5 +1,7 @@
 # VidOSC + Claude on MOSCATO
 
+Current ChefOST definitions: [frame-averaged precision and recall (detail)](https://github.com/chefOST/vidosc/blob/main/README.md#metrics). The harness below reports legacy hit accuracy and micro-averaged scores; it does not yet implement those project metrics.
+
 Runs this pipeline against the [MOSCATO](https://github.com/eelhami/iccv25_moscato)
 benchmark (ICCV 2025) and scores it
 with the **same evaluator** the TubeletGraph × MOSCATO experiment uses, so the
