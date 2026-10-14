@@ -15,9 +15,10 @@ document is the *why*; that one is the *how*.
 1. [The problem: object state changes](#the-problem-object-state-changes)
 2. [What VidOSC is](#what-vidosc-is)
 3. [What this repo adds](#what-this-repo-adds)
-4. [A worked example](#a-worked-example)
-5. [What the output is good for](#what-the-output-is-good-for)
-6. [Known limitations](#known-limitations)
+4. [The pipeline end to end](#the-pipeline-end-to-end)
+5. [A worked example](#a-worked-example)
+6. [What the output is good for](#what-the-output-is-good-for)
+7. [Known limitations](#known-limitations)
 
 ---
 
@@ -157,6 +158,61 @@ uses, so TubeletGraph, VidOSC, and VidOSC + Claude are directly comparable.
 It adds no dependency on the rest of the repo's internals — the VidOSC and Claude
 stages are imported unchanged. See [MOSCATO.md](MOSCATO.md) for setup, commands,
 what has actually been verified, and what the early runs revealed.
+
+---
+
+## The pipeline end to end
+
+The five additions above compose into one chain. A cooking video goes in;
+per-frame states scored against a benchmark come out.
+
+```mermaid
+flowchart TD
+    V["🎬 Cooking video<br/>CMU · 30 fps · raw frames"]
+
+    subgraph WHEN["VidOSC — <i>when</i> does it change"]
+        P["prepare_clip<br/>decode frames, cut clip"]
+        F["extract_features<br/>CLIP ViT-L/14 · 1 fps"]
+        T["FeatTimeTransformer<br/>per-second probabilities<br/>over 4 states"]
+        D{"decode"}
+        S["contiguous segments<br/>+ representative frame each"]
+    end
+
+    subgraph WHAT["Claude — <i>what</i> does it look like"]
+        C["describe<br/>full-res frame + object name<br/><i>label withheld</i>"]
+        M["map to vocabulary<br/>description → MOSCATO state<br/>e.g. <b>chopped</b>"]
+    end
+
+    subgraph SCORE["Scoring"]
+        E["densify<br/>per-second → every raw frame"]
+        X["evaluate<br/>TubeletGraph evaluator, verbatim"]
+        R["accuracy · micro-F1 · F1-max"]
+    end
+
+    GT[("MOSCATO<br/>ground truth")]
+
+    V --> P --> F --> T --> D
+    D -->|argmax<br/>12 segments| S
+    D -->|ordered DP<br/>3 segments| S
+    S --> C --> M --> E --> X --> R
+    GT -.->|"only enters here"| X
+
+    classDef gt fill:#fde68a,stroke:#b45309,color:#1c1917
+    classDef out fill:#bbf7d0,stroke:#15803d,color:#1c1917
+    class GT gt
+    class R out
+```
+
+Two details in that picture are load-bearing rather than decorative:
+
+- **The decode fork is an experimental axis.** `argmax` and `ordered` produce
+  different segment counts, and that difference propagates through captioning and
+  event conversion all the way into the score — see
+  [Decoding](MOSCATO.md#decoding-argmax-vs-ordered).
+- **The dotted edge is the ground-truth firewall.** Annotations are loaded in
+  exactly one scoring stage; every stage upstream of it calls
+  `assert_no_ground_truth`. Claude is never told the label it is describing.
+  See [Experimental integrity](MOSCATO.md#experimental-integrity).
 
 ---
 
