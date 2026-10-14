@@ -14,6 +14,8 @@ every raw frame. This harness takes one video, one object, and one clip; runs it
 through VidOSC and Claude; projects the result onto MOSCATO's state vocabulary;
 and scores it on per-frame accuracy, micro-precision, micro-F1, and F1-max.
 
+ChefOST uses [frame-averaged state precision and recall (detail)](https://github.com/chefOST/vidosc/blob/main/README.md#metrics). This branch's evaluator still reports legacy frame-hit accuracy and pooled (micro) scores; it does not yet implement those frame-averaged metrics. The metric descriptions and results below refer to the existing evaluator.
+
 ---
 
 ## Contents
