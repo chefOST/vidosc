@@ -52,6 +52,7 @@ from run_inference import (
     STATE_NAMES,
     WANDB_ENTITY,
     WANDB_PROJECT,
+    WANDB_PROJECTS,
     run_inference as vidosc_run_inference,
 )
 
@@ -429,7 +430,8 @@ def main():
                         help="Log results to Weights & Biases (default: on when WANDB_API_KEY is set)")
     parser.add_argument("--no-wandb", action="store_true", help="Disable W&B logging")
     parser.add_argument("--wandb-entity", default=WANDB_ENTITY, help="W&B entity")
-    parser.add_argument("--wandb-project", default=WANDB_PROJECT, help="W&B project")
+    parser.add_argument("--wandb-project", default=WANDB_PROJECT, choices=WANDB_PROJECTS,
+                        help="W&B project")
     parser.add_argument("--wandb-run-name", default=None, help="Optional W&B run name")
 
     args = parser.parse_args()

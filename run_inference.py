@@ -51,8 +51,11 @@ STATE_COLORS = {
     3: "#2196f3",
 }
 
-WANDB_ENTITY = "m22jeon-university-of-waterloo"
-WANDB_PROJECT = "ChefOST"
+# chefOST/vidosc W&B destinations. Development runs go to experiments; pass
+# --wandb-project "vidosc - full evals" only for intended full evaluations.
+WANDB_ENTITY = "chefOST"
+WANDB_PROJECTS = ("vidosc-experiments", "vidosc - full evals")
+WANDB_PROJECT = WANDB_PROJECTS[0]
 
 
 def _checkpoint_config(ckpt_path: str) -> tuple[int, int]:
@@ -329,8 +332,8 @@ def main():
                         help="Disable W&B logging")
     parser.add_argument(
         "--wandb-entity", default=WANDB_ENTITY, help="W&B entity")
-    parser.add_argument("--wandb-project",
-                        default=WANDB_PROJECT, help="W&B project")
+    parser.add_argument("--wandb-project", default=WANDB_PROJECT,
+                        choices=WANDB_PROJECTS, help="W&B project")
     parser.add_argument("--wandb-run-name", default=None,
                         help="Optional W&B run name")
     args = parser.parse_args()

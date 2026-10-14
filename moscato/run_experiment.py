@@ -49,7 +49,7 @@ from moscato.config import (
 )
 from moscato.evaluate import score_run
 from moscato.inspect_video import validate as validate_alignment
-from moscato.log_wandb import WANDB_ENTITY, WANDB_PROJECT
+from moscato.log_wandb import WANDB_ENTITY, WANDB_PROJECT, WANDB_PROJECTS
 from moscato.map_states import DEFAULT_MAPPER_MODEL, ClaudeMapper, map_segments
 
 DEFAULT_CONFIG = Path(__file__).resolve().parent.parent / "configs/moscato/s12_sandwich_7150991-2470.json"
@@ -703,8 +703,9 @@ def main() -> None:
     parser.add_argument("--force", action="store_true", help="Overwrite an existing run directory")
     parser.add_argument("--no-wandb", action="store_true",
                         help="Skip Weights & Biases logging (on by default)")
-    parser.add_argument("--wandb-project", default=WANDB_PROJECT,
-                        help=f"W&B project (default: {WANDB_PROJECT!r})")
+    parser.add_argument("--wandb-project", default=WANDB_PROJECT, choices=WANDB_PROJECTS,
+                        help=f"W&B project (default: {WANDB_PROJECT!r}; "
+                             "use 'vidosc - full evals' for full evaluations)")
     parser.add_argument("--wandb-entity", default=WANDB_ENTITY,
                         help=f"W&B entity (default: {WANDB_ENTITY!r})")
     args = parser.parse_args()

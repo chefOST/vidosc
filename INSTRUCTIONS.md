@@ -271,8 +271,8 @@ t= 46s  [░░░░░░░░░░░░░░░░░░░░]  end_stat
 | `--obj_feat` | `None` | Object-centric features for `det=1` checkpoints |
 | `--wandb` | **on if `WANDB_API_KEY` is set** | Log to Weights & Biases |
 | `--no-wandb` | off | Force W&B off, overriding the above |
-| `--wandb-entity` | `m22jeon-university-of-waterloo` | See [below](#things-you-will-need-to-change) |
-| `--wandb-project` | `ChefOST` | W&B project |
+| `--wandb-entity` | `chefOST` | W&B entity |
+| `--wandb-project` | `vidosc-experiments` | `vidosc - full evals` for full evaluations |
 | `--wandb-run-name` | auto | Defaults to `vidosc-<ckpt>-<video_id>` |
 
 It's also importable, which is how `describe_states.py` uses it:
@@ -336,10 +336,10 @@ sent, costs nothing, and needs no API key or extra packages.
 If you are not the original author, these are hardcoded and will not work for you
 as-is:
 
-- **W&B entity** — [run_inference.py:54](run_inference.py#L54) defaults to
-  `m22jeon-university-of-waterloo`, project `ChefOST`. Pass
-  `--wandb-entity <you> --wandb-project <yours>`, or edit those two constants.
-  `describe_states.py` imports the same defaults.
+- **W&B destination** — [run_inference.py](run_inference.py) defaults to
+  `chefOST` / `vidosc-experiments`; pass `--wandb-project "vidosc - full evals"`
+  for full evaluations. `describe_states.py` imports the same defaults. You need
+  access to the `chefOST` entity.
 - **W&B is on by default** whenever `WANDB_API_KEY` is in your environment, in
   *both* scripts. If you have that variable set for unrelated reasons, every run
   silently creates a run under the entity above. Pass `--no-wandb`, or unset it.

@@ -25,10 +25,12 @@ import re
 from typing import Any
 
 
-# Defaults for this project. Note the project name contains a literal "+";
-# the W&B UI shows it URL-encoded as %2B, which is not the name.
+# chefOST/vidosc W&B destinations. Development runs go to experiments; pass
+# --wandb-project "vidosc - full evals" only for intended full evaluations.
+# The space in the full-evals name is part of the name.
 WANDB_ENTITY = "chefOST"
-WANDB_PROJECT = "VidOSC + MOSCATO"
+WANDB_PROJECTS = ("vidosc-experiments", "vidosc - full evals")
+WANDB_PROJECT = WANDB_PROJECTS[0]
 
 PRIMARY_METRICS = ("precision", "accuracy", "f1", "f1_max")
 

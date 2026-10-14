@@ -126,7 +126,7 @@ python -m moscato.run_experiment evaluate --config $CFG --run-name baseline
 | `--sample-rate {per_segment,per_second}` | `per_segment` | One Claude call per segment, or one per second |
 | `--force` | off | Overwrite an existing run directory |
 | `--no-wandb` | off | Skip W&B logging (**on by default**) — see [Weights & Biases](#weights--biases) |
-| `--wandb-project` / `--wandb-entity` | `VidOSC + MOSCATO` / `chefOST` | Override the W&B destination |
+| `--wandb-project` / `--wandb-entity` | `vidosc-experiments` / `chefOST` | W&B destination; use `--wandb-project "vidosc - full evals"` for full evaluations |
 
 `prepare` is idempotent — it reuses decoded frames, the clip MP4, and extracted
 features. Only `predict` costs money: 2 Claude calls per segment.
@@ -138,13 +138,11 @@ gitignored, so it can safely hold your key.
 
 ## Weights & Biases
 
-Logging is **on by default**, to `chefOST` / `VidOSC + MOSCATO`. Pass
-`--no-wandb` to skip it. Credentials come from `wandb login` (`~/.netrc`) or
-`WANDB_API_KEY` — either works.
-
-> The project name contains a literal `+`. The W&B UI shows it URL-encoded as
-> `VidOSC %2B MOSCATO`; that is the URL, not the name. Passing the encoded form
-> would create a second, wrongly-named project.
+Logging is **on by default**, to `chefOST` / `vidosc-experiments`. Full
+evaluations go to `vidosc - full evals` (exact name, spaces included) via
+`--wandb-project "vidosc - full evals"`. Pass `--no-wandb` to skip logging.
+Credentials come from `wandb login` (`~/.netrc`) or `WANDB_API_KEY` — either
+works. Runs logged before this migration remain in `chefOST` / `VidOSC + MOSCATO`.
 
 Each stage logs its own run, so a run that fails before scoring still leaves a
 trace:
