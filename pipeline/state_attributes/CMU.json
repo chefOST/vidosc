@@ -1,0 +1,65 @@
+{
+ "attributes": {
+  "form": {"ordered": false, "values": {
+   "intact": "whole and intact", "peeled": "peeled", "opened": "cracked open", "cut": "cut into small pieces",
+   "ground": "ground into fine particles", "mixed": "mixed together", "assembled": "assembled"}},
+  "texture": {"ordered": true, "values": {
+   "liquid": "a runny liquid", "smooth": "smooth and creamy", "dense": "thick and dense", "solid": "solid"}},
+  "heat": {"ordered": true, "values": {
+   "uncooked": "raw and uncooked", "warm": "warm", "cooked": "cooked"}},
+  "fill": {"ordered": true, "values": {
+   "empty": "empty", "partial": "partially empty", "full": "full"}},
+  "surface": {"ordered": false, "values": {
+   "clean": "clean", "wet": "wet with water", "oily": "greasy with oil", "coated": "covered in food residue"}},
+  "topping": {"ordered": false, "values": {
+   "sauce": "topped with sauce", "cheese": "topped with cheese", "spread": "spread with jam or peanut butter",
+   "pepperoni": "topped with pepperoni", "generic": "topped", "seasoning": "sprinkled with seasoning"}},
+  "location": {"ordered": false, "values": {
+   "in_bowl": "in a bowl", "in_pan": "in a frying pan", "in_oven": "in the oven", "on_tray": "on a baking tray",
+   "on_dish": "on a plate", "on_food": "on top of other food", "inside": "inside a container",
+   "transferred": "being poured or moved", "discarded": "thrown away"}},
+  "use": {"ordered": false, "values": {"idle": "not in use", "in_use": "in use"}}
+ },
+ "states": {
+  "full": {"fill": "full"}, "stuffed": {"fill": "full"}, "omelet-filled": {"fill": "full"},
+  "partially-empty": {"fill": "partial"}, "scooped-out": {"fill": "partial"}, "less-covered": {"fill": "partial"},
+  "utilized": {"fill": "partial"}, "empty": {"fill": "empty"},
+
+  "clean": {"surface": "clean"}, "wet": {"surface": "wet"}, "juiced": {"surface": "wet"}, "oily": {"surface": "oily"},
+  "dirty": {"surface": "coated"}, "covered": {"surface": "coated"}, "coated": {"surface": "coated"},
+  "coating": {"surface": "coated"}, "sticky": {"surface": "coated"}, "egg-covered": {"surface": "coated"},
+  "egg-coated": {"surface": "coated"}, "batter-covered": {"surface": "coated"}, "vegetable-covered": {"surface": "coated"},
+
+  "peeled": {"form": "peeled"}, "cracked": {"form": "opened"}, "separated": {"form": "opened"},
+  "chopped": {"form": "cut"}, "grated": {"form": "cut"}, "grinded": {"form": "ground"},
+  "crumbly": {"form": "ground", "texture": "solid"},
+  "mixed": {"form": "mixed"}, "beaten": {"form": "mixed"}, "churned": {"form": "mixed"}, "mayonnaise-mixed": {"form": "mixed"},
+  "assembled": {"form": "assembled"}, "pressed-together": {"form": "assembled"}, "double-layered": {"form": "assembled"},
+
+  "liquefied": {"texture": "liquid"}, "diluted": {"texture": "liquid"}, "thin": {"texture": "liquid"},
+  "smooth": {"texture": "smooth"}, "creamy": {"texture": "smooth"}, "denser": {"texture": "dense"}, "solid": {"texture": "solid"},
+
+  "ready-to-cook": {"heat": "uncooked"}, "warm": {"heat": "warm"}, "cooked": {"heat": "cooked"},
+
+  "saucy": {"topping": "sauce"}, "cheese-covered": {"topping": "cheese"}, "jam-topped": {"topping": "spread"},
+  "peanut butter topped": {"topping": "spread"}, "peanut-butter-and-jam-covered": {"topping": "spread"},
+  "topped with pepperoni": {"topping": "pepperoni"}, "topped": {"topping": "generic"},
+  "seasoned": {"topping": "seasoning"}, "seasoning": {"topping": "seasoning"}, "flavored": {"topping": "seasoning"},
+  "speckled": {"topping": "seasoning"},
+
+  "in bowl": {"location": "in_bowl"}, "in-pan": {"location": "in_pan"}, "in-oven": {"location": "in_oven"},
+  "on tray": {"location": "on_tray"}, "on dish": {"location": "on_dish"}, "served": {"location": "on_dish"},
+  "on top": {"location": "on_food"}, "on bread": {"location": "on_food"}, "inside": {"location": "inside"},
+  "relocated": {"location": "transferred"}, "placed": {"location": "transferred"}, "poured": {"location": "transferred"},
+  "added": {"location": "transferred"}, "scattered": {"location": "transferred"}, "sprayed": {"location": "transferred"},
+  "discarded": {"location": "discarded"},
+
+  "in use": {"use": "in_use"}, "on": {"use": "in_use"}
+ },
+ "overrides": {
+  "mixing spoon": {"saucy": {"surface": "coated"}},
+  "spread spatula": {"saucy": {"surface": "coated"}},
+  "knife": {"saucy": {"surface": "coated"}}
+ },
+ "unmapped": ["flipped", "yellow"]
+}

@@ -1,0 +1,23 @@
+{
+ "_note": "LLM (Claude) slider scripts from recipe + object: ordered levels over the video. Not blind (assigner saw MOSCATO labels). Videos assumed to end when the dish goes into the oven (baking not filmed).",
+ "Eggs": {"bowl": {"fullness": [0,1,0], "dirt": [0,1]}, "eggs": {"mixed": [0,1], "done": [0,1]},
+          "egg mixture": {"mixed": [1], "done": [0,1]}, "cooked omelette": {"done": [1]},
+          "pan": {"fullness": [0,1,0], "dirt": [0,1], "heat": [0,1]}, "the dish": {"fullness": [0,1], "dirt": [0,1]},
+          "oven": {"heat": [0,1], "fullness": [0,1]}, "oil": {"heat": [0,1]}, "oil bottle": {"fullness": [1]},
+          "salt": {"mixed": [0,1]}, "salt shaker": {"fullness": [1]}, "mixing spoon": {"dirt": [0,1]}, "spread spatula": {"dirt": [0,1]}},
+ "Brownie": {"bowl": {"fullness": [0,1,0], "dirt": [0,1]}, "eggs": {"mixed": [0,1], "done": [0]},
+             "egg mixture": {"mixed": [0,1], "done": [0]}, "brownie batter": {"mixed": [0,1], "done": [0]},
+             "brownie mix package": {"fullness": [1,0]}, "baking tray": {"dirt": [0,1], "fullness": [0,1], "heat": [0,1]},
+             "measuring spoon/cup": {"fullness": [0,1,0,1,0]}, "oven": {"heat": [0,1], "fullness": [0,1]},
+             "oil": {"heat": [0]}, "oil bottle": {"fullness": [1]}, "water": {"heat": [0]},
+             "mixing spoon": {"dirt": [0,1]}, "spread spatula": {"dirt": [0,1]}, "mixer": {"dirt": [0,1]}, "oven gloves": {"dirt": [0]}},
+ "Sandwich": {"bread slices": {"brown": [0], "cut": [0,1]}, "knife": {"dirt": [0,1]}, "the dish": {"fullness": [0,1], "dirt": [0,1]}},
+ "Pizza": {"baking tray": {"dirt": [0,1], "fullness": [0,1], "heat": [0,1]}, "batter": {"mixed": [1], "done": [0]},
+           "cheese": {"cut": [0,1], "done": [0], "brown": [0]}, "pepperoni": {"cut": [0,1], "done": [0], "brown": [0]},
+           "pizza": {"done": [0], "brown": [0], "cut": [0]}, "pizza sauce": {"heat": [0]}, "tin of pizza sauce": {"fullness": [1,0.5]},
+           "oven": {"heat": [0,1], "fullness": [0,1]}, "cutting board": {"dirt": [0,1]}, "grater": {"dirt": [0,1]},
+           "knife": {"dirt": [0,1]}, "mixing spoon": {"dirt": [0,1]}},
+ "Salad": {"bowl": {"fullness": [0,1], "dirt": [0,1]}, "vegetables": {"cut": [0,1], "done": [0]},
+           "contents of the bowl": {"mixed": [0,1], "done": [0]}, "mayonnaise": {"mixed": [0,1]},
+           "cutting board": {"dirt": [0,1]}, "knife": {"dirt": [0,1]}, "mixing spoon": {"dirt": [0,1]}, "vegetable peeler": {"dirt": [0,1]}}
+}

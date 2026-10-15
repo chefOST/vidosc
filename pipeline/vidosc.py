@@ -125,3 +125,64 @@ def adapt(pairs, ckpt="multi_task", steps=300, lr=1e-4, wd=1e-4, keep=0.5, seed=
                 if pr["vid"] == vid:
                     out[(vid, pr["obj"])] = torch.softmax(head(pr)(h), -1).numpy()
     return out
+
+
+# ---- Attribute pipeline: checkpoint trunk + one head per attribute, shared across objects ----
+class AttributeHeads(torch.nn.Module):
+    """Per attribute, a linear layer over [trunk feature, object text embedding]. Sharing heads
+    across objects (instead of one head per object) is what lets them apply to unseen objects."""
+
+    def __init__(self, attrs, trunk_dim, obj_dim):
+        super().__init__()
+        self.heads = torch.nn.ModuleDict({a: torch.nn.Linear(trunk_dim + obj_dim, len(vs)) for a, vs in attrs.items()})
+
+    def forward(self, h, obj_emb, attr):
+        o = obj_emb.expand(len(h), -1) * obj_emb.shape[-1] ** 0.5  # unit-norm embedding to ~unit scale per dim
+        return self.heads[attr](torch.cat([h, o], -1))
+
+
+def adapt_attributes(pairs, attrs, ckpt="multi_task", steps=300, lr=1e-4, wd=1e-4, keep=0.5, seed=0, log=print):
+    """Fine-tune the checkpoint's trunk with shared attribute heads on the zero-shot attribute
+    pseudo-labels of the given pairs. attrs: {attribute: all values}. pairs: dicts with 'vid', 'obj',
+    'x' [T, 1536], 'obj_emb' [D], 'cands' {attribute: candidate values} and 'teacher' {attribute: [T, len(cands)]}
+    (pseudo-label source; attributes it lacks are not trained).
+    Logits are restricted to each pair's candidates. Returns {(vid, obj): {attribute: probs [T, len(cands)]}}."""
+    torch.manual_seed(seed)
+    model = load_vidosc(ckpt)
+    heads = AttributeHeads(attrs, model.proj.out_features, len(pairs[0]["obj_emb"]))
+    cols = {(pr["vid"], pr["obj"], a): [attrs[a].index(v) for v in vs] for pr in pairs for a, vs in pr["cands"].items()}
+    labels = {(pr["vid"], pr["obj"], a): hard_pseudo_labels(z, keep) for pr in pairs for a, z in pr["teacher"].items()}
+    emb = {(pr["vid"], pr["obj"]): torch.as_tensor(pr["obj_emb"], dtype=torch.float32)[None] for pr in pairs}
+    xs = {pr["vid"]: pr["x"] for pr in pairs}
+
+    def logits(h, pr, a):
+        return heads(h, emb[(pr["vid"], pr["obj"])], a)[:, cols[(pr["vid"], pr["obj"], a)]]
+
+    params = list(model.proj.parameters()) + list(model.ln.parameters()) + \
+        list(model.transformer_encoder.parameters()) + list(heads.parameters())
+    opt = torch.optim.AdamW(params, lr=lr, weight_decay=wd)
+    ce = torch.nn.CrossEntropyLoss(ignore_index=-1)
+    n_terms = sum(len(pr["teacher"]) for pr in pairs)
+    model.train()
+    for step in range(steps):
+        loss = 0.0
+        for vid, x in xs.items():
+            h = trunk(model, x.unsqueeze(0))[0]
+            for pr in pairs:
+                if pr["vid"] == vid:
+                    for a in pr["teacher"]:
+                        loss = loss + ce(logits(h, pr, a), labels[(vid, pr["obj"], a)])
+        opt.zero_grad()
+        loss.backward()
+        opt.step()
+        if step % 100 == 0 or step == steps - 1:
+            log(f"[adapt] step {step} loss {loss.item() / n_terms:.3f}")
+    model.eval()
+    out = {}
+    with torch.no_grad():
+        for vid, x in xs.items():
+            h = trunk(model, x.unsqueeze(0))[0]
+            for pr in pairs:
+                if pr["vid"] == vid:
+                    out[(vid, pr["obj"])] = {a: torch.softmax(logits(h, pr, a), -1).numpy() for a in pr["cands"]}
+    return out
