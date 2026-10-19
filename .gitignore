@@ -5,13 +5,24 @@ __pycache__/
 .claude
 .DS_Store
 
+.venv-vlm
+
+docs/papers/
+
 # local notes and papers
 notes.md
-*.pdf
 
 # pipeline data and outputs
 data/
 runs/
+
+# embedding caches, rebuilt on a miss
+*.npz
+
+# experiment caches: LLM calls are logged to W&B and distilled into schemas/;
+# vlm_cache/ is kept (Modal GPU runs behind the attrs write-up) except the scratch MLX run
+experiments/attrs/llm_cache/
+experiments/attrs/vlm_cache/*-partial/
 
 # VidOSC data, checkpoints and logs (download per VidOSC/README.md)
 VidOSC/data_changeit/

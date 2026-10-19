@@ -1,0 +1,1536 @@
+{
+ "Brownie": {
+  "baking tray": {
+   "assembled": {
+    "contents": [
+     "raw batter"
+    ]
+   },
+   "batter-covered": {
+    "contents": [
+     "raw batter"
+    ]
+   },
+   "coated": {
+    "coating": [
+     "oiled"
+    ]
+   },
+   "covered": {},
+   "empty": {
+    "contents": [
+     "empty"
+    ]
+   },
+   "full": {
+    "contents": [
+     "raw batter",
+     "baked brownie"
+    ]
+   },
+   "in-oven": {
+    "location": [
+     "in oven"
+    ]
+   },
+   "oily": {
+    "coating": [
+     "oiled"
+    ]
+   },
+   "ready-to-cook": {
+    "contents": [
+     "raw batter"
+    ]
+   },
+   "stuffed": {
+    "contents": [
+     "raw batter",
+     "baked brownie"
+    ]
+   },
+   "warm": {
+    "contents": [
+     "baked brownie"
+    ]
+   }
+  },
+  "bowl": {
+   "batter-covered": {},
+   "covered": {},
+   "diluted": {
+    "contents": [
+     "unmixed ingredients",
+     "mixed batter"
+    ]
+   },
+   "dirty": {},
+   "egg-coated": {},
+   "egg-covered": {},
+   "empty": {
+    "contents": [
+     "empty"
+    ]
+   },
+   "full": {
+    "contents": [
+     "unmixed ingredients",
+     "mixed batter"
+    ]
+   },
+   "liquefied": {
+    "contents": [
+     "unmixed ingredients",
+     "mixed batter"
+    ]
+   },
+   "mixed": {
+    "contents": [
+     "mixed batter"
+    ]
+   },
+   "oily": {},
+   "partially-empty": {
+    "contents": [
+     "unmixed ingredients",
+     "mixed batter"
+    ]
+   },
+   "smooth": {
+    "contents": [
+     "mixed batter"
+    ]
+   },
+   "stuffed": {
+    "contents": [
+     "unmixed ingredients",
+     "mixed batter"
+    ]
+   },
+   "wet": {}
+  },
+  "brownie batter": {
+   "assembled": {
+    "doneness": [
+     "raw"
+    ]
+   },
+   "denser": {},
+   "in bowl": {
+    "location": [
+     "in bowl"
+    ]
+   },
+   "mixed": {
+    "mix_state": [
+     "smooth"
+    ]
+   },
+   "oily": {},
+   "poured": {
+    "location": [
+     "in baking tray"
+    ]
+   },
+   "ready-to-cook": {
+    "doneness": [
+     "raw"
+    ],
+    "location": [
+     "in baking tray"
+    ],
+    "mix_state": [
+     "smooth"
+    ]
+   },
+   "relocated": {
+    "location": [
+     "in baking tray"
+    ]
+   }
+  },
+  "brownie mix package": {
+   "empty": {
+    "fullness": [
+     "empty"
+    ],
+    "openness": [
+     "open"
+    ]
+   },
+   "full": {
+    "fullness": [
+     "full"
+    ]
+   },
+   "mixed": {},
+   "partially-empty": {
+    "openness": [
+     "open"
+    ]
+   }
+  },
+  "egg mixture": {
+   "on tray": {},
+   "partially-empty": {},
+   "poured": {},
+   "ready-to-cook": {},
+   "relocated": {},
+   "scattered": {}
+  },
+  "eggs": {
+   "beaten": {
+    "integrity": [
+     "cracked"
+    ]
+   },
+   "cracked": {
+    "integrity": [
+     "cracked"
+    ]
+   },
+   "egg-covered": {},
+   "full": {},
+   "in bowl": {
+    "location": [
+     "in bowl"
+    ],
+    "integrity": [
+     "cracked"
+    ]
+   },
+   "mixed": {
+    "integrity": [
+     "cracked"
+    ],
+    "location": [
+     "in bowl"
+    ]
+   },
+   "poured": {
+    "integrity": [
+     "cracked"
+    ],
+    "location": [
+     "in bowl"
+    ]
+   },
+   "relocated": {
+    "location": [
+     "in bowl"
+    ]
+   },
+   "scattered": {
+    "integrity": [
+     "cracked"
+    ]
+   },
+   "separated": {
+    "integrity": [
+     "cracked"
+    ]
+   },
+   "smooth": {
+    "integrity": [
+     "cracked"
+    ],
+    "location": [
+     "in bowl"
+    ]
+   }
+  },
+  "eggshell": {
+   "cracked": {},
+   "empty": {
+    "fill": [
+     "empty"
+    ]
+   },
+   "separated": {
+    "fill": [
+     "empty"
+    ]
+   }
+  },
+  "measuring spoon/cup": {
+   "empty": {
+    "contents": [
+     "empty"
+    ]
+   },
+   "full": {
+    "contents": [
+     "filled with liquid"
+    ]
+   },
+   "oily": {},
+   "partially-empty": {},
+   "wet": {}
+  },
+  "mixer": {
+   "dirty": {
+    "beaters": [
+     "coated with batter"
+    ]
+   }
+  },
+  "mixing spoon": {
+   "batter-covered": {
+    "cleanliness": [
+     "coated with batter"
+    ]
+   },
+   "clean": {
+    "cleanliness": [
+     "clean"
+    ]
+   },
+   "covered": {
+    "cleanliness": [
+     "coated with batter"
+    ]
+   },
+   "dirty": {
+    "cleanliness": [
+     "coated with batter"
+    ]
+   },
+   "in use": {
+    "usage": [
+     "stirring"
+    ]
+   },
+   "oily": {},
+   "partially-empty": {}
+  },
+  "oil": {
+   "added": {
+    "location": [
+     "in bowl"
+    ]
+   },
+   "full": {},
+   "in bowl": {
+    "location": [
+     "in bowl"
+    ]
+   },
+   "mixed": {
+    "location": [
+     "in bowl"
+    ]
+   },
+   "oily": {},
+   "poured": {
+    "location": [
+     "in measuring cup",
+     "in bowl"
+    ]
+   },
+   "relocated": {
+    "location": [
+     "in measuring cup",
+     "in bowl"
+    ]
+   },
+   "scattered": {},
+   "sprayed": {}
+  },
+  "oil bottle": {
+   "empty": {},
+   "oily": {},
+   "partially-empty": {}
+  },
+  "oven": {
+   "assembled": {
+    "contents": [
+     "tray inside"
+    ]
+   },
+   "cooked": {},
+   "full": {
+    "contents": [
+     "tray inside"
+    ]
+   },
+   "in use": {},
+   "in-oven": {
+    "contents": [
+     "tray inside"
+    ]
+   },
+   "on": {},
+   "stuffed": {
+    "contents": [
+     "tray inside"
+    ]
+   },
+   "warm": {}
+  },
+  "oven gloves": {
+   "in use": {
+    "worn": [
+     "on hands"
+    ]
+   }
+  },
+  "spread spatula": {
+   "clean": {
+    "cleanliness": [
+     "clean"
+    ]
+   },
+   "coated": {
+    "cleanliness": [
+     "coated with batter"
+    ]
+   },
+   "covered": {
+    "cleanliness": [
+     "coated with batter"
+    ]
+   },
+   "dirty": {
+    "cleanliness": [
+     "coated with batter"
+    ]
+   },
+   "egg-coated": {
+    "cleanliness": [
+     "coated with batter"
+    ]
+   },
+   "egg-covered": {
+    "cleanliness": [
+     "coated with batter"
+    ]
+   },
+   "full": {},
+   "partially-empty": {},
+   "sticky": {
+    "cleanliness": [
+     "coated with batter"
+    ]
+   }
+  },
+  "water": {
+   "added": {
+    "location": [
+     "in bowl"
+    ]
+   },
+   "empty": {},
+   "full": {},
+   "in bowl": {
+    "location": [
+     "in bowl"
+    ]
+   },
+   "inside": {},
+   "mixed": {
+    "location": [
+     "in bowl"
+    ]
+   },
+   "partially-empty": {},
+   "poured": {
+    "location": [
+     "in measuring cup",
+     "in bowl"
+    ]
+   },
+   "relocated": {
+    "location": [
+     "in measuring cup",
+     "in bowl"
+    ]
+   },
+   "utilized": {
+    "location": [
+     "in bowl"
+    ]
+   }
+  }
+ },
+ "Eggs": {
+  "bowl": {
+   "covered": {},
+   "dirty": {},
+   "egg-coated": {},
+   "egg-covered": {},
+   "empty": {
+    "contents": [
+     "empty"
+    ]
+   },
+   "full": {
+    "contents": [
+     "raw_cracked_eggs",
+     "beaten_mixture"
+    ]
+   },
+   "mixed": {
+    "contents": [
+     "beaten_mixture"
+    ]
+   },
+   "partially-empty": {},
+   "scattered": {},
+   "seasoned": {
+    "contents": [
+     "raw_cracked_eggs",
+     "beaten_mixture"
+    ]
+   },
+   "smooth": {
+    "contents": [
+     "beaten_mixture"
+    ]
+   },
+   "stuffed": {
+    "contents": [
+     "raw_cracked_eggs",
+     "beaten_mixture"
+    ]
+   }
+  },
+  "cooked omelette": {
+   "cooked": {
+    "doneness": [
+     "set",
+     "golden_browned"
+    ]
+   },
+   "on dish": {
+    "location": [
+     "on_plate"
+    ]
+   },
+   "relocated": {
+    "location": [
+     "on_plate"
+    ]
+   },
+   "served": {
+    "location": [
+     "on_plate"
+    ]
+   }
+  },
+  "egg mixture": {
+   "beaten": {
+    "consistency": [
+     "beaten_uniform"
+    ]
+   },
+   "flipped": {
+    "location": [
+     "in_pan"
+    ]
+   },
+   "in-pan": {
+    "location": [
+     "in_pan"
+    ]
+   },
+   "ready-to-cook": {
+    "consistency": [
+     "beaten_uniform"
+    ]
+   },
+   "relocated": {
+    "location": [
+     "in_pan"
+    ]
+   },
+   "seasoned": {
+    "seasoning": [
+     "salted"
+    ]
+   },
+   "served": {},
+   "solid": {
+    "location": [
+     "in_pan"
+    ]
+   }
+  },
+  "eggs": {
+   "assembled": {},
+   "beaten": {
+    "state": [
+     "cracked_open"
+    ]
+   },
+   "cooked": {
+    "state": [
+     "cracked_open"
+    ]
+   },
+   "cracked": {
+    "state": [
+     "cracked_open"
+    ]
+   },
+   "egg-covered": {},
+   "full": {},
+   "in bowl": {
+    "state": [
+     "cracked_open"
+    ]
+   },
+   "mixed": {
+    "state": [
+     "cracked_open"
+    ]
+   },
+   "on dish": {
+    "state": [
+     "cracked_open"
+    ]
+   },
+   "poured": {
+    "state": [
+     "cracked_open"
+    ]
+   },
+   "ready-to-cook": {},
+   "relocated": {},
+   "scattered": {},
+   "seasoned": {
+    "state": [
+     "cracked_open"
+    ]
+   }
+  },
+  "eggshell": {
+   "cracked": {
+    "integrity": [
+     "cracked",
+     "split_halves"
+    ]
+   },
+   "empty": {
+    "integrity": [
+     "cracked",
+     "split_halves"
+    ]
+   },
+   "separated": {
+    "integrity": [
+     "split_halves"
+    ]
+   }
+  },
+  "mixing spoon": {
+   "clean": {
+    "cleanliness": [
+     "clean"
+    ]
+   },
+   "covered": {
+    "cleanliness": [
+     "egg_coated"
+    ]
+   },
+   "dirty": {
+    "cleanliness": [
+     "egg_coated"
+    ]
+   },
+   "egg-covered": {
+    "cleanliness": [
+     "egg_coated"
+    ]
+   },
+   "in use": {
+    "location": [
+     "in_bowl"
+    ]
+   },
+   "oily": {}
+  },
+  "oil": {
+   "cooked": {
+    "location": [
+     "in_pan"
+    ]
+   },
+   "full": {},
+   "in-pan": {
+    "location": [
+     "in_pan"
+    ]
+   },
+   "mixed": {},
+   "oily": {},
+   "poured": {
+    "location": [
+     "in_pan"
+    ]
+   },
+   "ready-to-cook": {},
+   "scattered": {
+    "location": [
+     "in_pan"
+    ]
+   },
+   "warm": {
+    "location": [
+     "in_pan"
+    ],
+    "heat": [
+     "hot_shimmering"
+    ]
+   }
+  },
+  "oil bottle": {
+   "empty": {},
+   "partially-empty": {}
+  },
+  "oven": {
+   "cooked": {},
+   "in use": {
+    "burner": [
+     "on"
+    ]
+   },
+   "on": {
+    "burner": [
+     "on"
+    ]
+   },
+   "partially-empty": {},
+   "warm": {
+    "burner": [
+     "on"
+    ]
+   }
+  },
+  "pan": {
+   "assembled": {},
+   "cooked": {
+    "contents": [
+     "with_eggs"
+    ]
+   },
+   "covered": {},
+   "dirty": {},
+   "egg-covered": {
+    "contents": [
+     "with_eggs"
+    ]
+   },
+   "empty": {
+    "contents": [
+     "empty"
+    ]
+   },
+   "flipped": {
+    "contents": [
+     "with_eggs"
+    ]
+   },
+   "full": {
+    "contents": [
+     "oiled",
+     "with_eggs"
+    ]
+   },
+   "in use": {},
+   "oily": {
+    "contents": [
+     "oiled"
+    ]
+   },
+   "omelet-filled": {
+    "contents": [
+     "with_eggs"
+    ]
+   },
+   "on top": {},
+   "stuffed": {
+    "contents": [
+     "oiled",
+     "with_eggs"
+    ]
+   },
+   "warm": {}
+  },
+  "salt": {
+   "added": {
+    "location": [
+     "on_eggs"
+    ]
+   },
+   "in bowl": {
+    "location": [
+     "on_eggs"
+    ]
+   },
+   "mixed": {
+    "location": [
+     "on_eggs"
+    ]
+   },
+   "partially-empty": {},
+   "scattered": {
+    "location": [
+     "on_eggs"
+    ]
+   },
+   "scooped-out": {},
+   "seasoning": {}
+  },
+  "salt shaker": {
+   "cracked": {}
+  },
+  "spread spatula": {
+   "clean": {
+    "cleanliness": [
+     "clean"
+    ]
+   },
+   "coated": {
+    "cleanliness": [
+     "egg_coated"
+    ]
+   },
+   "dirty": {
+    "cleanliness": [
+     "egg_coated"
+    ]
+   },
+   "egg-coated": {
+    "cleanliness": [
+     "egg_coated"
+    ]
+   },
+   "egg-covered": {
+    "cleanliness": [
+     "egg_coated"
+    ]
+   },
+   "full": {},
+   "partially-empty": {}
+  },
+  "the dish": {
+   "cooked": {
+    "contents": [
+     "omelette_served"
+    ]
+   },
+   "egg-coated": {
+    "contents": [
+     "omelette_served"
+    ]
+   },
+   "egg-covered": {
+    "contents": [
+     "omelette_served"
+    ]
+   },
+   "empty": {
+    "contents": [
+     "empty_plate"
+    ]
+   },
+   "full": {
+    "contents": [
+     "omelette_served"
+    ]
+   },
+   "omelet-filled": {
+    "contents": [
+     "omelette_served"
+    ]
+   },
+   "partially-empty": {},
+   "served": {
+    "contents": [
+     "omelette_served"
+    ]
+   },
+   "stuffed": {
+    "contents": [
+     "omelette_served"
+    ]
+   }
+  }
+ },
+ "Pizza": {
+  "baking tray": {
+   "assembled": {
+    "contents": [
+     "with_pizza"
+    ]
+   },
+   "batter-covered": {
+    "contents": [
+     "with_pizza"
+    ]
+   },
+   "cheese-covered": {
+    "contents": [
+     "with_pizza"
+    ]
+   },
+   "empty": {
+    "contents": [
+     "empty"
+    ]
+   },
+   "full": {
+    "contents": [
+     "with_pizza"
+    ]
+   },
+   "in-oven": {
+    "location": [
+     "in_oven"
+    ]
+   },
+   "ready-to-cook": {
+    "contents": [
+     "with_pizza"
+    ]
+   },
+   "saucy": {
+    "contents": [
+     "with_pizza"
+    ]
+   },
+   "stuffed": {
+    "contents": [
+     "with_pizza"
+    ]
+   },
+   "topped": {
+    "contents": [
+     "with_pizza"
+    ]
+   },
+   "topped with pepperoni": {
+    "contents": [
+     "with_pizza"
+    ]
+   }
+  },
+  "batter": {
+   "cheese-covered": {
+    "shape": [
+     "flattened"
+    ],
+    "location": [
+     "on_tray"
+    ]
+   },
+   "empty": {},
+   "in-oven": {
+    "shape": [
+     "flattened"
+    ],
+    "location": [
+     "on_tray"
+    ]
+   },
+   "on tray": {
+    "location": [
+     "on_tray"
+    ]
+   },
+   "saucy": {
+    "shape": [
+     "flattened"
+    ],
+    "location": [
+     "on_tray"
+    ]
+   },
+   "stuffed": {
+    "shape": [
+     "flattened"
+    ],
+    "location": [
+     "on_tray"
+    ]
+   },
+   "topped": {
+    "shape": [
+     "flattened"
+    ],
+    "location": [
+     "on_tray"
+    ]
+   },
+   "topped with pepperoni": {
+    "shape": [
+     "flattened"
+    ],
+    "location": [
+     "on_tray"
+    ]
+   }
+  },
+  "cheese": {
+   "added": {
+    "form": [
+     "grated"
+    ],
+    "placement": [
+     "on_pizza"
+    ]
+   },
+   "assembled": {
+    "placement": [
+     "on_pizza"
+    ]
+   },
+   "grated": {
+    "form": [
+     "grated"
+    ]
+   },
+   "less-covered": {},
+   "on top": {
+    "form": [
+     "grated"
+    ],
+    "placement": [
+     "on_pizza"
+    ]
+   },
+   "scattered": {
+    "form": [
+     "grated"
+    ],
+    "placement": [
+     "on_pizza"
+    ]
+   },
+   "topped": {
+    "placement": [
+     "on_pizza"
+    ]
+   }
+  },
+  "cutting board": {
+   "covered": {
+    "surface": [
+     "with_food"
+    ]
+   },
+   "in use": {
+    "surface": [
+     "with_food"
+    ]
+   }
+  },
+  "grater": {
+   "dirty": {
+    "residue": [
+     "cheese_covered"
+    ]
+   }
+  },
+  "knife": {
+   "clean": {},
+   "dirty": {},
+   "partially-empty": {},
+   "topped with pepperoni": {}
+  },
+  "mixing spoon": {
+   "covered": {
+    "cleanliness": [
+     "sauce_coated"
+    ]
+   },
+   "dirty": {
+    "cleanliness": [
+     "sauce_coated"
+    ]
+   },
+   "in use": {
+    "usage": [
+     "spreading"
+    ]
+   },
+   "partially-empty": {},
+   "saucy": {
+    "cleanliness": [
+     "sauce_coated"
+    ]
+   },
+   "stuffed": {}
+  },
+  "oven": {
+   "full": {
+    "interior": [
+     "with_pizza"
+    ]
+   },
+   "in use": {},
+   "on": {},
+   "warm": {}
+  },
+  "pepperoni": {
+   "added": {
+    "form": [
+     "sliced"
+    ],
+    "placement": [
+     "on_pizza"
+    ]
+   },
+   "assembled": {
+    "placement": [
+     "on_pizza"
+    ]
+   },
+   "chopped": {
+    "form": [
+     "sliced"
+    ]
+   },
+   "less-covered": {},
+   "on top": {
+    "placement": [
+     "on_pizza"
+    ]
+   },
+   "placed": {
+    "placement": [
+     "on_pizza"
+    ]
+   },
+   "scattered": {
+    "form": [
+     "sliced"
+    ],
+    "placement": [
+     "on_pizza"
+    ]
+   },
+   "topped": {
+    "placement": [
+     "on_pizza"
+    ]
+   }
+  },
+  "pizza": {
+   "full": {},
+   "in-oven": {},
+   "ready-to-cook": {
+    "toppings": [
+     "pepperoni_added"
+    ],
+    "cooking": [
+     "raw"
+    ]
+   },
+   "saucy": {
+    "toppings": [
+     "sauced",
+     "cheese_added",
+     "pepperoni_added"
+    ]
+   },
+   "stuffed": {}
+  },
+  "pizza sauce": {
+   "added": {
+    "location": [
+     "on_dough"
+    ]
+   },
+   "on top": {
+    "location": [
+     "on_dough"
+    ]
+   },
+   "partially-empty": {},
+   "scattered": {
+    "location": [
+     "on_dough"
+    ]
+   },
+   "scooped-out": {}
+  },
+  "tin of pizza sauce": {
+   "partially-empty": {
+    "fill": [
+     "partly_empty"
+    ],
+    "lid": [
+     "open"
+    ]
+   }
+  }
+ },
+ "Salad": {
+  "bowl": {
+   "covered": {
+    "fill_level": [
+     "partially_filled",
+     "full"
+    ]
+   },
+   "empty": {
+    "fill_level": [
+     "empty"
+    ]
+   },
+   "flavored": {
+    "fill_level": [
+     "partially_filled",
+     "full"
+    ]
+   },
+   "full": {
+    "fill_level": [
+     "full"
+    ]
+   },
+   "liquefied": {
+    "fill_level": [
+     "partially_filled",
+     "full"
+    ]
+   },
+   "mayonnaise-mixed": {
+    "fill_level": [
+     "partially_filled",
+     "full"
+    ]
+   },
+   "mixed": {
+    "fill_level": [
+     "partially_filled",
+     "full"
+    ]
+   },
+   "stuffed": {
+    "fill_level": [
+     "full"
+    ]
+   },
+   "vegetable-covered": {
+    "fill_level": [
+     "partially_filled",
+     "full"
+    ]
+   }
+  },
+  "contents of the bowl": {
+   "seasoned": {
+    "dressing": [
+     "mayonnaise_on_top",
+     "mixed"
+    ]
+   }
+  },
+  "cutting board": {
+   "assembled": {},
+   "chopped": {
+    "contents": [
+     "chopped_vegetables"
+    ],
+    "cleanliness": [
+     "dirty"
+    ]
+   },
+   "covered": {
+    "contents": [
+     "whole_vegetables",
+     "chopped_vegetables"
+    ]
+   },
+   "dirty": {
+    "cleanliness": [
+     "dirty"
+    ]
+   },
+   "full": {
+    "contents": [
+     "whole_vegetables",
+     "chopped_vegetables"
+    ]
+   },
+   "in use": {
+    "contents": [
+     "whole_vegetables",
+     "chopped_vegetables"
+    ]
+   },
+   "partially-empty": {
+    "contents": [
+     "whole_vegetables",
+     "chopped_vegetables"
+    ]
+   },
+   "stuffed": {
+    "contents": [
+     "whole_vegetables",
+     "chopped_vegetables"
+    ]
+   },
+   "vegetable-covered": {
+    "contents": [
+     "whole_vegetables",
+     "chopped_vegetables"
+    ]
+   }
+  },
+  "knife": {
+   "clean": {
+    "cleanliness": [
+     "clean"
+    ]
+   },
+   "covered": {
+    "cleanliness": [
+     "dirty"
+    ]
+   },
+   "dirty": {
+    "cleanliness": [
+     "dirty"
+    ]
+   },
+   "partially-empty": {},
+   "vegetable-covered": {
+    "cleanliness": [
+     "dirty"
+    ]
+   }
+  },
+  "mayonnaise": {
+   "added": {
+    "lid": [
+     "open"
+    ]
+   },
+   "cracked": {
+    "lid": [
+     "open"
+    ]
+   },
+   "partially-empty": {},
+   "scattered": {}
+  },
+  "mixing spoon": {
+   "dirty": {
+    "cleanliness": [
+     "coated"
+    ]
+   },
+   "partially-empty": {},
+   "saucy": {
+    "cleanliness": [
+     "coated"
+    ]
+   }
+  },
+  "vegetable peeler": {
+   "clean": {},
+   "dirty": {}
+  },
+  "vegetables": {
+   "added": {
+    "location": [
+     "bowl"
+    ]
+   },
+   "chopped": {
+    "cut": [
+     "sliced",
+     "diced"
+    ]
+   },
+   "coated": {
+    "location": [
+     "bowl"
+    ]
+   },
+   "in bowl": {
+    "location": [
+     "bowl"
+    ]
+   },
+   "mayonnaise-mixed": {
+    "location": [
+     "bowl"
+    ]
+   },
+   "mixed": {
+    "location": [
+     "bowl"
+    ]
+   },
+   "peeled": {
+    "peel": [
+     "peeled"
+    ]
+   },
+   "relocated": {},
+   "separated": {}
+  }
+ },
+ "Sandwich": {
+  "bread slices": {
+   "assembled": {
+    "assembly": [
+     "stacked"
+    ]
+   },
+   "chopped": {
+    "cut": [
+     "cut"
+    ]
+   },
+   "jam-topped": {
+    "spread_coverage": [
+     "spread"
+    ]
+   },
+   "on dish": {},
+   "peanut butter topped": {
+    "spread_coverage": [
+     "spread"
+    ]
+   },
+   "peanut-butter-and-jam-covered": {
+    "spread_coverage": [
+     "spread"
+    ]
+   },
+   "placed": {},
+   "pressed-together": {
+    "assembly": [
+     "stacked"
+    ]
+   },
+   "relocated": {}
+  },
+  "jam": {
+   "added": {
+    "location": [
+     "on_bread"
+    ]
+   },
+   "on bread": {
+    "location": [
+     "on_bread"
+    ]
+   },
+   "scattered": {
+    "location": [
+     "on_bread"
+    ]
+   },
+   "scooped-out": {
+    "lid": [
+     "open"
+    ],
+    "location": [
+     "on_knife",
+     "on_bread"
+    ]
+   }
+  },
+  "knife": {
+   "clean": {
+    "cleanliness": [
+     "clean"
+    ]
+   },
+   "coated": {
+    "cleanliness": [
+     "smeared"
+    ]
+   },
+   "creamy": {
+    "cleanliness": [
+     "smeared"
+    ]
+   },
+   "dirty": {
+    "cleanliness": [
+     "smeared"
+    ]
+   },
+   "jam-topped": {
+    "cleanliness": [
+     "smeared"
+    ]
+   },
+   "partially-empty": {
+    "cleanliness": [
+     "smeared"
+    ]
+   }
+  },
+  "peanut butter": {
+   "on bread": {
+    "location": [
+     "on_bread"
+    ]
+   },
+   "placed": {
+    "location": [
+     "on_bread"
+    ]
+   },
+   "scattered": {
+    "location": [
+     "on_bread"
+    ]
+   },
+   "scooped-out": {
+    "lid": [
+     "open"
+    ],
+    "location": [
+     "on_knife",
+     "on_bread"
+    ]
+   }
+  },
+  "the dish": {
+   "assembled": {
+    "contents": [
+     "sandwich"
+    ]
+   },
+   "empty": {
+    "contents": [
+     "empty"
+    ]
+   },
+   "full": {
+    "contents": [
+     "bread",
+     "sandwich"
+    ]
+   },
+   "partially-empty": {},
+   "peanut butter topped": {
+    "contents": [
+     "bread",
+     "sandwich"
+    ]
+   },
+   "served": {
+    "contents": [
+     "sandwich"
+    ]
+   },
+   "stuffed": {
+    "contents": [
+     "bread",
+     "sandwich"
+    ]
+   }
+  }
+ }
+}

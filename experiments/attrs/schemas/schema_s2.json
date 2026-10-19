@@ -1,0 +1,3332 @@
+{
+ "Brownie": {
+  "baking tray": {
+   "visible": [
+    "a metal baking tray on the kitchen counter",
+    "a hand holding a rectangular baking tray"
+   ],
+   "attributes": [
+    {
+     "name": "contents",
+     "values": [
+      "empty",
+      "greased",
+      "unbaked_batter",
+      "baked_brownie"
+     ],
+     "prompts": [
+      [
+       "an empty clean metal baking tray",
+       "a bare baking tray with nothing in it",
+       "a dry empty rectangular baking tray"
+      ],
+      [
+       "a baking tray with a shiny greased surface",
+       "a baking tray coated with a thin layer of oil",
+       "a baking tray lined with greased parchment paper"
+      ],
+      [
+       "a baking tray filled with glossy raw brown batter",
+       "raw brownie batter spread flat in a baking tray",
+       "a baking tray holding wet chocolate batter"
+      ],
+      [
+       "a baking tray with baked brownies with a cracked matte top",
+       "a baking tray of cooked dark brownies",
+       "a baking tray with a firm baked brownie slab"
+      ]
+     ],
+     "script": [
+      "empty",
+      "greased",
+      "unbaked_batter",
+      "baked_brownie"
+     ],
+     "one_way": true,
+     "cues": [
+      "oil being brushed onto the baking tray",
+      "batter being poured into the baking tray",
+      "the baking tray baking in the oven"
+     ]
+    },
+    {
+     "name": "location",
+     "values": [
+      "on_counter",
+      "in_oven"
+     ],
+     "prompts": [
+      [
+       "a baking tray sitting on the kitchen counter",
+       "a baking tray resting on the countertop",
+       "a baking tray next to a mixing bowl on the counter"
+      ],
+      [
+       "a baking tray on the rack inside the oven",
+       "a baking tray inside a hot oven",
+       "a baking tray seen through the open oven door on the rack"
+      ]
+     ],
+     "script": [
+      "on_counter",
+      "in_oven",
+      "on_counter"
+     ],
+     "one_way": false,
+     "cues": [
+      "a gloved hand sliding the baking tray into the oven",
+      "a gloved hand pulling the baking tray out of the oven"
+     ]
+    }
+   ]
+  },
+  "bowl": {
+   "visible": [
+    "a large mixing bowl on the kitchen counter",
+    "a hand holding a mixing bowl"
+   ],
+   "attributes": [
+    {
+     "name": "contents",
+     "values": [
+      "empty",
+      "dry_mix",
+      "wet_batter",
+      "batter_residue"
+     ],
+     "prompts": [
+      [
+       "an empty clean mixing bowl",
+       "a mixing bowl with nothing inside",
+       "a clean dry empty bowl"
+      ],
+      [
+       "a bowl containing dry brown brownie mix powder",
+       "a mixing bowl with cocoa powder mix inside",
+       "a bowl of dry powdery brownie mix"
+      ],
+      [
+       "a bowl full of thick glossy chocolate batter",
+       "a mixing bowl with wet brown brownie batter",
+       "a bowl of stirred chocolate batter"
+      ],
+      [
+       "an emptied bowl with streaks of batter on the sides",
+       "a mixing bowl scraped out with batter residue",
+       "a nearly empty bowl smeared with chocolate batter"
+      ]
+     ],
+     "script": [
+      "empty",
+      "dry_mix",
+      "wet_batter",
+      "batter_residue"
+     ],
+     "one_way": true,
+     "cues": [
+      "brownie mix being poured into the bowl",
+      "eggs, oil and water stirred into the bowl",
+      "batter being poured from the bowl into the tray"
+     ]
+    }
+   ]
+  },
+  "brownie batter": {
+   "visible": [
+    "brown brownie batter in a mixing bowl",
+    "brownie batter being stirred with a spoon"
+   ],
+   "attributes": [
+    {
+     "name": "consistency",
+     "values": [
+      "separate_ingredients",
+      "lumpy",
+      "smooth"
+     ],
+     "prompts": [
+      [
+       "dry brownie mix with unmixed egg and oil on top",
+       "brownie batter ingredients sitting separately in a bowl",
+       "powder and liquid not yet mixed for brownie batter"
+      ],
+      [
+       "lumpy brownie batter with dry powder clumps",
+       "partly mixed brownie batter with streaks",
+       "clumpy uneven brownie batter"
+      ],
+      [
+       "smooth glossy brownie batter",
+       "thick uniform chocolate brownie batter",
+       "well mixed shiny brownie batter"
+      ]
+     ],
+     "script": [
+      "separate_ingredients",
+      "lumpy",
+      "smooth"
+     ],
+     "one_way": true,
+     "cues": [
+      "starting to stir the brownie batter",
+      "continued mixing of the brownie batter"
+     ]
+    },
+    {
+     "name": "location",
+     "values": [
+      "in_bowl",
+      "in_tray"
+     ],
+     "prompts": [
+      [
+       "brownie batter inside a mixing bowl",
+       "a bowl of brownie batter",
+       "brownie batter in a round bowl"
+      ],
+      [
+       "brownie batter spread in a baking tray",
+       "brownie batter flat in a rectangular pan",
+       "brownie batter leveled in a baking tray"
+      ]
+     ],
+     "script": [
+      "in_bowl",
+      "in_tray"
+     ],
+     "one_way": true,
+     "cues": [
+      "brownie batter being poured into the baking tray"
+     ]
+    },
+    {
+     "name": "doneness",
+     "values": [
+      "raw",
+      "baked"
+     ],
+     "prompts": [
+      [
+       "glossy wet raw brownie batter",
+       "shiny uncooked brownie batter",
+       "runny raw chocolate brownie batter"
+      ],
+      [
+       "baked brownie with a dry cracked top",
+       "firm cooked brownie in a tray",
+       "matte baked brownie surface"
+      ]
+     ],
+     "script": [
+      "raw",
+      "baked"
+     ],
+     "one_way": true,
+     "cues": [
+      "the brownie batter baking in the oven"
+     ]
+    }
+   ]
+  },
+  "brownie mix package": {
+   "visible": [
+    "a box of brownie mix on the counter",
+    "a hand holding a brownie mix package"
+   ],
+   "attributes": [
+    {
+     "name": "state",
+     "values": [
+      "sealed",
+      "opened",
+      "emptied"
+     ],
+     "prompts": [
+      [
+       "a sealed unopened brownie mix box",
+       "a closed brownie mix package",
+       "an intact brownie mix box with flaps shut"
+      ],
+      [
+       "a torn open brownie mix package",
+       "an opened brownie mix bag with powder inside",
+       "a brownie mix box with its top open"
+      ],
+      [
+       "an empty crumpled brownie mix package",
+       "an emptied brownie mix bag",
+       "a flattened empty brownie mix box"
+      ]
+     ],
+     "script": [
+      "sealed",
+      "opened",
+      "emptied"
+     ],
+     "one_way": true,
+     "cues": [
+      "tearing open the brownie mix package",
+      "pouring all the brownie mix into the bowl"
+     ]
+    },
+    {
+     "name": "position",
+     "values": [
+      "upright",
+      "tilted_pouring"
+     ],
+     "prompts": [
+      [
+       "a brownie mix package standing upright",
+       "a brownie mix box resting on the counter",
+       "a brownie mix bag held upright"
+      ],
+      [
+       "a brownie mix package tilted over a bowl",
+       "brown powder pouring from a brownie mix bag",
+       "a hand tipping a brownie mix package"
+      ]
+     ],
+     "script": [
+      "upright",
+      "tilted_pouring",
+      "upright"
+     ],
+     "one_way": false,
+     "cues": [
+      "tilting the brownie mix package over the bowl",
+      "setting the brownie mix package down"
+     ]
+    }
+   ]
+  },
+  "egg mixture": {
+   "visible": [
+    "an egg mixture in a small bowl",
+    "a whisk in a bowl of egg mixture"
+   ],
+   "attributes": [
+    {
+     "name": "consistency",
+     "values": [
+      "unbeaten",
+      "beaten"
+     ],
+     "prompts": [
+      [
+       "egg mixture with separate yolks and clear whites",
+       "unbeaten egg mixture with whole yolks",
+       "egg mixture with intact orange yolks"
+      ],
+      [
+       "beaten egg mixture uniform yellow",
+       "frothy whisked egg mixture",
+       "smooth beaten yellow egg mixture"
+      ]
+     ],
+     "script": [
+      "unbeaten",
+      "beaten"
+     ],
+     "one_way": true,
+     "cues": [
+      "whisking the egg mixture with a fork"
+     ]
+    },
+    {
+     "name": "location",
+     "values": [
+      "in_small_bowl",
+      "in_batter"
+     ],
+     "prompts": [
+      [
+       "egg mixture in a small bowl",
+       "a cup holding yellow egg mixture",
+       "egg mixture in a separate dish"
+      ],
+      [
+       "egg mixture poured onto brownie mix",
+       "yellow egg mixture in a bowl of brown mix",
+       "egg mixture swirled into batter"
+      ]
+     ],
+     "script": [
+      "in_small_bowl",
+      "in_batter"
+     ],
+     "one_way": true,
+     "cues": [
+      "pouring the egg mixture into the mixing bowl"
+     ]
+    }
+   ]
+  },
+  "eggs": {
+   "visible": [
+    "white eggs on the counter",
+    "a hand holding an egg"
+   ],
+   "attributes": [
+    {
+     "name": "state",
+     "values": [
+      "whole",
+      "cracked_open"
+     ],
+     "prompts": [
+      [
+       "a whole uncracked egg",
+       "intact eggs in a carton",
+       "a whole egg held in a hand"
+      ],
+      [
+       "a cracked egg with yolk dropping out",
+       "an egg broken open over a bowl",
+       "a raw egg yolk and white in a bowl"
+      ]
+     ],
+     "script": [
+      "whole",
+      "cracked_open"
+     ],
+     "one_way": true,
+     "cues": [
+      "cracking the egg on the bowl rim"
+     ]
+    },
+    {
+     "name": "location",
+     "values": [
+      "in_carton",
+      "in_hand",
+      "in_bowl"
+     ],
+     "prompts": [
+      [
+       "eggs sitting in an egg carton",
+       "a carton of eggs on the counter",
+       "eggs in a cardboard egg carton"
+      ],
+      [
+       "an egg held in fingers",
+       "a hand holding an egg above a bowl",
+       "an egg grasped in a hand"
+      ],
+      [
+       "raw egg inside a bowl",
+       "egg yolk and white in a mixing bowl",
+       "eggs cracked into a bowl"
+      ]
+     ],
+     "script": [
+      "in_carton",
+      "in_hand",
+      "in_bowl"
+     ],
+     "one_way": true,
+     "cues": [
+      "taking an egg from the carton",
+      "cracking the egg into the bowl"
+     ]
+    }
+   ]
+  },
+  "eggshell": {
+   "visible": [
+    "broken eggshell halves on the counter",
+    "a hand holding an eggshell"
+   ],
+   "attributes": [
+    {
+     "name": "state",
+     "values": [
+      "intact",
+      "cracked",
+      "empty_halves"
+     ],
+     "prompts": [
+      [
+       "an intact smooth eggshell",
+       "an unbroken white eggshell",
+       "a whole eggshell without cracks"
+      ],
+      [
+       "an eggshell with a crack line",
+       "a cracked eggshell leaking egg white",
+       "a dented cracked eggshell"
+      ],
+      [
+       "two empty eggshell halves",
+       "hollow broken eggshell pieces",
+       "empty eggshell halves on the counter"
+      ]
+     ],
+     "script": [
+      "intact",
+      "cracked",
+      "empty_halves"
+     ],
+     "one_way": true,
+     "cues": [
+      "tapping the egg on the bowl edge",
+      "pulling the eggshell apart"
+     ]
+    },
+    {
+     "name": "location",
+     "values": [
+      "in_hand",
+      "on_counter",
+      "in_trash"
+     ],
+     "prompts": [
+      [
+       "eggshell held in fingers",
+       "a hand gripping an eggshell",
+       "eggshell halves in a hand"
+      ],
+      [
+       "eggshell lying on the counter",
+       "broken eggshell on the countertop",
+       "eggshell pieces beside a bowl"
+      ],
+      [
+       "eggshell in a trash bin",
+       "eggshells in a waste bin",
+       "eggshell dropped into garbage"
+      ]
+     ],
+     "script": [
+      "in_hand",
+      "on_counter",
+      "in_trash"
+     ],
+     "one_way": true,
+     "cues": [
+      "placing the eggshell on the counter",
+      "throwing the eggshell in the trash"
+     ]
+    }
+   ]
+  },
+  "measuring spoon/cup": {
+   "visible": [
+    "a measuring cup on the counter",
+    "a hand holding a measuring cup"
+   ],
+   "attributes": [
+    {
+     "name": "fill",
+     "values": [
+      "empty",
+      "filled"
+     ],
+     "prompts": [
+      [
+       "an empty measuring cup",
+       "a dry empty measuring cup",
+       "an empty measuring spoon"
+      ],
+      [
+       "a measuring cup filled with liquid",
+       "a measuring cup full of oil",
+       "a measuring cup full of water"
+      ]
+     ],
+     "script": [
+      "empty",
+      "filled",
+      "empty",
+      "filled",
+      "empty"
+     ],
+     "one_way": false,
+     "cues": [
+      "pouring oil into the measuring cup",
+      "emptying the measuring cup into the bowl",
+      "filling the measuring cup with water",
+      "emptying the measuring cup into the bowl"
+     ]
+    },
+    {
+     "name": "cleanliness",
+     "values": [
+      "clean",
+      "used_wet"
+     ],
+     "prompts": [
+      [
+       "a clean dry measuring cup",
+       "a spotless measuring cup",
+       "a shiny unused measuring cup"
+      ],
+      [
+       "a used measuring cup with oily film",
+       "a wet measuring cup with droplets",
+       "a measuring cup with liquid residue"
+      ]
+     ],
+     "script": [
+      "clean",
+      "used_wet"
+     ],
+     "one_way": true,
+     "cues": [
+      "using the measuring cup to measure oil"
+     ]
+    }
+   ]
+  },
+  "mixer": {
+   "visible": [
+    "an electric hand mixer on the counter",
+    "a hand holding an electric mixer"
+   ],
+   "attributes": [
+    {
+     "name": "power",
+     "values": [
+      "off",
+      "running"
+     ],
+     "prompts": [
+      [
+       "an electric mixer with still beaters",
+       "a stopped hand mixer",
+       "a switched off electric mixer"
+      ],
+      [
+       "an electric mixer spinning in batter",
+       "blurred beaters of a running mixer",
+       "a hand mixer whirling batter"
+      ]
+     ],
+     "script": [
+      "off",
+      "running",
+      "off"
+     ],
+     "one_way": false,
+     "cues": [
+      "switching on the mixer in the bowl",
+      "switching off the mixer"
+     ]
+    },
+    {
+     "name": "beaters",
+     "values": [
+      "clean",
+      "batter_coated"
+     ],
+     "prompts": [
+      [
+       "clean metal mixer beaters",
+       "shiny clean beaters on the mixer",
+       "spotless mixer beaters"
+      ],
+      [
+       "mixer beaters covered in brown batter",
+       "mixer beaters coated with chocolate batter",
+       "batter dripping from mixer beaters"
+      ]
+     ],
+     "script": [
+      "clean",
+      "batter_coated"
+     ],
+     "one_way": true,
+     "cues": [
+      "mixing batter with the mixer"
+     ]
+    }
+   ]
+  },
+  "mixing spoon": {
+   "visible": [
+    "a mixing spoon on the counter",
+    "a hand holding a mixing spoon"
+   ],
+   "attributes": [
+    {
+     "name": "cleanliness",
+     "values": [
+      "clean",
+      "batter_coated"
+     ],
+     "prompts": [
+      [
+       "a clean mixing spoon",
+       "a clean wooden mixing spoon",
+       "a dry unused mixing spoon"
+      ],
+      [
+       "a mixing spoon covered in brown batter",
+       "a batter-smeared mixing spoon",
+       "a mixing spoon dripping chocolate batter"
+      ]
+     ],
+     "script": [
+      "clean",
+      "batter_coated"
+     ],
+     "one_way": true,
+     "cues": [
+      "stirring the batter with the mixing spoon"
+     ]
+    },
+    {
+     "name": "in_use",
+     "values": [
+      "resting",
+      "stirring"
+     ],
+     "prompts": [
+      [
+       "a mixing spoon lying on the counter",
+       "a mixing spoon resting in the bowl",
+       "an idle mixing spoon"
+      ],
+      [
+       "a hand stirring batter with a mixing spoon",
+       "a mixing spoon moving through batter",
+       "a mixing spoon stirring a bowl"
+      ]
+     ],
+     "script": [
+      "resting",
+      "stirring",
+      "resting"
+     ],
+     "one_way": false,
+     "cues": [
+      "picking up the mixing spoon to stir",
+      "putting the mixing spoon down"
+     ]
+    }
+   ]
+  },
+  "oil": {
+   "visible": [
+    "yellow cooking oil being poured",
+    "golden oil in a measuring cup"
+   ],
+   "attributes": [
+    {
+     "name": "location",
+     "values": [
+      "in_bottle",
+      "in_measuring_cup",
+      "in_bowl"
+     ],
+     "prompts": [
+      [
+       "oil inside a plastic oil bottle",
+       "yellow oil in a bottle",
+       "a bottle full of cooking oil"
+      ],
+      [
+       "golden oil in a measuring cup",
+       "a measuring cup of oil",
+       "oil filling a measuring cup"
+      ],
+      [
+       "oil poured over brownie mix in a bowl",
+       "shiny oil puddle in a mixing bowl",
+       "oil on brownie mix"
+      ]
+     ],
+     "script": [
+      "in_bottle",
+      "in_measuring_cup",
+      "in_bowl"
+     ],
+     "one_way": true,
+     "cues": [
+      "pouring oil from the bottle into the measuring cup",
+      "pouring the oil into the bowl"
+     ]
+    }
+   ]
+  },
+  "oil bottle": {
+   "visible": [
+    "an oil bottle on the counter",
+    "a hand holding an oil bottle"
+   ],
+   "attributes": [
+    {
+     "name": "cap",
+     "values": [
+      "closed",
+      "open"
+     ],
+     "prompts": [
+      [
+       "an oil bottle with its cap on",
+       "a capped oil bottle",
+       "an oil bottle with closed lid"
+      ],
+      [
+       "an oil bottle with the cap off",
+       "an open oil bottle",
+       "an uncapped oil bottle"
+      ]
+     ],
+     "script": [
+      "closed",
+      "open",
+      "closed"
+     ],
+     "one_way": false,
+     "cues": [
+      "unscrewing the oil bottle cap",
+      "screwing the cap back on the oil bottle"
+     ]
+    },
+    {
+     "name": "position",
+     "values": [
+      "upright",
+      "tilted_pouring"
+     ],
+     "prompts": [
+      [
+       "an oil bottle standing upright",
+       "an upright oil bottle on the counter",
+       "an oil bottle held upright"
+      ],
+      [
+       "an oil bottle tilted pouring oil",
+       "oil streaming from a tilted bottle",
+       "an oil bottle tipped over a cup"
+      ]
+     ],
+     "script": [
+      "upright",
+      "tilted_pouring",
+      "upright"
+     ],
+     "one_way": false,
+     "cues": [
+      "tilting the oil bottle to pour",
+      "setting the oil bottle upright"
+     ]
+    }
+   ]
+  },
+  "oven": {
+   "visible": [
+    "a kitchen oven with a glass door",
+    "a hand at the oven door"
+   ],
+   "attributes": [
+    {
+     "name": "door",
+     "values": [
+      "closed",
+      "open"
+     ],
+     "prompts": [
+      [
+       "an oven with its door shut",
+       "a closed oven door",
+       "an oven with closed glass door"
+      ],
+      [
+       "an oven with its door open",
+       "an open oven showing racks",
+       "an oven door pulled down open"
+      ]
+     ],
+     "script": [
+      "closed",
+      "open",
+      "closed",
+      "open",
+      "closed"
+     ],
+     "one_way": false,
+     "cues": [
+      "opening the oven door",
+      "closing the oven door",
+      "opening the oven door",
+      "closing the oven door"
+     ]
+    },
+    {
+     "name": "contents",
+     "values": [
+      "empty",
+      "with_tray"
+     ],
+     "prompts": [
+      [
+       "an empty oven with bare racks",
+       "nothing inside the open oven",
+       "empty oven racks"
+      ],
+      [
+       "a baking tray inside the oven",
+       "an oven rack holding a brownie tray",
+       "a tray of brownies in the oven"
+      ]
+     ],
+     "script": [
+      "empty",
+      "with_tray",
+      "empty"
+     ],
+     "one_way": false,
+     "cues": [
+      "placing the tray in the oven",
+      "removing the tray from the oven"
+     ]
+    }
+   ]
+  },
+  "oven gloves": {
+   "visible": [
+    "oven gloves on the counter",
+    "a hand in an oven glove"
+   ],
+   "attributes": [
+    {
+     "name": "worn",
+     "values": [
+      "not_worn",
+      "worn"
+     ],
+     "prompts": [
+      [
+       "oven gloves lying on the counter",
+       "oven gloves hanging on a hook",
+       "unworn oven gloves"
+      ],
+      [
+       "hands wearing oven gloves",
+       "an oven glove on a hand holding a tray",
+       "quilted oven gloves on hands"
+      ]
+     ],
+     "script": [
+      "not_worn",
+      "worn",
+      "not_worn"
+     ],
+     "one_way": false,
+     "cues": [
+      "putting on the oven gloves",
+      "taking off the oven gloves"
+     ]
+    }
+   ]
+  },
+  "spread spatula": {
+   "visible": [
+    "a spatula on the counter",
+    "a hand holding a spatula"
+   ],
+   "attributes": [
+    {
+     "name": "cleanliness",
+     "values": [
+      "clean",
+      "batter_coated"
+     ],
+     "prompts": [
+      [
+       "a clean spatula",
+       "a clean silicone spatula",
+       "a dry unused spatula"
+      ],
+      [
+       "a spatula smeared with brown batter",
+       "a batter-covered spatula",
+       "a spatula with chocolate batter"
+      ]
+     ],
+     "script": [
+      "clean",
+      "batter_coated"
+     ],
+     "one_way": true,
+     "cues": [
+      "spreading batter with the spatula"
+     ]
+    },
+    {
+     "name": "in_use",
+     "values": [
+      "resting",
+      "spreading"
+     ],
+     "prompts": [
+      [
+       "a spatula lying on the counter",
+       "an idle spatula beside the tray",
+       "a spatula resting on the bowl"
+      ],
+      [
+       "a spatula spreading batter in a tray",
+       "a hand smoothing batter with a spatula",
+       "a spatula leveling batter"
+      ]
+     ],
+     "script": [
+      "resting",
+      "spreading",
+      "resting"
+     ],
+     "one_way": false,
+     "cues": [
+      "picking up the spatula to spread batter",
+      "putting the spatula down"
+     ]
+    }
+   ]
+  },
+  "water": {
+   "visible": [
+    "water running from the faucet",
+    "clear water in a measuring cup"
+   ],
+   "attributes": [
+    {
+     "name": "location",
+     "values": [
+      "in_source",
+      "in_measuring_cup",
+      "in_bowl"
+     ],
+     "prompts": [
+      [
+       "water flowing from the faucet",
+       "a jug of clear water",
+       "water in a pitcher"
+      ],
+      [
+       "clear water in a measuring cup",
+       "a measuring cup of water",
+       "water filling a measuring cup"
+      ],
+      [
+       "water poured onto brownie mix",
+       "clear water in a mixing bowl",
+       "water splashing into a bowl"
+      ]
+     ],
+     "script": [
+      "in_source",
+      "in_measuring_cup",
+      "in_bowl"
+     ],
+     "one_way": true,
+     "cues": [
+      "filling the measuring cup with water",
+      "pouring the water into the bowl"
+     ]
+    }
+   ]
+  }
+ },
+ "Eggs": {
+  "bowl": {
+   "visible": [
+    "a bowl on the kitchen counter",
+    "a hand holding a bowl"
+   ],
+   "attributes": [
+    {
+     "name": "contents",
+     "values": [
+      "empty",
+      "raw_eggs",
+      "beaten_mixture"
+     ],
+     "prompts": {
+      "empty": [
+       "an empty bowl with a clean bottom",
+       "an empty mixing bowl on the counter",
+       "a bowl with nothing inside"
+      ],
+      "raw_eggs": [
+       "a bowl with whole yellow yolks in clear egg white",
+       "a bowl with cracked raw eggs, yolks intact",
+       "raw eggs sitting unbeaten in a bowl"
+      ],
+      "beaten_mixture": [
+       "a bowl of uniform yellow whisked egg",
+       "a bowl with frothy beaten egg mixture",
+       "a bowl full of smooth yellow liquid egg"
+      ]
+     },
+     "script": [
+      "empty",
+      "raw_eggs",
+      "beaten_mixture",
+      "empty"
+     ],
+     "one_way": false,
+     "cues": [
+      "cracking eggs into the bowl",
+      "whisking the eggs in the bowl with a spoon",
+      "pouring the egg mixture from the bowl into the pan"
+     ]
+    }
+   ]
+  },
+  "cooked omelette": {
+   "visible": [
+    "a cooked omelette in a pan",
+    "a golden omelette on a plate"
+   ],
+   "attributes": [
+    {
+     "name": "location",
+     "values": [
+      "in_pan",
+      "on_plate"
+     ],
+     "prompts": {
+      "in_pan": [
+       "a cooked omelette lying in a frying pan",
+       "a yellow omelette inside a pan on the stove",
+       "an omelette in a pan with a spatula beside it"
+      ],
+      "on_plate": [
+       "a cooked omelette served on a plate",
+       "an omelette resting on a dish",
+       "a plate holding a golden omelette"
+      ]
+     },
+     "script": [
+      "in_pan",
+      "on_plate"
+     ],
+     "one_way": true,
+     "cues": [
+      "sliding the omelette from the pan onto the plate"
+     ]
+    },
+    {
+     "name": "shape",
+     "values": [
+      "flat",
+      "folded"
+     ],
+     "prompts": {
+      "flat": [
+       "a flat round omelette covering the pan",
+       "an open flat omelette disc",
+       "an unfolded round omelette"
+      ],
+      "folded": [
+       "an omelette folded in half into a half-moon",
+       "a folded omelette with a curved edge",
+       "a half-moon shaped folded omelette"
+      ]
+     },
+     "script": [
+      "flat",
+      "folded"
+     ],
+     "one_way": true,
+     "cues": [
+      "folding the omelette in half with a spatula"
+     ]
+    }
+   ]
+  },
+  "egg mixture": {
+   "visible": [
+    "yellow egg mixture in a bowl",
+    "liquid egg poured into a pan"
+   ],
+   "attributes": [
+    {
+     "name": "consistency",
+     "values": [
+      "unbeaten",
+      "beaten"
+     ],
+     "prompts": {
+      "unbeaten": [
+       "egg mixture with separate yolks and clear whites",
+       "unmixed egg mixture with round yolks",
+       "egg mixture with whites and yolks not combined"
+      ],
+      "beaten": [
+       "a smooth uniform yellow egg mixture",
+       "frothy whisked egg mixture",
+       "evenly beaten yellow egg mixture"
+      ]
+     },
+     "script": [
+      "unbeaten",
+      "beaten"
+     ],
+     "one_way": true,
+     "cues": [
+      "whisking the egg mixture with a spoon"
+     ]
+    },
+    {
+     "name": "location",
+     "values": [
+      "in_bowl",
+      "in_pan"
+     ],
+     "prompts": {
+      "in_bowl": [
+       "egg mixture sitting in a bowl",
+       "a bowl filled with yellow egg mixture",
+       "liquid egg mixture inside a mixing bowl"
+      ],
+      "in_pan": [
+       "egg mixture spread across a frying pan",
+       "yellow egg mixture in a hot pan",
+       "egg mixture covering the bottom of a pan"
+      ]
+     },
+     "script": [
+      "in_bowl",
+      "in_pan"
+     ],
+     "one_way": true,
+     "cues": [
+      "pouring the egg mixture into the pan"
+     ]
+    },
+    {
+     "name": "doneness",
+     "values": [
+      "raw",
+      "setting",
+      "set"
+     ],
+     "prompts": {
+      "raw": [
+       "glossy runny raw egg mixture",
+       "liquid raw egg mixture that flows",
+       "shiny wet uncooked egg mixture"
+      ],
+      "setting": [
+       "egg mixture with set edges and a runny center",
+       "egg mixture turning opaque at the edges in a pan",
+       "half-cooked egg mixture bubbling in the pan"
+      ],
+      "set": [
+       "fully set opaque egg mixture with no liquid",
+       "firm cooked egg mixture in the pan",
+       "egg mixture solid and lightly golden"
+      ]
+     },
+     "script": [
+      "raw",
+      "setting",
+      "set"
+     ],
+     "one_way": true,
+     "cues": [
+      "egg mixture starts cooking in the hot pan",
+      "egg mixture finishes cooking through"
+     ]
+    }
+   ]
+  },
+  "eggs": {
+   "visible": [
+    "whole eggs on the counter",
+    "a hand holding an egg"
+   ],
+   "attributes": [
+    {
+     "name": "shell_state",
+     "values": [
+      "whole",
+      "cracked_open"
+     ],
+     "prompts": {
+      "whole": [
+       "an intact whole egg with a smooth shell",
+       "whole uncracked eggs on the counter",
+       "an unbroken egg held in a hand"
+      ],
+      "cracked_open": [
+       "an egg cracked open over a bowl",
+       "a broken egg with yolk falling out",
+       "an egg split into two shell halves"
+      ]
+     },
+     "script": [
+      "whole",
+      "cracked_open"
+     ],
+     "one_way": true,
+     "cues": [
+      "cracking the egg on the bowl edge"
+     ]
+    }
+   ]
+  },
+  "eggshell": {
+   "visible": [
+    "broken eggshell halves on the counter",
+    "a hand holding an eggshell"
+   ],
+   "attributes": [
+    {
+     "name": "contents",
+     "values": [
+      "holding_egg",
+      "empty"
+     ],
+     "prompts": {
+      "holding_egg": [
+       "an eggshell with egg white still inside",
+       "an eggshell half holding yolk",
+       "an eggshell dripping raw egg"
+      ],
+      "empty": [
+       "an empty eggshell half",
+       "hollow cracked eggshell pieces",
+       "an eggshell with nothing inside"
+      ]
+     },
+     "script": [
+      "holding_egg",
+      "empty"
+     ],
+     "one_way": true,
+     "cues": [
+      "emptying the egg out of the shell into the bowl"
+     ]
+    },
+    {
+     "name": "location",
+     "values": [
+      "in_hand",
+      "on_counter",
+      "in_trash"
+     ],
+     "prompts": {
+      "in_hand": [
+       "an eggshell held in fingers",
+       "a hand gripping broken eggshell",
+       "eggshell halves in a hand over a bowl"
+      ],
+      "on_counter": [
+       "eggshells lying on the counter",
+       "broken eggshell pieces on the countertop",
+       "empty eggshells beside a bowl"
+      ],
+      "in_trash": [
+       "eggshells in a trash bin",
+       "eggshells thrown into the garbage",
+       "discarded eggshells in a waste bin"
+      ]
+     },
+     "script": [
+      "in_hand",
+      "on_counter",
+      "in_trash"
+     ],
+     "one_way": true,
+     "cues": [
+      "placing the eggshell on the counter",
+      "throwing the eggshell into the trash"
+     ]
+    }
+   ]
+  },
+  "mixing spoon": {
+   "visible": [
+    "a mixing spoon on the counter",
+    "a hand holding a mixing spoon"
+   ],
+   "attributes": [
+    {
+     "name": "usage",
+     "values": [
+      "resting",
+      "whisking"
+     ],
+     "prompts": {
+      "resting": [
+       "a mixing spoon lying on the counter",
+       "a mixing spoon resting unused",
+       "a still mixing spoon set aside"
+      ],
+      "whisking": [
+       "a mixing spoon stirring eggs in a bowl",
+       "a hand whisking eggs with a mixing spoon",
+       "a mixing spoon moving through egg mixture"
+      ]
+     },
+     "script": [
+      "resting",
+      "whisking",
+      "resting"
+     ],
+     "one_way": false,
+     "cues": [
+      "picking up the spoon to whisk the eggs",
+      "putting the spoon down after whisking"
+     ]
+    },
+    {
+     "name": "cleanliness",
+     "values": [
+      "clean",
+      "egg_coated"
+     ],
+     "prompts": {
+      "clean": [
+       "a clean dry mixing spoon",
+       "a shiny clean mixing spoon",
+       "a mixing spoon with no residue"
+      ],
+      "egg_coated": [
+       "a mixing spoon dripping yellow egg",
+       "a mixing spoon coated with raw egg",
+       "a wet egg-covered mixing spoon"
+      ]
+     },
+     "script": [
+      "clean",
+      "egg_coated"
+     ],
+     "one_way": true,
+     "cues": [
+      "whisking eggs with the spoon"
+     ]
+    }
+   ]
+  },
+  "oil": {
+   "visible": [
+    "oil in a frying pan",
+    "oil pouring from a bottle"
+   ],
+   "attributes": [
+    {
+     "name": "location",
+     "values": [
+      "in_bottle",
+      "in_pan"
+     ],
+     "prompts": {
+      "in_bottle": [
+       "golden oil inside a bottle",
+       "cooking oil in a clear bottle",
+       "oil sealed in a bottle"
+      ],
+      "in_pan": [
+       "a thin layer of oil in a pan",
+       "oil pooled on the bottom of a frying pan",
+       "glossy oil coating a pan"
+      ]
+     },
+     "script": [
+      "in_bottle",
+      "in_pan"
+     ],
+     "one_way": true,
+     "cues": [
+      "pouring oil into the pan"
+     ]
+    },
+    {
+     "name": "temperature",
+     "values": [
+      "cold",
+      "hot"
+     ],
+     "prompts": {
+      "cold": [
+       "a still flat puddle of oil in a pan",
+       "cold oil pooled thickly in a pan",
+       "oil sitting motionless in a pan"
+      ],
+      "hot": [
+       "shimmering hot oil spreading in a pan",
+       "hot oil with ripples in a pan",
+       "thin rippling hot oil in a pan"
+      ]
+     },
+     "script": [
+      "cold",
+      "hot"
+     ],
+     "one_way": true,
+     "cues": [
+      "heating the oil on the stove"
+     ]
+    }
+   ]
+  },
+  "oil bottle": {
+   "visible": [
+    "an oil bottle on the counter",
+    "a hand holding an oil bottle"
+   ],
+   "attributes": [
+    {
+     "name": "cap",
+     "values": [
+      "closed",
+      "open"
+     ],
+     "prompts": {
+      "closed": [
+       "an oil bottle with the cap on",
+       "a capped oil bottle",
+       "an oil bottle sealed shut"
+      ],
+      "open": [
+       "an oil bottle with its cap removed",
+       "an open oil bottle showing the spout",
+       "an uncapped oil bottle"
+      ]
+     },
+     "script": [
+      "closed",
+      "open",
+      "closed"
+     ],
+     "one_way": false,
+     "cues": [
+      "opening the oil bottle cap",
+      "closing the oil bottle cap"
+     ]
+    },
+    {
+     "name": "usage",
+     "values": [
+      "resting",
+      "pouring"
+     ],
+     "prompts": {
+      "resting": [
+       "an oil bottle standing upright on the counter",
+       "an oil bottle set aside",
+       "an upright oil bottle"
+      ],
+      "pouring": [
+       "an oil bottle tilted pouring oil into a pan",
+       "a hand pouring from an oil bottle",
+       "an oil bottle tipped over a pan"
+      ]
+     },
+     "script": [
+      "resting",
+      "pouring",
+      "resting"
+     ],
+     "one_way": false,
+     "cues": [
+      "tilting the oil bottle over the pan",
+      "setting the oil bottle back down"
+     ]
+    }
+   ]
+  },
+  "oven": {
+   "visible": [
+    "a stove top with burners",
+    "a hand turning a stove knob"
+   ],
+   "attributes": [
+    {
+     "name": "burner",
+     "values": [
+      "off",
+      "on"
+     ],
+     "prompts": {
+      "off": [
+       "a stove burner with no flame",
+       "a stove with knobs turned off",
+       "an unlit stove burner"
+      ],
+      "on": [
+       "a stove burner with a blue flame",
+       "a glowing red stove burner",
+       "a lit stove under a pan"
+      ]
+     },
+     "script": [
+      "off",
+      "on",
+      "off"
+     ],
+     "one_way": false,
+     "cues": [
+      "turning on the stove burner",
+      "turning off the stove burner"
+     ]
+    }
+   ]
+  },
+  "pan": {
+   "visible": [
+    "a frying pan on the stove",
+    "a hand holding a pan handle"
+   ],
+   "attributes": [
+    {
+     "name": "contents",
+     "values": [
+      "empty",
+      "oiled",
+      "egg_cooking"
+     ],
+     "prompts": {
+      "empty": [
+       "an empty dry frying pan",
+       "a clean empty pan on the stove",
+       "a frying pan with nothing in it"
+      ],
+      "oiled": [
+       "a frying pan with a layer of oil",
+       "a pan with glossy oil inside",
+       "oil coating an otherwise empty pan"
+      ],
+      "egg_cooking": [
+       "a frying pan with egg cooking inside",
+       "a pan filled with yellow omelette",
+       "egg spread across a frying pan"
+      ]
+     },
+     "script": [
+      "empty",
+      "oiled",
+      "egg_cooking",
+      "empty"
+     ],
+     "one_way": false,
+     "cues": [
+      "pouring oil into the pan",
+      "pouring egg mixture into the pan",
+      "sliding the omelette out of the pan"
+     ]
+    },
+    {
+     "name": "position",
+     "values": [
+      "off_stove",
+      "on_stove"
+     ],
+     "prompts": {
+      "off_stove": [
+       "a frying pan on the counter",
+       "a pan hanging or stored",
+       "a pan away from the burner"
+      ],
+      "on_stove": [
+       "a frying pan on a stove burner",
+       "a pan sitting on the cooktop",
+       "a pan over a lit burner"
+      ]
+     },
+     "script": [
+      "off_stove",
+      "on_stove"
+     ],
+     "one_way": false,
+     "cues": [
+      "placing the pan on the stove"
+     ]
+    }
+   ]
+  },
+  "salt": {
+   "visible": [
+    "salt grains on eggs",
+    "salt falling from a shaker"
+   ],
+   "attributes": [
+    {
+     "name": "location",
+     "values": [
+      "in_shaker",
+      "on_eggs"
+     ],
+     "prompts": {
+      "in_shaker": [
+       "white salt inside a salt shaker",
+       "salt visible in a glass shaker",
+       "a full salt shaker of salt"
+      ],
+      "on_eggs": [
+       "white salt grains sprinkled on egg",
+       "salt specks on the egg mixture",
+       "salt scattered over beaten eggs"
+      ]
+     },
+     "script": [
+      "in_shaker",
+      "on_eggs"
+     ],
+     "one_way": true,
+     "cues": [
+      "sprinkling salt onto the eggs"
+     ]
+    }
+   ]
+  },
+  "salt shaker": {
+   "visible": [
+    "a salt shaker on the counter",
+    "a hand holding a salt shaker"
+   ],
+   "attributes": [
+    {
+     "name": "usage",
+     "values": [
+      "resting",
+      "shaking"
+     ],
+     "prompts": {
+      "resting": [
+       "a salt shaker standing upright on the counter",
+       "a salt shaker set aside",
+       "an unused salt shaker"
+      ],
+      "shaking": [
+       "a salt shaker tilted over eggs",
+       "a hand shaking a salt shaker",
+       "salt falling from an inverted shaker"
+      ]
+     },
+     "script": [
+      "resting",
+      "shaking",
+      "resting"
+     ],
+     "one_way": false,
+     "cues": [
+      "picking up the salt shaker and shaking it",
+      "putting the salt shaker down"
+     ]
+    }
+   ]
+  },
+  "spread spatula": {
+   "visible": [
+    "a spatula on the counter",
+    "a hand holding a spatula over a pan"
+   ],
+   "attributes": [
+    {
+     "name": "usage",
+     "values": [
+      "resting",
+      "in_pan"
+     ],
+     "prompts": {
+      "resting": [
+       "a spatula lying on the counter",
+       "a spatula set aside unused",
+       "a spatula resting beside the stove"
+      ],
+      "in_pan": [
+       "a spatula spreading egg in a pan",
+       "a spatula lifting an omelette edge",
+       "a spatula folding an omelette in a pan"
+      ]
+     },
+     "script": [
+      "resting",
+      "in_pan",
+      "resting"
+     ],
+     "one_way": false,
+     "cues": [
+      "using the spatula to work the egg in the pan",
+      "setting the spatula down"
+     ]
+    },
+    {
+     "name": "cleanliness",
+     "values": [
+      "clean",
+      "egg_residue"
+     ],
+     "prompts": {
+      "clean": [
+       "a clean spatula",
+       "a spatula with a shiny clean blade",
+       "a spatula with no food on it"
+      ],
+      "egg_residue": [
+       "a spatula with cooked egg bits",
+       "a spatula smeared with egg",
+       "a greasy egg-covered spatula"
+      ]
+     },
+     "script": [
+      "clean",
+      "egg_residue"
+     ],
+     "one_way": true,
+     "cues": [
+      "spreading the egg in the pan with the spatula"
+     ]
+    }
+   ]
+  },
+  "the dish": {
+   "visible": [
+    "a plate on the counter",
+    "a hand holding a plate"
+   ],
+   "attributes": [
+    {
+     "name": "contents",
+     "values": [
+      "empty",
+      "with_omelette"
+     ],
+     "prompts": {
+      "empty": [
+       "an empty clean plate",
+       "a bare white dish",
+       "an empty plate on the counter"
+      ],
+      "with_omelette": [
+       "a plate with an omelette on it",
+       "a dish served with cooked eggs",
+       "a golden omelette on a plate"
+      ]
+     },
+     "script": [
+      "empty",
+      "with_omelette"
+     ],
+     "one_way": true,
+     "cues": [
+      "sliding the omelette onto the plate"
+     ]
+    }
+   ]
+  }
+ },
+ "Pizza": {
+  "baking tray": {
+   "visible": [
+    "a metal baking tray on the kitchen counter",
+    "a hand holding a baking tray"
+   ],
+   "attributes": [
+    {
+     "name": "contents",
+     "values": [
+      "empty",
+      "raw_pizza",
+      "baked_pizza"
+     ],
+     "prompts": [
+      [
+       "an empty metal baking tray",
+       "a bare baking tray with nothing on it",
+       "a clean empty baking tray on the counter"
+      ],
+      [
+       "a baking tray holding an uncooked pizza",
+       "a baking tray with pale raw pizza dough and toppings",
+       "a raw pizza with unmelted cheese on a baking tray"
+      ],
+      [
+       "a baking tray with a golden baked pizza",
+       "a baking tray holding a pizza with melted bubbly cheese",
+       "a browned cooked pizza on a baking tray"
+      ]
+     ],
+     "script": [
+      "empty",
+      "raw_pizza",
+      "baked_pizza"
+     ],
+     "one_way": true,
+     "cues": [
+      "placing the pizza base onto the baking tray",
+      "baking the tray of pizza in the oven"
+     ]
+    },
+    {
+     "name": "location",
+     "values": [
+      "on_counter",
+      "in_oven"
+     ],
+     "prompts": [
+      [
+       "a baking tray sitting on the kitchen counter",
+       "a baking tray on a countertop",
+       "a baking tray resting on the worktop"
+      ],
+      [
+       "a baking tray on the rack inside the oven",
+       "a baking tray inside a hot lit oven",
+       "a baking tray seen through the open oven door on the rack"
+      ]
+     ],
+     "script": [
+      "on_counter",
+      "in_oven",
+      "on_counter"
+     ],
+     "one_way": false,
+     "cues": [
+      "sliding the baking tray into the oven",
+      "taking the baking tray out of the oven"
+     ]
+    }
+   ]
+  },
+  "batter": {
+   "visible": [
+    "pizza batter in a mixing bowl",
+    "pizza batter being poured onto a tray"
+   ],
+   "attributes": [
+    {
+     "name": "consistency",
+     "values": [
+      "unmixed",
+      "smooth"
+     ],
+     "prompts": [
+      [
+       "dry flour and liquid not yet mixed into batter in a bowl",
+       "lumpy unmixed batter ingredients in a bowl",
+       "separate flour and water in a bowl for batter"
+      ],
+      [
+       "smooth evenly mixed pizza batter in a bowl",
+       "a creamy uniform batter with no lumps",
+       "well-stirred smooth batter in a mixing bowl"
+      ]
+     ],
+     "script": [
+      "unmixed",
+      "smooth"
+     ],
+     "one_way": true,
+     "cues": [
+      "stirring the batter with a spoon"
+     ]
+    },
+    {
+     "name": "location",
+     "values": [
+      "in_bowl",
+      "spread_on_tray"
+     ],
+     "prompts": [
+      [
+       "pizza batter inside a mixing bowl",
+       "a bowl filled with batter",
+       "batter sitting in a bowl on the counter"
+      ],
+      [
+       "batter spread flat over a baking tray",
+       "a thin even layer of pizza batter on a tray",
+       "batter forming a pizza base on a baking tray"
+      ]
+     ],
+     "script": [
+      "in_bowl",
+      "spread_on_tray"
+     ],
+     "one_way": true,
+     "cues": [
+      "pouring and spreading the batter onto the baking tray"
+     ]
+    }
+   ]
+  },
+  "cheese": {
+   "visible": [
+    "a block of cheese on the counter",
+    "a hand holding cheese"
+   ],
+   "attributes": [
+    {
+     "name": "form",
+     "values": [
+      "block",
+      "grated"
+     ],
+     "prompts": [
+      [
+       "a solid block of cheese",
+       "a rectangular piece of yellow cheese",
+       "an uncut wedge of cheese"
+      ],
+      [
+       "a pile of shredded grated cheese",
+       "thin strands of grated cheese",
+       "grated cheese shreds on a board"
+      ]
+     ],
+     "script": [
+      "block",
+      "grated"
+     ],
+     "one_way": true,
+     "cues": [
+      "grating the cheese on a grater"
+     ]
+    },
+    {
+     "name": "location",
+     "values": [
+      "off_pizza",
+      "on_pizza"
+     ],
+     "prompts": [
+      [
+       "cheese on a cutting board beside the pizza",
+       "cheese in a pile on the counter",
+       "cheese in its package"
+      ],
+      [
+       "grated cheese sprinkled over a pizza",
+       "cheese covering the sauce on a pizza",
+       "shredded cheese scattered on top of a pizza"
+      ]
+     ],
+     "script": [
+      "off_pizza",
+      "on_pizza"
+     ],
+     "one_way": true,
+     "cues": [
+      "sprinkling the cheese over the pizza"
+     ]
+    }
+   ]
+  },
+  "cutting board": {
+   "visible": [
+    "a cutting board on the counter",
+    "a wooden cutting board with food on it"
+   ],
+   "attributes": [
+    {
+     "name": "contents",
+     "values": [
+      "empty",
+      "has_food"
+     ],
+     "prompts": [
+      [
+       "an empty cutting board",
+       "a bare wooden cutting board on the counter",
+       "a clean cutting board with nothing on it"
+      ],
+      [
+       "a cutting board with sliced pepperoni on it",
+       "a cutting board holding grated cheese",
+       "food items lying on a cutting board"
+      ]
+     ],
+     "script": [
+      "empty",
+      "has_food",
+      "empty"
+     ],
+     "one_way": false,
+     "cues": [
+      "placing food on the cutting board",
+      "moving the food from the board onto the pizza"
+     ]
+    }
+   ]
+  },
+  "grater": {
+   "visible": [
+    "a metal box grater on the counter",
+    "a hand holding a cheese grater"
+   ],
+   "attributes": [
+    {
+     "name": "usage",
+     "values": [
+      "idle",
+      "grating"
+     ],
+     "prompts": [
+      [
+       "a grater resting unused on the counter",
+       "a box grater standing still",
+       "a grater lying on the counter"
+      ],
+      [
+       "cheese being rubbed against a grater",
+       "a hand grating cheese on a metal grater",
+       "shreds of cheese falling from a grater"
+      ]
+     ],
+     "script": [
+      "idle",
+      "grating",
+      "idle"
+     ],
+     "one_way": false,
+     "cues": [
+      "starting to grate cheese",
+      "putting the grater down"
+     ]
+    },
+    {
+     "name": "cleanliness",
+     "values": [
+      "clean",
+      "cheese_residue"
+     ],
+     "prompts": [
+      [
+       "a shiny clean grater",
+       "a clean metal grater without food",
+       "a spotless box grater"
+      ],
+      [
+       "a grater with bits of cheese stuck to it",
+       "cheese residue on the holes of a grater",
+       "a used grater covered in cheese shreds"
+      ]
+     ],
+     "script": [
+      "clean",
+      "cheese_residue"
+     ],
+     "one_way": true,
+     "cues": [
+      "grating cheese on the grater"
+     ]
+    }
+   ]
+  },
+  "knife": {
+   "visible": [
+    "a kitchen knife on the counter",
+    "a hand holding a knife"
+   ],
+   "attributes": [
+    {
+     "name": "usage",
+     "values": [
+      "idle",
+      "cutting"
+     ],
+     "prompts": [
+      [
+       "a knife lying on the cutting board",
+       "a kitchen knife resting on the counter",
+       "an unused knife on the worktop"
+      ],
+      [
+       "a knife slicing pepperoni",
+       "a hand cutting with a kitchen knife",
+       "a knife blade pressing through food on a board"
+      ]
+     ],
+     "script": [
+      "idle",
+      "cutting",
+      "idle"
+     ],
+     "one_way": false,
+     "cues": [
+      "picking up the knife to slice",
+      "putting the knife down"
+     ]
+    }
+   ]
+  },
+  "mixing spoon": {
+   "visible": [
+    "a mixing spoon on the counter",
+    "a hand holding a mixing spoon"
+   ],
+   "attributes": [
+    {
+     "name": "usage",
+     "values": [
+      "idle",
+      "stirring"
+     ],
+     "prompts": [
+      [
+       "a mixing spoon resting on the counter",
+       "a spoon lying beside a bowl",
+       "an unused wooden mixing spoon"
+      ],
+      [
+       "a mixing spoon stirring batter in a bowl",
+       "a hand stirring with a spoon",
+       "a spoon spreading sauce on a pizza"
+      ]
+     ],
+     "script": [
+      "idle",
+      "stirring",
+      "idle"
+     ],
+     "one_way": false,
+     "cues": [
+      "starting to stir with the spoon",
+      "setting the spoon down"
+     ]
+    },
+    {
+     "name": "cleanliness",
+     "values": [
+      "clean",
+      "coated"
+     ],
+     "prompts": [
+      [
+       "a clean mixing spoon",
+       "a spotless dry spoon",
+       "a clean wooden spoon"
+      ],
+      [
+       "a mixing spoon coated in batter",
+       "a spoon smeared with sauce",
+       "a dirty used mixing spoon"
+      ]
+     ],
+     "script": [
+      "clean",
+      "coated"
+     ],
+     "one_way": true,
+     "cues": [
+      "using the spoon to mix batter"
+     ]
+    }
+   ]
+  },
+  "oven": {
+   "visible": [
+    "a kitchen oven",
+    "the front of an oven with its door"
+   ],
+   "attributes": [
+    {
+     "name": "door",
+     "values": [
+      "closed",
+      "open"
+     ],
+     "prompts": [
+      [
+       "an oven with its door shut",
+       "a closed oven door",
+       "the front of an oven with the door closed"
+      ],
+      [
+       "an oven with its door open",
+       "an open oven showing the racks inside",
+       "an oven door pulled down open"
+      ]
+     ],
+     "script": [
+      "closed",
+      "open",
+      "closed",
+      "open",
+      "closed"
+     ],
+     "one_way": false,
+     "cues": [
+      "opening the oven door",
+      "closing the oven door",
+      "opening the oven door",
+      "closing the oven door"
+     ]
+    },
+    {
+     "name": "contents",
+     "values": [
+      "empty",
+      "has_pizza"
+     ],
+     "prompts": [
+      [
+       "an empty oven with bare racks",
+       "an oven with nothing inside",
+       "empty oven racks"
+      ],
+      [
+       "a pizza baking inside the oven",
+       "a tray with pizza on the oven rack",
+       "pizza seen inside a lit oven"
+      ]
+     ],
+     "script": [
+      "empty",
+      "has_pizza",
+      "empty"
+     ],
+     "one_way": false,
+     "cues": [
+      "putting the pizza in the oven",
+      "taking the pizza out of the oven"
+     ]
+    }
+   ]
+  },
+  "pepperoni": {
+   "visible": [
+    "pepperoni on a cutting board",
+    "a hand holding pepperoni"
+   ],
+   "attributes": [
+    {
+     "name": "form",
+     "values": [
+      "whole",
+      "sliced"
+     ],
+     "prompts": [
+      [
+       "a whole stick of pepperoni",
+       "an uncut pepperoni sausage",
+       "a long red pepperoni log"
+      ],
+      [
+       "round slices of pepperoni",
+       "thin pepperoni circles on a board",
+       "a pile of sliced pepperoni"
+      ]
+     ],
+     "script": [
+      "whole",
+      "sliced"
+     ],
+     "one_way": true,
+     "cues": [
+      "slicing the pepperoni with a knife"
+     ]
+    },
+    {
+     "name": "location",
+     "values": [
+      "off_pizza",
+      "on_pizza"
+     ],
+     "prompts": [
+      [
+       "pepperoni on a cutting board",
+       "pepperoni in its package",
+       "pepperoni beside the pizza"
+      ],
+      [
+       "pepperoni slices arranged on a pizza",
+       "red pepperoni rounds on top of cheese",
+       "a pizza covered with pepperoni"
+      ]
+     ],
+     "script": [
+      "off_pizza",
+      "on_pizza"
+     ],
+     "one_way": true,
+     "cues": [
+      "placing pepperoni slices on the pizza"
+     ]
+    }
+   ]
+  },
+  "pizza": {
+   "visible": [
+    "a pizza on a baking tray",
+    "a pizza on the counter"
+   ],
+   "attributes": [
+    {
+     "name": "toppings",
+     "values": [
+      "bare_base",
+      "sauced",
+      "cheesed",
+      "fully_topped"
+     ],
+     "prompts": [
+      [
+       "a plain pizza base with no toppings",
+       "a bare pale pizza crust",
+       "an untopped pizza dough base"
+      ],
+      [
+       "a pizza base spread with red tomato sauce",
+       "a pizza with only sauce on it",
+       "red sauce covering a pizza base"
+      ],
+      [
+       "a pizza with sauce and grated cheese",
+       "shredded cheese over sauce on a pizza",
+       "a cheese-covered pizza without pepperoni"
+      ],
+      [
+       "a pizza topped with cheese and pepperoni",
+       "a fully topped pepperoni pizza",
+       "pepperoni slices on a cheesy pizza"
+      ]
+     ],
+     "script": [
+      "bare_base",
+      "sauced",
+      "cheesed",
+      "fully_topped"
+     ],
+     "one_way": true,
+     "cues": [
+      "spreading sauce on the base",
+      "sprinkling cheese on the pizza",
+      "adding pepperoni to the pizza"
+     ]
+    },
+    {
+     "name": "doneness",
+     "values": [
+      "raw",
+      "baked"
+     ],
+     "prompts": [
+      [
+       "an uncooked pizza with pale crust",
+       "a raw pizza with unmelted cheese",
+       "a pizza before baking"
+      ],
+      [
+       "a baked pizza with golden crust",
+       "a pizza with melted bubbly cheese",
+       "a cooked browned pizza"
+      ]
+     ],
+     "script": [
+      "raw",
+      "baked"
+     ],
+     "one_way": true,
+     "cues": [
+      "baking the pizza in the oven"
+     ]
+    }
+   ]
+  },
+  "pizza sauce": {
+   "visible": [
+    "red pizza sauce",
+    "pizza sauce on a spoon"
+   ],
+   "attributes": [
+    {
+     "name": "location",
+     "values": [
+      "in_tin",
+      "on_base"
+     ],
+     "prompts": [
+      [
+       "red pizza sauce inside an open tin",
+       "pizza sauce in its can",
+       "a tin filled with tomato sauce"
+      ],
+      [
+       "pizza sauce on a pizza base",
+       "red sauce on dough",
+       "tomato sauce on top of a pizza crust"
+      ]
+     ],
+     "script": [
+      "in_tin",
+      "on_base"
+     ],
+     "one_way": true,
+     "cues": [
+      "spooning sauce onto the pizza base"
+     ]
+    },
+    {
+     "name": "spread",
+     "values": [
+      "dollop",
+      "spread_evenly"
+     ],
+     "prompts": [
+      [
+       "a dollop of pizza sauce in the middle of the base",
+       "a blob of red sauce on dough",
+       "an unspread pool of sauce"
+      ],
+      [
+       "pizza sauce spread evenly over the base",
+       "a thin even layer of red sauce",
+       "sauce covering the whole pizza base"
+      ]
+     ],
+     "script": [
+      "dollop",
+      "spread_evenly"
+     ],
+     "one_way": true,
+     "cues": [
+      "spreading the sauce with a spoon"
+     ]
+    }
+   ]
+  },
+  "tin of pizza sauce": {
+   "visible": [
+    "a tin of pizza sauce on the counter",
+    "a hand holding a tin of pizza sauce"
+   ],
+   "attributes": [
+    {
+     "name": "lid",
+     "values": [
+      "closed",
+      "open"
+     ],
+     "prompts": [
+      [
+       "a sealed tin of pizza sauce",
+       "a closed can of pizza sauce",
+       "an unopened tin with intact lid"
+      ],
+      [
+       "an opened tin of pizza sauce",
+       "a can with its lid removed showing red sauce",
+       "an open tin of sauce"
+      ]
+     ],
+     "script": [
+      "closed",
+      "open"
+     ],
+     "one_way": true,
+     "cues": [
+      "opening the tin of pizza sauce"
+     ]
+    },
+    {
+     "name": "fill",
+     "values": [
+      "full",
+      "partly_empty"
+     ],
+     "prompts": [
+      [
+       "a full tin of pizza sauce",
+       "a can filled to the top with sauce",
+       "a tin brimming with red sauce"
+      ],
+      [
+       "a partly emptied tin of pizza sauce",
+       "a can with sauce scooped out",
+       "a tin with sauce smears inside and less sauce"
+      ]
+     ],
+     "script": [
+      "full",
+      "partly_empty"
+     ],
+     "one_way": true,
+     "cues": [
+      "scooping sauce out of the tin"
+     ]
+    }
+   ]
+  }
+ },
+ "Salad": {
+  "bowl": {
+   "visible": [
+    "a bowl on the kitchen counter",
+    "a hand holding a bowl"
+   ],
+   "attributes": [
+    {
+     "name": "fill_level",
+     "values": [
+      "empty",
+      "partially_filled",
+      "full"
+     ],
+     "prompts": [
+      [
+       "an empty bowl with a clean bare interior",
+       "a bowl with nothing inside on the counter",
+       "an empty mixing bowl seen from above"
+      ],
+      [
+       "a bowl with some chopped vegetables at the bottom",
+       "a partially filled bowl with a few vegetable pieces",
+       "a bowl half full of salad ingredients"
+      ],
+      [
+       "a bowl full of chopped salad",
+       "a bowl heaped with vegetables to the rim",
+       "a bowl filled with mixed salad"
+      ]
+     ],
+     "script": [
+      "empty",
+      "partially_filled",
+      "full"
+     ],
+     "one_way": true,
+     "cues": [
+      "chopped vegetables are put into the bowl",
+      "more vegetables and mayonnaise are added to the bowl"
+     ]
+    }
+   ]
+  },
+  "contents of the bowl": {
+   "visible": [
+    "salad ingredients inside a bowl",
+    "chopped vegetables in a bowl seen from above"
+   ],
+   "attributes": [
+    {
+     "name": "dressing",
+     "values": [
+      "undressed",
+      "dressing_on_top",
+      "mixed"
+     ],
+     "prompts": [
+      [
+       "plain chopped vegetables in a bowl with no dressing",
+       "dry vegetable pieces in a bowl with no mayonnaise",
+       "bowl contents of bare raw vegetables"
+      ],
+      [
+       "a dollop of white mayonnaise sitting on vegetables in a bowl",
+       "mayonnaise squeezed on top of the salad, not yet stirred",
+       "white blobs of mayonnaise on chopped vegetables"
+      ],
+      [
+       "vegetables evenly coated with creamy mayonnaise",
+       "a mixed salad with dressing stirred through",
+       "creamy coated salad in a bowl"
+      ]
+     ],
+     "script": [
+      "undressed",
+      "dressing_on_top",
+      "mixed"
+     ],
+     "one_way": true,
+     "cues": [
+      "mayonnaise is added onto the vegetables",
+      "the salad is stirred with a spoon"
+     ]
+    },
+    {
+     "name": "amount",
+     "values": [
+      "none",
+      "some",
+      "all"
+     ],
+     "prompts": [
+      [
+       "no food in the bowl",
+       "an empty bowl with no contents",
+       "a bowl with nothing in it"
+      ],
+      [
+       "a few vegetable pieces in the bowl",
+       "a small amount of chopped vegetables in the bowl",
+       "some salad ingredients at the bottom of the bowl"
+      ],
+      [
+       "a large pile of salad in the bowl",
+       "a bowl full of all the chopped vegetables",
+       "plenty of salad filling the bowl"
+      ]
+     ],
+     "script": [
+      "none",
+      "some",
+      "all"
+     ],
+     "one_way": true,
+     "cues": [
+      "the first chopped vegetables are added",
+      "the remaining vegetables are added"
+     ]
+    }
+   ]
+  },
+  "cutting board": {
+   "visible": [
+    "a cutting board on the counter",
+    "a cutting board being used for chopping"
+   ],
+   "attributes": [
+    {
+     "name": "occupancy",
+     "values": [
+      "empty",
+      "whole_vegetables",
+      "chopped_pieces"
+     ],
+     "prompts": [
+      [
+       "an empty clean cutting board",
+       "a bare cutting board with nothing on it",
+       "a cutting board with an empty surface"
+      ],
+      [
+       "whole vegetables lying on a cutting board",
+       "an uncut cucumber on a cutting board",
+       "a whole tomato on a cutting board"
+      ],
+      [
+       "chopped vegetable pieces on a cutting board",
+       "diced vegetables piled on a cutting board",
+       "sliced vegetables spread on a cutting board"
+      ]
+     ],
+     "script": [
+      "empty",
+      "whole_vegetables",
+      "chopped_pieces",
+      "empty",
+      "whole_vegetables",
+      "chopped_pieces",
+      "empty"
+     ],
+     "one_way": false,
+     "cues": [
+      "a vegetable is placed on the cutting board",
+      "the vegetable is chopped with a knife",
+      "chopped pieces are moved into the bowl",
+      "another vegetable is placed on the board",
+      "the vegetable is chopped",
+      "chopped pieces are moved into the bowl"
+     ]
+    }
+   ]
+  },
+  "knife": {
+   "visible": [
+    "a kitchen knife on the counter",
+    "a hand holding a knife"
+   ],
+   "attributes": [
+    {
+     "name": "usage",
+     "values": [
+      "resting",
+      "held",
+      "cutting"
+     ],
+     "prompts": [
+      [
+       "a knife lying on the counter",
+       "a knife resting beside the cutting board",
+       "an unused knife set down"
+      ],
+      [
+       "a hand holding a knife above the board",
+       "a knife held in a hand, not cutting",
+       "a hand picking up a knife"
+      ],
+      [
+       "a knife slicing through a vegetable",
+       "a knife cutting vegetables on a board",
+       "a hand chopping vegetables with a knife"
+      ]
+     ],
+     "script": [
+      "resting",
+      "held",
+      "cutting",
+      "held",
+      "resting"
+     ],
+     "one_way": false,
+     "cues": [
+      "the knife is picked up",
+      "the knife starts cutting a vegetable",
+      "cutting stops",
+      "the knife is put down"
+     ]
+    },
+    {
+     "name": "cleanliness",
+     "values": [
+      "clean",
+      "food_residue"
+     ],
+     "prompts": [
+      [
+       "a clean shiny knife blade",
+       "a spotless knife blade",
+       "a clean knife with no food"
+      ],
+      [
+       "a knife blade with vegetable bits stuck to it",
+       "a wet knife with food residue",
+       "a knife blade smeared with vegetable juice"
+      ]
+     ],
+     "script": [
+      "clean",
+      "food_residue"
+     ],
+     "one_way": true,
+     "cues": [
+      "the knife cuts vegetables"
+     ]
+    }
+   ]
+  },
+  "mayonnaise": {
+   "visible": [
+    "a mayonnaise jar or bottle on the counter",
+    "a hand holding mayonnaise"
+   ],
+   "attributes": [
+    {
+     "name": "container_open",
+     "values": [
+      "closed",
+      "open"
+     ],
+     "prompts": [
+      [
+       "a mayonnaise bottle with its cap closed",
+       "a sealed jar of mayonnaise",
+       "a closed mayonnaise container"
+      ],
+      [
+       "an open mayonnaise jar without a lid",
+       "a mayonnaise bottle with the cap flipped open",
+       "an open mayonnaise container showing white cream"
+      ]
+     ],
+     "script": [
+      "closed",
+      "open",
+      "closed"
+     ],
+     "one_way": false,
+     "cues": [
+      "the mayonnaise is opened",
+      "the mayonnaise is closed"
+     ]
+    },
+    {
+     "name": "location",
+     "values": [
+      "in_container",
+      "in_bowl"
+     ],
+     "prompts": [
+      [
+       "mayonnaise inside its jar",
+       "mayonnaise in its bottle",
+       "unused mayonnaise in its container"
+      ],
+      [
+       "mayonnaise squeezed into the salad bowl",
+       "a dollop of mayonnaise on the vegetables in the bowl",
+       "mayonnaise mixed into the salad"
+      ]
+     ],
+     "script": [
+      "in_container",
+      "in_bowl"
+     ],
+     "one_way": true,
+     "cues": [
+      "mayonnaise is added to the bowl"
+     ]
+    }
+   ]
+  },
+  "mixing spoon": {
+   "visible": [
+    "a mixing spoon on the counter",
+    "a hand holding a mixing spoon"
+   ],
+   "attributes": [
+    {
+     "name": "usage",
+     "values": [
+      "resting",
+      "stirring"
+     ],
+     "prompts": [
+      [
+       "a mixing spoon lying on the counter",
+       "a spoon resting beside the bowl",
+       "an unused mixing spoon set down"
+      ],
+      [
+       "a mixing spoon stirring salad in a bowl",
+       "a hand stirring with a mixing spoon",
+       "a spoon tossing vegetables in the bowl"
+      ]
+     ],
+     "script": [
+      "resting",
+      "stirring",
+      "resting"
+     ],
+     "one_way": false,
+     "cues": [
+      "the spoon is used to stir the salad",
+      "the spoon is put down"
+     ]
+    },
+    {
+     "name": "cleanliness",
+     "values": [
+      "clean",
+      "coated"
+     ],
+     "prompts": [
+      [
+       "a clean dry mixing spoon",
+       "a spotless mixing spoon",
+       "a clean spoon with no food on it"
+      ],
+      [
+       "a mixing spoon coated with mayonnaise",
+       "a spoon with salad bits stuck to it",
+       "a spoon smeared with creamy dressing"
+      ]
+     ],
+     "script": [
+      "clean",
+      "coated"
+     ],
+     "one_way": true,
+     "cues": [
+      "the spoon stirs the dressed salad"
+     ]
+    }
+   ]
+  },
+  "vegetable peeler": {
+   "visible": [
+    "a vegetable peeler on the counter",
+    "a hand holding a vegetable peeler"
+   ],
+   "attributes": [
+    {
+     "name": "usage",
+     "values": [
+      "resting",
+      "peeling"
+     ],
+     "prompts": [
+      [
+       "a vegetable peeler lying on the counter",
+       "an unused peeler beside the board",
+       "a vegetable peeler set down"
+      ],
+      [
+       "a vegetable peeler scraping skin off a vegetable",
+       "a hand peeling a cucumber with a peeler",
+       "a peeler removing strips of peel"
+      ]
+     ],
+     "script": [
+      "resting",
+      "peeling",
+      "resting"
+     ],
+     "one_way": false,
+     "cues": [
+      "the peeler is used to peel a vegetable",
+      "the peeler is put down"
+     ]
+    }
+   ]
+  },
+  "vegetables": {
+   "visible": [
+    "vegetables on the kitchen counter",
+    "a hand holding a vegetable"
+   ],
+   "attributes": [
+    {
+     "name": "peel",
+     "values": [
+      "unpeeled",
+      "peeled"
+     ],
+     "prompts": [
+      [
+       "a vegetable with its skin on",
+       "an unpeeled cucumber with dark green skin",
+       "an unpeeled carrot with rough skin"
+      ],
+      [
+       "a peeled vegetable with exposed pale flesh",
+       "a peeled cucumber showing light green flesh",
+       "a smooth bright peeled carrot"
+      ]
+     ],
+     "script": [
+      "unpeeled",
+      "peeled"
+     ],
+     "one_way": true,
+     "cues": [
+      "the vegetable is peeled with a peeler"
+     ]
+    },
+    {
+     "name": "shape",
+     "values": [
+      "whole",
+      "chopped"
+     ],
+     "prompts": [
+      [
+       "a whole uncut vegetable",
+       "an intact tomato",
+       "a whole cucumber"
+      ],
+      [
+       "chopped vegetable pieces",
+       "diced vegetables",
+       "sliced vegetable rounds"
+      ]
+     ],
+     "script": [
+      "whole",
+      "chopped"
+     ],
+     "one_way": true,
+     "cues": [
+      "the vegetable is chopped with a knife"
+     ]
+    },
+    {
+     "name": "location",
+     "values": [
+      "counter",
+      "cutting_board",
+      "bowl"
+     ],
+     "prompts": [
+      [
+       "vegetables sitting on the counter",
+       "vegetables beside the cutting board",
+       "vegetables lying on the countertop"
+      ],
+      [
+       "vegetables on a cutting board",
+       "a vegetable placed on a chopping board",
+       "vegetable pieces on a cutting board"
+      ],
+      [
+       "vegetables inside a bowl",
+       "chopped vegetables in a salad bowl",
+       "vegetable pieces in a mixing bowl"
+      ]
+     ],
+     "script": [
+      "counter",
+      "cutting_board",
+      "bowl"
+     ],
+     "one_way": true,
+     "cues": [
+      "the vegetable is placed on the cutting board",
+      "chopped vegetables are moved into the bowl"
+     ]
+    }
+   ]
+  }
+ },
+ "Sandwich": {
+  "bread slices": {
+   "visible": [
+    "a person holding slices of bread over a kitchen counter",
+    "two slices of bread lying on a plate in view"
+   ],
+   "attributes": [
+    {
+     "name": "spread_coverage",
+     "values": [
+      "plain",
+      "spread"
+     ],
+     "prompts": [
+      [
+       "plain bread slices with bare light crumb surface",
+       "bread slices with no topping, dry and uncovered",
+       "clean white bread slices with nothing spread on them"
+      ],
+      [
+       "bread slices covered with a layer of peanut butter or jam",
+       "bread slices with brown and red spread on the surface",
+       "bread slices coated with smeared spread"
+      ]
+     ],
+     "script": [
+      "plain",
+      "spread"
+     ],
+     "one_way": true,
+     "cues": [
+      "spreading peanut butter and jam onto the bread slices with a knife"
+     ]
+    },
+    {
+     "name": "assembly",
+     "values": [
+      "separate",
+      "stacked"
+     ],
+     "prompts": [
+      [
+       "two bread slices lying side by side, open face up",
+       "separate bread slices laid apart on a plate",
+       "open bread slices not yet joined"
+      ],
+      [
+       "two bread slices pressed together into a closed sandwich",
+       "bread slices stacked one on top of the other",
+       "a closed sandwich made of bread slices"
+      ]
+     ],
+     "script": [
+      "separate",
+      "stacked"
+     ],
+     "one_way": true,
+     "cues": [
+      "placing one bread slice on top of the other to close the sandwich"
+     ]
+    },
+    {
+     "name": "cut_state",
+     "values": [
+      "whole",
+      "cut"
+     ],
+     "prompts": [
+      [
+       "a whole uncut sandwich of bread slices",
+       "bread slices in one intact square piece",
+       "a full sandwich not sliced"
+      ],
+      [
+       "a sandwich of bread slices cut in half",
+       "bread slices sliced into two triangles",
+       "cut sandwich halves showing the filling inside"
+      ]
+     ],
+     "script": [
+      "whole",
+      "cut"
+     ],
+     "one_way": true,
+     "cues": [
+      "slicing the sandwich in half with a knife"
+     ]
+    }
+   ]
+  },
+  "jam": {
+   "visible": [
+    "a jar of jam held in a hand",
+    "a jar of red jam on the kitchen counter"
+   ],
+   "attributes": [
+    {
+     "name": "lid_state",
+     "values": [
+      "closed",
+      "open"
+     ],
+     "prompts": [
+      [
+       "a jam jar with its lid screwed on",
+       "closed jar of jam with a metal cap on top",
+       "sealed jam jar, contents covered"
+      ],
+      [
+       "an open jam jar with no lid, red jam visible inside",
+       "jam jar with its cap removed",
+       "uncovered jar of jam showing the fruit spread"
+      ]
+     ],
+     "script": [
+      "closed",
+      "open",
+      "closed"
+     ],
+     "one_way": false,
+     "cues": [
+      "unscrewing the lid of the jam jar",
+      "screwing the lid back on the jam jar"
+     ]
+    }
+   ]
+  },
+  "knife": {
+   "visible": [
+    "a hand holding a butter knife",
+    "a table knife lying on the counter"
+   ],
+   "attributes": [
+    {
+     "name": "cleanliness",
+     "values": [
+      "clean",
+      "coated"
+     ],
+     "prompts": [
+      [
+       "a clean shiny butter knife with a bare metal blade",
+       "a spotless knife with no spread on it",
+       "an unused knife with a clean blade"
+      ],
+      [
+       "a knife blade smeared with peanut butter",
+       "a butter knife coated with red jam",
+       "a knife with sticky spread on its blade"
+      ]
+     ],
+     "script": [
+      "clean",
+      "coated"
+     ],
+     "one_way": false,
+     "cues": [
+      "dipping the knife into the spread jar"
+     ]
+    },
+    {
+     "name": "in_hand",
+     "values": [
+      "resting",
+      "held"
+     ],
+     "prompts": [
+      [
+       "a knife lying on the counter",
+       "a knife resting on a plate edge",
+       "a knife set down untouched"
+      ],
+      [
+       "a hand gripping a knife by its handle",
+       "a knife held while spreading on bread",
+       "a person holding a knife over bread"
+      ]
+     ],
+     "script": [
+      "resting",
+      "held",
+      "resting"
+     ],
+     "one_way": false,
+     "cues": [
+      "picking up the knife",
+      "putting the knife down"
+     ]
+    }
+   ]
+  },
+  "peanut butter": {
+   "visible": [
+    "a jar of peanut butter held in a hand",
+    "a peanut butter jar on the kitchen counter"
+   ],
+   "attributes": [
+    {
+     "name": "lid_state",
+     "values": [
+      "closed",
+      "open"
+     ],
+     "prompts": [
+      [
+       "a peanut butter jar with its lid screwed on",
+       "closed jar of peanut butter with a plastic cap",
+       "sealed peanut butter jar"
+      ],
+      [
+       "an open peanut butter jar showing brown spread inside",
+       "peanut butter jar with its lid removed",
+       "uncovered jar of creamy peanut butter"
+      ]
+     ],
+     "script": [
+      "closed",
+      "open",
+      "closed"
+     ],
+     "one_way": false,
+     "cues": [
+      "unscrewing the lid of the peanut butter jar",
+      "screwing the lid back on the peanut butter jar"
+     ]
+    }
+   ]
+  },
+  "the dish": {
+   "visible": [
+    "a plate on the kitchen counter",
+    "a hand placing a plate on the counter"
+   ],
+   "attributes": [
+    {
+     "name": "contents",
+     "values": [
+      "empty",
+      "with_bread",
+      "with_sandwich"
+     ],
+     "prompts": [
+      [
+       "an empty clean plate on the counter",
+       "a bare dish with nothing on it",
+       "an empty white plate"
+      ],
+      [
+       "a plate holding open bread slices",
+       "a dish with plain or spread bread slices laid out",
+       "bread slices lying on a plate"
+      ],
+      [
+       "a plate holding a finished sandwich",
+       "a dish with a cut sandwich on it",
+       "a closed sandwich served on a plate"
+      ]
+     ],
+     "script": [
+      "empty",
+      "with_bread",
+      "with_sandwich"
+     ],
+     "one_way": true,
+     "cues": [
+      "placing bread slices onto the plate",
+      "closing the sandwich on the plate"
+     ]
+    }
+   ]
+  }
+ }
+}

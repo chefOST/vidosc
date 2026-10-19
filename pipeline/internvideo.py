@@ -17,7 +17,8 @@ import numpy as np
 import torch
 from PIL import Image
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from . import ROOT
+
 CODE = os.path.join(ROOT, "third_party", "InternVideo", "InternVideo1", "Pretrain", "Multi-Modalities-Pretraining")
 WEIGHTS = os.path.join(ROOT, "third_party", "weights", "InternVideo-MM-L-14.ckpt")
 MEAN = torch.tensor([0.48145466, 0.4578275, 0.40821073]).view(3, 1, 1)

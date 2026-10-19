@@ -12,7 +12,8 @@ import numpy as np
 import pandas as pd
 import torch
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from . import ROOT
+
 VIDOSC = os.path.join(ROOT, "VidOSC")
 CHECKPOINTS = {"multi_task": "checkpoints_changeit/multi_task/state_best.ckpt",
                "open_world": "checkpoints_changeit/open_world/state_best.ckpt"}

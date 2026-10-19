@@ -1,10 +1,10 @@
 """Slider exploration (scratch). Zero-shot: prompts written from general cooking knowledge.
 MOSCATO GT used only in EVAL map below."""
 import os, sys, json, numpy as np
-sys.path.insert(0, '/Users/ryanli/Projects/chefOST/vidosc')
-from pipeline import data
-ROOT='/Users/ryanli/Projects/chefOST/vidosc'
 TMP=os.path.dirname(os.path.abspath(__file__))
+ROOT=os.path.dirname(os.path.dirname(TMP))
+sys.path.insert(0, ROOT)
+from pipeline import data
 ds=data.Moscato(ROOT+'/../chefOST-data/MOSCATO', cache_dir=ROOT+'/data/cache')
 
 # slider: low anchors, high anchors, action prompts that move it, monotone-up?

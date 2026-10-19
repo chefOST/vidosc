@@ -1,0 +1,179 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs,amsmath,microtype,enumitem}
+\setlist{itemsep=2pt,topsep=3pt}
+\title{Finding Object States in Cooking Videos Without a State List}
+\author{ChefOST (experiment, not published results)}
+\date{October 2026}
+\begin{document}
+\maketitle
+
+\section{Method}
+\textbf{Goal.} Given a cooking video and the name of an object in it (e.g.\ ``bowl''), find the states the
+object goes through and when each one happens. The number of states is not fixed. Each state comes out as an
+embedding vector, plus a short text description if wanted. We never give the pipeline a list of possible
+states, and we train nothing. MOSCATO labels are used only to score the output.
+
+The pipeline has three steps.
+
+\textbf{Step 1: turn the video into a track of embeddings.} We take one frame per second and embed it with
+SigLIP (SO400M/14-384), an image--text model. This gives one vector $x_t$ per second. We tried two inputs:
+\begin{itemize}
+\item \emph{Whole frame:} embed the full image.
+\item \emph{Object crop:} find the object with the OWLv2 detector, prompted only with its name, and embed a
+crop around the best box (25\% margin). The detector's confidence tells us how visible the object is. We turn
+it into a weight $w_t$ between 0 and 1 by rescaling between that track's 20th and 90th percentile scores.
+(For whole frames, $w_t=1$.)
+\end{itemize}
+
+\textbf{Step 2: split the track into states.} An object's state shows up as a stretch of time where its
+embedding stays roughly the same.
+\begin{enumerate}
+\item \emph{Smooth.} Average each frame with its neighbours (Gaussian, $\sigma=3$\,s), weighting by
+visibility. Frames where the object is hidden take their value from nearby frames where it is seen.
+\item \emph{Cut into segments.} Find the best split of the track into segments of at least 5\,s, where each
+segment is summarised by its average. We minimise how far frames are from their segment average, plus a
+fixed cost $\beta$ for each extra segment:
+\[ \textstyle\sum_{\text{segments } j}\;\sum_{t\in j} w_t\,\|x_t-\mu_j\|^2 \;+\; \beta\,\hat\sigma^2 \cdot (\text{number of segments}). \]
+Here $\hat\sigma^2$ measures the track's frame-to-frame noise (half the mean squared change between
+consecutive frames), so $\beta$ works the same for noisy and quiet tracks. A dynamic program finds the exact
+best split quickly.
+\item \emph{Merge.} Segments whose averages are very similar (cosine distance below $\tau$) become one state,
+so a state can come back later (e.g.\ empty $\to$ full $\to$ empty).
+\end{enumerate}
+Each state is represented by the weighted average $c_k$ of its frames.
+
+\textbf{Step 3 (optional): describe each state with a VLM.} For each state we pick two representative frames:
+one from each half of the state's time span, choosing the frame that is most visible and closest to the
+state's average. We ask Qwen2.5-VL-3B for a phrase of at most 8 words describing the object's state. The
+prompt mentions only generic aspects (shape, cut, mixed, cooked, full, clean, location) and no MOSCATO words.
+Each phrase $d$ is embedded with SigLIP's text encoder as ``a photo of \{object\}, $d$.''
+
+\textbf{What each frame outputs.} Every frame outputs the vector of the state it belongs to. We compare three
+choices:
+\begin{itemize}
+\item \textsc{discover}: the state's image average $c_k$, minus the average image embedding $\mu$ of all
+frames in the split. This corrects for image and text embeddings sitting in different regions of the shared
+space (the ``modality gap''). No labels are needed to compute $\mu$.
+\item \textsc{vlm}: the average text embedding of the state's descriptions.
+\item \textsc{fused}: the sum of the two (each normalised to length 1).
+\end{itemize}
+
+\section{Experiments}
+\textbf{Data.} 30 CMU-MMAC cooking videos with MOSCATO ground truth (GT), 267 video--object pairs, one frame
+per second. We split the videos into:
+\begin{itemize}
+\item \emph{Dev}: 2 videos per recipe (10 videos, 79 pairs), used to choose settings ($\beta=500$,
+$\tau=0.05$, smoothing, modality-gap correction).
+\item \emph{Test}: the other 20 videos (188 pairs, 23{,}074 scored frames), used for the reported numbers.
+\end{itemize}
+Confidence intervals (95\%) come from resampling videos (paired bootstrap).
+
+\textbf{How we score state names.} To compare vectors with GT labels, we embed each possible state of the
+object as text (``a photo of \{object\}, \{state\}.'') with the same SigLIP text encoder. The list of possible
+states comes from MOSCATO pseudo-labels of videos outside the GT set, and is used only for scoring. It
+contains at least one correct state on 99.6\% of frames. On each frame where the object has a GT state, we
+rank the possible states by similarity to the output vector:
+\begin{itemize}
+\item \emph{Top-1}: the highest-ranked state is correct.
+\item \emph{MRR}: 1 divided by the rank of the first correct state (1st $=1$, 2nd $=0.5$, \dots).
+\item \emph{P@2 / R@2}: treat the top 2 states as the prediction and compute the README precision and recall.
+\end{itemize}
+``Chance'' is the exact expected score if the states were ranked at random.
+
+\textbf{How we score the discovered states.} We compare the discovered segments with GT segments (stretches
+where the GT state set stays the same):
+\begin{itemize}
+\item \emph{MoF}: fraction of frames correct after matching each discovered state to one GT state.
+\item \emph{NMI, ARI}: standard measures of how well two groupings agree (0 = none, 1 = perfect). Computed
+only on pairs whose GT state changes at least once.
+\item \emph{Change F1}: whether discovered state changes fall within 5\,s of real ones.
+\item \emph{\#states}: average number of states found per pair.
+\end{itemize}
+
+\begin{table}[h]\centering\small
+\begin{tabular}{llcccccc}
+\toprule
+ & & \multicolumn{4}{c}{Test (20 videos)} & \multicolumn{2}{c}{Dev (10)}\\
+Input & Output & Top-1 & MRR & P@2 & R@2 & Top-1 & MRR\\
+\midrule
+--- & chance & .171 & .361 & .171 & .157 & .164 & .359\\
+InternVideo frame & per frame & .319 & .495 & .279 & .249 & .259 & .435\\
+SigLIP frame & per frame & .353 & .521 & .298 & .264 & .278 & .471\\
+SigLIP frame & one state per pair & .337 & .507 & .293 & .256 & .305 & .463\\
+SigLIP frame & \textsc{discover} & .369 & .539 & .316 & .283 & .293 & .494\\
+SigLIP crop & per frame & .281 & .470 & .257 & .234 & .250 & .448\\
+SigLIP crop & \textsc{discover} & .301 & .493 & .277 & .251 & .314 & .504\\
+SigLIP frame & \textsc{vlm}, evenly spaced frames & .362 & .513 & .299 & .275 & .336 & .506\\
+SigLIP frame & \textsc{vlm}, frames picked per state & .375 & .523 & .311 & .288 & .315 & .489\\
+SigLIP crop & \textsc{fused} & .394 & .553 & .317 & .302 & .255 & .460\\
+SigLIP frame & \textsc{fused} & \textbf{.438} & \textbf{.580} & \textbf{.346} & \textbf{.312} & .313 & .495\\
+\bottomrule
+\end{tabular}
+\caption{How well each output names the object's state. ``Evenly spaced frames'' uses the same number of VLM
+calls as ``frames picked per state'', but spreads them evenly over time instead.}
+\end{table}
+
+\textbf{Results: naming states (Table 1, test).}
+\begin{itemize}
+\item \textsc{fused} is best: top-1 .438 vs .171 chance, MRR .580 vs .361.
+\item It beats one embedding per frame by $+0.086$ top-1 (CI $+0.046$ to $+0.123$) and $+0.058$ MRR
+($+0.025$ to $+0.093$).
+\item It also beats each of its parts: \textsc{discover} by $+0.069$ ($+0.017$ to $+0.119$) and \textsc{vlm}
+by $+0.064$ ($+0.027$ to $+0.103$).
+\item Grouping frames into states helps a little on its own: $+0.018$ MRR ($+0.002$ to $+0.034$).
+\item Picking VLM frames per state is not clearly better than evenly spaced frames ($+0.012$, $-0.015$ to
+$+0.038$).
+\item The VLM is called only about 7 times per pair (about 2\% of frames), because it describes states, not
+frames.
+\end{itemize}
+
+\begin{table}[h]\centering\small
+\begin{tabular}{llccccc}
+\toprule
+Input & Segments & MoF & NMI & ARI & Change F1 & \#states (GT 2.90)\\
+\midrule
+--- & one state & \textbf{.735} & .000 & .000 & .000 & 1.00\\
+SigLIP crop & discovered & .729 & .399 & .314 & \textbf{.331} & \textbf{3.02}\\
+SigLIP crop & evenly spaced, same number & .647 & .425 & .297 & .247 & 3.66\\
+SigLIP frame & discovered & .694 & .408 & .317 & .324 & 3.67\\
+SigLIP frame & evenly spaced, same number & .538 & .449 & .266 & .276 & 5.88\\
+InternVideo frame & discovered & .667 & \textbf{.449} & \textbf{.326} & .321 & 4.72\\
+\bottomrule
+\end{tabular}
+\caption{How well the discovered states match GT segments (test). ``Evenly spaced'' cuts the track into as
+many equal pieces as discovery found before merging, so it tests whether discovery gets the timing right.}
+\end{table}
+
+\textbf{Results: finding states (Table 2, test).}
+\begin{itemize}
+\item With object crops, discovery finds 3.02 states per pair, close to GT's 2.90.
+\item It places state changes better than evenly spaced cuts (Change F1 .331 vs .247).
+\item One constant state per pair still scores slightly higher on MoF (.735 vs .729), because most MOSCATO
+objects barely change state.
+\end{itemize}
+
+\textbf{Caveats.}
+\begin{itemize}
+\item \emph{Dev and test disagree.} On dev, \textsc{fused} gains only $+0.035$ top-1 ($-0.015$ to $+0.086$,
+not significant), and crops do better than whole frames. On test, whole frames do better. Dev has only 10
+videos.
+\item \emph{The best row was chosen after seeing test.} The whole-frame \textsc{fused} run was added after the
+crop results on test. The crop version, planned in advance, also beats one embedding per frame on test
+($+0.042$, $-0.001$ to $+0.086$).
+\item \emph{Shared encoder.} The pipeline and the scorer both use SigLIP's text encoder.
+\item \emph{Whole frames can track the wrong thing.} They follow the whole scene, not just the object. In
+video S14 Eggs, parts of the \emph{bowl}'s track are described as ``pan with egg mixture cooking''.
+\end{itemize}
+
+\section{Conclusion}
+Object states can be found without any state list by splitting an object's embedding track over time. The
+number of states found is close to GT (3.0 vs 2.9 per pair), and the timing of changes beats evenly spaced
+cuts. Describing each state once with a small VLM and adding that description to the visual average gives
+the best results: top-1 .438 (chance .171) and MRR .580 (chance .361), with about 7 VLM calls per pair.
+
+Because dev and test disagree and the best setup was chosen after seeing test, the size of this gain still
+needs to be confirmed on more videos (EgoPER, EGTEA). The next steps are better object detection, so that
+crops beat whole frames, and outputting several states per frame, since GT usually lists 2 or more.
+
+\end{document}
