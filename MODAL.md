@@ -1,5 +1,7 @@
 # Modal detector smoke test
 
+For your own Modal account and R2 credentials, start with [account setup](docs/account-setup.md).
+
 This is the next setup check for the MOSCATO baseline. It runs the pretrained
 100DOH hand/object detector on **five frames**, not the entire clip. It does not
 produce VidOSC state predictions or evaluation scores.

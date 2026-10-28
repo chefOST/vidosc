@@ -27,4 +27,4 @@ Shared MOSCATO ground-truth videos are on R2. See [video access](https://github.
 
 ## Experiment tracking
 
-Follow [W&B setup](weights_and_biases/README.md) to configure the appropriate team and project. Verify the destination used by your actual run command before reporting results.
+This branch defaults to `chefOST/vidosc-experiments`. Follow [account setup](docs/account-setup.md) for your Modal login, R2 Secret and W&B key, and [W&B setup](weights_and_biases/README.md) for logging flags.

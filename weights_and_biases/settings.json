@@ -1,5 +1,6 @@
 {
   "entity": "chefOST",
+  "default_project": "experiments",
   "projects": {
     "experiments": "vidosc-experiments",
     "full-evals": "vidosc - full evals"

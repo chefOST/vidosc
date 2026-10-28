@@ -124,7 +124,7 @@ python -m moscato.run_experiment evaluate --config $CFG --run-name baseline
 | `--prompt-mode {neutral,stated_state}` | `neutral` | Whether Claude is told the VidOSC label — see [Findings](#findings-so-far) |
 | `--sample-rate {per_segment,per_second}` | `per_segment` | One Claude call per segment, or one per second |
 | `--force` | off | Overwrite an existing run directory |
-| `--wandb-project NAME` | — | Publish under the same `word_accuracy/*` namespace as TubeletGraph |
+| `--wandb-project [NAME]` | logging off | Bare flag uses the configured experiments project; an explicit name overrides it |
 
 `prepare` is idempotent — it reuses decoded frames, the clip MP4, and extracted
 features. Only `predict` costs money: 2 Claude calls per segment.

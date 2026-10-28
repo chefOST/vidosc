@@ -33,6 +33,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 # Upstream VidOSC lives in a separate checkout, not in this repo -- see README.md.
 from vidosc_path import ensure_on_path
+from weights_and_biases.config import WANDB_ENTITY, WANDB_PROJECT
 
 ensure_on_path()
 from model import FeatTimeTransformer
@@ -50,9 +51,6 @@ STATE_COLORS = {
     2: "#ff9800",
     3: "#2196f3",
 }
-
-WANDB_ENTITY = "m22jeon-university-of-waterloo"
-WANDB_PROJECT = "ChefOST"
 
 
 def _checkpoint_config(ckpt_path: str) -> tuple[int, int]:

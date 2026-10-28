@@ -49,6 +49,7 @@ from moscato.config import (
 from moscato.evaluate import score_run
 from moscato.inspect_video import validate as validate_alignment
 from moscato.map_states import DEFAULT_MAPPER_MODEL, ClaudeMapper, map_segments
+from weights_and_biases.config import WANDB_ENTITY, WANDB_PROJECT
 
 DEFAULT_CONFIG = Path(__file__).resolve().parent.parent / "configs/moscato/s12_sandwich_7150991-2470.json"
 
@@ -512,7 +513,7 @@ def evaluate(
     *,
     run_name: str,
     wandb_project: str = "",
-    wandb_entity: str = "",
+    wandb_entity: str = WANDB_ENTITY,
 ) -> dict[str, Any]:
     config = load_config(config_path)
     resolved_run = _run_name(run_name)
@@ -594,8 +595,9 @@ def main() -> None:
                              "stated_state: upstream behaviour, names the label in the prompt.")
     parser.add_argument("--dry-run", action="store_true", help="Skip every VLM call")
     parser.add_argument("--force", action="store_true", help="Overwrite an existing run directory")
-    parser.add_argument("--wandb-project", default="", help="Log the evaluation to this W&B project")
-    parser.add_argument("--wandb-entity", default="")
+    parser.add_argument("--wandb-project", nargs="?", const=WANDB_PROJECT, default="",
+                        help="Enable W&B logging; use the configured project unless a name is supplied")
+    parser.add_argument("--wandb-entity", default=WANDB_ENTITY)
     args = parser.parse_args()
 
     resolved_run = _run_name(args.run_name)

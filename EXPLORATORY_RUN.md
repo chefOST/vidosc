@@ -1,5 +1,7 @@
 # First real-video VidOSC run on Modal
 
+For your own Modal account, R2 credentials and W&B project, see [account setup](docs/account-setup.md).
+
 This runs the pretrained ChangeIt multitask VidOSC checkpoint on the 107-second
 salad excerpt. It is an **exploratory transfer experiment**, not a reproduction
 of VidOSC's published benchmark or the complete MOSCATO benchmark. No training,
