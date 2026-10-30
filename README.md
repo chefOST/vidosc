@@ -1,5 +1,8 @@
 # What this pipeline does
 
+For the CMU30 active-object full-run scripts, setup, outputs and W&B logging, start
+with [the team handoff guide](docs/FULL_RUN_HANDOFF.md).
+
 For the work-in-progress VidOSC-only MOSCATO evaluator on `pritika/main`, see
 [MOSCATO_BASELINE.md](MOSCATO_BASELINE.md). It includes checkpoint compatibility,
 tests, setup steps, and the remaining requirements before real-video scoring.

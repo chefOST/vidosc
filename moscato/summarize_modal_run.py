@@ -48,9 +48,9 @@ def main():
     lines += [f'| {name} | {n} |' for name,n in action_counts.most_common()]
     lines += ['', '## Limits', '',
               '- Crop extraction is a documented adaptation, not verified against the original training pipeline.',
-              '- Object crops can cover tools/boards rather than vegetables; no manual GT-based corrections were made.',
+              '- Object crops can cover tools/boards rather than the annotated target; no manual GT-based corrections were made.',
               '- Class indices are reconstructed from the released full multitask vocabulary.',
-              '- Scoring assumes one annotation per raw frame at 30 FPS; formal timing verification is incomplete.',
+              f'- Annotation FPS: {evaluation["timing"]["annotation_fps"]}; timing verified: {evaluation["timing_verified"]}.',
               '- Missing label mappings remain misses for thresholded F1. Constant-zero scores can still have nonzero AP due to ties.',
               '- F1-Max uses the best threshold on this clip; segment F1 uses the fixed 0.5 threshold.',
               '- Raw softmax predictions are used without the original ordering decoder.', '',
@@ -59,7 +59,7 @@ def main():
               '- `scoring/evaluation.json`: detailed provisional metrics and provenance.',
               '- `scoring/per_frame.csv`: aligned GT and predictions for inspection.',
               '- `feature_manifest.json`: crop decisions, sampling, input identities, and model metadata.',
-              '- `combined_features.pth.tar`: the actual 107 × 1536 model input.',
+              f'- `combined_features.pth.tar`: the actual {len(state)} × 1536 model input.',
               '- `raw_probabilities.npz`: original Modal state and action probabilities.', '']
     path = run/'RESULTS.md'
     path.write_text('\n'.join(lines))

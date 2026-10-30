@@ -1,4 +1,4 @@
-"""Run a documented exploratory 107-second VidOSC inference on Modal CPU.
+"""Run exploratory VidOSC inference on Modal CPU (up to 900 intervals).
 
 No MOSCATO ground truth or target-label mapping is uploaded. Raw source-index
 probabilities are saved even when the training vocabulary is unavailable.
@@ -12,7 +12,13 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts.modal_detector import base_image
 
-app = modal.App('vidosc-s29-exploratory')
+VIDEO = Path(os.environ.get('VIDOSC_VIDEO', ROOT / 'data/moscato/videos/S29_Salad_7150991-1.avi'))
+GLOBAL_DIR = Path(os.environ.get('VIDOSC_GLOBAL_DIR', ROOT / 'data/moscato/features/s29-global'))
+RUN_TIMEOUT = int(os.environ.get('VIDOSC_TIMEOUT', '3600'))
+if not 60 <= RUN_TIMEOUT <= 7200:
+    raise ValueError('VIDOSC_TIMEOUT must be between 60 and 7200 seconds')
+app = modal.App('vidosc-exploratory')
+progress_volume = modal.Volume.from_name('vidosc-active-object-progress', create_if_missing=True)
 image = (
     base_image
     .apt_install('ffmpeg')
@@ -26,21 +32,22 @@ image = (
     )
     .add_local_dir(ROOT / 'scripts', '/root/scripts', ignore=['__pycache__/**', '*.local.sh'])
     .add_local_dir(ROOT / 'moscato', '/root/moscato', ignore=['__pycache__/**', '*.local.sh'])
-    .add_local_file(ROOT / 'data/moscato/videos/S29_Salad_7150991-1.avi', '/inputs/video.avi')
-    .add_local_file(ROOT / 'data/moscato/features/s29-global/global_features.pth.tar', '/inputs/global.pth.tar')
-    .add_local_file(ROOT / 'data/moscato/features/s29-global/feature_manifest.json', '/inputs/global.json')
+    .add_local_file(VIDEO, '/inputs/video.avi')
+    .add_local_file(GLOBAL_DIR / 'global_features.pth.tar', '/inputs/global.pth.tar')
+    .add_local_file(GLOBAL_DIR / 'feature_manifest.json', '/inputs/global.json')
     .add_local_file(ROOT / 'checkpoints/changeit/state_best.ckpt', '/inputs/vidosc.ckpt')
     .add_local_file(Path.home() / 'Downloads/InternVideo-MM-L-14.ckpt', '/inputs/internvideo.ckpt')
 )
 
 
-@app.function(image=image, cpu=4, memory=16384, timeout=3600, retries=0,
-              max_containers=1, scaledown_window=2)
+@app.function(image=image, cpu=(4, 4), memory=(16384, 16384), timeout=RUN_TIMEOUT, retries=0,
+              max_containers=1, scaledown_window=2, volumes={'/progress': progress_volume})
 def run_clip():
     import gc
     import io
     import json
     import time
+    import hashlib
     import cv2
     import numpy as np
     import torch
@@ -49,6 +56,7 @@ def run_clip():
     from moscato.object_crops import choose_crop, POLICY
     from moscato.extract_internvideo import sampled_clips, load_encoder
     from moscato.checkpoint_adapter import predict
+    from moscato.progress_cache import save_features, load_features
 
     started = time.monotonic()
     torch.set_num_threads(4)
@@ -59,25 +67,49 @@ def run_clip():
         if digest(path) != expected:
             raise ValueError(f'Input fingerprint mismatch: {path}')
     windows = manifest['sampled_global_frame_indices']
-    if len(windows) != 107:
-        raise ValueError('This pilot is limited to the prepared 107 windows')
+    count = len(windows)
+    if not 1 <= count <= 900:
+        raise ValueError('Expected 1–900 intervals; longer videos require an explicit chunking protocol')
+    identity = {'video': manifest['video_sha256'], 'windows': windows,
+                'encoder': manifest['checkpoint_sha256'], 'policy': POLICY,
+                'detector': digest('/models/hand_object_100k.pth'),
+                'code': {name: digest('/root/moscato/' + name + '.py') for name in
+                         ['hand_object', 'object_crops', 'extract_internvideo', 'progress_cache']}}
+    key = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
+    cache = Path('/progress') / key
+    cache.mkdir(parents=True, exist_ok=True)
+    crop_path = cache / 'crops.json'
+    crops = json.loads(crop_path.read_text()) if crop_path.exists() else []
+    if len(crops) > count or any(c['window'] != i or c['frame_index'] != windows[i][4] for i,c in enumerate(crops)):
+        raise ValueError('Invalid saved crop timeline')
+    object_features, completed = load_features(cache / 'features.pt', count)
+    if completed > len(crops):
+        raise ValueError('Feature checkpoint extends beyond saved detections')
+    print(f'Resumable cache: {len(crops)}/{count} detections, {completed}/{count} object intervals', flush=True)
     detector, cfg = load_detector('/opt/hand-object', '/models/hand_object_100k.pth', 'cpu')
-    crops = []
     # Choose a crop using one of the exact frames used by the global encoder.
     for index, frames in enumerate(sampled_clips('/inputs/video.avi', windows)):
+        if index < len(crops):
+            continue
         frame = frames[4]
         detections = detect_frame(detector, cfg, cv2.cvtColor(frame, cv2.COLOR_RGB2BGR), 'cpu')
         box = choose_crop(detections, frame.shape[1], frame.shape[0])
         crops.append({'window': index, 'frame_index': windows[index][4],
                       'crop_xyxy_exclusive': box, 'detections': detections})
-        if index % 10 == 0 or index == 106:
-            print(f'Detection {index+1}/107; elapsed {time.monotonic()-started:.0f}s', flush=True)
+        if (index + 1) % 10 == 0 or index == count - 1:
+            temp = crop_path.with_suffix('.tmp')
+            temp.write_text(json.dumps(crops))
+            temp.replace(crop_path)
+            progress_volume.commit()
+        if index % 10 == 0 or index == count - 1:
+            print(f'Detection {index+1}/{count}; elapsed {time.monotonic()-started:.0f}s', flush=True)
     del detector
     gc.collect()
     model, preprocess = load_encoder('/inputs/internvideo.ckpt', '/opt/internvideo', 'cpu')
-    object_features = torch.zeros((107, 768))
     with torch.inference_mode():
         for index, frames in enumerate(sampled_clips('/inputs/video.avi', windows)):
+            if index < completed:
+                continue
             box = crops[index]['crop_xyxy_exclusive']
             if box:
                 x1, y1, x2, y2 = box
@@ -86,8 +118,11 @@ def run_clip():
                 if feat.shape != (1, 768) or not torch.isfinite(feat).all():
                     raise ValueError('Invalid object encoder output')
                 object_features[index] = feat[0].cpu()
-            if index % 10 == 0 or index == 106:
-                print(f'Object features {index+1}/107; elapsed {time.monotonic()-started:.0f}s', flush=True)
+            if (index + 1) % 10 == 0 or index == count - 1:
+                save_features(cache / 'features.pt', object_features, index + 1)
+                progress_volume.commit()
+            if index % 10 == 0 or index == count - 1:
+                print(f'Object features {index+1}/{count}; elapsed {time.monotonic()-started:.0f}s', flush=True)
     del model
     gc.collect()
     global_features = torch.load('/inputs/global.pth.tar', weights_only=True, map_location='cpu')
@@ -96,8 +131,9 @@ def run_clip():
     features = torch.cat((global_features, object_features), dim=-1)
     torch.save(features, '/tmp/combined.pth.tar')
     torch.save(object_features, '/tmp/object.pth.tar')
-    state, action, info = predict('/inputs/vidosc.ckpt', '/tmp/combined.pth.tar', '/opt/vidosc', pad_to=900)
-    if state.shape != (107, 52) or action.shape != (107, 28):
+    state, action, info = predict('/inputs/vidosc.ckpt', '/tmp/combined.pth.tar', '/opt/vidosc',
+                                  pad_to=900, raw_output='/tmp/raw_logits.npz')
+    if state.shape != (count, 52) or action.shape != (count, 28):
         raise ValueError(f'Unexpected prediction shapes: {state.shape}, {action.shape}')
     output = io.BytesIO()
     np.savez_compressed(output, state=state, action=action)
@@ -115,17 +151,24 @@ def run_clip():
         elapsed_seconds=time.monotonic()-started,
         interpretation='exploratory transfer; raw source indices; not an official benchmark',
         ground_truth_used=False, prediction_device='Modal CPU',
+        resumable_cache_key=key, object_intervals_reused=completed,
+        output_stages={'raw_logits': 'raw_logits.npz',
+                       'softmax_probabilities': 'raw_probabilities.npz',
+                       'temporal_postprocessing': 'none; not applied'},
     )
     return {'feature_manifest.json': json.dumps(result_manifest, indent=2).encode(),
             'combined_features.pth.tar': Path('/tmp/combined.pth.tar').read_bytes(),
             'object_features.pth.tar': Path('/tmp/object.pth.tar').read_bytes(),
+            'raw_logits.npz': Path('/tmp/raw_logits.npz').read_bytes(),
             'raw_probabilities.npz': output.getvalue()}
 
 
 @app.local_entrypoint()
 def main():
     from datetime import datetime, timezone
-    output = ROOT / 'runs/modal-clip' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
+    output = Path(os.environ.get('VIDOSC_OUTPUT', ROOT / 'runs/modal-clip' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')))
+    if output.exists():
+        raise FileExistsError(output)
     result = run_clip.remote()
     output.mkdir(parents=True, exist_ok=False)
     for name, data in result.items():

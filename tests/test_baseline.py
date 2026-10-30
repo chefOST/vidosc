@@ -137,7 +137,14 @@ def test_downloaded_checkpoint_loads_and_runs_without_training_framework(tmp_pat
     assert state.shape==(3,52)
     assert action.shape==(3,28)
     np.testing.assert_allclose(state.sum(axis=1),1,atol=1e-6)
-    padded, padded_action, padded_info = predict(CHECKPOINT, f, UPSTREAM, pad_to=5)
+    logits_path = tmp_path / 'logits.npz'
+    padded, padded_action, padded_info = predict(CHECKPOINT, f, UPSTREAM, pad_to=5, raw_output=logits_path)
+    with np.load(logits_path, allow_pickle=False) as logits:
+        for name, expected in [('state', padded), ('action', padded_action)]:
+            raw = logits[name + '_logits']
+            assert raw.shape == expected.shape
+            exp = np.exp(raw - raw.max(axis=-1, keepdims=True))
+            np.testing.assert_allclose(exp / exp.sum(axis=-1, keepdims=True), expected, atol=1e-6)
     assert padded.shape == (3,52) and padded_action.shape == (3,28)
     assert padded_info['transformer_timesteps'] == 5
     with pytest.raises(ValueError, match='padding length'):
