@@ -1,6 +1,10 @@
--r requirements-eval.txt
+numpy>=1.26
+torch>=2.6
+pytest>=8
 timm>=1.0
 torchvision>=0.21
 opencv-python>=4.10
 Pillow>=10
 scikit-image>=0.24
+modal==1.6.1
+wandb==0.30.0

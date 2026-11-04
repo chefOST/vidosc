@@ -1,21 +1,24 @@
 # Weights & Biases
 
-Entity: `chefOST`.
+The default destination is `chefOST/vidosc-experiments`, selected by
+`default_project` in [settings.json](settings.json). `WANDB_ENTITY` and
+`WANDB_PROJECT` override those defaults; the logger's `--entity` and `--project`
+flags override the environment. The separately recorded full-evaluation project
+is `vidosc - full evals`; the current workflow exports outputs without evaluation scores.
 
-- Experiments: `vidosc-experiments`
-- Full evaluations: `vidosc - full evals`
+The coordinator invokes `scripts/log_inference_wandb.py` after each successful
+video. It uploads features, logits, source/mapped probabilities and provenance,
+plus completion and crop-coverage summaries. The default group is
+`cmu30-active-object-v1`. The upload receipt records the actual destination.
+When the destination changes, the coordinator uploads an existing completed bundle
+to the new destination during execution without repeating model inference.
 
-This branch defaults to `chefOST/vidosc-experiments`, selected by `default_project`
-in [settings.json](settings.json). `WANDB_ENTITY` and `WANDB_PROJECT` override the
-file defaults; explicit CLI flags override the environment. Full-evaluation
-logging must use the exact project name, including spaces.
+To validate an existing output bundle without uploading, run from the repository root:
 
-`run_inference.py` and `describe_states.py` use these defaults when logging is
-enabled. For `python -m moscato.run_experiment`, a bare `--wandb-project` opts in
-to the configured project; `--wandb-project NAME` selects a different one.
-Omitting the flag keeps that evaluator's logging off.
+```sh
+.venv/bin/python scripts/log_inference_wandb.py --run /path/to/video/model --dry-run
+```
 
-The VidOSC-only Modal pilot has no W&B logger yet. These defaults are also the
-destination for the later two-video trial; configuring them does not launch it.
-
-See [account setup](../docs/account-setup.md) for your API key and Modal/R2 setup.
+Omitting `--dry-run` uploads that bundle. For credentials, see
+[account setup](../docs/account-setup.md); for output files and resume behavior,
+see [the handoff](../docs/FULL_RUN_HANDOFF.md#outputs-and-reuse).

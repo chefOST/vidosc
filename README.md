@@ -1,14 +1,17 @@
 # VidOSC / ChefOST
 
-ChefOST evaluates object-state tracking in procedural cooking videos. Use this repository for VidOSC work.
+ChefOST evaluates object-state tracking in procedural cooking videos. This branch
+extends Pritika's CMU full-video workflow: one unnamed hand-associated active-object
+stream per video, with features, logits and probabilities saved for later analysis.
 
-This branch extends `pritika/main` and includes the shared `main` guidance.
-Pritika's [baseline setup](MOSCATO_BASELINE.md) and [completed pilot](EXPLORATORY_RUN.md)
-describe the current VidOSC-only implementation.
-
-Details: [documentation](docs/README.md). Agents: [instructions](AGENTS.md).
+Start with [setup and workflow](docs/FULL_RUN_HANDOFF.md),
+[account setup](docs/account-setup.md), and [agent instructions](AGENTS.md).
+The [documentation index](docs/README.md) links the remaining references.
 
 ## Metrics
+
+The current workflow exports inference outputs and coverage; it does not compute
+evaluation scores. ChefOST's evaluation definitions are:
 
 For each object, `P_t` is the predicted state set and `T_t` the ground-truth state set at frame `t`.
 
@@ -19,12 +22,8 @@ Average per-frame ratios equally; missing predictions give zero recall when GT s
 
 ## Context
 
-Read the [project goals](https://github.com/chefOST/.github/blob/main/docs/PaperNotes.md#project-goals), then the [VidOSC paper notes](https://github.com/chefOST/.github/blob/main/docs/PaperNotes.md#1-vidosc) relevant to your task. Use the [organization guide](https://github.com/chefOST/.github/blob/main/profile/README.md) for shared project context and the [data repository](https://github.com/chefOST/chefOST-data) for shared annotations and vocabularies.
-
-## Videos
-
-Shared MOSCATO ground-truth videos are on R2. See [video access](https://github.com/chefOST/chefOST-data#videos) for the folder location and Modal/local setup. Read-only credentials were sent in the private team Discord channel. Follow this model's preprocessing and save outputs in your own storage.
+Read the [project goals](https://github.com/chefOST/.github/blob/main/docs/PaperNotes.md#project-goals), then the [VidOSC paper notes](https://github.com/chefOST/.github/blob/main/docs/PaperNotes.md#1-vidosc). Use the [organization guide](https://github.com/chefOST/.github/blob/main/profile/README.md) for shared project context and the [data repository](https://github.com/chefOST/chefOST-data) for annotations, vocabularies and shared R2 video access.
 
 ## Experiment tracking
 
-This branch defaults to `chefOST/vidosc-experiments`. Follow [account setup](docs/account-setup.md) for your Modal login, R2 Secret and W&B key, and [W&B setup](weights_and_biases/README.md) for logging flags.
+W&B defaults to `chefOST/vidosc-experiments`. See [W&B setup](weights_and_biases/README.md) for configuration and upload commands.

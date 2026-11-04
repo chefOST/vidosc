@@ -36,7 +36,7 @@ def inspect_weights(weights):
             "max_timesteps": int(weights["pos_encoder.pe"].shape[1])}
 
 
-def predict(checkpoint, features, upstream, heads=4, pad_to=0):
+def predict(checkpoint, features, upstream, heads=4, pad_to=0, raw_output=None):
     weights = read_weights(checkpoint)
     info = inspect_weights(weights)
     path = Path(upstream) / "model.py"
@@ -67,6 +67,14 @@ def predict(checkpoint, features, upstream, heads=4, pad_to=0):
     info['transformer_timesteps'] = len(feat)
     with torch.inference_mode():
         result = model(feat.float().unsqueeze(0))
+        if raw_output is not None:
+            import numpy as np
+            logits = result if isinstance(result, dict) else {"state": result}
+            arrays = {f"{name}_logits": value.numpy()[:length]
+                      for name, value in logits.items()}
+            if any(not np.isfinite(value).all() for value in arrays.values()):
+                raise ValueError("Non-finite model logits")
+            np.savez_compressed(raw_output, **arrays)
         if isinstance(result, dict):
             state = torch.softmax(result["state"], -1).numpy()[:length]
             action = torch.softmax(result["action"], -1).numpy()[:length]

@@ -1,0 +1,212 @@
+[
+  {
+    "video_id": "S08_Eggs_7150991-727",
+    "url": "http://kitchen.cs.cmu.edu/Main/S08_Eggs_Video.zip",
+    "status": 200,
+    "archive_bytes": 65628469,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S09_Brownie_7150991-1653",
+    "url": "http://kitchen.cs.cmu.edu/Main/S09_Brownie_Video.zip",
+    "status": 200,
+    "archive_bytes": 138628153,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S09_Eggs_7150991-1050",
+    "url": "http://kitchen.cs.cmu.edu/Main/S09_Eggs_Video.zip",
+    "status": 200,
+    "archive_bytes": 67615887,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S12_Sandwich_7150991-2470",
+    "url": "http://kitchen.cs.cmu.edu/Main/S12_Sandwich_Video.zip",
+    "status": 200,
+    "archive_bytes": 63206485,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S13_Brownie_7150991-631",
+    "url": "http://kitchen.cs.cmu.edu/Main/S13_Brownie_Video.zip",
+    "status": 200,
+    "archive_bytes": 207401038,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S14_Eggs_7150991-1016",
+    "url": "http://kitchen.cs.cmu.edu/Main/S14_Eggs_Video.zip",
+    "status": 200,
+    "archive_bytes": 98804353,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S15_Pizza_7150991-5341",
+    "url": "http://kitchen.cs.cmu.edu/Main/S15_Pizza_Video.zip",
+    "status": 200,
+    "archive_bytes": 86258987,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S15_Salad_7150991-451",
+    "url": "http://kitchen.cs.cmu.edu/Main/S15_Salad_Video.zip",
+    "status": 200,
+    "archive_bytes": 44937947,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S16_Eggs_7150991-858",
+    "url": "http://kitchen.cs.cmu.edu/Main/S16_Eggs_Video.zip",
+    "status": 200,
+    "archive_bytes": 76316923,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S16_Pizza_7150991-3739",
+    "url": "http://kitchen.cs.cmu.edu/Main/S16_Pizza_Video.zip",
+    "status": 200,
+    "archive_bytes": 173621331,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S17_Salad_7150991-822",
+    "url": "http://kitchen.cs.cmu.edu/Main/S17_Salad_Video.zip",
+    "status": 200,
+    "archive_bytes": 120348233,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S19_Brownie_7150991-848",
+    "url": "http://kitchen.cs.cmu.edu/Main/S19_Brownie_Video.zip",
+    "status": 200,
+    "archive_bytes": 158094650,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S20_Pizza_7150991-180",
+    "url": "http://kitchen.cs.cmu.edu/Main/S20_Pizza_Video.zip",
+    "status": 200,
+    "archive_bytes": 145463915,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S24_Brownie_7150991-483",
+    "url": "http://kitchen.cs.cmu.edu/Main/S24_Brownie_Video.zip",
+    "status": 200,
+    "archive_bytes": 109615720,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S25_Brownie_7150991-763",
+    "url": "http://kitchen.cs.cmu.edu/Main/S25_Brownie_Video.zip",
+    "status": 200,
+    "archive_bytes": 97626682,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S28_Eggs_7150991-1",
+    "url": "http://kitchen.cs.cmu.edu/Main/S28_Eggs_Video.zip",
+    "status": 200,
+    "archive_bytes": 125722451,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S29_Salad_7150991-1",
+    "url": "http://kitchen.cs.cmu.edu/Main/S29_Salad_Video.zip",
+    "status": 200,
+    "archive_bytes": 138133276,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S31_Sandwich_7150991-1",
+    "url": "http://kitchen.cs.cmu.edu/Main/S31_Sandwich_Video.zip",
+    "status": 200,
+    "archive_bytes": 83710578,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S34_Brownie_7150991-268",
+    "url": "http://kitchen.cs.cmu.edu/Main/S34_Brownie_Video.zip",
+    "status": 200,
+    "archive_bytes": 223818180,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S36_Sandwich_7150991-165",
+    "url": "http://kitchen.cs.cmu.edu/Main/S36_Sandwich_Video.zip",
+    "status": 200,
+    "archive_bytes": 68339477,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S37_Brownie_7150991-133",
+    "url": "http://kitchen.cs.cmu.edu/Main/S37_Brownie_Video.zip",
+    "status": 200,
+    "archive_bytes": 341223057,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S41_Salad_7150991-349",
+    "url": "http://kitchen.cs.cmu.edu/Main/S41_Salad_Video.zip",
+    "status": 200,
+    "archive_bytes": 171828765,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S48_Salad_7150991-222",
+    "url": "http://kitchen.cs.cmu.edu/Main/S48_Salad_Video.zip",
+    "status": 200,
+    "archive_bytes": 127662395,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S49_Brownie_7150991-202",
+    "url": "http://kitchen.cs.cmu.edu/Main/S49_Brownie_Video.zip",
+    "status": 200,
+    "archive_bytes": 140236452,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S49_Eggs_7150991-224",
+    "url": "http://kitchen.cs.cmu.edu/Main/S49_Eggs_Video.zip",
+    "status": 200,
+    "archive_bytes": 158233664,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S51_Salad_7150991-225",
+    "url": "http://kitchen.cs.cmu.edu/Main/S51_Salad_Video.zip",
+    "status": 200,
+    "archive_bytes": 210281727,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S54_Brownie_7150991-308",
+    "url": "http://kitchen.cs.cmu.edu/Main/S54_Brownie_Video.zip",
+    "status": 200,
+    "archive_bytes": 249078563,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S54_Eggs_7150991-251",
+    "url": "http://kitchen.cs.cmu.edu/Main/S54_Eggs_Video.zip",
+    "status": 200,
+    "archive_bytes": 160247113,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S55_Brownie_7150991-713",
+    "url": "http://kitchen.cs.cmu.edu/Main/S55_Brownie_Video.zip",
+    "status": 200,
+    "archive_bytes": 144229596,
+    "accept_ranges": "bytes"
+  },
+  {
+    "video_id": "S55_Pizza_7150991-292",
+    "url": "http://kitchen.cs.cmu.edu/Main/S55_Pizza_Video.zip",
+    "status": 200,
+    "archive_bytes": 241302824,
+    "accept_ranges": "bytes"
+  }
+]

@@ -1,55 +1,52 @@
 # Experiment accounts
 
-This branch uses `chefOST/vidosc-experiments` for W&B. No experiment is started
-by configuring these accounts. The two-video timing/cost trial is a separate step.
+Install the environment in [setup and workflow](FULL_RUN_HANDOFF.md#setup) first.
 
-## Modal: use your own account
+## Modal
 
-In a Python environment with [requirements-modal.txt](../requirements-modal.txt)
-installed, authenticate through the browser and choose your own workspace:
+Authenticate through the browser and select your own workspace/profile:
 
 ```sh
-python -m modal token new
-python -m modal profile list
-python -m modal profile activate YOUR_PROFILE_NAME
-python -m modal profile current
+.venv/bin/python -m modal token new
+.venv/bin/python -m modal profile list
+.venv/bin/python -m modal profile activate YOUR_PROFILE_NAME
+.venv/bin/python -m modal profile current
 ```
 
-Use the actual profile name printed by `profile list`. Modal stores login tokens
-in `~/.modal.toml`; do not put them in the repository. If your shell already has
-`MODAL_TOKEN_ID` or `MODAL_TOKEN_SECRET` exported for another account, unset those
-two variables before using your saved profile: they override profile credentials.
-Set `MODAL_PROFILE` to pin a shell to your profile, and `MODAL_ENVIRONMENT` to the
-environment containing your secrets (`main` by default).
+Use the profile name printed by `profile list`. Tokens live in `~/.modal.toml`,
+outside the repository. Exported `MODAL_TOKEN_ID` and `MODAL_TOKEN_SECRET` override
+profile credentials; unset them if they belong to another account. `MODAL_PROFILE`
+pins the selected shell profile, and `MODAL_ENVIRONMENT` selects the environment
+containing its secrets and volumes (`main` by default).
 
-References: [profiles](https://modal.com/docs/cli/latest/profile),
+References: [profiles](https://modal.com/docs/cli/latest/profile) and
 [credential precedence](https://modal.com/docs/sdk/py/latest/config).
 
-## R2: access the shared videos
+## Shared R2 videos
 
-In the [Modal dashboard](https://modal.com), select your workspace and `main`
-environment, open **Secrets**, and create a custom Secret named `chefost-r2`.
-Add these two fields using the read-only values from the private team Discord:
+In the [Modal dashboard](https://modal.com), choose your workspace and environment,
+then create a custom Secret named `chefost-r2` with:
 
 ```text
 AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY
 ```
 
-These are R2's S3 credentials, not your Modal login token. The Secret must exist
-in your own workspace/environment even if Pritika already created hers.
+Use the read-only values shared in the private team Discord channel. These are
+R2 S3 credentials; your Modal login token is separate. The Secret must exist in
+your workspace even if another contributor already created one in theirs.
 
-Use the canonical [R2 mount and local-download instructions](https://github.com/chefOST/chefOST-data#videos).
-The shared release currently contains 41 MP4s: 29 CMU and 12 EGTEA; EgoPER is
-pending. The current annotation release has 87 recordings; older copies with 88
-include a CMU recording now excluded for a video/annotation length mismatch.
+The [shared-data video guide](https://github.com/chefOST/chefOST-data#videos) is
+canonical for the bucket, endpoint, release folder and local-download commands.
+The current full-video pipeline takes local AVIs; R2 MP4 integration is future
+work and requires fresh source hashes, sampling manifests and alignment checks.
 
-## W&B: experiments project
+## W&B
 
-Copy [.env.example](../.env.example) to `.env` in the repository root and fill in
-`WANDB_API_KEY` from your [W&B authorization page](https://wandb.ai/authorize).
-Keep `WANDB_ENTITY=chefOST` and `WANDB_PROJECT=vidosc-experiments`. `.env` is ignored
-by Git. Load it into the shell that will launch the later experiment:
+Copy [.env.example](../.env.example) to `.env` and fill in `WANDB_API_KEY` from
+your [W&B authorization page](https://wandb.ai/authorize). Keep the experiment
+destination from the example unless intentionally overriding it. Load the ignored
+file into the shell that will run the coordinator:
 
 ```sh
 set -a
@@ -57,15 +54,6 @@ set -a
 set +a
 ```
 
-Python does not load `.env` automatically. Explicit CLI settings override these
-environment values; otherwise [settings.json](../weights_and_biases/settings.json)
-supplies the defaults. See [W&B setup](../weights_and_biases/README.md) for logging flags.
-
-## Before the later two-video trial
-
-Pritika's current `scripts/modal_clip.py` still uploads one fixed local AVI and
-cached features. It does not yet mount R2 or log to W&B. The trial runner must add
-that wiring and record timing/resource usage. Shared MP4s need fresh feature
-manifests and frame-alignment checks; the old AVI manifest cannot be reused.
-Model weights also remain prerequisites. No data download or paid run is needed
-for the account setup above.
+Python and Modal do not automatically load this file. See
+[W&B configuration](../weights_and_biases/README.md) for destination precedence
+and uploads. Keep all credential values out of Git.
