@@ -12,14 +12,20 @@ from weights_and_biases.config import WANDB_ENTITY, WANDB_PROJECT
 
 
 def validate(folder):
+    fm = json.loads((folder / 'feature_manifest.json').read_text())
+    dataset = fm.get('dataset', 'CMU')
+    if dataset not in ('CMU', 'EGTEA'):
+        raise ValueError('Expected dataset CMU or EGTEA')
     files = ['feature_manifest.json', 'combined_features.pth.tar',
-             'object_features.pth.tar', 'raw_logits.npz', 'raw_probabilities.npz',
-             'predictions/manifest.json', 'predictions/probabilities.npz',
-             'predictions/predictions_by_second.csv']
+             'object_features.pth.tar', 'raw_logits.npz', 'raw_probabilities.npz']
+    if dataset == 'CMU':
+        files += ['predictions/manifest.json', 'predictions/probabilities.npz',
+                  'predictions/predictions_by_second.csv']
+    elif (folder / 'predictions').exists():
+        raise ValueError('EGTEA has no supported alias mapping; expected raw outputs without predictions')
     for name in files:
         if not (folder / name).is_file():
             raise FileNotFoundError(folder / name)
-    fm = json.loads((folder / 'feature_manifest.json').read_text())
     if fm.get('ground_truth_used') is not False or fm.get('object') != 'active-object':
         raise ValueError('Expected an explicitly unnamed active-object inference bundle')
     n = len(fm['interval_starts_seconds'])
@@ -34,7 +40,7 @@ def validate(folder):
     return fm, files
 
 
-def receipt_matches(receipt, entity, project):
+def receipt_matches(receipt, entity, project, group=None):
     """Accept saved destinations, including older receipts containing only a run URL."""
     from urllib.parse import urlparse, unquote
     parts = unquote(urlparse(receipt.get('url', '')).path).strip('/').split('/')
@@ -44,7 +50,8 @@ def receipt_matches(receipt, entity, project):
         run_index = 0
     url_entity, url_project = parts[run_index - 2:run_index] if run_index >= 2 else (None, None)
     return (receipt.get('entity', url_entity) == entity
-            and receipt.get('project', url_project) == project)
+            and receipt.get('project', url_project) == project
+            and (group is None or receipt.get('group') == group))
 
 
 def main():
@@ -52,28 +59,31 @@ def main():
     p.add_argument('--run', type=Path, required=True)
     p.add_argument('--entity', default=WANDB_ENTITY)
     p.add_argument('--project', default=WANDB_PROJECT)
-    p.add_argument('--group', default='cmu30-active-object-v1')
+    p.add_argument('--group', help='W&B group (default: cmu30-active-object-v1)')
     p.add_argument('--dry-run', action='store_true')
     a = p.parse_args()
+    group = a.group if a.group is not None else 'cmu30-active-object-v1'
     folder = a.run.resolve()
     fm, files = validate(folder)
+    dataset = fm.get('dataset', 'CMU')
     if a.dry_run:
         print(f"Validated {fm['video_id']}: {len(fm['interval_starts_seconds'])} intervals; no metrics")
         return
     receipt = folder / 'wandb_inference_receipt.json'
     if receipt.exists():
         previous = json.loads(receipt.read_text())
-        if receipt_matches(previous, a.entity, a.project):
+        if receipt_matches(previous, a.entity, a.project, a.group):
             print(receipt.read_text())
             return
         backup = folder / ('wandb_inference_receipt.' + hashlib.sha256(previous['url'].encode()).hexdigest()[:12] + '.json')
         backup.write_text(json.dumps(previous, indent=2) + '\n')
     import wandb
-    with wandb.init(entity=a.entity, project=a.project, group=a.group,
-        id=hashlib.sha256((a.group + fm['video_id'] + fm['feature_sha256']).encode()).hexdigest()[:16],
+    with wandb.init(entity=a.entity, project=a.project, group=group,
+        id=hashlib.sha256((group + fm['video_id'] + fm['feature_sha256']).encode()).hexdigest()[:16],
         resume='allow', name=f"{fm['video_id']}-active-object", job_type='inference',
-        tags=['vidosc', 'cmu30', 'active-object', 'outputs-only'],
+        tags=['vidosc', 'cmu30' if dataset == 'CMU' else 'egtea', 'active-object', 'outputs-only'],
         config={'video_id': fm['video_id'], 'scope': 'one unnamed active-object stream per video',
+                'dataset': dataset, 'mapping_applied': dataset == 'CMU',
                 'checkpoint_sha256': fm['vidosc_checkpoint_sha256'],
                 'feature_sha256': fm['feature_sha256'], 'crop_policy': fm['crop_policy'],
                 'metrics_computed': False, 'temporal_postprocessing': 'none',
@@ -87,7 +97,7 @@ def main():
         for name in files:
             artifact.add_file(str(folder / name), name=name)
         run.log_artifact(artifact).wait()
-        result = {'url': run.url, 'run_id': run.id, 'group': a.group,
+        result = {'url': run.url, 'run_id': run.id, 'group': group,
                   'entity': a.entity, 'project': a.project}
     receipt.write_text(json.dumps(result, indent=2) + '\n')
     print(result['url'])

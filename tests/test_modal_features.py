@@ -50,13 +50,13 @@ def tensor(value):
 
 @pytest.fixture
 def worker(tmp_path, monkeypatch):
-    from moscato import baseline, extract_internvideo, checkpoint_adapter, object_crops
+    from moscato import baseline, extract_internvideo, checkpoint_adapter, object_crops, r2_inputs
 
     def local_path(path):
         path = Path(path)
         if path.is_relative_to(tmp_path):
             return path
-        if str(path).startswith(('/tmp/', '/progress', '/root/', '/inputs/')):
+        if str(path).startswith(('/tmp/', '/progress', '/root/', '/inputs/', '/r2-videos')):
             path = tmp_path / str(path).lstrip('/')
         return path
 
@@ -105,6 +105,7 @@ def worker(tmp_path, monkeypatch):
         load_detector=load_detector, detect_frame=lambda model, cfg, frame, device: int(frame[0, 0, 0])))
     monkeypatch.setattr(object_crops, 'choose_crop', lambda detections, w, h: None if detections == 1 else [0, 0, 1, 1])
     monkeypatch.setattr(extract_internvideo, 'prepare_manifest', prepare)
+    monkeypatch.setattr(r2_inputs, 'stage_video', lambda source, destination, sha, size: destination)
     monkeypatch.setattr(extract_internvideo, 'sampled_clips',
                         lambda path, windows: ([np.full((2, 2, 3), i, dtype=np.uint8)] * 8 for i in range(len(windows))))
 
@@ -140,7 +141,10 @@ def worker(tmp_path, monkeypatch):
     function.decorator_list = []
     namespace = {'Path': local_path, 'progress_volume': SimpleNamespace(commit=lambda: None)}
     exec(compile(ast.Module(body=[function], type_ignores=[]), 'modal_clip.py', 'exec'), namespace)
-    return namespace['run_clip'], calls, load, capacity
+    def run(video_id, frame_count, fps):
+        return namespace['run_clip'](video_id, frame_count, fps, 'release/test-video.mp4',
+                                     'a' * 64, 10, 'CMU', 'release/')
+    return run, calls, load, capacity
 
 
 def test_cloud_extraction_outputs_and_resume(worker):
@@ -161,7 +165,9 @@ def test_cloud_extraction_outputs_and_resume(worker):
     manifest = json.loads(outputs['feature_manifest.json'])
     assert manifest['feature_extraction_device'] == 'Modal CPU'
     assert manifest['global_intervals_reused'] == manifest['object_intervals_reused'] == 0
-    assert set(manifest['stage_elapsed_seconds']) == {'setup', 'detection', 'encoder_load',
+    assert manifest['dataset'] == 'CMU'
+    assert manifest['source_r2_key'] == 'release/test-video.mp4'
+    assert set(manifest['stage_elapsed_seconds']) == {'input_transfer', 'setup', 'detection', 'encoder_load',
                                                      'global_features', 'object_features', 'inference'}
     resumed = json.loads(run('test-video', 3, 1.0)['feature_manifest.json'])
     assert resumed['global_intervals_reused'] == resumed['object_intervals_reused'] == 3

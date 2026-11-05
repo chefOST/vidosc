@@ -14,7 +14,10 @@ def main():
     source, out = Path(args.run), Path(args.output)
     if out.exists():
         raise FileExistsError(out)
-    fm, mapping = read(source/'feature_manifest.json'), read(args.mapping)
+    fm = read(source/'feature_manifest.json')
+    if fm.get('dataset', 'CMU') != 'CMU':
+        raise ValueError('MOSCATO alias mapping is only supported for CMU; keep EGTEA outputs raw')
+    mapping = read(args.mapping)
     if fm.get('ground_truth_used') is not False or mapping.get('ground_truth_used_to_define_mapping') is not False:
         raise ValueError('Missing no-ground-truth provenance')
     if mapping['checkpoint_sha256'] != fm['vidosc_checkpoint_sha256']:

@@ -12,12 +12,16 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts.modal_detector import base_image
 
-VIDEO = Path(os.environ.get('VIDOSC_VIDEO', ROOT / 'data/moscato/videos/S29_Salad_7150991-1.avi'))
-RUN_TIMEOUT = int(os.environ.get('VIDOSC_TIMEOUT', '7200'))
-if not 60 <= RUN_TIMEOUT <= 7200:
-    raise ValueError('VIDOSC_TIMEOUT must be between 60 and 7200 seconds')
+R2_BUCKET = os.environ.get('VIDOSC_R2_BUCKET', 'chefost-moscato-gt-videos')
+R2_ENDPOINT = os.environ.get('VIDOSC_R2_ENDPOINT', 'https://2aee25b6b08cc209d7cab66f1d0942fd.r2.cloudflarestorage.com')
+R2_PREFIX = os.environ.get('VIDOSC_R2_PREFIX', 'moscato/releases/564f350e536734db/videos/')
+RUN_TIMEOUT = int(os.environ.get('VIDOSC_TIMEOUT', '21600'))
+if not 60 <= RUN_TIMEOUT <= 86400:
+    raise ValueError('VIDOSC_TIMEOUT must be between 60 and 86400 seconds')
 app = modal.App('vidosc-exploratory')
 progress_volume = modal.Volume.from_name('vidosc-active-object-progress', create_if_missing=True)
+videos = modal.CloudBucketMount(bucket_name=R2_BUCKET, bucket_endpoint_url=R2_ENDPOINT,
+                                key_prefix=R2_PREFIX, secret=modal.Secret.from_name('chefost-r2'), read_only=True)
 image = (
     base_image
     .apt_install('ffmpeg')
@@ -31,15 +35,14 @@ image = (
     )
     .add_local_dir(ROOT / 'scripts', '/root/scripts', ignore=['__pycache__/**', '*.local.sh'])
     .add_local_dir(ROOT / 'moscato', '/root/moscato', ignore=['__pycache__/**', '*.local.sh'])
-    .add_local_file(VIDEO, '/inputs/video.avi')
     .add_local_file(ROOT / 'checkpoints/changeit/state_best.ckpt', '/inputs/vidosc.ckpt')
-    .add_local_file(Path.home() / 'Downloads/InternVideo-MM-L-14.ckpt', '/inputs/internvideo.ckpt')
+    .add_local_file(ROOT / 'checkpoints/internvideo/InternVideo-MM-L-14.ckpt', '/inputs/internvideo.ckpt')
 )
 
 
 @app.function(image=image, cpu=(4, 4), memory=(16384, 16384), timeout=RUN_TIMEOUT, retries=0,
-              max_containers=1, scaledown_window=2, volumes={'/progress': progress_volume})
-def run_clip(video_id, frame_count, fps):
+              max_containers=1, scaledown_window=2, volumes={'/progress': progress_volume, '/r2-videos': videos})
+def run_clip(video_id, frame_count, fps, r2_key, expected_sha256, expected_bytes, dataset, r2_prefix):
     import gc
     import io
     import json
@@ -54,11 +57,17 @@ def run_clip(video_id, frame_count, fps):
     from moscato.extract_internvideo import sampled_clips, load_encoder, prepare_manifest
     from moscato.checkpoint_adapter import predict, read_weights, inspect_weights, inference_timesteps
     from moscato.progress_cache import save_features, load_features
+    from moscato.r2_inputs import relative_key, stage_video
 
     started = time.monotonic()
     stage_elapsed = {}
     torch.set_num_threads(4)
-    manifest = prepare_manifest('/inputs/video.avi', video_id, 'active-object',
+    if dataset not in {'CMU', 'EGTEA'}:
+        raise ValueError('Unsupported dataset')
+    video = str(stage_video(Path('/r2-videos') / relative_key(r2_key, r2_prefix),
+                            Path('/tmp/video.mp4'), expected_sha256, expected_bytes))
+    stage_elapsed['input_transfer'] = time.monotonic() - started
+    manifest = prepare_manifest(video, video_id, 'active-object',
                                 '/inputs/internvideo.ckpt', '/opt/internvideo',
                                 0, frame_count, fps, 'cpu')
     windows = manifest['sampled_global_frame_indices']
@@ -95,12 +104,12 @@ def run_clip(video_id, frame_count, fps):
         raise ValueError('Feature checkpoint extends beyond saved detections')
     print(f'Resumable cache: {global_completed}/{count} global, {len(crops)}/{count} detections, '
           f'{completed}/{count} object intervals', flush=True)
-    stage_elapsed['setup'] = time.monotonic() - started
+    stage_elapsed['setup'] = time.monotonic() - started - stage_elapsed['input_transfer']
     stage_started = time.monotonic()
     if len(crops) < count:
         detector, cfg = load_detector('/opt/hand-object', '/models/hand_object_100k.pth', 'cpu')
         # Choose a crop using one of the exact frames used by the global encoder.
-        for index, frames in enumerate(sampled_clips('/inputs/video.avi', windows)):
+        for index, frames in enumerate(sampled_clips(video, windows)):
             if index < len(crops):
                 continue
             frame = frames[4]
@@ -126,7 +135,7 @@ def run_clip(video_id, frame_count, fps):
         with torch.inference_mode():
             stage_started = time.monotonic()
             if global_completed < count:
-                for index, frames in enumerate(sampled_clips('/inputs/video.avi', windows)):
+                for index, frames in enumerate(sampled_clips(video, windows)):
                     if index < global_completed:
                         continue
                     tensor = preprocess(frames).unsqueeze(0).to('cpu')
@@ -143,7 +152,7 @@ def run_clip(video_id, frame_count, fps):
             stage_elapsed['global_features'] = time.monotonic() - stage_started
             stage_started = time.monotonic()
             if completed < count:
-                for index, frames in enumerate(sampled_clips('/inputs/video.avi', windows)):
+                for index, frames in enumerate(sampled_clips(video, windows)):
                     if index < completed:
                         continue
                     box = crops[index]['crop_xyxy_exclusive']
@@ -178,6 +187,7 @@ def run_clip(video_id, frame_count, fps):
     np.savez_compressed(output, state=state, action=action)
     result_manifest = dict(manifest)
     result_manifest.update(
+        dataset=dataset, source_r2_key=r2_key,
         feature_layout='global_768_then_object_768', object_features_present=True,
         feature_sha256=digest('/tmp/combined.pth.tar'),
         object_feature_sha256=digest('/tmp/object.pth.tar'),
@@ -212,7 +222,9 @@ def main():
         raise FileExistsError(output)
     # The planner supplies metadata; no feature extraction runs in this process.
     result = run_clip.remote(os.environ['VIDOSC_VIDEO_ID'],
-                             int(os.environ['VIDOSC_FRAME_COUNT']), float(os.environ['VIDOSC_FPS']))
+                             int(os.environ['VIDOSC_FRAME_COUNT']), float(os.environ['VIDOSC_FPS']),
+                             os.environ['VIDOSC_R2_KEY'], os.environ['VIDOSC_VIDEO_SHA256'],
+                             int(os.environ['VIDOSC_VIDEO_BYTES']), os.environ['VIDOSC_DATASET'], R2_PREFIX)
     output.mkdir(parents=True, exist_ok=False)
     for name, data in result.items():
         (output / name).write_bytes(data)

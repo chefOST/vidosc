@@ -1,170 +1,176 @@
 # Active-object full-video workflow
 
-This is the maintained workflow on `harrison/vidosc-experiments`, based on
-Pritika's October 30 handoff for the October 24 runs. The frozen IDs in
-[`configs/moscato_cmu30_v1.json`](../configs/moscato_cmu30_v1.json) describe a
-historical 30-video CMU subset. Each video produces one unnamed hand-associated
-active-object stream that may switch objects over time. Ground-truth object labels
-are not inference inputs, and this workflow computes no evaluation metrics.
+The maintained workflow extends Pritika's October 24 active-object runs to the
+pinned R2 release. It produces one unnamed hand-associated stream per video;
+that stream may switch objects over time. Inference receives no ground-truth
+labels and computes no evaluation metrics.
 
 ## Setup
 
-From this repository's root, use Python 3.11 and a local `.venv`:
+Run commands from this repository's root. The local environment uses Python 3.13
+(setup checked with 3.13.7); the Modal image uses Python 3.11.
 
 ```sh
-python3.11 -m venv .venv
+python3.13 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python scripts/setup_checkpoints.py
 ```
 
-Install the FFmpeg system tools (`ffmpeg` and `ffprobe`; `brew install ffmpeg` on
-macOS). Configure [your Modal and W&B accounts](account-setup.md).
+The checkpoint script downloads and verifies the expected SHA256 for both files:
 
-Download these pretrained weights from the linked official releases and place them
-at the paths expected by the planner:
+- `checkpoints/internvideo/InternVideo-MM-L-14.ckpt`
+- `checkpoints/changeit/state_best.ckpt` (ChangeIt multitask state checkpoint)
 
-- `~/Downloads/InternVideo-MM-L-14.ckpt`: the InternVideo-MM-L-14 model from
-  [InternVideo's multimodal release](https://github.com/OpenGVLab/InternVideo/tree/3965eef16e2dadd0ea6c8d0cc29c8a3039df52e3/InternVideo1/Pretrain/Multi-Modalities-Pretraining).
-  SHA256: `a508e42229072f84a3fcd5fc3acdb7ebc969b27519ee1f56dac9996999cd40f6`.
-- `checkpoints/changeit/state_best.ckpt`: the ChangeIt **multitask** state checkpoint
-  from the [VidOSC checkpoint release](https://drive.google.com/drive/folders/1UyRQ_dlT0AjeCLM3LlxnjFtRRUm7Fowj).
-  SHA256: `e6d1fa0d4708c8dffecba2a37f25149cc80c85fed33e6d4537bcaf98b0d94d36`.
+InternVideo's current official download requires access to
+[OpenGVLab/InternVideo1.0](https://huggingface.co/OpenGVLab/InternVideo1.0).
+Accept its access conditions, run `.venv/bin/hf auth login` locally with that
+account's read token, then rerun the checkpoint script. Never put tokens in Git or chat.
 
-The Modal image clones InternVideo at `3965eef16e2dadd0ea6c8d0cc29c8a3039df52e3`
-and VidOSC at `59575773c97878ea30a0228f28ab00a3ee2f1ea2`, and builds the hand/object
-detector environment. Neither source checkout is needed on the local machine.
-The detector uses a pinned checkpoint mirror with
-Git LFS size/hash checks. Source revisions and dependencies are defined in
-[`scripts/modal_detector.py`](../scripts/modal_detector.py) and
-[`scripts/modal_clip.py`](../scripts/modal_clip.py).
+Weights are uploaded from the laptop to Modal. The Modal image supplies FFmpeg,
+the hand/object detector, InternVideo at `3965eef16e2dadd0ea6c8d0cc29c8a3039df52e3`,
+and VidOSC at `59575773c97878ea30a0228f28ab00a3ee2f1ea2`. No local InternVideo
+source checkout or feature extraction is needed. Image dependencies and detector
+checkpoint verification are in [`scripts/modal_detector.py`](../scripts/modal_detector.py)
+and [`scripts/modal_clip.py`](../scripts/modal_clip.py).
 
-## Data and inventory
-
-Populate these ignored local paths using the matching CMU release snapshot:
-
-- `data/moscato/annotations/gt_annotations_cmu.json`
-- `data/moscato/vocabulary/files_dict.json` and `state_dict.json`
-- `data/moscato/videos/<video_id>.avi`
-
-The frozen annotation SHA256 is
-`41ddb05eb3b8dd3fd1eb159d10c29e8d2eba95bbdd3fd2cf697a202cf943f912`.
-The mapping expects CMU `state_dict.json` SHA256
-`0fbc692af4c5ff399a467804abb3e4d8af27fedb47256dc9e6072fb4f6b8aa05`.
-Use the corresponding historical files from [chefOST-data](https://github.com/chefOST/chefOST-data).
-The current shared release excludes `S13_Brownie_7150991-631` for a video/annotation
-length mismatch; the historical CMU30 configuration still includes it. Do not
-silently replace this snapshot with the current curated subset.
-
-The current runner uploads local AVIs and pretrained weights to Modal. It does not
-mount the shared R2 MP4s. R2 access is documented in [account setup](account-setup.md);
-using those MP4s requires explicit integration, fresh manifests and frame-clock checks.
-
-To download the frozen AVI subset from the original archives, then inspect it:
+CMU's existing mapping requires the matching vocabulary, separate from the model
+inputs. Copy it from the sibling MOSCATO checkout:
 
 ```sh
-mkdir -p runs/batch-preparation
-cp configs/cmu30_download_inventory.json runs/batch-preparation/download_inventory.json
-.venv/bin/python scripts/download_cmu30.py
-.venv/bin/python scripts/inventory_moscato.py
+mkdir -p data/moscato/vocabulary
+cp ../MOSCATO/vocabulary/CMU/state_dict.json data/moscato/vocabulary/state_dict.json
 ```
 
-The download inventory records historical availability and sizes, not guaranteed
-current availability. The downloader extracts the named camera video from each
-archive. Inspect `runs/batch-preparation/inventory.json` and `inventory.md` before
-planning. Metadata counts alone do not verify annotation alignment. Inventory may
-read annotations, but the remote inference worker receives no ground truth.
+Its expected SHA256 is
+`0fbc692af4c5ff399a467804abb3e4d8af27fedb47256dc9e6072fb4f6b8aa05`.
+No annotation files are required by this workflow. Configure
+[your Modal, R2 and W&B accounts](account-setup.md) before inventory or execution.
 
-## Pipeline and execution
+## R2 inventory
 
-1. `scripts/prepare_full_video_plan.py` creates the Modal model stage and local
-   mapping stage. The local machine does no feature extraction or model inference.
-2. `scripts/modal_clip.py` samples eight frames per one-second interval, with a
-   shortened final interval. It detects hand-associated objects on the fifth
-   sampled frame and applies their union crop to the interval's eight frames.
-   InternVideo encodes global frames and valid crops on Modal CPU into separate
-   L2-normalized 768-dimensional features. Missing crops use zeros; global and
-   object features concatenate to 1,536 dimensions.
-3. For N ≤ 900 observed intervals, the transformer still receives zero padding
-   to 900. Longer videos use all N intervals without chunking or truncation, up
-   to the released checkpoint's 5,000-position capacity. Saved logits and softmax
-   probabilities retain only observed intervals. No temporal ordering decoder
-   or internal-activation export is applied.
-4. `moscato.import_modal_predictions` projects saved state probabilities through
-   the fixed CMU alias mapping. `scripts/log_inference_wandb.py` validates and uploads
-   each completed output bundle.
+[`configs/r2_release.json`](../configs/r2_release.json) is canonical for the bucket,
+endpoint, release prefix, manifest and expected release hash. Read the release
+and check its object listing using the existing local AWS profile:
 
-The crop policy and extraction compatibility are adaptations; their exact parity
-with the original training feature generator is unverified. The mapping reconstructs
-source index order from released vocabulary metadata and supports only a subset
-of CMU labels. Preserve the raw outputs alongside mapped scores.
+```sh
+AWS_PROFILE=chefost-r2 .venv/bin/python scripts/inventory_r2.py
+```
+
+Inspect `runs/batch-preparation/inventory.json` before planning. The pinned release
+has 41 available videos: 29 CMU and 12 EGTEA. The report also records 46 unavailable
+EgoPER videos, which are excluded from execution. Availability is not a successful
+inference result or a benchmark result.
+
+The worker mounts R2 read-only through the Modal Secret `chefost-r2`, then uses
+temporary files inside its container for video decoding. Full videos are not
+downloaded to the laptop. Do not substitute the historical CMU30 AVI inventory:
+the R2 release has its own source hashes and sampling metadata.
+
+## Pipeline
+
+1. `scripts/prepare_full_video_plan.py` creates one Modal model stage per video
+   and, for CMU only, a local mapping stage.
+2. `scripts/modal_clip.py` samples eight frames per one-second interval, shortening
+   the final interval. It detects hand-associated objects on the fifth sampled
+   frame and applies their union crop to all eight frames. InternVideo encodes
+   global frames and valid crops on Modal CPU into separate L2-normalized
+   768-dimensional features. Missing crops use zeros; concatenation yields 1,536
+   dimensions.
+3. For N ≤ 900 observed intervals, model inputs are zero-padded to 900. Longer
+   videos use all N intervals without chunking or truncation, up to the released
+   checkpoint's 5,000-position capacity. Saved logits and softmax probabilities
+   retain only observed intervals. No temporal ordering decoder is applied.
+4. CMU probabilities pass through the existing fixed alias mapping. EGTEA has no
+   supported MOSCATO alias mapping and retains raw source-index outputs only.
+   `scripts/log_inference_wandb.py` validates and uploads each completed bundle.
+
+The crop policy and feature extraction are ChefOST adaptations; exact parity with
+the training feature generator remains unverified. The CMU mapping reconstructs
+source index order from released vocabulary metadata and covers only a subset of
+CMU labels. Processing longer videos does not establish accuracy on them.
+
+## Preview and execution
 
 Create `runs/batch-preparation/modal_rates.json` with numeric `cpu_hour_cost` and
-`mem_gib_hour_cost` values from the rates applicable to your account. No current
-prices are bundled. Set `BUDGET_USD` to the amount approved for your run; the
-coordinator currently accepts positive amounts up to 25 USD. That software limit
-does not carry forward approval from Pritika's earlier experiment.
-
-Preview the configured batch without running models or uploading results:
+`mem_gib_hour_cost` values applicable to your Modal account. No current prices are
+bundled. Preview the available release without starting models or uploading outputs:
 
 ```sh
-.venv/bin/python scripts/run_cmu30_active.py --budget-usd "$BUDGET_USD"
+.venv/bin/python scripts/run_full_batch.py
 ```
 
-After reviewing the inventory, account destination and budget, execution uses:
+The default experiment is `full-r2-v1`. To select a two-video test, take one CMU
+and one EGTEA ID from the inventory and repeat `--video-id`. Preview that selection
+first, then add execution only after approving its budget:
 
 ```sh
-.venv/bin/python scripts/run_cmu30_active.py --execute --budget-usd "$BUDGET_USD"
+.venv/bin/python scripts/run_full_batch.py \
+  --video-id "$CMU_VIDEO_ID" --video-id "$EGTEA_VIDEO_ID"
+
+# Only after approval; set BUDGET_USD to the approved amount.
+.venv/bin/python scripts/run_full_batch.py \
+  --video-id "$CMU_VIDEO_ID" --video-id "$EGTEA_VIDEO_ID" \
+  --execute --budget-usd "$BUDGET_USD"
 ```
 
-The coordinator runs sequentially, using 4 CPUs, 16 GiB, a 7,200-second worker
-timeout and no automatic inference retries. Its ledger estimates reservations;
-it is not a provider billing cap. Keep the local coordinator awake and connected
-for result retrieval and upload. Do not run two coordinators against the same
-experiment directory. Inputs beyond the checkpoint's 5,000-position capacity are
-rejected; support for other dataset vocabularies requires a separate mapping.
-Processing a longer sequence does not establish the model's accuracy on long videos.
-Long videos may exceed the worker's two-hour execution timeout; a later attempt
-can resume its saved extraction progress. Per-stage timings cover that attempt,
-not image startup, input transfers or earlier attempts.
+`--execute` requires an explicit positive, finite `--budget-usd`; there is no
+25 USD ceiling. The sequential worker requests 4 CPUs and 16 GiB.
+`--timeout` defaults to 21,600 (six hours), with a supported range of 60–86,400.
+The ledger reserves worst-case compute per attempt using the requested timeout
+and configured rates. It is an estimate, not a provider billing hard cap.
+Before paid stages, the coordinator checks static inputs, dependencies, weights
+and the CMU vocabulary for the selected batch. Failures are recorded and the loop
+continues to later videos; paid jobs are not automatically retried. Inspect
+failures before manually attempting them again.
+
+For the full available batch, omit `--video-id`. For an unattended Mac run, load
+credentials in the current shell and set the approved budget before starting:
+
+```sh
+mkdir -p runs
+nohup caffeinate -is .venv/bin/python scripts/run_full_batch.py \
+  --execute --budget-usd "$BUDGET_USD" >runs/full-r2.log 2>&1 &
+```
+
+Leave the laptop open, connected to AC power and the internet, and running until
+results have been retrieved and uploaded. The display can turn off; the computer
+cannot be powered off. `nohup` permits closing the terminal, while `caffeinate`
+keeps the coordinator awake. Do not run two coordinators in the same experiment
+directory. Follow `runs/full-r2.log` and the experiment's `batch_status.json`.
 
 ## Outputs and reuse
 
-Outputs live under `runs/batches/<experiment>/<video_id>/model/`, with experiment
-default `cmu30-active-object-v1`:
+Outputs live under `runs/batches/<experiment>/<video_id>/model/`. Every video
+retains the existing five raw files:
 
 - `raw_logits.npz`: `state_logits` (N×52) and `action_logits` (N×28), before softmax.
-- `raw_probabilities.npz`: state/action probabilities over the source classes.
+- `raw_probabilities.npz`: probabilities over the source classes.
 - `combined_features.pth.tar`: N×1536, global 768 followed by object 768.
-- `object_features.pth.tar`: N×768, including explicit missing-crop zeros.
-- `feature_manifest.json`: sampling windows, crops, checkpoint/input hashes,
-  extraction device, per-stage elapsed seconds, reused interval counts and output-stage metadata.
-- `predictions/probabilities.npz`: source probabilities and CMU-mapped state scores.
-- `predictions/predictions_by_second.csv` and `predictions/manifest.json`: named
-  interval predictions and mapping provenance.
-- `wandb_inference_receipt.json`: the actual upload destination and run URL.
+- `object_features.pth.tar`: N×768, including missing-crop zeros.
+- `feature_manifest.json`: dataset, sampling, crops, input/checkpoint hashes,
+  extraction device, per-stage elapsed seconds and reused interval counts.
 
-N is the number of observed intervals. The experiment directory also holds
-`batch_status.json` and per-video logs. [W&B configuration](../weights_and_biases/README.md)
-defaults to `chefOST/vidosc-experiments`, group `cmu30-active-object-v1`.
-Confidence and crop coverage are not accuracy, and a single active-object stream
-does not establish separate predictions for every annotated object.
+CMU adds three files: `predictions/probabilities.npz`,
+`predictions/predictions_by_second.csv` and `predictions/manifest.json`. Its W&B
+artifact therefore retains eight files. EGTEA uploads the five raw files with
+`mapping_applied: false`; any mapped prediction directory is rejected. No separate
+global-feature file is exported. These are VidOSC outputs, not reusable feature
+inputs promised for TubeletGraph or MOSCATO.
 
-`scripts/batch_vidosc.py` reuses completed stages only when receipt commands,
-environments, inputs and output hashes match. Inspect partial outputs without
-receipts before retrying.
-Receipt hashes from older code can fail after cleanup; use a fresh experiment
-directory instead of weakening the checks. Both the planner and coordinator accept
-`--experiment`. For example, preview a fresh directory with:
+`wandb_inference_receipt.json` records the actual destination and run URL. The
+experiment directory contains `batch_status.json` and per-video logs. W&B defaults
+to `chefOST/vidosc-experiments`, with group equal to the experiment name. Confidence
+and crop coverage are not accuracy; one active-object stream does not provide a
+separate prediction for every annotated object.
 
-```sh
-.venv/bin/python scripts/run_cmu30_active.py --experiment cmu30-active-object-v2 --budget-usd "$BUDGET_USD"
-```
+Completed stages are reused only when receipt commands, environments, inputs and
+output hashes match. Inspect partial outputs without receipts before retrying.
+For changed code or inputs, choose a fresh directory with `--experiment`; use the
+same value for preview and execution. An existing completed bundle can be uploaded
+to a changed W&B destination or explicit group without repeating model inference.
 
-Use the same experiment value when adding `--execute`. The W&B group remains
-`cmu30-active-object-v1` unless overridden at upload. If a complete bundle was
-uploaded to a different W&B destination, the coordinator can upload those saved
-outputs to the configured destination during execution without repeating inference.
-
-Modal saves detections and global/object-feature progress every 10 intervals in the
-`vidosc-active-object-progress` volume in your workspace. Resume requires matching
-video, sampling, weights, crop policy and extraction code. An account's local files,
-upload receipts and remote volume are separate; none is included in a fresh clone.
+The `vidosc-active-object-progress` Modal volume saves detections and global/object
+feature progress every ten intervals. Resume requires matching videos, sampling,
+weights, crop policy and extraction code. Per-stage timings describe one attempt,
+including the R2 input copy but excluding image startup, laptop uploads and earlier attempts. Local files, upload
+receipts and the remote volume are separate and are not included in a fresh clone.

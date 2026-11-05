@@ -144,6 +144,8 @@ def test_preserves_recorded_ids_and_upload_contract(bundle, monkeypatch, video_i
         config={
             "video_id": video_id,
             "scope": "one unnamed active-object stream per video",
+            "dataset": "CMU",
+            "mapping_applied": True,
             "checkpoint_sha256": "synthetic-checkpoint",
             "feature_sha256": feature_sha256,
             "crop_policy": manifest["crop_policy"],
@@ -195,6 +197,15 @@ def test_legacy_forge_receipt_matches_only_its_original_destination():
     assert not logger.receipt_matches(receipt, "another-team", "vidosc - full evals")
 
 
+def test_group_matching_is_optional_for_legacy_receipts():
+    receipt = {"url": "https://wandb.ai/chefOST/vidosc-experiments/runs/synthetic-run"}
+    assert logger.receipt_matches(receipt, "chefOST", "vidosc-experiments")
+    assert not logger.receipt_matches(receipt, "chefOST", "vidosc-experiments", "full-r2-v1")
+    receipt["group"] = "full-r2-v1"
+    assert logger.receipt_matches(receipt, "chefOST", "vidosc-experiments", "full-r2-v1")
+    assert not logger.receipt_matches(receipt, "chefOST", "vidosc-experiments", "another-batch")
+
+
 def test_omitted_destination_flags_use_shared_configuration(bundle, monkeypatch):
     folder, _ = bundle
     monkeypatch.setattr(logger, "WANDB_ENTITY", "configured-team")
@@ -209,3 +220,113 @@ def test_omitted_destination_flags_use_shared_configuration(bundle, monkeypatch)
     receipt = json.loads((folder / "wandb_inference_receipt.json").read_text())
     assert receipt["entity"] == "configured-team"
     assert receipt["project"] == "configured-experiments"
+
+
+@pytest.fixture
+def egtea_bundle(bundle):
+    folder, manifest = bundle
+    manifest.update(dataset="EGTEA", video_id="synthetic-egtea-video")
+    (folder / "feature_manifest.json").write_text(json.dumps(manifest))
+    for name in ARTIFACT_FILES[5:]:
+        (folder / name).unlink()
+    (folder / "predictions").rmdir()
+    return folder, manifest
+
+
+def test_explicit_cmu_keeps_all_eight_artifacts(bundle):
+    folder, manifest = bundle
+    manifest["dataset"] = "CMU"
+    (folder / "feature_manifest.json").write_text(json.dumps(manifest))
+    assert logger.validate(folder) == (manifest, ARTIFACT_FILES)
+    (folder / ARTIFACT_FILES[-1]).unlink()
+    with pytest.raises(FileNotFoundError):
+        logger.validate(folder)
+
+
+@pytest.mark.parametrize("dataset", ["egtea", "unknown", "", None])
+def test_rejects_unsupported_dataset(bundle, dataset):
+    folder, manifest = bundle
+    manifest["dataset"] = dataset
+    (folder / "feature_manifest.json").write_text(json.dumps(manifest))
+    with pytest.raises(ValueError, match="Expected dataset CMU or EGTEA"):
+        logger.validate(folder)
+
+
+@pytest.mark.parametrize("missing", ARTIFACT_FILES[:5])
+def test_egtea_requires_every_raw_output(egtea_bundle, missing):
+    folder, _ = egtea_bundle
+    (folder / missing).unlink()
+    with pytest.raises(FileNotFoundError):
+        logger.validate(folder)
+
+
+@pytest.mark.parametrize("mapped_files", [[], ARTIFACT_FILES[5:6], ARTIFACT_FILES[5:]])
+def test_egtea_rejects_partial_or_complete_mapping(egtea_bundle, mapped_files):
+    folder, _ = egtea_bundle
+    (folder / "predictions").mkdir()
+    for name in mapped_files:
+        (folder / name).write_bytes(b"unexpected mapped output")
+    with pytest.raises(ValueError, match="EGTEA has no supported alias mapping"):
+        logger.validate(folder)
+
+
+def test_egtea_logs_only_five_raw_files_without_mapping_or_metrics(egtea_bundle, monkeypatch):
+    folder, manifest = egtea_bundle
+    assert logger.validate(folder) == (manifest, ARTIFACT_FILES[:5])
+    client, run, artifact = fake_wandb(monkeypatch, "synthetic-egtea-run")
+    invoke(monkeypatch, folder, "--group", "r2-full-active-object-v1")
+    settings = client.init.call_args.kwargs
+    assert settings["group"] == "r2-full-active-object-v1"
+    assert settings["tags"] == ["vidosc", "egtea", "active-object", "outputs-only"]
+    assert settings["config"]["dataset"] == "EGTEA"
+    assert settings["config"]["mapping_applied"] is False
+    assert settings["config"]["metrics_computed"] is False
+    assert artifact.add_file.call_args_list == [
+        call(str(folder / name), name=name) for name in ARTIFACT_FILES[:5]
+    ]
+    assert set(run.summary) == {"coverage/object_windows", "coverage/missing_object_windows", "completion"}
+    receipt = json.loads((folder / "wandb_inference_receipt.json").read_text())
+    assert receipt["group"] == "r2-full-active-object-v1"
+
+
+def test_importer_rejects_egtea_before_loading_mapping_or_creating_outputs(egtea_bundle, monkeypatch):
+    from moscato import import_modal_predictions as importer
+
+    folder, _ = egtea_bundle
+    output = folder / "predictions"
+    monkeypatch.setattr(sys, "argv", [
+        "import_modal_predictions.py", "--run", str(folder),
+        "--mapping", str(folder / "missing-mapping.json"),
+        "--state-dict", str(folder / "missing-vocabulary.json"), "--output", str(output),
+    ])
+    with pytest.raises(ValueError, match="only supported for CMU"):
+        importer.main()
+    assert not output.exists()
+
+
+@pytest.mark.parametrize("old_group", [None, "old-group"])
+def test_explicit_group_relogs_existing_outputs_with_missing_or_different_group(bundle, monkeypatch, old_group):
+    folder, _ = bundle
+    client, run, artifact = fake_wandb(monkeypatch, "new-group-run")
+    previous = {"url": "https://wandb.ai/chefOST/vidosc%20-%20full%20evals/runs/old-run"}
+    if old_group is not None:
+        previous["group"] = old_group
+    (folder / "wandb_inference_receipt.json").write_text(json.dumps(previous))
+    invoke(monkeypatch, folder, "--group", "full-r2-v1")
+    assert client.init.call_args.kwargs["group"] == "full-r2-v1"
+    assert artifact.add_file.call_count == 8
+    assert json.loads((folder / "wandb_inference_receipt.json").read_text())["group"] == "full-r2-v1"
+    backups = list(folder.glob("wandb_inference_receipt.*.json"))
+    assert len(backups) == 1
+    assert json.loads(backups[0].read_text()) == previous
+
+
+def test_explicit_matching_group_reuses_receipt(egtea_bundle, monkeypatch):
+    folder, _ = egtea_bundle
+    client, run, _ = fake_wandb(monkeypatch, "existing-run")
+    receipt = {"url": run.url, "group": "full-r2-v1"}
+    path = folder / "wandb_inference_receipt.json"
+    path.write_text(json.dumps(receipt))
+    invoke(monkeypatch, folder, "--group", "full-r2-v1")
+    client.init.assert_not_called()
+    assert json.loads(path.read_text()) == receipt

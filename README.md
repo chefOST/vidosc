@@ -1,10 +1,15 @@
 # VidOSC / ChefOST
 
 ChefOST evaluates object-state tracking in procedural cooking videos. This branch
-extends Pritika's CMU full-video workflow: one unnamed hand-associated active-object
-stream per video, with features, logits and probabilities saved for later analysis.
-Global/object feature extraction and model inference run on Modal CPU. The local
-machine supplies the videos and weights, coordinates stages, and retrieves outputs.
+extends Pritika's full-video workflow to the pinned R2 release: 29 CMU and 12 EGTEA
+videos available for inference, with 46 unavailable EgoPER videos reported separately.
+Each video produces one unnamed hand-associated active-object stream. CMU outputs
+include the existing alias mapping; EGTEA outputs remain raw, without a new mapping.
+These inventory counts are not completed-run or benchmark results.
+
+Global/object feature extraction and model inference run on Modal CPU. The worker
+reads videos from R2; the local machine supplies verified weights, coordinates
+stages, and retrieves outputs. Full videos are not downloaded to the laptop.
 
 Start with [setup and workflow](docs/FULL_RUN_HANDOFF.md),
 [account setup](docs/account-setup.md), and [agent instructions](AGENTS.md).
@@ -28,4 +33,6 @@ Read the [project goals](https://github.com/chefOST/.github/blob/main/docs/Paper
 
 ## Experiment tracking
 
-W&B defaults to `chefOST/vidosc-experiments`. See [W&B setup](weights_and_biases/README.md) for configuration and upload commands.
+W&B defaults to `chefOST/vidosc-experiments`; the full-batch group follows the
+experiment name (`full-r2-v1` by default). See [W&B setup](weights_and_biases/README.md)
+for configuration and upload commands.
