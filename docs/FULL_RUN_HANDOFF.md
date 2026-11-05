@@ -32,6 +32,8 @@ and VidOSC at `59575773c97878ea30a0228f28ab00a3ee2f1ea2`. No local InternVideo
 source checkout or feature extraction is needed. Image dependencies and detector
 checkpoint verification are in [`scripts/modal_detector.py`](../scripts/modal_detector.py)
 and [`scripts/modal_clip.py`](../scripts/modal_clip.py).
+Plans select Modal image builder `2025.06`, supported by the pinned client, without
+changing the workspace's default image builder.
 
 CMU's existing mapping requires the matching vocabulary, separate from the model
 inputs. Copy it from the sibling MOSCATO checkout:

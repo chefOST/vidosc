@@ -27,6 +27,7 @@ def test_cmu_plan_uses_r2_then_mapping_without_local_extraction(inputs):
     output = root / "runs/batches/full-r2-v1" / row["video_id"] / "model"
     assert model["command"] == [str(root / ".venv/bin/python"), "-m", "modal", "run", "scripts/modal_clip.py"]
     assert model["env"] == {
+        "MODAL_IMAGE_BUILDER_VERSION": "2025.06",
         "VIDOSC_R2_KEY": row["r2_key"], "VIDOSC_VIDEO_SHA256": row["sha256"],
         "VIDOSC_VIDEO_BYTES": "1234", "VIDOSC_VIDEO_ID": row["video_id"],
         "VIDOSC_FRAME_COUNT": "6243", "VIDOSC_FPS": "30", "VIDOSC_DATASET": "CMU",
