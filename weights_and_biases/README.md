@@ -8,9 +8,7 @@ is `vidosc - full evals`; the current workflow exports outputs without evaluatio
 
 The coordinator invokes `scripts/log_inference_wandb.py` after each successful
 video. It uploads features, logits, source/mapped probabilities and provenance,
-plus completion and crop-coverage summaries. New bundles also include standalone
-global features, extraction device, per-stage timings and reused global-interval
-counts; historical eight-file bundles remain supported. The default group is
+plus completion and crop-coverage summaries. The default group is
 `cmu30-active-object-v1`. The upload receipt records the actual destination.
 When the destination changes, the coordinator uploads an existing completed bundle
 to the new destination during execution without repeating model inference.

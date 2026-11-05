@@ -200,7 +200,6 @@ def run_clip(video_id, frame_count, fps):
     return {'feature_manifest.json': json.dumps(result_manifest, indent=2).encode(),
             'combined_features.pth.tar': Path('/tmp/combined.pth.tar').read_bytes(),
             'object_features.pth.tar': Path('/tmp/object.pth.tar').read_bytes(),
-            'global_features.pth.tar': Path('/tmp/global_features.pth.tar').read_bytes(),
             'raw_logits.npz': Path('/tmp/raw_logits.npz').read_bytes(),
             'raw_probabilities.npz': output.getvalue()}
 

@@ -41,7 +41,7 @@ def main():
 
     add("model", [python, "-m", "modal", "run", "scripts/modal_clip.py"],
         [Path(row["local_video"]), iv, checkpoint],
-        [model / n for n in ["feature_manifest.json", "combined_features.pth.tar", "object_features.pth.tar", "raw_probabilities.npz", "raw_logits.npz", "global_features.pth.tar"]],
+        [model / n for n in ["feature_manifest.json", "combined_features.pth.tar", "object_features.pth.tar", "raw_probabilities.npz", "raw_logits.npz"]],
         {"VIDOSC_VIDEO": row["local_video"], "VIDOSC_VIDEO_ID": args.video_id,
          "VIDOSC_FRAME_COUNT": str(row["metadata_frame_count"]), "VIDOSC_FPS": str(row["fps"]),
          "VIDOSC_OUTPUT": str(model), "VIDOSC_TIMEOUT": "7200"}, True)

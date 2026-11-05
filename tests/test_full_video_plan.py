@@ -71,7 +71,7 @@ def test_default_plan_preserves_active_object_stages_and_outputs(inventory, monk
     assert mapping_stage["env"] == {}
     assert model_stage["outputs"] == [str(model_dir / name) for name in (
         "feature_manifest.json", "combined_features.pth.tar", "object_features.pth.tar",
-        "raw_probabilities.npz", "raw_logits.npz", "global_features.pth.tar",
+        "raw_probabilities.npz", "raw_logits.npz",
     )]
     assert mapping_stage["outputs"] == [str(model_dir / "predictions" / name) for name in (
         "manifest.json", "probabilities.npz", "predictions_by_second.csv",

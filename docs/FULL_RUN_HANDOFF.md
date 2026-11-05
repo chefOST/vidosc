@@ -134,7 +134,6 @@ default `cmu30-active-object-v1`:
 - `raw_logits.npz`: `state_logits` (N×52) and `action_logits` (N×28), before softmax.
 - `raw_probabilities.npz`: state/action probabilities over the source classes.
 - `combined_features.pth.tar`: N×1536, global 768 followed by object 768.
-- `global_features.pth.tar`: standalone N×768 global features.
 - `object_features.pth.tar`: N×768, including explicit missing-crop zeros.
 - `feature_manifest.json`: sampling windows, crops, checkpoint/input hashes,
   extraction device, per-stage elapsed seconds, reused interval counts and output-stage metadata.
@@ -148,8 +147,6 @@ N is the number of observed intervals. The experiment directory also holds
 defaults to `chefOST/vidosc-experiments`, group `cmu30-active-object-v1`.
 Confidence and crop coverage are not accuracy, and a single active-object stream
 does not establish separate predictions for every annotated object.
-The logger also accepts historical bundles without standalone global features;
-when that file is present, its hash must match `global_feature_sha256`.
 
 `scripts/batch_vidosc.py` reuses completed stages only when receipt commands,
 environments, inputs and output hashes match. Inspect partial outputs without

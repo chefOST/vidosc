@@ -146,7 +146,7 @@ def worker(tmp_path, monkeypatch):
 def test_cloud_extraction_outputs_and_resume(worker):
     run, calls, load, _ = worker
     outputs = run('test-video', 3, 1.0)
-    assert set(outputs) == {'feature_manifest.json', 'global_features.pth.tar',
+    assert set(outputs) == {'feature_manifest.json',
                             'object_features.pth.tar', 'combined_features.pth.tar',
                             'raw_logits.npz', 'raw_probabilities.npz'}
     global_features = load('/tmp/global_features.pth.tar')

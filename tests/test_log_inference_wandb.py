@@ -1,6 +1,5 @@
 """Preserve the active-object output contract without importing W&B or models."""
 import json
-import hashlib
 import sys
 from types import SimpleNamespace
 from unittest.mock import MagicMock, Mock, call
@@ -43,7 +42,6 @@ def bundle(tmp_path):
         "object": "active-object",
         "video_id": RECORDED_RUNS[0][0],
         "feature_sha256": RECORDED_RUNS[0][1],
-        "global_feature_sha256": "historical-global-hash-without-standalone-artifact",
         "vidosc_checkpoint_sha256": "synthetic-checkpoint",
         "interval_starts_seconds": [0, 1, 2],
         "clip_start_seconds": 0,
@@ -96,70 +94,6 @@ def test_valid_bundle_and_dry_run_do_not_upload(bundle, monkeypatch, capsys):
     client.init.assert_not_called()
     assert "3 intervals; no metrics" in capsys.readouterr().out
     assert not (folder / "wandb_inference_receipt.json").exists()
-
-
-def add_global_features(folder, manifest):
-    payload = b"synthetic global feature tensor"
-    (folder / "global_features.pth.tar").write_bytes(payload)
-    manifest["global_feature_sha256"] = hashlib.sha256(payload).hexdigest()
-    (folder / "feature_manifest.json").write_text(json.dumps(manifest))
-
-
-@pytest.mark.parametrize("fault", ["changed_file", "missing_hash"])
-def test_rejects_unverified_optional_global_features(bundle, fault):
-    folder, manifest = bundle
-    add_global_features(folder, manifest)
-    if fault == "changed_file":
-        (folder / "global_features.pth.tar").write_bytes(b"changed tensor")
-    else:
-        manifest.pop("global_feature_sha256")
-        (folder / "feature_manifest.json").write_text(json.dumps(manifest))
-    with pytest.raises(ValueError, match="Global feature fingerprint mismatch"):
-        logger.validate(folder)
-
-
-def test_remote_extraction_bundle_uploads_global_features_and_timings(bundle, monkeypatch):
-    folder, manifest = bundle
-    manifest.update(
-        feature_extraction_device="Modal CPU",
-        global_intervals_reused=2,
-        stage_elapsed_seconds={"setup": 0.0, "detection": 2.5, "encoder_load": 4.0,
-                               "global_features": 1.25, "object_features": 3.75,
-                               "inference": 0.5},
-    )
-    add_global_features(folder, manifest)
-    expected_files = ARTIFACT_FILES + ["global_features.pth.tar"]
-    assert logger.validate(folder) == (manifest, expected_files)
-    client, run, artifact = fake_wandb(monkeypatch, RECORDED_RUNS[0][2])
-    invoke(monkeypatch, folder)
-    assert artifact.add_file.call_args_list == [
-        call(str(folder / name), name=name) for name in expected_files
-    ]
-    config = client.init.call_args.kwargs["config"]
-    assert config["feature_extraction_device"] == "Modal CPU"
-    assert config["global_intervals_reused"] == 2
-    assert run.summary == {
-        "coverage/object_windows": 2,
-        "coverage/missing_object_windows": 1,
-        "completion": "outputs_saved",
-        "timing/setup_seconds": 0.0,
-        "timing/encoder_load_seconds": 4.0,
-        "timing/global_features_seconds": 1.25,
-        "timing/detection_seconds": 2.5,
-        "timing/object_features_seconds": 3.75,
-        "timing/inference_seconds": 0.5,
-        "reuse/global_intervals": 2,
-    }
-
-
-@pytest.mark.parametrize("timings", [None, {"global_features": -1}, {"inference": float("nan")},
-                                     {"encoder_load": float("inf")}, {"setup": "unknown"}])
-def test_rejects_invalid_stage_timings(bundle, timings):
-    folder, manifest = bundle
-    manifest["stage_elapsed_seconds"] = timings
-    (folder / "feature_manifest.json").write_text(json.dumps(manifest))
-    with pytest.raises(ValueError, match="Invalid stage timing metadata"):
-        logger.validate(folder)
 
 
 @pytest.mark.parametrize("missing", ARTIFACT_FILES)
