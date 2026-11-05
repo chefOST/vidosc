@@ -40,6 +40,8 @@ The [shared-data video guide](https://github.com/chefOST/chefOST-data#videos) is
 canonical for the bucket, endpoint, release folder and local-download commands.
 The current full-video pipeline takes local AVIs; R2 MP4 integration is future
 work and requires fresh source hashes, sampling manifests and alignment checks.
+It uploads videos and weights from the local machine, then extracts global/object
+features and runs the model on Modal CPU.
 
 ## W&B
 

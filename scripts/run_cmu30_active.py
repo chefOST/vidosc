@@ -56,7 +56,6 @@ def main():
     state['budget_usd'] = a.budget_usd
     state['state'] = 'running'
     state.pop('pause_reason', None)
-    inventory = {r['video_id']: r for r in json.loads((ROOT / 'runs/batch-preparation/inventory.json').read_text())['videos']}
     try:
         for vid in ids:
             receipt = directory / vid / 'model/wandb_inference_receipt.json'
@@ -97,14 +96,6 @@ def main():
                         sys.stdout.flush(); sys.stderr.flush()
                         os.dup2(log.fileno(), 1); os.dup2(log.fileno(), 2)
                         for stage in plan['jobs'][0]['stages']:
-                            if stage['name'] == 'global' and (directory / vid / 'global/feature_manifest.json').exists():
-                                from moscato.reuse_global import validate_global
-                                row = inventory[vid]
-                                validate_global(directory / vid / 'global', row['local_video'],
-                                    Path.home() / 'Downloads/InternVideo-MM-L-14.ckpt',
-                                    row['metadata_frame_count'], row['fps'])
-                                print('Reused verified global features; no re-extraction.', flush=True)
-                                continue
                             run_stage(stage, execute=True, allow_modal=True)
                         subprocess.run([sys.executable, 'scripts/log_inference_wandb.py',
                             '--run', str(directory / vid / 'model')], cwd=ROOT, check=True)

@@ -1,25 +1,22 @@
-"""Extract genuine InternVideo-MM-L14 global features from a frame-bounded clip.
+"""InternVideo-MM-L14 encoder and sampling helpers for the Modal worker.
 
 Uses the official visual encoder and its inference preprocessing. One-second
 windows and eight evenly sampled frames are explicit choices, recorded in the
 manifest; exact parity with VidOSC's original extraction pipeline is unverified.
 Does not synthesize the object-centric half required by det=1 checkpoints.
 """
-import argparse
 import importlib.util
 import json
 import math
 from pathlib import Path
 import subprocess
 import sys
-import time
 import types
 
 import cv2
 import numpy as np
-import torch
 
-from .baseline import digest, write
+from .baseline import digest
 
 
 def load_module(name, path):
@@ -31,6 +28,7 @@ def load_module(name, path):
 
 
 def load_encoder(checkpoint, source, device):
+    import torch
     source = Path(source).resolve()
     package = source / 'InternVideo1/Pretrain/Multi-Modalities-Pretraining/InternVideo'
     if not (package / 'clip_utils/model.py').is_file():
@@ -102,56 +100,24 @@ def sampled_clips(video, windows):
         cap.release()
 
 
-def main():
-    p = argparse.ArgumentParser(description=__doc__)
-    for key in ['video','video-id','object','checkpoint','source','output']:
-        p.add_argument('--'+key,required=True)
-    p.add_argument('--start-frame',type=int,required=True)
-    p.add_argument('--end-frame',type=int,required=True)
-    p.add_argument('--fps',type=float,required=True)
-    p.add_argument('--device',choices=['cpu','mps','cuda'],default='cpu')
-    args=p.parse_args()
-    out=Path(args.output)
-    if out.exists():
-        raise FileExistsError(f'Use a fresh output directory: {out}')
+def prepare_manifest(video, video_id, object_name, checkpoint, source, start, end, fps, device):
+    """Describe exact encoder inputs before extraction, locally or on Modal."""
     probe = json.loads(subprocess.check_output(['ffprobe','-v','error','-select_streams','v:0',
-        '-show_entries','stream=avg_frame_rate,duration','-of','json',args.video]))['streams'][0]
-    numerator,denominator = map(float,probe['avg_frame_rate'].split('/'))
-    if abs(numerator/denominator-args.fps)>1e-6:
+        '-show_entries','stream=avg_frame_rate,duration','-of','json',str(video)]))['streams'][0]
+    numerator, denominator = map(float, probe['avg_frame_rate'].split('/'))
+    if abs(numerator/denominator-fps) > 1e-6:
         raise ValueError('Requested FPS differs from video metadata')
-    windows=window_indices(args.start_frame,args.end_frame,args.fps)
-    print(f'Loading InternVideo on {args.device}; {len(windows)} windows',flush=True)
-    model,preprocess=load_encoder(args.checkpoint,args.source,args.device)
-    features=[]
-    started=time.monotonic()
-    with torch.inference_mode():
-        for i,frames in enumerate(sampled_clips(args.video,windows)):
-            tensor=preprocess(frames).unsqueeze(0).to(args.device)
-            feat=model.encode_video(tensor)
-            feat=torch.nn.functional.normalize(feat,dim=-1).cpu().float()
-            if feat.shape!=(1,768) or not torch.isfinite(feat).all():
-                raise ValueError('Unexpected encoder output')
-            features.append(feat)
-            if i==0 or (i+1)%10==0 or i==len(windows)-1:
-                print(f'{i+1}/{len(windows)} windows, elapsed {time.monotonic()-started:.1f}s',flush=True)
-    out.mkdir(parents=True)
-    path=out/'global_features.pth.tar'
-    torch.save(torch.cat(features),path)
-    source_commit=subprocess.check_output(['git','-C',args.source,'rev-parse','HEAD'],text=True).strip()
-    write(out/'feature_manifest.json',{
-        'video_id':args.video_id,'object':args.object,'video_sha256':digest(args.video),
-        'clip_start_seconds':args.start_frame/args.fps,'clip_end_seconds':args.end_frame/args.fps,
+    windows = window_indices(start, end, fps)
+    source_commit = subprocess.check_output(['git','-C',str(source),'rev-parse','HEAD'], text=True).strip()
+    return {
+        'video_id':video_id, 'object':object_name, 'video_sha256':digest(video),
+        'clip_start_seconds':start/fps, 'clip_end_seconds':end/fps,
         'interval_starts_seconds':list(range(len(windows))), 'sampled_global_frame_indices':windows,
-        'feature_backbone':'InternVideo-MM-L-14','feature_layout':'global_only_768',
-        'feature_normalization':'L2','checkpoint_sha256':digest(args.checkpoint),
-        'feature_sha256':digest(path),'upstream_commit':source_commit,'device':args.device,
+        'feature_backbone':'InternVideo-MM-L-14', 'feature_layout':'global_only_768',
+        'feature_normalization':'L2', 'checkpoint_sha256':digest(checkpoint),
+        'upstream_commit':source_commit, 'device':device,
         'preprocessing':'official demo Resize(256), CenterCrop(224), RGB normalization',
         'sampling':'8 uniform frames within each one-second interval; final interval shortened',
         'original_vidosc_extraction_parity_verified':False,
         'object_features_present':False,
-    })
-    print(f'Saved {path}',flush=True)
-
-
-if __name__=='__main__':
-    main()
+    }

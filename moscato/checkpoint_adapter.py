@@ -4,10 +4,8 @@ import importlib.util
 from pathlib import Path
 import re
 
-import torch
-
-
 def read_weights(path):
+    import torch
     # Do not silently fall back to arbitrary pickle execution for downloaded files.
     checkpoint = torch.load(path, map_location="cpu", weights_only=True)
     raw = checkpoint.get("state_dict", checkpoint)
@@ -36,7 +34,18 @@ def inspect_weights(weights):
             "max_timesteps": int(weights["pos_encoder.pe"].shape[1])}
 
 
+def inference_timesteps(count, capacity):
+    """Preserve the old padding for short videos; use all steps for longer ones."""
+    if count < 1:
+        raise ValueError("Expected at least one video interval")
+    length = max(900, count)
+    if length > capacity:
+        raise ValueError(f"Video needs {length} transformer steps; checkpoint supports {capacity}")
+    return length
+
+
 def predict(checkpoint, features, upstream, heads=4, pad_to=0, raw_output=None):
+    import torch
     weights = read_weights(checkpoint)
     info = inspect_weights(weights)
     path = Path(upstream) / "model.py"

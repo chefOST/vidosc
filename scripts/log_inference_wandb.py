@@ -22,6 +22,20 @@ def validate(folder):
     fm = json.loads((folder / 'feature_manifest.json').read_text())
     if fm.get('ground_truth_used') is not False or fm.get('object') != 'active-object':
         raise ValueError('Expected an explicitly unnamed active-object inference bundle')
+    timings = fm.get('stage_elapsed_seconds', {})
+    if not isinstance(timings, dict) or any(
+        not isinstance(stage, str) or not isinstance(seconds, (int, float))
+        or isinstance(seconds, bool) or not np.isfinite(seconds) or seconds < 0
+        for stage, seconds in timings.items()
+    ):
+        raise ValueError('Invalid stage timing metadata')
+    global_features = folder / 'global_features.pth.tar'
+    if global_features.exists():
+        with global_features.open('rb') as stream:
+            actual_hash = hashlib.file_digest(stream, 'sha256').hexdigest()
+        if actual_hash != fm.get('global_feature_sha256'):
+            raise ValueError('Global feature fingerprint mismatch')
+        files.append(global_features.name)
     n = len(fm['interval_starts_seconds'])
     with np.load(folder / 'raw_logits.npz') as logits, np.load(folder / 'raw_probabilities.npz') as probabilities:
         for name, width in [('state', 52), ('action', 28)]:
@@ -68,21 +82,30 @@ def main():
             return
         backup = folder / ('wandb_inference_receipt.' + hashlib.sha256(previous['url'].encode()).hexdigest()[:12] + '.json')
         backup.write_text(json.dumps(previous, indent=2) + '\n')
+    config = {'video_id': fm['video_id'], 'scope': 'one unnamed active-object stream per video',
+              'checkpoint_sha256': fm['vidosc_checkpoint_sha256'],
+              'feature_sha256': fm['feature_sha256'], 'crop_policy': fm['crop_policy'],
+              'metrics_computed': False, 'temporal_postprocessing': 'none',
+              'input_timesteps': len(fm['interval_starts_seconds']),
+              'duration_seconds': fm['clip_end_seconds'] - fm['clip_start_seconds'],
+              'provenance': fm.get('reuse_provenance', 'fresh extraction')}
+    for key in ('feature_extraction_device', 'global_intervals_reused'):
+        if key in fm:
+            config[key] = fm[key]
+    summary = {'coverage/object_windows': fm['object_windows'],
+               'coverage/missing_object_windows': fm['missing_object_windows'],
+               'completion': 'outputs_saved'}
+    for stage, seconds in fm.get('stage_elapsed_seconds', {}).items():
+        summary[f'timing/{stage}_seconds'] = seconds
+    if 'global_intervals_reused' in fm:
+        summary['reuse/global_intervals'] = fm['global_intervals_reused']
     import wandb
     with wandb.init(entity=a.entity, project=a.project, group=a.group,
         id=hashlib.sha256((a.group + fm['video_id'] + fm['feature_sha256']).encode()).hexdigest()[:16],
         resume='allow', name=f"{fm['video_id']}-active-object", job_type='inference',
         tags=['vidosc', 'cmu30', 'active-object', 'outputs-only'],
-        config={'video_id': fm['video_id'], 'scope': 'one unnamed active-object stream per video',
-                'checkpoint_sha256': fm['vidosc_checkpoint_sha256'],
-                'feature_sha256': fm['feature_sha256'], 'crop_policy': fm['crop_policy'],
-                'metrics_computed': False, 'temporal_postprocessing': 'none',
-                'input_timesteps': len(fm['interval_starts_seconds']),
-                'duration_seconds': fm['clip_end_seconds'] - fm['clip_start_seconds'],
-                'provenance': fm.get('reuse_provenance', 'fresh extraction')}) as run:
-        run.summary.update({'coverage/object_windows': fm['object_windows'],
-            'coverage/missing_object_windows': fm['missing_object_windows'],
-            'completion': 'outputs_saved'})
+        config=config) as run:
+        run.summary.update(summary)
         artifact = wandb.Artifact(f"{fm['video_id']}-active-object-outputs", type='inference-outputs')
         for name in files:
             artifact.add_file(str(folder / name), name=name)

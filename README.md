@@ -3,6 +3,8 @@
 ChefOST evaluates object-state tracking in procedural cooking videos. This branch
 extends Pritika's CMU full-video workflow: one unnamed hand-associated active-object
 stream per video, with features, logits and probabilities saved for later analysis.
+Global/object feature extraction and model inference run on Modal CPU. The local
+machine supplies the videos and weights, coordinates stages, and retrieves outputs.
 
 Start with [setup and workflow](docs/FULL_RUN_HANDOFF.md),
 [account setup](docs/account-setup.md), and [agent instructions](AGENTS.md).

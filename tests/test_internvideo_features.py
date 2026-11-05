@@ -1,12 +1,14 @@
 """Verify exact frame sampling without downloading a model during tests."""
 from pathlib import Path
 import sys
+import json
 import cv2
 import numpy as np
 import pytest
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from moscato.extract_internvideo import window_indices, sampled_clips
+from moscato import extract_internvideo
 
 
 def test_one_second_windows_include_clip_offset_and_partial_tail():
@@ -44,3 +46,26 @@ def test_decoder_rejects_truncated_video(tmp_path):
     writer.write(np.zeros((32,32,3),dtype=np.uint8));writer.release()
     with pytest.raises(ValueError,match='ended'):
         list(sampled_clips(path,[[0,1]]))
+
+
+def test_manifest_preserves_sampling_and_provenance(tmp_path, monkeypatch):
+    video, checkpoint = tmp_path / 'video', tmp_path / 'checkpoint'
+    video.write_bytes(b'video')
+    checkpoint.write_bytes(b'weights')
+    monkeypatch.setattr(extract_internvideo.subprocess, 'check_output',
+                        lambda command, **kwargs: 'pinned-source\n' if command[0] == 'git'
+                        else json.dumps({'streams': [{'avg_frame_rate': '30/1'}]}).encode())
+    manifest = extract_internvideo.prepare_manifest(video, 'test', 'active-object', checkpoint,
+                                                  tmp_path, 0, 27001, 30, 'cpu')
+    assert len(manifest['sampled_global_frame_indices']) == 901
+    assert manifest['sampled_global_frame_indices'][-1] == [27000] * 8
+    assert manifest['interval_starts_seconds'][-1] == 900
+    assert manifest['clip_end_seconds'] == 27001 / 30
+    assert manifest['feature_backbone'] == 'InternVideo-MM-L-14'
+    assert manifest['feature_normalization'] == 'L2'
+    assert manifest['upstream_commit'] == 'pinned-source'
+    assert manifest['video_sha256'] == extract_internvideo.digest(video)
+    assert manifest['checkpoint_sha256'] == extract_internvideo.digest(checkpoint)
+    with pytest.raises(ValueError, match='FPS differs'):
+        extract_internvideo.prepare_manifest(video, 'test', 'active-object', checkpoint,
+                                            tmp_path, 0, 30, 25, 'cpu')

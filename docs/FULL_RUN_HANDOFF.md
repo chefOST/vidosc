@@ -19,15 +19,6 @@ python3.11 -m venv .venv
 Install the FFmpeg system tools (`ffmpeg` and `ffprobe`; `brew install ffmpeg` on
 macOS). Configure [your Modal and W&B accounts](account-setup.md).
 
-Local global-feature extraction needs the official InternVideo source at the
-same revision used by the remote image:
-
-```sh
-git clone --filter=blob:none --no-checkout https://github.com/OpenGVLab/InternVideo.git ../internvideo-upstream
-git -C ../internvideo-upstream sparse-checkout set InternVideo1/Pretrain/Multi-Modalities-Pretraining
-git -C ../internvideo-upstream checkout 3965eef16e2dadd0ea6c8d0cc29c8a3039df52e3
-```
-
 Download these pretrained weights from the linked official releases and place them
 at the paths expected by the planner:
 
@@ -38,9 +29,10 @@ at the paths expected by the planner:
   from the [VidOSC checkpoint release](https://drive.google.com/drive/folders/1UyRQ_dlT0AjeCLM3LlxnjFtRRUm7Fowj).
   SHA256: `e6d1fa0d4708c8dffecba2a37f25149cc80c85fed33e6d4537bcaf98b0d94d36`.
 
-The Modal image clones VidOSC at `59575773c97878ea30a0228f28ab00a3ee2f1ea2` and
-builds the hand/object detector environment itself; a local VidOSC checkout is not
-required by the coordinator. The detector uses a pinned checkpoint mirror with
+The Modal image clones InternVideo at `3965eef16e2dadd0ea6c8d0cc29c8a3039df52e3`
+and VidOSC at `59575773c97878ea30a0228f28ab00a3ee2f1ea2`, and builds the hand/object
+detector environment. Neither source checkout is needed on the local machine.
+The detector uses a pinned checkpoint mirror with
 Git LFS size/hash checks. Source revisions and dependencies are defined in
 [`scripts/modal_detector.py`](../scripts/modal_detector.py) and
 [`scripts/modal_clip.py`](../scripts/modal_clip.py).
@@ -62,7 +54,7 @@ The current shared release excludes `S13_Brownie_7150991-631` for a video/annota
 length mismatch; the historical CMU30 configuration still includes it. Do not
 silently replace this snapshot with the current curated subset.
 
-The current runner uploads local AVIs and extracted features to Modal. It does not
+The current runner uploads local AVIs and pretrained weights to Modal. It does not
 mount the shared R2 MP4s. R2 access is documented in [account setup](account-setup.md);
 using those MP4s requires explicit integration, fresh manifests and frame-clock checks.
 
@@ -83,17 +75,20 @@ read annotations, but the remote inference worker receives no ground truth.
 
 ## Pipeline and execution
 
-1. `scripts/prepare_full_video_plan.py` creates each video's stage commands and paths.
-2. `moscato.extract_internvideo` extracts global features on local CPU: eight
-   uniformly sampled frames per one-second interval, with a shortened final interval.
-3. `scripts/modal_clip.py` runs detection on the fifth sampled frame, unions
-   hand-associated object boxes, and applies that crop to the interval's eight
-   frames. Valid crops produce L2-normalized 768-dimensional InternVideo features;
-   missing crops use zeros. Global and object features concatenate to 1,536 dimensions.
-4. The ChangeIt transformer receives zero padding to 900 intervals. Saved logits
-   and softmax probabilities retain only the observed intervals. No temporal
-   ordering decoder or internal-activation export is applied.
-5. `moscato.import_modal_predictions` projects saved state probabilities through
+1. `scripts/prepare_full_video_plan.py` creates the Modal model stage and local
+   mapping stage. The local machine does no feature extraction or model inference.
+2. `scripts/modal_clip.py` samples eight frames per one-second interval, with a
+   shortened final interval. It detects hand-associated objects on the fifth
+   sampled frame and applies their union crop to the interval's eight frames.
+   InternVideo encodes global frames and valid crops on Modal CPU into separate
+   L2-normalized 768-dimensional features. Missing crops use zeros; global and
+   object features concatenate to 1,536 dimensions.
+3. For N ≤ 900 observed intervals, the transformer still receives zero padding
+   to 900. Longer videos use all N intervals without chunking or truncation, up
+   to the released checkpoint's 5,000-position capacity. Saved logits and softmax
+   probabilities retain only observed intervals. No temporal ordering decoder
+   or internal-activation export is applied.
+4. `moscato.import_modal_predictions` projects saved state probabilities through
    the fixed CMU alias mapping. `scripts/log_inference_wandb.py` validates and uploads
    each completed output bundle.
 
@@ -124,21 +119,25 @@ The coordinator runs sequentially, using 4 CPUs, 16 GiB, a 7,200-second worker
 timeout and no automatic inference retries. Its ledger estimates reservations;
 it is not a provider billing cap. Keep the local coordinator awake and connected
 for result retrieval and upload. Do not run two coordinators against the same
-experiment directory. Videos over 900 seconds and other dataset vocabularies
-require an explicit protocol before execution.
+experiment directory. Inputs beyond the checkpoint's 5,000-position capacity are
+rejected; support for other dataset vocabularies requires a separate mapping.
+Processing a longer sequence does not establish the model's accuracy on long videos.
+Long videos may exceed the worker's two-hour execution timeout; a later attempt
+can resume its saved extraction progress. Per-stage timings cover that attempt,
+not image startup, input transfers or earlier attempts.
 
 ## Outputs and reuse
 
-Outputs live under `runs/batches/<experiment>/<video_id>/`, with experiment default
-`cmu30-active-object-v1`. Global features
-and their sampling manifest are in `global/`; the following are in `model/`:
+Outputs live under `runs/batches/<experiment>/<video_id>/model/`, with experiment
+default `cmu30-active-object-v1`:
 
 - `raw_logits.npz`: `state_logits` (N×52) and `action_logits` (N×28), before softmax.
 - `raw_probabilities.npz`: state/action probabilities over the source classes.
 - `combined_features.pth.tar`: N×1536, global 768 followed by object 768.
+- `global_features.pth.tar`: standalone N×768 global features.
 - `object_features.pth.tar`: N×768, including explicit missing-crop zeros.
 - `feature_manifest.json`: sampling windows, crops, checkpoint/input hashes,
-  extraction time, reuse details and output-stage metadata.
+  extraction device, per-stage elapsed seconds, reused interval counts and output-stage metadata.
 - `predictions/probabilities.npz`: source probabilities and CMU-mapped state scores.
 - `predictions/predictions_by_second.csv` and `predictions/manifest.json`: named
   interval predictions and mapping provenance.
@@ -149,10 +148,12 @@ N is the number of observed intervals. The experiment directory also holds
 defaults to `chefOST/vidosc-experiments`, group `cmu30-active-object-v1`.
 Confidence and crop coverage are not accuracy, and a single active-object stream
 does not establish separate predictions for every annotated object.
+The logger also accepts historical bundles without standalone global features;
+when that file is present, its hash must match `global_feature_sha256`.
 
 `scripts/batch_vidosc.py` reuses completed stages only when receipt commands,
-environments, inputs and output hashes match. `moscato.reuse_global` validates
-reusable global features. Inspect partial outputs without receipts before retrying.
+environments, inputs and output hashes match. Inspect partial outputs without
+receipts before retrying.
 Receipt hashes from older code can fail after cleanup; use a fresh experiment
 directory instead of weakening the checks. Both the planner and coordinator accept
 `--experiment`. For example, preview a fresh directory with:
@@ -166,7 +167,7 @@ Use the same experiment value when adding `--execute`. The W&B group remains
 uploaded to a different W&B destination, the coordinator can upload those saved
 outputs to the configured destination during execution without repeating inference.
 
-Modal saves detections and object-feature progress every 10 intervals in the
+Modal saves detections and global/object-feature progress every 10 intervals in the
 `vidosc-active-object-progress` volume in your workspace. Resume requires matching
 video, sampling, weights, crop policy and extraction code. An account's local files,
 upload receipts and remote volume are separate; none is included in a fresh clone.
