@@ -66,13 +66,17 @@ def main():
     folder = a.run.resolve()
     fm, files = validate(folder)
     dataset = fm.get('dataset', 'CMU')
+    compute = {'accelerator': fm.get('accelerator', 'cpu'),
+               'batch_size': fm.get('batch_size', 1)}
     if a.dry_run:
         print(f"Validated {fm['video_id']}: {len(fm['interval_starts_seconds'])} intervals; no metrics")
         return
     receipt = folder / 'wandb_inference_receipt.json'
     if receipt.exists():
         previous = json.loads(receipt.read_text())
-        if receipt_matches(previous, a.entity, a.project, a.group):
+        if (receipt_matches(previous, a.entity, a.project, a.group)
+                and previous.get('accelerator', 'cpu') == compute['accelerator']
+                and previous.get('batch_size', 1) == compute['batch_size']):
             print(receipt.read_text())
             return
         backup = folder / ('wandb_inference_receipt.' + hashlib.sha256(previous['url'].encode()).hexdigest()[:12] + '.json')
@@ -83,6 +87,7 @@ def main():
         resume='allow', name=f"{fm['video_id']}-active-object", job_type='inference',
         tags=['vidosc', 'cmu30' if dataset == 'CMU' else 'egtea', 'active-object', 'outputs-only'],
         config={'video_id': fm['video_id'], 'scope': 'one unnamed active-object stream per video',
+                **compute,
                 'dataset': dataset, 'mapping_applied': dataset == 'CMU',
                 'checkpoint_sha256': fm['vidosc_checkpoint_sha256'],
                 'feature_sha256': fm['feature_sha256'], 'crop_policy': fm['crop_policy'],
@@ -98,7 +103,7 @@ def main():
             artifact.add_file(str(folder / name), name=name)
         run.log_artifact(artifact).wait()
         result = {'url': run.url, 'run_id': run.id, 'group': group,
-                  'entity': a.entity, 'project': a.project}
+                  'entity': a.entity, 'project': a.project, **compute}
     receipt.write_text(json.dumps(result, indent=2) + '\n')
     print(result['url'])
 

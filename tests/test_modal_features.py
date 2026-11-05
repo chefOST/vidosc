@@ -3,10 +3,12 @@ import ast
 import copy
 from contextlib import nullcontext
 import json
+import os
 from pathlib import Path
 import pickle
 import sys
 from types import SimpleNamespace
+from unittest.mock import Mock
 
 import numpy as np
 import pytest
@@ -37,8 +39,11 @@ class Tensor(np.ndarray):
         return self.astype(np.float32)
 
     def to(self, device):
-        assert device == 'cpu'
+        assert device in ('cpu', 'cuda')
         return self
+
+    def numpy(self):
+        return np.asarray(self)
 
     def unsqueeze(self, axis):
         return np.expand_dims(self, axis)
@@ -71,10 +76,20 @@ def worker(tmp_path, monkeypatch):
         with local_path(path).open('rb') as stream:
             return pickle.load(stream)
 
+    gpu_events = []
     fake_torch = SimpleNamespace(
         set_num_threads=lambda n: None, inference_mode=nullcontext,
+        set_float32_matmul_precision=lambda value: gpu_events.append(value),
         isfinite=np.isfinite, zeros=lambda shape: tensor(np.zeros(shape)),
         cat=lambda arrays, dim=0: tensor(np.concatenate(arrays, axis=dim)),
+        stack=lambda arrays, dim=0: tensor(np.stack(arrays, axis=dim)),
+        backends=SimpleNamespace(cuda=SimpleNamespace(matmul=SimpleNamespace(allow_tf32=True)),
+                                 cudnn=SimpleNamespace(allow_tf32=True)),
+        cuda=SimpleNamespace(is_available=lambda: True, get_device_name=lambda: 'Fake L4',
+                             reset_peak_memory_stats=lambda: gpu_events.append('reset'),
+                             empty_cache=lambda: gpu_events.append('empty'),
+                             synchronize=lambda: gpu_events.append('sync'),
+                             max_memory_allocated=lambda: 1024, max_memory_reserved=lambda: 2048),
         save=save, load=load,
         nn=SimpleNamespace(functional=SimpleNamespace(
             normalize=lambda arr, dim: tensor(arr / np.linalg.norm(arr, axis=dim, keepdims=True)))))
@@ -84,7 +99,8 @@ def worker(tmp_path, monkeypatch):
     exec(compile((ROOT / 'moscato/progress_cache.py').read_text(), 'progress_cache.py', 'exec'), cache_namespace)
     monkeypatch.setitem(sys.modules, 'moscato.progress_cache', SimpleNamespace(**cache_namespace))
 
-    calls = {'detector_load': 0, 'encoder_load': 0, 'encoded': [], 'predictions': []}
+    calls = {'detector_load': 0, 'encoder_load': 0, 'encoded': [], 'predictions': [],
+             'encoder_moves': [], 'detector_moves': [], 'gpu_events': gpu_events, 'torch': fake_torch}
     manifest = {
         'video_id': 'test-video', 'video_sha256': 'video', 'checkpoint_sha256': 'encoder',
         'upstream_commit': 'pinned-commit', 'sampled_global_frame_indices': [[i] * 8 for i in range(3)],
@@ -94,12 +110,13 @@ def worker(tmp_path, monkeypatch):
 
     def prepare(*args):
         assert args[1:3] == ('test-video', 'active-object')
-        assert args[5:9] == (0, 3, 1.0, 'cpu')
+        assert args[5:8] == (0, 3, 1.0)
+        assert args[8] in ('cpu', 'cuda')
         return copy.deepcopy(manifest)
 
     def load_detector(*args):
         calls['detector_load'] += 1
-        return None, None
+        return SimpleNamespace(to=lambda device: calls['detector_moves'].append(device)), None
 
     monkeypatch.setitem(sys.modules, 'moscato.hand_object', SimpleNamespace(
         load_detector=load_detector, detect_frame=lambda model, cfg, frame, device: int(frame[0, 0, 0])))
@@ -113,10 +130,10 @@ def worker(tmp_path, monkeypatch):
         calls['encoder_load'] += 1
 
         def encode(value):
-            calls['encoded'].append(float(value[0, 0]))
-            return tensor([np.arange(768) + 1 + value[0, 0]])
+            calls['encoded'].extend(float(row[0]) for row in value)
+            return tensor([np.arange(768) + 1 + row[0] for row in value])
 
-        return SimpleNamespace(encode_video=encode), lambda frames: tensor([frames[0].mean()])
+        return SimpleNamespace(encode_video=encode, to=lambda device: calls['encoder_moves'].append(device)), lambda frames: tensor([frames[0].mean()])
 
     monkeypatch.setattr(extract_internvideo, 'load_encoder', load_encoder)
     monkeypatch.setattr(checkpoint_adapter, 'read_weights', lambda path: {})
@@ -141,9 +158,9 @@ def worker(tmp_path, monkeypatch):
     function.decorator_list = []
     namespace = {'Path': local_path, 'progress_volume': SimpleNamespace(commit=lambda: None)}
     exec(compile(ast.Module(body=[function], type_ignores=[]), 'modal_clip.py', 'exec'), namespace)
-    def run(video_id, frame_count, fps):
+    def run(video_id, frame_count, fps, accelerator='cpu', batch_size=1):
         return namespace['run_clip'](video_id, frame_count, fps, 'release/test-video.mp4',
-                                     'a' * 64, 10, 'CMU', 'release/')
+                                     'a' * 64, 10, 'CMU', 'release/', accelerator, batch_size)
     return run, calls, load, capacity
 
 
@@ -181,3 +198,60 @@ def test_capacity_failure_precedes_any_extraction(worker):
     with pytest.raises(ValueError, match='checkpoint supports 2'):
         run('test-video', 3, 1.0)
     assert calls['encoder_load'] == calls['detector_load'] == 0
+
+
+def test_gpu_batching_checks_numerics_and_isolates_cpu_cache(worker):
+    run, calls, _, _ = worker
+    cpu = json.loads(run('test-video', 3, 1.0)['feature_manifest.json'])
+    original = calls['predictions'][-1][0].copy()
+    gpu = json.loads(run('test-video', 3, 1.0, 'L4', 2)['feature_manifest.json'])
+    np.testing.assert_allclose(calls['predictions'][-1][0], original, atol=1e-6)
+    assert gpu['accelerator'] == 'L4' and gpu['batch_size'] == 2
+    assert gpu['feature_dtype'] == 'float32' and gpu['tf32_enabled'] is False
+    assert gpu['global_intervals_reused'] == gpu['object_intervals_reused'] == 0
+    assert gpu['global_resumable_cache_key'] != cpu['global_resumable_cache_key']
+    assert gpu['resumable_cache_key'] != cpu['resumable_cache_key']
+    assert gpu['numerical_validation']['cpu_reference_count'] == 1
+    assert [entry['stream'] for entry in gpu['numerical_validation']['checks']] == ['global', 'object']
+    assert all(entry['batch_vs_singleton']['passed'] for entry in gpu['numerical_validation']['checks'])
+    assert gpu['numerical_validation']['checks'][0]['gpu_vs_cpu']['passed']
+    assert gpu['detector_numerical_validation']['status'] == 'passed'
+    assert gpu['gpu']['name'] == 'Fake L4'
+    assert gpu['gpu']['peak_allocated_bytes'] == 1024
+    assert 'feature_extraction_wall' in gpu['stage_elapsed_seconds']
+    assert calls['encoder_moves'] == calls['detector_moves'] == ['cpu', 'cuda']
+    assert calls['torch'].backends.cuda.matmul.allow_tf32 is False
+    assert calls['torch'].backends.cudnn.allow_tf32 is False
+    assert 'highest' in calls['gpu_events']
+    resumed = json.loads(run('test-video', 3, 1.0, 'L4', 2)['feature_manifest.json'])
+    assert resumed['global_intervals_reused'] == resumed['object_intervals_reused'] == 3
+    assert resumed['numerical_validation'] == gpu['numerical_validation']
+    assert calls['encoder_load'] == calls['detector_load'] == 2
+
+
+def test_gpu_unavailable_fails_before_model_loading(worker):
+    run, calls, _, _ = worker
+    calls['torch'].cuda.is_available = lambda: False
+    with pytest.raises(RuntimeError, match='refusing CPU fallback'):
+        run('test-video', 3, 1.0, 'L4', 8)
+    assert calls['detector_load'] == calls['encoder_load'] == 0
+
+
+def test_local_entrypoint_passes_compute_settings_to_remote(tmp_path, monkeypatch):
+    output = tmp_path / 'output'
+    values = {'VIDOSC_OUTPUT': str(output), 'VIDOSC_VIDEO_ID': 'test-video',
+              'VIDOSC_FRAME_COUNT': '6243', 'VIDOSC_FPS': '30',
+              'VIDOSC_R2_KEY': 'release/test.mp4', 'VIDOSC_VIDEO_SHA256': 'a' * 64,
+              'VIDOSC_VIDEO_BYTES': '100', 'VIDOSC_DATASET': 'CMU'}
+    for name, value in values.items():
+        monkeypatch.setenv(name, value)
+    remote = Mock(return_value={'feature_manifest.json': b'{}'})
+    tree = ast.parse((ROOT / 'scripts/modal_clip.py').read_text())
+    function = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == 'main')
+    function.decorator_list = []
+    namespace = {'Path': Path, 'os': os, 'ROOT': tmp_path, 'GPU': 'L4', 'BATCH_SIZE': 8,
+                 'R2_PREFIX': 'release/', 'run_clip': SimpleNamespace(remote=remote)}
+    exec(compile(ast.Module(body=[function], type_ignores=[]), 'modal_clip.py', 'exec'), namespace)
+    namespace['main']()
+    remote.assert_called_once_with('test-video', 6243, 30.0, 'release/test.mp4', 'a' * 64,
+                                   100, 'CMU', 'release/', 'L4', 8)

@@ -7,7 +7,8 @@ Each video produces one unnamed hand-associated active-object stream. CMU output
 include the existing alias mapping; EGTEA outputs remain raw, without a new mapping.
 These inventory counts are not completed-run or benchmark results.
 
-Global/object feature extraction and model inference run on Modal CPU. The worker
+Global/object feature extraction runs on Modal CPU by default, or an L4 GPU with
+batched clips using `--accelerator L4 --batch-size 8`. VidOSC inference uses CPU. The worker
 reads videos from R2; the local machine supplies verified weights, coordinates
 stages, and retrieves outputs. Full videos are not downloaded to the laptop.
 

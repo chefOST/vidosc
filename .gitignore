@@ -3,17 +3,17 @@
 /VidOSC/
 
 # Checkpoints — too large for git (~127 MB each); download from Google Drive (see README.md)
-checkpoints/
+/checkpoints
 *.ckpt
 
 # Local data and extracted features
-data/
+/data
 feats/
 *.pth.tar
 *.zip
 
 # Virtualenvs
-.venv/
+/.venv
 venv/
 
 # W&B run logs — auto-generated

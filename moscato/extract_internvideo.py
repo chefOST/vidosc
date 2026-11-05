@@ -11,12 +11,155 @@ import math
 from pathlib import Path
 import subprocess
 import sys
+import time
 import types
 
 import cv2
 import numpy as np
 
 from .baseline import digest
+
+FEATURE_ATOL = 1e-5
+FEATURE_RTOL = 1e-3
+FEATURE_COSINE_MIN = 0.99999
+
+
+def validate_compute(accelerator, batch_size):
+    if accelerator not in ('cpu', 'L4'):
+        raise ValueError('Accelerator must be cpu or L4')
+    if not isinstance(batch_size, int) or isinstance(batch_size, bool) or not 1 <= batch_size <= 16:
+        raise ValueError('Batch size must be between 1 and 16')
+
+
+def compare_features(actual, reference, label):
+    """Compare normalized FP32 features before accepting any new batch checkpoint."""
+    actual = np.asarray(actual, dtype=np.float32)
+    reference = np.asarray(reference, dtype=np.float32)
+    if actual.shape != reference.shape or not np.isfinite(actual).all() or not np.isfinite(reference).all():
+        raise ValueError(f'{label}: invalid numerical comparison')
+    difference = np.abs(actual - reference)
+    norms = np.linalg.norm(actual, axis=-1) * np.linalg.norm(reference, axis=-1)
+    if (norms == 0).any():
+        raise ValueError(f'{label}: zero encoder features')
+    cosine = float(np.min(np.sum(actual * reference, axis=-1) / norms))
+    passed = bool(np.allclose(actual, reference, atol=FEATURE_ATOL, rtol=FEATURE_RTOL)
+                  and cosine >= FEATURE_COSINE_MIN)
+    result = {'passed': passed, 'max_abs_error': float(difference.max()),
+              'mean_abs_error': float(difference.mean()),
+              'min_cosine_similarity': cosine}
+    if not passed:
+        raise ValueError(f'{label}: encoder features diverged (max abs error '
+                         f'{result["max_abs_error"]:.6g}, cosine={cosine:.7g}; '
+                         f'atol={FEATURE_ATOL}, rtol={FEATURE_RTOL}, cosine>={FEATURE_COSINE_MIN})')
+    return result
+
+
+def extract_feature_batches(video, windows, crops, model, preprocess, device, batch_size,
+                            global_features, object_features, global_completed, object_completed,
+                            checkpoint):
+    """Decode once for both streams; checkpoint only completely encoded prefixes.
+
+    `checkpoint(stream, features, completed)` receives CPU tensors. Missing object
+    crops retain zero rows and still advance the completed prefix. The first batch
+    of each stream checks every entry against singleton inference, plus
+    one CPU reference when using CUDA. No automatic OOM fallback or paid retry.
+    """
+    import torch
+    validate_compute('L4' if device == 'cuda' else 'cpu', batch_size)
+    count = len(windows)
+    if len(crops) != count or not 0 <= global_completed <= count or not 0 <= object_completed <= count:
+        raise ValueError('Feature batches require matching crop/window counts and valid resume positions')
+    streams = {
+        'global': {'features': global_features, 'completed': global_completed},
+        'object': {'features': object_features, 'completed': object_completed},
+    }
+    for stream in streams.values():
+        stream.update(indices=[], tensors=[], seen=stream['completed'], saved=stream['completed'], checked=False)
+    report = {'status': 'passed', 'dtype': 'float32', 'atol': FEATURE_ATOL, 'rtol': FEATURE_RTOL,
+              'cosine_minimum': FEATURE_COSINE_MIN,
+              'cpu_reference_count': 0, 'checks': [], 'seconds': 0.0}
+    elapsed = {'global': 0.0, 'object': 0.0}
+
+    def encode(prepared, target):
+        value = prepared[0].unsqueeze(0) if len(prepared) == 1 else torch.stack(prepared, dim=0)
+        try:
+            features = model.encode_video(value.float().to(target))
+            features = torch.nn.functional.normalize(features, dim=-1).cpu().float()
+        except RuntimeError as error:
+            if 'out of memory' in str(error).lower():
+                raise RuntimeError(f'Encoder batch size {len(prepared)} exceeded {target} memory; '
+                                   'no automatic retry was attempted') from error
+            raise
+        if features.shape != (len(prepared), 768) or not torch.isfinite(features).all():
+            raise ValueError('Invalid batched encoder output')
+        return features
+
+    def check_batch(name, stream, features):
+        validation_started = time.monotonic()
+        positions = list(range(len(stream['tensors'])))
+        singleton = [encode([stream['tensors'][position]], device).numpy()[0] for position in positions]
+        entry = {'stream': name, 'batch_size': len(stream['tensors']),
+                 'window_indices': [stream['indices'][position] for position in positions],
+                 'batch_vs_singleton': compare_features(features.numpy()[positions], singleton,
+                                                       f'{name} batch versus singleton')}
+        if device == 'cuda' and report['cpu_reference_count'] == 0:
+            # Reuse the same parameters; avoid keeping a second L14 encoder in RAM.
+            model.to('cpu')
+            try:
+                reference = encode([stream['tensors'][0]], 'cpu')
+            finally:
+                model.to(device)
+            entry['gpu_vs_cpu'] = compare_features(features.numpy()[:1], reference.numpy(),
+                                                  f'{name} GPU versus CPU')
+            report['cpu_reference_count'] += 1
+        report['checks'].append(entry)
+        report['seconds'] += time.monotonic() - validation_started
+        stream['checked'] = True
+
+    def flush(name, final=False):
+        stream = streams[name]
+        started = time.monotonic()
+        if stream['tensors']:
+            features = encode(stream['tensors'], device)
+            if not stream['checked']:
+                check_batch(name, stream, features)
+            for row, index in enumerate(stream['indices']):
+                stream['features'][index] = features[row]
+            stream['indices'].clear()
+            stream['tensors'].clear()
+        stream['completed'] = stream['seen']
+        if stream['completed'] > stream['saved'] and (final or stream['completed'] - stream['saved'] >= 10):
+            checkpoint(name, stream['features'], stream['completed'])
+            stream['saved'] = stream['completed']
+        elapsed[name] += time.monotonic() - started
+
+    with torch.inference_mode():
+        for index, frames in enumerate(sampled_clips(video, windows)):
+            for name, resume in (('global', global_completed), ('object', object_completed)):
+                if index < resume:
+                    continue
+                stream = streams[name]
+                started = time.monotonic()
+                box = crops[index]['crop_xyxy_exclusive'] if name == 'object' else None
+                if name == 'global' or box is not None:
+                    if name == 'object':
+                        x1, y1, x2, y2 = box
+                        clip = [frame[y1:y2, x1:x2] for frame in frames]
+                    else:
+                        clip = frames
+                    stream['indices'].append(index)
+                    stream['tensors'].append(preprocess(clip))
+                else:
+                    stream['features'][index] = 0
+                stream['seen'] = index + 1
+                elapsed[name] += time.monotonic() - started
+                if len(stream['tensors']) >= batch_size or (not stream['tensors'] and stream['seen'] - stream['saved'] >= 10):
+                    flush(name)
+        for name in streams:
+            flush(name, final=True)
+    if not report['checks']:
+        report['status'] = 'no_new_nonzero_features'
+    return report, elapsed
 
 
 def load_module(name, path):

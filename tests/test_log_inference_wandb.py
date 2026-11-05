@@ -144,6 +144,8 @@ def test_preserves_recorded_ids_and_upload_contract(bundle, monkeypatch, video_i
         config={
             "video_id": video_id,
             "scope": "one unnamed active-object stream per video",
+            "accelerator": "cpu",
+            "batch_size": 1,
             "dataset": "CMU",
             "mapping_applied": True,
             "checkpoint_sha256": "synthetic-checkpoint",
@@ -170,6 +172,7 @@ def test_preserves_recorded_ids_and_upload_contract(bundle, monkeypatch, video_i
     assert json.loads((folder / "wandb_inference_receipt.json").read_text()) == {
         "url": run.url, "run_id": run_id, "group": "cmu30-active-object-v1",
         "entity": "chefOST", "project": "vidosc - full evals",
+        "accelerator": "cpu", "batch_size": 1,
     }
 
 
@@ -195,6 +198,27 @@ def test_legacy_forge_receipt_matches_only_its_original_destination():
     assert logger.receipt_matches(receipt, "chefOST", "vidosc - full evals")
     assert not logger.receipt_matches(receipt, "chefOST", "vidosc-experiments")
     assert not logger.receipt_matches(receipt, "another-team", "vidosc - full evals")
+
+
+def test_gpu_bundle_cannot_reuse_cpu_receipt(bundle, monkeypatch):
+    folder, manifest = bundle
+    manifest.update(accelerator="L4", batch_size=8)
+    (folder / "feature_manifest.json").write_text(json.dumps(manifest))
+    client, run, artifact = fake_wandb(monkeypatch, "gpu-test")
+    (folder / "wandb_inference_receipt.json").write_text(json.dumps({
+        "url": run.url, "run_id": run.id, "group": "cmu30-active-object-v1",
+        "entity": "chefOST", "project": "vidosc - full evals",
+        "accelerator": "cpu", "batch_size": 1,
+    }))
+    invoke(monkeypatch, folder)
+    client.init.assert_called_once()
+    config = client.init.call_args.kwargs['config']
+    assert config['accelerator'] == 'L4' and config['batch_size'] == 8
+    saved = json.loads((folder / "wandb_inference_receipt.json").read_text())
+    assert saved['accelerator'] == 'L4' and saved['batch_size'] == 8
+    assert len(artifact.add_file.call_args_list) == len(ARTIFACT_FILES)
+    invoke(monkeypatch, folder)
+    assert client.init.call_count == 1
 
 
 def test_group_matching_is_optional_for_legacy_receipts():

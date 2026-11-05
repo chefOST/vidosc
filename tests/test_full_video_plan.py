@@ -28,6 +28,7 @@ def test_cmu_plan_uses_r2_then_mapping_without_local_extraction(inputs):
     assert model["command"] == [str(root / ".venv/bin/python"), "-m", "modal", "run", "scripts/modal_clip.py"]
     assert model["env"] == {
         "MODAL_IMAGE_BUILDER_VERSION": "2025.06",
+        "VIDOSC_GPU": "", "VIDOSC_BATCH_SIZE": "1",
         "VIDOSC_R2_KEY": row["r2_key"], "VIDOSC_VIDEO_SHA256": row["sha256"],
         "VIDOSC_VIDEO_BYTES": "1234", "VIDOSC_VIDEO_ID": row["video_id"],
         "VIDOSC_FRAME_COUNT": "6243", "VIDOSC_FPS": "30", "VIDOSC_DATASET": "CMU",
@@ -74,6 +75,17 @@ def test_timeout_is_explicit_in_worker_identity(inputs, timeout):
     assert env["VIDOSC_TIMEOUT"] == str(timeout)
 
 
+@pytest.mark.parametrize("accelerator,batch_size", [("cpu", 1), ("cpu", 16), ("L4", 1), ("L4", 8)])
+def test_compute_settings_are_explicit_in_stage_identity(inputs, accelerator, batch_size):
+    root, row, r2 = inputs
+    stage = planner.build_plan(row, r2, root=root, accelerator=accelerator,
+                               batch_size=batch_size)["jobs"][0]["stages"][0]
+    assert stage["env"]["VIDOSC_GPU"] == ("" if accelerator == "cpu" else "L4")
+    assert stage["env"]["VIDOSC_BATCH_SIZE"] == str(batch_size)
+    if accelerator == "L4":
+        assert stage["env"] != planner.build_plan(row, r2, root=root)["jobs"][0]["stages"][0]["env"]
+
+
 @pytest.mark.parametrize("change", [
     {"available": False}, {"metadata_frame_count": None}, {"metadata_frame_count": -1},
     {"fps": float("nan")}, {"fps": 0}, {"bytes": 0}, {"sha256": "not-a-hash"},
@@ -86,7 +98,9 @@ def test_invalid_input_metadata_is_rejected(inputs, change):
         planner.build_plan(row, r2, root=root)
 
 
-@pytest.mark.parametrize("options", [{"timeout": 59}, {"timeout": 86401}, {"experiment": "../escape"}])
+@pytest.mark.parametrize("options", [{"timeout": 59}, {"timeout": 86401}, {"experiment": "../escape"},
+    {"accelerator": "A100"}, {"batch_size": 0}, {"batch_size": 17},
+    {"batch_size": True}, {"batch_size": 1.5}])
 def test_invalid_execution_options_are_rejected(inputs, options):
     root, row, r2 = inputs
     with pytest.raises(ValueError):
@@ -99,8 +113,11 @@ def test_cli_writes_selected_r2_plan_only(inputs, monkeypatch):
     preparation.mkdir(parents=True)
     (preparation / "inventory.json").write_text(json.dumps({"videos": [row], "r2": r2}))
     monkeypatch.setattr(planner, "ROOT", root)
-    monkeypatch.setattr(sys, "argv", ["prepare_full_video_plan.py", "--video-id", row["video_id"], "--timeout", "36000"])
+    monkeypatch.setattr(sys, "argv", ["prepare_full_video_plan.py", "--video-id", row["video_id"],
+                                    "--timeout", "36000", "--accelerator", "L4", "--batch-size", "8"])
     planner.main()
     saved = json.loads((preparation / f"full-r2-v1-{row['video_id']}.json").read_text())
     assert saved["jobs"][0]["stages"][0]["env"]["VIDOSC_TIMEOUT"] == "36000"
+    assert saved["jobs"][0]["stages"][0]["env"]["VIDOSC_GPU"] == "L4"
+    assert saved["jobs"][0]["stages"][0]["env"]["VIDOSC_BATCH_SIZE"] == "8"
     assert not (root / "runs/batches").exists()

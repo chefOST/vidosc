@@ -16,7 +16,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts.batch_vidosc import fingerprint, run_stage
 from scripts.log_inference_wandb import receipt_matches
-from scripts.prepare_full_video_plan import build_plan, validate_experiment, validate_timeout, DEFAULT_EXPERIMENT, DEFAULT_TIMEOUT
+from scripts.prepare_full_video_plan import (build_plan, validate_experiment, validate_timeout,
+                                             validate_compute, DEFAULT_EXPERIMENT, DEFAULT_TIMEOUT)
 from weights_and_biases.config import WANDB_ENTITY, WANDB_PROJECT
 
 WEIGHT_SHA256 = {
@@ -45,12 +46,20 @@ def selected_rows(inventory, requested):
     return list(available.values())
 
 
-def worker_hourly_rate(rates):
+def worker_hourly_rate(rates, accelerator="cpu"):
+    validate_compute(accelerator, 1)
     values = [rates[name] for name in ("cpu_hour_cost", "mem_gib_hour_cost")]
     if any(not isinstance(value, (int, float)) or isinstance(value, bool)
            or not math.isfinite(value) or value <= 0 for value in values):
         raise ValueError("Modal CPU and memory rates must be finite positive numbers")
     hourly = 4 * values[0] + 16 * values[1]
+    if accelerator != "cpu":
+        gpu_rates = rates.get("gpu_hour_cost", {})
+        gpu_rate = gpu_rates.get(accelerator) if isinstance(gpu_rates, dict) else None
+        if (not isinstance(gpu_rate, (int, float)) or isinstance(gpu_rate, bool)
+                or not math.isfinite(gpu_rate) or gpu_rate <= 0):
+            raise ValueError(f"Missing finite positive hourly GPU rate for {accelerator}")
+        hourly += gpu_rate
     if not math.isfinite(hourly):
         raise ValueError("Combined Modal rate must be finite")
     return hourly
@@ -63,8 +72,16 @@ def validate_inventory_source(inventory):
         raise ValueError("Inventory R2 source differs from the pinned release; regenerate inventory")
 
 
-def validate_existing_source(folder, row):
+def validate_saved_compute(record, accelerator, batch_size):
+    saved_accelerator, saved_batch_size = record.get("accelerator", "cpu"), record.get("batch_size", 1)
+    validate_compute(saved_accelerator, saved_batch_size)
+    if (saved_accelerator, saved_batch_size) != (accelerator, batch_size):
+        raise ValueError("Saved compute settings differ; use a fresh experiment directory")
+
+
+def validate_existing_source(folder, row, accelerator="cpu", batch_size=1):
     manifest = json.loads((folder / "feature_manifest.json").read_text())
+    validate_saved_compute(manifest, accelerator, batch_size)
     if (manifest.get("video_id") != row["video_id"]
             or manifest.get("video_sha256") != row["sha256"]
             or manifest.get("dataset", "CMU") != row["dataset"]
@@ -134,10 +151,13 @@ def main():
     p.add_argument('--experiment', default=DEFAULT_EXPERIMENT)
     p.add_argument('--video-id', action='append', help='Restrict to this available video; repeat for a subset')
     p.add_argument('--timeout', type=int, default=DEFAULT_TIMEOUT)
+    p.add_argument('--accelerator', choices=('cpu', 'L4'), default='cpu')
+    p.add_argument('--batch-size', type=int, default=1)
     a = p.parse_args()
     try:
         validate_experiment(a.experiment)
         validate_timeout(a.timeout)
+        validate_compute(a.accelerator, a.batch_size)
         if a.budget_usd is not None and (not math.isfinite(a.budget_usd) or a.budget_usd <= 0):
             raise ValueError('Budget must be finite and greater than zero')
         if a.execute and a.budget_usd is None:
@@ -148,7 +168,7 @@ def main():
         rows = selected_rows(inventory, a.video_id)
         if not rows:
             raise ValueError('Inventory has no available videos')
-        hourly = worker_hourly_rate(json.loads((preparation / 'modal_rates.json').read_text()))
+        hourly = worker_hourly_rate(json.loads((preparation / 'modal_rates.json').read_text()), a.accelerator)
     except (OSError, KeyError, TypeError, ValueError) as error:
         p.error(str(error))
     reserve = (a.timeout + 10) / 3600 * hourly
@@ -158,6 +178,8 @@ def main():
         print(json.dumps({'videos': [row['video_id'] for row in rows],
                           'worker_hourly_usd': hourly, 'worker_timeout_seconds': a.timeout,
                           'reservation_per_video_usd': reserve, 'budget_usd': a.budget_usd,
+                          'reservation_selected_batch_usd': len(rows) * reserve + 0.75,
+                          'accelerator': a.accelerator, 'batch_size': a.batch_size,
                           'experiment': a.experiment, 'metrics': False}, indent=2))
         return
 
@@ -176,7 +198,10 @@ def main():
                 or not math.isfinite(state[name]) or state[name] < 0
                 for name in ('reserved_compute_usd', 'setup_transfer_reserve_usd')):
             raise ValueError('Invalid saved budget ledger; inspect it before running')
+        if status_path.exists():
+            validate_saved_compute(state, a.accelerator, a.batch_size)
         state.update(budget_usd=a.budget_usd, worker_hourly_usd=hourly, state='running',
+                     accelerator=a.accelerator, batch_size=a.batch_size,
                      selected_video_ids=[row['video_id'] for row in rows])
         state.pop('next_video', None)
         items = []
@@ -186,19 +211,26 @@ def main():
             receipt = directory / video_id / 'model/wandb_inference_receipt.json'
             try:
                 if receipt.is_file():
-                    validate_existing_source(receipt.parent, row)
+                    validate_existing_source(receipt.parent, row, a.accelerator, a.batch_size)
                     previous = json.loads(receipt.read_text())
+                    validate_saved_compute(previous, a.accelerator, a.batch_size)
                     if receipt_matches(previous, WANDB_ENTITY, WANDB_PROJECT, a.experiment):
-                        state['videos'][video_id] = {'state': 'uploaded', **previous}
+                        state['videos'][video_id] = {**state['videos'].get(video_id, {}),
+                                                    'state': 'uploaded', **previous}
                         continue
                     items.append((row, receipt, None))
                 else:
-                    plan = build_plan(row, inventory['r2'], a.experiment, a.timeout, root=ROOT)
+                    previous_state = state['videos'].get(video_id, {})
+                    if previous_state.get('paid_attempted') or previous_state.get('started_utc'):
+                        raise ValueError('A paid attempt already started for this video; one-try execution forbids relaunch')
+                    plan = build_plan(row, inventory['r2'], a.experiment, a.timeout, root=ROOT,
+                                      accelerator=a.accelerator, batch_size=a.batch_size)
                     preflight_plan(plan, row['dataset'])
                     save(preparation / f'{a.experiment}-{video_id}.json', plan)
                     items.append((row, receipt, plan))
             except Exception as error:
-                state['videos'][video_id] = {'state': 'failed', 'error': str(error)}
+                state['videos'][video_id] = {**state['videos'].get(video_id, {}),
+                                            'state': 'failed', 'error': str(error)}
         if items:
             try:
                 preflight_runtime()
@@ -214,15 +246,24 @@ def main():
                     if plan is not None:
                         state['videos'][row['video_id']] = {'state': 'failed', 'error': str(error)}
                 items = [item for item in items if item[2] is None]
+        paid_items = [item for item in items if item[2] is not None]
+        batch_reserve = len(paid_items) * reserve
+        required_budget = state['reserved_compute_usd'] + batch_reserve + state['setup_transfer_reserve_usd']
+        if not math.isfinite(required_budget):
+            raise ValueError('Combined batch reservation must be finite')
+        state.update(batch_reservation_usd=batch_reserve, required_budget_usd=required_budget)
+        if paid_items and required_budget > a.budget_usd:
+            state.update(state='budget_stop', next_video=paid_items[0][0]['video_id'])
+            save(status_path, state)
+            return
+        # Reserve the complete selected paid workload before launching its first video.
+        state['reserved_compute_usd'] += batch_reserve
         save(status_path, state)
         for row, receipt, plan in items:
             video_id = row['video_id']
             if plan is not None:
-                if state['reserved_compute_usd'] + reserve + state['setup_transfer_reserve_usd'] > a.budget_usd:
-                    state.update(state='budget_stop', next_video=video_id)
-                    break
-                state['reserved_compute_usd'] += reserve
                 state['videos'][video_id] = {'state': 'running', 'reserved_compute_usd': reserve,
+                    'paid_attempted': True, 'accelerator': a.accelerator, 'batch_size': a.batch_size,
                     'started_utc': datetime.now(timezone.utc).isoformat()}
                 save(status_path, state)
             try:
@@ -230,9 +271,11 @@ def main():
                     print(f'Starting {video_id}; reserved worker compute ${reserve:.3f}', flush=True)
                     execute_plan(plan, directory / f'{video_id}.log')
                 upload(receipt.parent, a.experiment)
-                state['videos'][video_id] = {'state': 'uploaded', **json.loads(receipt.read_text())}
+                state['videos'][video_id] = {**state['videos'].get(video_id, {}),
+                                            'state': 'uploaded', **json.loads(receipt.read_text())}
             except Exception as error:
-                state['videos'][video_id] = {'state': 'failed', 'error': str(error)}
+                state['videos'][video_id] = {**state['videos'].get(video_id, {}),
+                                            'state': 'failed', 'error': str(error)}
             save(status_path, state)
             print(video_id, state['videos'][video_id]['state'], flush=True)
         else:

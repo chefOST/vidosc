@@ -28,7 +28,8 @@ def workspace(tmp_path, monkeypatch):
     preparation = tmp_path / "runs/batch-preparation"
     preparation.mkdir(parents=True)
     (preparation / "inventory.json").write_text(json.dumps(inventory))
-    (preparation / "modal_rates.json").write_text(json.dumps({"cpu_hour_cost": 0.05, "mem_gib_hour_cost": 0.001}))
+    (preparation / "modal_rates.json").write_text(json.dumps({"cpu_hour_cost": 0.05,
+        "mem_gib_hour_cost": 0.001, "gpu_hour_cost": {"L4": 1.0}}))
     for row in rows:
         produced = set()
         for stage in build_plan(row, r2, EXPERIMENT, root=tmp_path)["jobs"][0]["stages"]:
@@ -77,6 +78,7 @@ def test_preview_enumerates_all_available_datasets_without_work(workspace, monke
     assert output["videos"] == ["CMU_video", "EGTEA_video"]
     assert output["worker_timeout_seconds"] == 21600
     assert output["budget_usd"] is None
+    assert output["accelerator"] == "cpu" and output["batch_size"] == 1
     runner.preflight_runtime.assert_not_called()
     runner.execute_plan.assert_not_called()
     assert not (root / "runs/batches").exists()
@@ -114,7 +116,8 @@ def test_all_plans_preflight_before_any_paid_stage(workspace, monkeypatch):
 
 @pytest.mark.parametrize("flags", [["--execute"], ["--execute", "--budget-usd", "nan"],
     ["--execute", "--budget-usd", "inf"], ["--execute", "--budget-usd", "0"],
-    ["--video-id", "unknown"], ["--video-id", "unavailable"], ["--timeout", "86401"]])
+    ["--video-id", "unknown"], ["--video-id", "unavailable"], ["--timeout", "86401"],
+    ["--accelerator", "A100"], ["--batch-size", "0"], ["--batch-size", "17"]])
 def test_invalid_request_never_executes(workspace, monkeypatch, flags):
     with pytest.raises(SystemExit) as error:
         invoke(workspace, monkeypatch, *flags)
@@ -127,6 +130,81 @@ def test_invalid_request_never_executes(workspace, monkeypatch, flags):
 def test_invalid_rates_rejected(value):
     with pytest.raises(ValueError, match="finite positive"):
         runner.worker_hourly_rate({"cpu_hour_cost": value, "mem_gib_hour_cost": .001})
+
+
+@pytest.mark.parametrize("gpu_rates", [None, {}, {"L4": 0}, {"L4": -1}, {"L4": float("nan")},
+                                      {"L4": float("inf")}, {"L4": True}, {"L4": "1.0"}])
+def test_gpu_rate_must_be_present_and_positive(gpu_rates):
+    with pytest.raises(ValueError, match="GPU rate"):
+        runner.worker_hourly_rate({"cpu_hour_cost": .05, "mem_gib_hour_cost": .001,
+                                  "gpu_hour_cost": gpu_rates}, "L4")
+
+
+def test_gpu_hourly_rate_keeps_cpu_and_memory_cost():
+    rates = {"cpu_hour_cost": .05, "mem_gib_hour_cost": .001, "gpu_hour_cost": {"L4": 1.0}}
+    assert runner.worker_hourly_rate(rates) == pytest.approx(.216)
+    assert runner.worker_hourly_rate(rates, "L4") == pytest.approx(1.216)
+
+
+def three_videos(workspace):
+    root, inventory = workspace
+    third = dict(inventory["videos"][1], video_id="EGTEA_video_2", r2_key="release/EGTEA/video2.mp4")
+    inventory["videos"].insert(2, third)
+    (root / "runs/batch-preparation/inventory.json").write_text(json.dumps(inventory))
+
+
+def test_entire_three_video_gpu_budget_is_checked_before_first_launch(workspace, monkeypatch):
+    three_videos(workspace)
+    state = invoke(workspace, monkeypatch, "--execute", "--budget-usd", "20",
+                   "--accelerator", "L4", "--batch-size", "8")
+    assert state["state"] == "budget_stop"
+    assert state["required_budget_usd"] == pytest.approx(3 * 21610 / 3600 * 1.216 + .75)
+    assert state["required_budget_usd"] > 20
+    assert state["reserved_compute_usd"] == 0
+    runner.execute_plan.assert_not_called()
+    runner.upload.assert_not_called()
+
+
+def test_three_gpu_videos_reserve_whole_budget_before_first_launch(workspace, monkeypatch):
+    three_videos(workspace)
+    root, _ = workspace
+    reserve = 3 * 3610 / 3600 * 1.216
+
+    def execute(plan, path):
+        state = json.loads((root / "runs/batches" / EXPERIMENT / "batch_status.json").read_text())
+        assert state["reserved_compute_usd"] == pytest.approx(reserve)
+        assert state["accelerator"] == "L4" and state["batch_size"] == 8
+        env = plan["jobs"][0]["stages"][0]["env"]
+        assert env["VIDOSC_GPU"] == "L4" and env["VIDOSC_BATCH_SIZE"] == "8"
+
+    runner.execute_plan.side_effect = execute
+    state = invoke(workspace, monkeypatch, "--execute", "--budget-usd", "20", "--timeout", "3600",
+                   "--accelerator", "L4", "--batch-size", "8")
+    assert state["state"] == "complete"
+    assert runner.execute_plan.call_count == 3
+    assert state["reserved_compute_usd"] == pytest.approx(reserve)
+
+
+def test_cpu_budget_also_covers_all_selected_before_first_launch(workspace, monkeypatch):
+    # $2 covers one CPU video plus setup, but not both selected videos.
+    state = invoke(workspace, monkeypatch, "--execute", "--budget-usd", "2")
+    assert state["state"] == "budget_stop"
+    assert state["reserved_compute_usd"] == 0
+    runner.execute_plan.assert_not_called()
+
+
+def test_failed_paid_attempt_cannot_be_relaunched(workspace, monkeypatch):
+    runner.execute_plan.side_effect = RuntimeError("worker failed")
+    flags = ("--execute", "--budget-usd", "20", "--timeout", "3600", "--accelerator", "L4",
+             "--batch-size", "8", "--video-id", "CMU_video")
+    first = invoke(workspace, monkeypatch, *flags)
+    assert first["videos"]["CMU_video"]["paid_attempted"] is True
+    runner.execute_plan.reset_mock()
+    second = invoke(workspace, monkeypatch, *flags)
+    assert "forbids relaunch" in second["videos"]["CMU_video"]["error"]
+    assert second["reserved_compute_usd"] == first["reserved_compute_usd"]
+    runner.execute_plan.assert_not_called()
+    runner.upload.assert_not_called()
 
 
 def test_budget_stop_precedes_paid_stage_and_upload(workspace, monkeypatch):
@@ -193,6 +271,59 @@ def test_existing_receipt_reuse_or_relog_never_runs_model(workspace, monkeypatch
     assert state["state"] == "complete"
     assert state["reserved_compute_usd"] == 0
     assert runner.upload.call_count == uploads
+    runner.execute_plan.assert_not_called()
+
+
+@pytest.mark.parametrize("manifest_compute,receipt_compute,expected", [
+    ({}, {}, "failed"),
+    ({"accelerator": "L4", "batch_size": 8}, {}, "failed"),
+    ({"accelerator": "L4", "batch_size": 1}, {"accelerator": "L4", "batch_size": 1}, "failed"),
+    ({"accelerator": "L4", "batch_size": 8}, {"accelerator": "L4", "batch_size": 8}, "uploaded"),
+])
+def test_gpu_reuse_requires_matching_manifest_and_receipt_compute(
+        workspace, monkeypatch, manifest_compute, receipt_compute, expected):
+    root, inventory = workspace
+    row = inventory["videos"][0]
+    folder = root / "runs/batches" / EXPERIMENT / "CMU_video/model"
+    folder.mkdir(parents=True)
+    (folder / "feature_manifest.json").write_text(json.dumps({
+        "video_id": row["video_id"], "video_sha256": row["sha256"], "dataset": row["dataset"],
+        "clip_start_seconds": 0, "clip_end_seconds": row["metadata_frame_count"] / row["fps"],
+        **manifest_compute,
+    }))
+    (folder / "wandb_inference_receipt.json").write_text(json.dumps({**receipt(), **receipt_compute}))
+    state = invoke(workspace, monkeypatch, "--execute", "--budget-usd", "20", "--accelerator", "L4",
+                   "--batch-size", "8", "--video-id", "CMU_video")
+    assert state["videos"]["CMU_video"]["state"] == expected
+    assert state["reserved_compute_usd"] == 0
+    runner.execute_plan.assert_not_called()
+    runner.upload.assert_not_called()
+
+
+def test_saved_cpu_ledger_cannot_be_reused_for_gpu(workspace, monkeypatch):
+    root, _ = workspace
+    directory = root / "runs/batches" / EXPERIMENT
+    directory.mkdir(parents=True)
+    (directory / "batch_status.json").write_text(json.dumps({
+        "experiment": EXPERIMENT, "reserved_compute_usd": 1,
+        "setup_transfer_reserve_usd": .75, "videos": {},
+    }))
+    with pytest.raises(ValueError, match="Saved compute settings differ"):
+        invoke(workspace, monkeypatch, "--execute", "--budget-usd", "20", "--accelerator", "L4")
+    runner.execute_plan.assert_not_called()
+    runner.upload.assert_not_called()
+    assert not (directory / "batch.lock").exists()
+
+
+def test_missing_gpu_rate_rejects_before_any_account_or_paid_call(workspace, monkeypatch):
+    root, _ = workspace
+    (root / "runs/batch-preparation/modal_rates.json").write_text(json.dumps({
+        "cpu_hour_cost": .05, "mem_gib_hour_cost": .001,
+    }))
+    with pytest.raises(SystemExit) as failure:
+        invoke(workspace, monkeypatch, "--execute", "--budget-usd", "20", "--accelerator", "L4")
+    assert failure.value.code == 2
+    runner.preflight_runtime.assert_not_called()
     runner.execute_plan.assert_not_called()
 
 

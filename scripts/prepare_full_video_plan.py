@@ -22,10 +22,19 @@ def validate_timeout(value):
     return value
 
 
-def build_plan(row, r2, experiment=DEFAULT_EXPERIMENT, timeout=DEFAULT_TIMEOUT, root=None):
+def validate_compute(accelerator, batch_size):
+    if accelerator not in {"cpu", "L4"}:
+        raise ValueError("Accelerator must be cpu or L4")
+    if not isinstance(batch_size, int) or isinstance(batch_size, bool) or not 1 <= batch_size <= 16:
+        raise ValueError("Batch size must be an integer between 1 and 16")
+
+
+def build_plan(row, r2, experiment=DEFAULT_EXPERIMENT, timeout=DEFAULT_TIMEOUT, root=None,
+               accelerator="cpu", batch_size=1):
     root = ROOT if root is None else Path(root)
     validate_experiment(experiment)
     validate_timeout(timeout)
+    validate_compute(accelerator, batch_size)
     video_id = row["video_id"]
     if not isinstance(video_id, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]*", video_id):
         raise ValueError("Video ID must be a simple file name")
@@ -77,6 +86,8 @@ def build_plan(row, r2, experiment=DEFAULT_EXPERIMENT, timeout=DEFAULT_TIMEOUT, 
         [model / name for name in ("feature_manifest.json", "combined_features.pth.tar",
             "object_features.pth.tar", "raw_probabilities.npz", "raw_logits.npz")],
         {"MODAL_IMAGE_BUILDER_VERSION": "2025.06",
+         "VIDOSC_GPU": "" if accelerator == "cpu" else accelerator,
+         "VIDOSC_BATCH_SIZE": str(batch_size),
          "VIDOSC_R2_KEY": key, "VIDOSC_VIDEO_SHA256": sha.lower(),
          "VIDOSC_VIDEO_BYTES": str(size), "VIDOSC_VIDEO_ID": video_id,
          "VIDOSC_FRAME_COUNT": str(frames), "VIDOSC_FPS": str(fps), "VIDOSC_DATASET": dataset,
@@ -90,7 +101,7 @@ def build_plan(row, r2, experiment=DEFAULT_EXPERIMENT, timeout=DEFAULT_TIMEOUT, 
             [model / "predictions" / name for name in
              ("manifest.json", "probabilities.npz", "predictions_by_second.csv")])
     return {"jobs": [{"name": video_id + ":active-object", "stages": stages}],
-            "note": "R2 input, feature extraction and inference run on Modal CPU. "
+            "note": f"R2 input and inference run on Modal; feature extraction uses {accelerator}, batch size {batch_size}. "
                     "CMU mapping runs locally; EGTEA preserves raw outputs only. "
                     "No W&B uploads, metrics or temporal postprocessing."}
 
@@ -100,13 +111,16 @@ def main():
     p.add_argument("--video-id", required=True)
     p.add_argument("--experiment", default=DEFAULT_EXPERIMENT)
     p.add_argument("--timeout", type=int, default=DEFAULT_TIMEOUT)
+    p.add_argument("--accelerator", choices=("cpu", "L4"), default="cpu")
+    p.add_argument("--batch-size", type=int, default=1)
     args = p.parse_args()
     inventory = json.loads((ROOT / "runs/batch-preparation/inventory.json").read_text())
     rows = [row for row in inventory["videos"] if row["video_id"] == args.video_id]
     if len(rows) != 1:
         p.error("Video ID must match exactly one inventory entry")
     try:
-        plan = build_plan(rows[0], inventory["r2"], args.experiment, args.timeout)
+        plan = build_plan(rows[0], inventory["r2"], args.experiment, args.timeout,
+                          accelerator=args.accelerator, batch_size=args.batch_size)
     except (KeyError, TypeError, ValueError) as error:
         p.error(str(error))
     path = ROOT / "runs/batch-preparation" / f"{args.experiment}-{args.video_id}.json"

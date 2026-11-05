@@ -75,7 +75,7 @@ the R2 release has its own source hashes and sampling metadata.
 2. `scripts/modal_clip.py` samples eight frames per one-second interval, shortening
    the final interval. It detects hand-associated objects on the fifth sampled
    frame and applies their union crop to all eight frames. InternVideo encodes
-   global frames and valid crops on Modal CPU into separate L2-normalized
+   global frames and valid crops into separate L2-normalized
    768-dimensional features. Missing crops use zeros; concatenation yields 1,536
    dimensions.
 3. For N ≤ 900 observed intervals, model inputs are zero-padded to 900. Longer
@@ -95,7 +95,9 @@ CMU labels. Processing longer videos does not establish accuracy on them.
 
 Create `runs/batch-preparation/modal_rates.json` with numeric `cpu_hour_cost` and
 `mem_gib_hour_cost` values applicable to your Modal account. No current prices are
-bundled. Preview the available release without starting models or uploading outputs:
+bundled. GPU runs also require `gpu_hour_cost: {"L4": <hourly rate>}` in that file.
+Read current rates with `.venv/bin/python -m modal billing rates --json`.
+Preview the available release without starting models or uploading outputs:
 
 ```sh
 .venv/bin/python scripts/run_full_batch.py
@@ -116,14 +118,50 @@ first, then add execution only after approving its budget:
 ```
 
 `--execute` requires an explicit positive, finite `--budget-usd`; there is no
-25 USD ceiling. The sequential worker requests 4 CPUs and 16 GiB.
+25 USD ceiling. The sequential worker requests 4 CPUs and 16 GiB; `--accelerator L4`
+adds one L4 GPU and its hourly cost to the reservation.
 `--timeout` defaults to 21,600 (six hours), with a supported range of 60–86,400.
 The ledger reserves worst-case compute per attempt using the requested timeout
 and configured rates. It is an estimate, not a provider billing hard cap.
+All pending videos must fit the approved budget before the first model call.
 Before paid stages, the coordinator checks static inputs, dependencies, weights
 and the CMU vocabulary for the selected batch. Failures are recorded and the loop
 continues to later videos; paid jobs are not automatically retried. Inspect
 failures before manually attempting them again.
+An attempted model stage cannot launch again in the same experiment directory;
+a new paid attempt requires a new experiment and explicit authorization.
+
+### GPU and batching experiment
+
+`--accelerator L4 --batch-size 8` runs the detector and InternVideo encoder on one
+L4 GPU. The detector still processes one frame at a time. The encoder processes
+up to eight clips together, keeps missing-object rows zero, and shares a decoding
+pass for global and object features. It retains FP32, disables TF32, and keeps
+the same frame sampling, weights and crop rules. The first batches check numerical
+agreement with single-clip execution and one CPU reference. The existing feature
+manifest records the settings and checks; no extra feature artifacts are exported.
+GPU crops and features may have small numerical differences from CPU results.
+Feature timing includes validation overhead, also recorded in
+`numerical_validation.seconds`; `feature_extraction_wall` includes the shared decode.
+
+The three-video comparison uses the same Eggs and Salad videos as the CPU pilot,
+plus a longer EGTEA video that exercises more than 900 intervals. It produces raw
+EGTEA outputs, without a CMU mapping or evaluation metrics. Preview first:
+
+```sh
+WANDB_ENTITY=chefOST WANDB_PROJECT=vidosc-experiments \
+  .venv/bin/python scripts/run_full_batch.py \
+  --experiment r2-l4-batch8-three-video-v1 --accelerator L4 --batch-size 8 \
+  --timeout 3600 --budget-usd 20 \
+  --video-id S08_Eggs_7150991-727 --video-id S29_Salad_7150991-1 \
+  --video-id P17-R04-ContinentalBreakfast
+```
+
+Add `--execute` only for the authorized experiment. It runs sequentially and does
+not change another checkout's running CPU job. Use a separate checkout and output
+directory; cache identities include the compute settings. Do not edit its code
+while it runs. The CPU/GPU comparison should use recorded stage times and actual
+Modal charges rather than the conservative reservation ledger.
 
 For the full available batch, omit `--video-id`. For an unattended Mac run, load
 credentials in the current shell and set the approved budget before starting:
