@@ -16,6 +16,8 @@ EXPERIMENT = "offline-test"
 @pytest.fixture
 def workspace(tmp_path, monkeypatch):
     monkeypatch.setattr(runner, "ROOT", tmp_path)
+    monkeypatch.setenv("VIDOSC_CHECKPOINT_DIR", str(tmp_path / "checkpoints"))
+    monkeypatch.setenv("VIDOSC_STATE_VOCABULARY", str(tmp_path / "data/moscato/vocabulary/state_dict.json"))
     monkeypatch.setattr(runner, "WANDB_ENTITY", "chefOST")
     monkeypatch.setattr(runner, "WANDB_PROJECT", "vidosc-experiments")
     r2 = {"bucket": "fixture", "endpoint": "https://example.invalid", "prefix": "release/",
@@ -38,11 +40,11 @@ def workspace(tmp_path, monkeypatch):
                     path.parent.mkdir(parents=True, exist_ok=True)
                     path.write_bytes(b"fixture")
             produced.update(stage["outputs"])
-    expected = {name: runner.fingerprint(tmp_path / name) for name in runner.WEIGHT_SHA256}
+    expected = {name: runner.fingerprint(runner.checkpoint_path(name, tmp_path)) for name in runner.WEIGHT_SHA256}
     monkeypatch.setattr(runner, "WEIGHT_SHA256", expected)
     (tmp_path / "configs/r2_release.json").write_text(json.dumps(r2))
     (tmp_path / "configs/changeit_moscato_alias_mapping.json").write_text(json.dumps({
-        "checkpoint_sha256": expected["checkpoints/changeit/state_best.ckpt"],
+        "checkpoint_sha256": expected["changeit/state_best.ckpt"],
         "target_vocabulary_sha256": runner.fingerprint(tmp_path / "data/moscato/vocabulary/state_dict.json"),
     }))
     monkeypatch.setattr(runner, "preflight_runtime", Mock())

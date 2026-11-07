@@ -9,7 +9,9 @@ from scripts import prepare_full_video_plan as planner
 
 
 @pytest.fixture
-def inputs(tmp_path):
+def inputs(tmp_path, monkeypatch):
+    monkeypatch.setenv("VIDOSC_CHECKPOINT_DIR", str(tmp_path / "checkpoints"))
+    monkeypatch.setenv("VIDOSC_STATE_VOCABULARY", str(tmp_path / "data/moscato/vocabulary/state_dict.json"))
     r2 = {"bucket": "fixture-bucket", "endpoint": "https://example.invalid",
           "prefix": "release/v1/", "manifest_key": "release/v1/manifest.json", "release_sha256": "a" * 64}
     row = {"video_id": "S08_Eggs_7150991-727", "dataset": "CMU", "available": True,

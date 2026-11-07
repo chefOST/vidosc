@@ -14,14 +14,15 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from moscato.paths import checkpoint_path, state_vocabulary_path
 from scripts.batch_vidosc import fingerprint, run_stage
 from scripts.log_inference_wandb import receipt_matches
 from scripts.prepare_full_video_plan import build_plan, validate_experiment, validate_timeout, DEFAULT_EXPERIMENT, DEFAULT_TIMEOUT
 from weights_and_biases.config import WANDB_ENTITY, WANDB_PROJECT
 
 WEIGHT_SHA256 = {
-    "checkpoints/changeit/state_best.ckpt": "e6d1fa0d4708c8dffecba2a37f25149cc80c85fed33e6d4537bcaf98b0d94d36",
-    "checkpoints/internvideo/InternVideo-MM-L-14.ckpt": "a508e42229072f84a3fcd5fc3acdb7ebc969b27519ee1f56dac9996999cd40f6",
+    "changeit/state_best.ckpt": "e6d1fa0d4708c8dffecba2a37f25149cc80c85fed33e6d4537bcaf98b0d94d36",
+    "internvideo/InternVideo-MM-L-14.ckpt": "a508e42229072f84a3fcd5fc3acdb7ebc969b27519ee1f56dac9996999cd40f6",
 }
 
 
@@ -86,7 +87,7 @@ def preflight_runtime():
 
 def preflight_weights():
     for name, expected in WEIGHT_SHA256.items():
-        path = ROOT / name
+        path = checkpoint_path(name, ROOT)
         if not path.is_file():
             raise FileNotFoundError(f"Missing model weights: {path}")
         if fingerprint(path) != expected:
@@ -102,9 +103,9 @@ def preflight_plan(plan, dataset):
         produced.update(stage["outputs"])
     if dataset.upper() == "CMU":
         mapping = json.loads((ROOT / "configs/changeit_moscato_alias_mapping.json").read_text())
-        if mapping["checkpoint_sha256"] != WEIGHT_SHA256["checkpoints/changeit/state_best.ckpt"]:
+        if mapping["checkpoint_sha256"] != WEIGHT_SHA256["changeit/state_best.ckpt"]:
             raise ValueError("CMU mapping refers to different model weights")
-        if fingerprint(ROOT / "data/moscato/vocabulary/state_dict.json") != mapping["target_vocabulary_sha256"]:
+        if fingerprint(state_vocabulary_path(ROOT)) != mapping["target_vocabulary_sha256"]:
             raise ValueError("CMU vocabulary differs from the fixed mapping")
 
 

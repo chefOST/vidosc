@@ -10,6 +10,7 @@ import modal
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from moscato.paths import checkpoint_path
 from scripts.modal_detector import base_image
 
 R2_BUCKET = os.environ.get('VIDOSC_R2_BUCKET', 'chefost-moscato-gt-videos')
@@ -35,8 +36,8 @@ image = (
     )
     .add_local_dir(ROOT / 'scripts', '/root/scripts', ignore=['__pycache__/**', '*.local.sh'])
     .add_local_dir(ROOT / 'moscato', '/root/moscato', ignore=['__pycache__/**', '*.local.sh'])
-    .add_local_file(ROOT / 'checkpoints/changeit/state_best.ckpt', '/inputs/vidosc.ckpt')
-    .add_local_file(ROOT / 'checkpoints/internvideo/InternVideo-MM-L-14.ckpt', '/inputs/internvideo.ckpt')
+    .add_local_file(checkpoint_path('changeit/state_best.ckpt', ROOT), '/inputs/vidosc.ckpt')
+    .add_local_file(checkpoint_path('internvideo/InternVideo-MM-L-14.ckpt', ROOT), '/inputs/internvideo.ckpt')
 )
 
 

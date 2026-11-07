@@ -48,3 +48,6 @@ runs/
 
 # Local run scripts. These hold API keys and machine-specific paths.
 *.local.sh
+*.py[cod]
+.pytest_cache/
+features/
