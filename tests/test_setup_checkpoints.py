@@ -12,12 +12,13 @@ from scripts import setup_checkpoints as setup
 @pytest.fixture
 def checkpoint(tmp_path, monkeypatch):
     monkeypatch.setattr(setup, "ROOT", tmp_path)
-    return {"name": "fixture", "path": "checkpoints/model.ckpt", "bytes": 4,
+    monkeypatch.setenv("VIDOSC_CHECKPOINT_DIR", str(tmp_path / "checkpoints"))
+    return {"name": "fixture", "path": "model.ckpt", "bytes": 4,
             "sha256": hashlib.sha256(b"good").hexdigest()}
 
 
 def test_valid_download_is_promoted_after_verification(checkpoint, monkeypatch):
-    destination = setup.ROOT / checkpoint["path"]
+    destination = setup.checkpoint_path(checkpoint["path"], setup.ROOT)
 
     def download(spec, partial):
         assert spec == checkpoint
@@ -36,13 +37,13 @@ def test_invalid_download_never_creates_final_file(checkpoint, monkeypatch, cont
     monkeypatch.setattr(setup, "download", lambda spec, path: path.write_bytes(content))
     with pytest.raises(ValueError, match="mismatch"):
         setup.ensure_checkpoint(checkpoint)
-    assert not (setup.ROOT / checkpoint["path"]).exists()
+    assert not (setup.checkpoint_path(checkpoint["path"], setup.ROOT)).exists()
     assert not list(setup.ROOT.rglob("*.part"))
 
 
 @pytest.mark.parametrize("content,valid", [(b"good", True), (b"evil", False)])
 def test_existing_checkpoint_is_never_overwritten(checkpoint, monkeypatch, content, valid):
-    path = setup.ROOT / checkpoint["path"]
+    path = setup.checkpoint_path(checkpoint["path"], setup.ROOT)
     path.parent.mkdir()
     path.write_bytes(content)
     monkeypatch.setattr(setup, "download", lambda *args: pytest.fail("Unexpected download"))
@@ -70,7 +71,7 @@ def test_download_failure_cleans_partial(checkpoint, monkeypatch):
     with pytest.raises(OSError, match="connection failed"):
         setup.ensure_checkpoint(checkpoint)
     assert not list(setup.ROOT.rglob("*.part"))
-    assert not (setup.ROOT / checkpoint["path"]).exists()
+    assert not (setup.checkpoint_path(checkpoint["path"], setup.ROOT)).exists()
 
 
 def test_main_attempts_other_checkpoints_after_failure(monkeypatch):
@@ -91,7 +92,7 @@ def test_main_attempts_other_checkpoints_after_failure(monkeypatch):
 
 def test_hub_download_stays_temporary_until_hash_verified(checkpoint, monkeypatch):
     checkpoint.update(hf_repo="publisher/model", filename="model.ckpt")
-    destination = setup.ROOT / checkpoint["path"]
+    destination = setup.checkpoint_path(checkpoint["path"], setup.ROOT)
 
     def fake_download(**kwargs):
         assert kwargs["repo_id"] == "publisher/model"
@@ -126,5 +127,5 @@ def test_hub_access_error_explains_local_login(checkpoint, monkeypatch):
                         types.SimpleNamespace(GatedRepoError=error))
     with pytest.raises(RuntimeError, match="hf auth login"):
         setup.ensure_checkpoint(checkpoint)
-    assert not (setup.ROOT / checkpoint["path"]).exists()
+    assert not (setup.checkpoint_path(checkpoint["path"], setup.ROOT)).exists()
     assert not list((setup.ROOT / "checkpoints").iterdir())

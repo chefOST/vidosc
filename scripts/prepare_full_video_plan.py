@@ -3,9 +3,12 @@ import argparse
 import json
 import math
 from pathlib import Path
+import sys
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from moscato.paths import checkpoint_path, state_vocabulary_path
 DEFAULT_EXPERIMENT = "full-r2-v1"
 DEFAULT_TIMEOUT = 21600
 
@@ -63,12 +66,12 @@ def build_plan(row, r2, experiment=DEFAULT_EXPERIMENT, timeout=DEFAULT_TIMEOUT, 
     out = root / "runs/batches" / experiment / video_id
     model = out / "model"
     python = str(root / ".venv/bin/python")
-    checkpoint = root / "checkpoints/changeit/state_best.ckpt"
-    iv = root / "checkpoints/internvideo/InternVideo-MM-L-14.ckpt"
+    checkpoint = checkpoint_path("changeit/state_best.ckpt", root)
+    iv = checkpoint_path("internvideo/InternVideo-MM-L-14.ckpt", root)
     mapping = root / "configs/changeit_moscato_alias_mapping.json"
-    vocab = root / "data/moscato/vocabulary/state_dict.json"
+    vocab = state_vocabulary_path(root)
     code = [root / name for name in (
-        "moscato/__init__.py", "moscato/baseline.py", "moscato/checkpoint_adapter.py",
+        "moscato/__init__.py", "moscato/paths.py", "moscato/baseline.py", "moscato/checkpoint_adapter.py",
         "moscato/extract_internvideo.py", "moscato/hand_object.py", "moscato/r2_inputs.py",
         "moscato/import_modal_predictions.py", "moscato/object_crops.py",
         "moscato/progress_cache.py", "scripts/modal_clip.py", "scripts/modal_detector.py",

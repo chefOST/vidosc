@@ -2,13 +2,16 @@
 import argparse
 import hashlib
 from pathlib import Path
+import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from moscato.paths import checkpoint_path
 CHECKPOINTS = (
     {
         "name": "InternVideo-MM-L-14",
-        "path": "checkpoints/internvideo/InternVideo-MM-L-14.ckpt",
+        "path": "internvideo/InternVideo-MM-L-14.ckpt",
         # The historical official Aliyun URL now returns 404. Use the current
         # publisher release with the user's existing Hugging Face credentials.
         "hf_repo": "OpenGVLab/InternVideo1.0",
@@ -18,7 +21,7 @@ CHECKPOINTS = (
     },
     {
         "name": "ChangeIt multitask state_best",
-        "path": "checkpoints/changeit/state_best.ckpt",
+        "path": "changeit/state_best.ckpt",
         "drive_id": "1YpHscdX-ei1j5p5Qlsw-DTjUED5iu3aX",
         "sha256": "e6d1fa0d4708c8dffecba2a37f25149cc80c85fed33e6d4537bcaf98b0d94d36",
         "bytes": 133731419,
@@ -73,7 +76,7 @@ def download(checkpoint, partial):
 
 
 def ensure_checkpoint(checkpoint, *, verify_only=False):
-    destination = ROOT / checkpoint["path"]
+    destination = checkpoint_path(checkpoint["path"], ROOT)
     if destination.exists():
         actual = verify(destination, checkpoint)
         print(f"Verified existing {destination}: SHA256 {actual}", flush=True)

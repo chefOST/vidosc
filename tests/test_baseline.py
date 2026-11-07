@@ -4,9 +4,10 @@ from pathlib import Path
 import numpy as np
 import pytest
 from moscato.baseline import project_scores, read
+from moscato.paths import checkpoint_path
 
 ROOT = Path(__file__).resolve().parents[1]
-CHECKPOINT = ROOT / 'checkpoints/changeit/state_best.ckpt'
+CHECKPOINT = checkpoint_path('changeit/state_best.ckpt', ROOT)
 UPSTREAM = ROOT.parent / 'vidosc-upstream'
 
 
