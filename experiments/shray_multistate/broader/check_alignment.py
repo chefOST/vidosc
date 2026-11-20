@@ -3,7 +3,7 @@ import argparse
 from pathlib import Path
 from protocol import CONFIG,DATA,HERE,WORKSPACE,read,write
 from features import video_info
-from scoring import label_matrix
+from training_targets import label_matrix
 
 def main(protocol_path=CONFIG):
     cfg=read(protocol_path);vocab=read(WORKSPACE/'work/chefost-data/MOSCATO/vocabulary/CMU/state_dict.json')
