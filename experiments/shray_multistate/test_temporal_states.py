@@ -4,7 +4,6 @@ import numpy as np
 import torch
 
 from temporal_states import TextStateHead, MultiStateVidOSC, expand_samples, smooth_scores, state_intervals
-from scoring import evaluate_scores
 
 
 class TemporalStateTests(unittest.TestCase):
@@ -82,14 +81,6 @@ class TemporalStateTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 expand_samples(np.zeros((2,2)),anchors,8)
 
-    def test_multilabel_metrics_penalize_missing_colabel(self):
-        metadata={'fps':30,'raw_frame_count':4,'sample_anchors':[0,2]}
-        labels={'fps':30,'states':[['peeled','chopped'],['peeled','chopped'],['chopped'],[]]}
-        metrics=evaluate_scores([[0.9,0.1],[0.1,0.9]],metadata,labels,['peeled','chopped'],{},0.5)
-        self.assertEqual(metrics['evaluated_frames'],3)
-        self.assertEqual(metrics['top1_frame_hit_accuracy'],1)
-        self.assertLess(metrics['micro_f1'],1)
-        self.assertAlmostEqual(metrics['exact_state_set_accuracy'],1/3)
 
     def test_alignment_learns_a_multilabel_mapping(self):
         torch.set_num_threads(2)

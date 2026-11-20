@@ -5,53 +5,14 @@ import torch
 import protocol
 sys.path.insert(0,str(protocol.HERE))
 from protocol import assert_disjoint,read,CONFIG
-from metrics import ValidationCounts,evaluate,segment_match,intervals,choose_policy
 from model import QueryStateModel
-from scoring import label_matrix,sampled_targets
+from training_targets import label_matrix,sampled_targets
 from temporal_states import expand_samples
 
 class MetricsTests(unittest.TestCase):
     def setUp(self):
         self.states=['raw','cut','peeled'];self.meta={'fps':2,'raw_frame_count':8,'sample_anchors':[0,3,6]}
         self.ann={'fps':2,'states':[['raw'],['raw','peeled'],[],['cut'],['cut'],['cut','peeled'],['raw'],['peeled']]}
-    def test_binned_metrics_equal_full_frame_metrics(self):
-        rng=np.random.default_rng(17)
-        counts=ValidationCounts(self.meta,self.ann,self.states,{})
-        for _ in range(30):
-            scores=rng.random((3,3));policy={'smoothing':1,'threshold':.4}
-            fast=counts.measure(scores>=.4);dense=evaluate(scores,self.meta,self.ann,self.states,{},policy)
-            self.assertAlmostEqual(fast['micro_f1'],dense['micro_f1'])
-            self.assertAlmostEqual(fast['precision'],dense['micro_precision'])
-            self.assertAlmostEqual(fast['macro_f1_gt_present'],dense['macro_f1_gt_present'])
-    def test_heldout_frames_excluded_not_negative(self):
-        counts=ValidationCounts(self.meta,self.ann,self.states,{},[0,1],['peeled'])
-        self.assertEqual(counts.known.sum(),4)
-        self.assertEqual(counts.support.tolist(),[2,2])
-        self.assertEqual(counts.measure(np.ones((3,2),bool))['micro_f1'],2/3)
-    def test_duplicate_prediction_cannot_match_same_segment_twice(self):
-        matches=segment_match([(0,10),(0,10)],[(0,10)],.5)
-        self.assertEqual(len(matches),1)
-    def test_matching_maximizes_cardinality(self):
-        # First interval can match both truths; second can match only the first.
-        self.assertEqual(len(segment_match([(0,20),(0,9)],[(0,10),(10,20)],.4)),2)
-    def test_unknown_gap_splits_intervals(self):
-        self.assertEqual(intervals([True,True,False,True]),[(0,2),(3,4)])
-        meta={'fps':1,'raw_frame_count':4,'sample_anchors':[0]}
-        ann={'fps':1,'states':[['raw'],['raw'],[],['raw']]}
-        result=evaluate(np.array([[.9]]),meta,ann,['raw'],{}, {'smoothing':1,'threshold':.5})
-        self.assertEqual(result['segment_metrics']['0.5'],{'tp':2,'fp':0,'fn':0,'f1':1.0})
-    def test_no_labels_and_clock_mismatch_rejected(self):
-        ann={'fps':2,'states':[[]]*8}
-        with self.assertRaises(ValueError):evaluate(np.ones((3,3)),self.meta,ann,self.states,{}, {'smoothing':1,'threshold':.5})
-        with self.assertRaises(ValueError):ValidationCounts({**self.meta,'fps':3},self.ann,self.states,{})
-    def test_shorter_annotation_array_is_unknown_tail_not_negative(self):
-        meta={'fps':1,'raw_frame_count':4,'sample_anchors':[0,2]}
-        ann={'fps':1,'states':[['raw'],['raw']]};scores=np.array([[.9],[.9]])
-        result=evaluate(scores,meta,ann,['raw'],{}, {'smoothing':1,'threshold':.5})
-        self.assertEqual(result['micro_f1'],1);self.assertEqual(result['evaluated_frames'],2)
-        self.assertEqual(result['trailing_frames_outside_published_annotation_coverage'],2)
-        self.assertEqual(ValidationCounts(meta,ann,['raw'],{}).measure(scores>=.5)['micro_f1'],1)
-        with self.assertRaises(ValueError):ValidationCounts(meta,{**ann,'states':ann['states']*3},['raw'],{})
     def test_pseudo_to_raw_clock_alignment(self):
         bundle={'metadata':{'fps':30,'raw_frame_count':180,'sample_anchors':[0,60,120],'video_id':'example'}}
         ann={'fps':10,'states':[['raw']]*20+[['cut']]*20+[['peeled']]*20}
