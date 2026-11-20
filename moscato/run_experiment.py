@@ -1,25 +1,5 @@
 #!/usr/bin/env python3
-"""Run S12_Sandwich_7150991-2470 through VidOSC + Claude and score it on MOSCATO.
-
-Stages, each independently runnable:
-
-    inspect    ffprobe vs. MOSCATO timeline alignment gate (reads GT; no predictions)
-    prepare    decode the AVI, cut [clip_start, clip_end), build the clip MP4
-    predict    features -> VidOSC -> segments -> Claude -> MOSCATO vocabulary
-    evaluate   score the saved predictions with the ported TubeletGraph evaluator
-    all        inspect + prepare + predict + evaluate
-
-The split is what enforces experimental integrity: `predict` never receives the
-annotation path (see moscato/config.inference_config), writes every artifact to
-disk, and only then does `evaluate` open the ground truth.
-
-Usage:
-    python -m moscato.run_experiment inspect
-    python -m moscato.run_experiment prepare
-    python -m moscato.run_experiment predict --ckpt ../VidOSC/checkpoints/chopping.ckpt \
-        --run-name baseline
-    python -m moscato.run_experiment evaluate --run-name baseline
-"""
+'Prepare inputs and save VidOSC + Claude predictions.\n\nStages: inspect, prepare, predict, or all three. Benchmark evaluation is maintained in chefOST/chefOST-data.'
 
 from __future__ import annotations
 
@@ -46,7 +26,6 @@ from moscato.config import (
     sha256,
     write_json,
 )
-from moscato.evaluate import score_run
 from moscato.inspect_video import validate as validate_alignment
 from moscato.map_states import DEFAULT_MAPPER_MODEL, ClaudeMapper, map_segments
 
@@ -504,73 +483,9 @@ def predict(
 
 
 # ---------------------------------------------------------------------------
-# evaluate
+# CLI
 # ---------------------------------------------------------------------------
 
-def evaluate(
-    config_path: Path,
-    *,
-    run_name: str,
-    wandb_project: str = "",
-    wandb_entity: str = "",
-) -> dict[str, Any]:
-    config = load_config(config_path)
-    resolved_run = _run_name(run_name)
-    run_dir = resolve(config, "runs_dir") / resolved_run
-    if not run_dir.is_dir():
-        raise FileNotFoundError(
-            f"{run_dir} does not exist; pass the --run-name used by the predict stage."
-        )
-    summary = score_run(config_path, run_dir)
-
-    print(json.dumps({k: v for k, v in summary.items() if k != "f1_threshold_curve"}, indent=2))
-
-    # Regenerate the timeline with the ground-truth lane now that it is allowed.
-    try:
-        import csv
-
-        with (run_dir / "per_frame_predictions_scored.csv").open(encoding="utf-8", newline="") as handle:
-            rows = list(csv.DictReader(handle))
-        segments = load_json(run_dir / "vidosc_segments.json")["segments"]
-        for segment in segments:
-            segment.setdefault("claude_description", "")
-        visualize.timeline(
-            out_path=run_dir / "visualizations" / "timeline_with_gt.png",
-            fps=int(config["fps"]),
-            num_local_frames=len(rows),
-            vidosc_per_frame=[row["vidosc_state"] for row in rows],
-            mapped_per_frame=[row["mapped_moscato_state"] for row in rows],
-            segments=segments,
-            gt_per_frame=[(row["ground_truth_state"].split("|")[0] or "(none)") for row in rows],
-            title=f"{config['video_id']} - {config['target_object']} - prediction vs. MOSCATO GT",
-        )
-    except ImportError as error:
-        print(f"Skipping GT timeline ({error}); pip install matplotlib")
-
-    if wandb_project:
-        from moscato.log_wandb import log_evaluation
-
-        with (run_dir / "per_frame_predictions_scored.csv").open(encoding="utf-8", newline="") as handle:
-            import csv
-
-            rows = list(csv.DictReader(handle))
-        result = log_evaluation(
-            summary=summary,
-            rows=rows[:: max(1, len(rows) // 4000)],
-            project=wandb_project,
-            entity=wandb_entity,
-            run_name=f"vidosc-claude-{resolved_run}",
-            artifact_paths={
-                "manifest": run_dir / "manifest.json",
-                "predictions": run_dir / "moscato_predictions.json",
-                "evaluation": run_dir / "evaluation.json",
-                "frames": run_dir / "per_frame_predictions_scored.csv",
-            },
-            config=load_json(run_dir / "manifest.json"),
-        )
-        print(json.dumps(result, indent=2))
-
-    return summary
 
 
 # ---------------------------------------------------------------------------
@@ -581,7 +496,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument("stage", choices=["inspect", "prepare", "predict", "evaluate", "all"])
+    parser.add_argument("stage", choices=["inspect", "prepare", "predict", "all"])
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--ckpt", type=Path, help="VidOSC checkpoint (required for predict)")
     parser.add_argument("--obj_feat", type=Path, default=None, help="Object-centric features for det=1 checkpoints")
@@ -594,8 +509,6 @@ def main() -> None:
                              "stated_state: upstream behaviour, names the label in the prompt.")
     parser.add_argument("--dry-run", action="store_true", help="Skip every VLM call")
     parser.add_argument("--force", action="store_true", help="Overwrite an existing run directory")
-    parser.add_argument("--wandb-project", default="", help="Log the evaluation to this W&B project")
-    parser.add_argument("--wandb-entity", default="")
     args = parser.parse_args()
 
     resolved_run = _run_name(args.run_name)
@@ -618,13 +531,6 @@ def main() -> None:
             prompt_mode=args.prompt_mode,
             dry_run=args.dry_run,
             force=args.force,
-        )
-    if args.stage in ("evaluate", "all"):
-        evaluate(
-            args.config,
-            run_name=resolved_run,
-            wandb_project=args.wandb_project,
-            wandb_entity=args.wandb_entity,
         )
 
 

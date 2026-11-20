@@ -15,8 +15,6 @@ def main():
     p.add_argument("--active-object", action="store_true", help="One unnamed hand-associated stream per video, no GT object selection")
     p.add_argument("--timing", type=Path, default=ROOT / "configs/s29_provisional_timing.json")
     p.add_argument("--experiment", default="full-video-pilot-v1")
-    p.add_argument("--with-metrics", action="store_true",
-                   help="Opt in to evaluation; full runs default to outputs only")
     args = p.parse_args()
     if not args.experiment.replace("-", "").replace("_", "").isalnum():
         p.error("Experiment must be a simple directory name")
@@ -25,8 +23,6 @@ def main():
     target = None if args.active_object else next(o for o in row["objects"] if o["object"] == args.object)
     if args.active_object:
         args.object = "active-object"
-        if args.with_metrics:
-            p.error("Active-object streams cannot be scored as a named GT object")
     if not row["available"] or not row.get("metadata_frame_count"):
         p.error("Download and inspect the video before preparing an executable plan")
     if target is not None and row["metadata_frame_count"] != target["annotation_count"]:
@@ -66,19 +62,9 @@ def main():
         "--mapping", mapping, "--state-dict", vocab, "--output", model / "predictions"],
         [model / "feature_manifest.json", model / "combined_features.pth.tar", model / "raw_probabilities.npz", mapping, vocab],
         [model / "predictions" / n for n in ["manifest.json", "probabilities.npz", "predictions_by_second.csv"]])
-    command = [python, "-m", "moscato.baseline", "evaluate", "--run", model / "predictions",
-        "--annotations", annotations, "--state-dict", vocab, "--timing", args.timing.resolve(), "--output", model / "scoring"]
-    if timing.get("verified") is not True:
-        command.append("--allow-unverified-timing")
-    add("scoring", command, [annotations, vocab, args.timing.resolve(), model / "predictions/manifest.json", model / "predictions/probabilities.npz"],
-        [model / "scoring/evaluation.json", model / "scoring/per_frame.csv"])
-    add("report", [python, "-m", "moscato.summarize_modal_run", "--run", model],
-        [model / "feature_manifest.json", model / "predictions/manifest.json", model / "predictions/probabilities.npz", model / "scoring/evaluation.json"], [model / "RESULTS.md"])
-    if not args.with_metrics:
-        stages = [stage for stage in stages if stage["name"] not in {"scoring", "report"}]
     plan = ROOT / "runs/batch-preparation" / f"{args.experiment}-{args.video_id}.json"
     plan.write_text(json.dumps({"jobs": [{"name": args.video_id + ":" + args.object, "stages": stages}],
-        "note": "Full-video CPU pilot; global features run locally, detection/object features/inference on Modal. No uploads. Metrics are opt-in; temporal postprocessing is absent."}, indent=2) + "\n")
+        "note": "Full-video CPU pilot; global features run locally, detection/object features/inference on Modal. No uploads. Benchmark evaluation is maintained in chefOST/chefOST-data; temporal postprocessing is absent."}, indent=2) + "\n")
     print(plan)
 
 
