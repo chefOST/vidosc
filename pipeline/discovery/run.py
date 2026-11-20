@@ -1,14 +1,4 @@
-"""State discovery from embeddings on MOSCATO CMU (proposal, not the README metric).
-
-Per (video, object): an embedding track (frame or object-crop features) -> discovered states (pipeline/discovery/discover.py)
--> each frame outputs its state's centroid. MOSCATO is used only to score:
-  ranking: the object's candidate states, embedded with the same text encoder, ranked by cosine (pipeline/embedding/embed.py);
-  discovery: discovered state ids vs GT state sets (MoF, NMI, ARI, change-point F1 at +-tol s, number of states).
-
-Splits: dev = the first two GT videos of each recipe (hyperparameters), test = the other 20 (reported).
-
-    python -m pipeline.discovery.run --feats crops-siglip --split test
-"""
+'Discover object states and save per-frame embedding predictions. Scoring lives in chefOST-data.'
 import argparse
 import json
 import os
@@ -45,7 +35,6 @@ def parse_args():
     p.add_argument("--penalty", type=float, default=20.0)
     p.add_argument("--min_len", type=int, default=5)
     p.add_argument("--merge", type=float, default=0.05)
-    p.add_argument("--tol", type=int, default=5, help="change-point tolerance (s)")
     p.add_argument("--vlm_per_state", type=int, default=2, help="VLM keyframes per discovered state")
     p.add_argument("--methods", nargs="+", default=METHODS, choices=METHODS)
     p.add_argument("--name", default=None)
@@ -92,7 +81,7 @@ def vis_weights(s):
 
 
 def tracks(a, ds, vids):
-    """Yields (vid, obj, X [T, D] unit, w [T], gt sets) for every GT (video, object)."""
+    """Yields (vid, obj, X [T, D] unit, w [T], source frame indices)."""
     fdir, crops, _ = FEATS[a.feats]
     for vid in vids:
         n = len(range(0, ds.num_frames(vid), 30))
@@ -113,7 +102,7 @@ def tracks(a, ds, vids):
                 w = vis_weights(s) if a.vis == "score" else np.ones(n)
             else:
                 X, w = F, np.ones(n)
-            yield vid, obj, discover.unit(X), w, ds.gt_states(vid, obj, idx)
+            yield vid, obj, discover.unit(X), w, idx
 
 
 def keyframes(labels, S, cents, w, m):
@@ -160,18 +149,6 @@ def outputs(a, X, w, vlm=None):
     return out, labels
 
 
-def bootstrap(per_video, methods, key, base, n=2000, seed=0):
-    rng = np.random.default_rng(seed)
-    vids = list(per_video)
-    out = {m: [] for m in methods}
-    for _ in range(n):
-        s = rng.choice(vids, len(vids))
-        tot = lambda m, k: sum(per_video[v][m][k] for v in s)
-        for m in methods:
-            out[m].append(tot(m, key) / tot(m, "evaluated_frames") - tot(base, key) / tot(base, "evaluated_frames"))
-    return {m: [float(np.quantile(x, 0.025)), float(np.quantile(x, 0.975))] for m, x in out.items()}
-
-
 def main():
     a = parse_args()
     ds = data.Moscato(a.data_root, "CMU", cache_dir=os.path.join(ROOT, "data", "cache"))
@@ -188,107 +165,51 @@ def main():
         from . import describe, modal_jobs
         keys = set()
         with np.errstate(all="ignore"):
-            for vid, obj, X, w, gt in all_tracks:
+            for vid, obj, X, w, idx in all_tracks:
                 if ds.candidates_for(cands, a.state_source, vid, obj):
                     outputs(a, X, w, lambda fr: (keys.update(describe.key(vid, t, obj) for t in fr),
                                                  np.zeros((len(fr), 1)))[1])
         desc = modal_jobs.describe(keys)
         vlm = lambda fr: bank_of(obj, [desc[describe.key(vid, t, obj)] for t in fr], a.templates)
-    per_video = defaultdict(lambda: defaultdict(Counter))
-    disc = defaultdict(Counter)
-    examples = []
-    for vid, obj, X, w, gt in all_tracks:
+    name = a.name or f"disc-{a.feats}-{a.split}-{time.strftime('%m%d-%H%M%S')}"
+    out_dir = os.path.join(ROOT, "runs", name)
+    os.makedirs(out_dir, exist_ok=True)
+    rows, files = [], []
+    for k, (vid, obj, X, w, idx) in enumerate(all_tracks):
         states = ds.candidates_for(cands, a.state_source, vid, obj)
         if not states:
             continue
         bank = bank_of(obj, states, a.templates)
         outs, labels = outputs(a, X, w, vlm)
-        if "vlm_discover" in outs and "discover" in outs:  # visual state centroid + its VLM description
+        if "vlm_discover" in outs and "discover" in outs:
             vis = discover.unit(outs["discover"] - (a.debias * mu if mu is not None else 0))
             outs["fused"] = vis + outs["vlm_discover"]
-        for m, o in outs.items():
+        row = {"video": vid, "object": obj, "source_frame_indices": idx, "methods": {}}
+        for m, values in outs.items():
             if m.startswith("_"):
                 continue
             if mu is not None and m not in ("vlm_uniform", "vlm_discover", "fused"):
-                o = o - a.debias * mu
-            o = discover.unit(o)
-            per_video[vid][m].update(embed.score(o, bank, states, gt))
-        for m, lab in [("discover", labels), ("uniform", outs.get("_uniform_labels")),
-                       ("one state", np.zeros(len(labels), int))]:
-            if lab is None:
-                continue
-            d = discover.discovery_scores(lab, gt, a.tol)
-            if d:
-                ch = d["k_gt"] > 1  # NMI/ARI are degenerate (1.0) when GT has one state set: changing tracks only
-                disc[m].update({"mof": d["mof"], "nmi": d["nmi"] * ch, "ari": d["ari"] * ch, "k_pred": d["k_pred"],
-                                "k_gt": d["k_gt"], "b_hits": d["b_hits"], "b_pred": d["b_pred"], "b_gt": d["b_gt"]},
-                               pairs=1, changing=ch)
-                disc[m]["k_abs_err"] += abs(d["k_pred"] - d["k_gt"])
-        if len(examples) < 60:
-            o = discover.unit(outs["discover"] - (a.debias * mu if mu is not None else 0))
-            names = [states[int(k)] for k in (o @ bank.T).argmax(1)]
-            spans = [(t0, t1, names[t0]) for t0, t1 in zip([0] + discover.boundaries(labels),
-                                                          discover.boundaries(labels) + [len(labels)])]
-            examples.append({"video": vid, "object": obj, "states": len(set(labels)), "spans": spans,
-                             "gt": [sorted(g) for g in gt[::10]]})
-    methods = [m for m in METHODS if m in a.methods]
-    totals = {m: sum((per_video[v][m] for v in per_video), Counter()) for m in methods}
-    summary = {m: embed.summarize(c) for m, c in totals.items()}
-    base = "frame" if "frame" in methods else methods[0]
-    cis = {k: bootstrap(per_video, methods, k, base) for k in ("top1", "rr")}
-    dsum = {}
-    for m, c in disc.items():
-        n = c["pairs"]
-        p = c["b_hits"] / max(c["b_pred"], 1)
-        r = c["b_hits"] / max(c["b_gt"], 1)
-        dsum[m] = {"mof": c["mof"] / n, "nmi": c["nmi"] / c["changing"], "ari": c["ari"] / c["changing"], "k_pred": c["k_pred"] / n,
-                   "k_gt": c["k_gt"] / n, "k_abs_err": c["k_abs_err"] / n, "b_prec": p, "b_rec": r,
-                   "b_f1": 2 * p * r / max(p + r, 1e-9), "pairs": n,
-                   "changing_pairs": c["changing"]}
-    name = a.name or f"disc-{a.feats}-{a.split}-{time.strftime('%m%d-%H%M%S')}"
-    out_dir = os.path.join(ROOT, "runs", name)
-    os.makedirs(out_dir, exist_ok=True)
-    res = {"args": vars(a), "videos": vids, "ranking": summary, "ci_vs_" + base: cis, "discovery": dsum,
-           "per_video": {v: {m: dict(c) for m, c in ms.items()} for v, ms in per_video.items()}, "examples": examples}
-    json.dump(res, open(os.path.join(out_dir, "results.json"), "w"), indent=1, default=float)
-    if not a.quiet:
-        print(f"{a.feats} split={a.split} ({len(vids)} videos, {sum(1 for _ in per_video)} with scores)")
-        for m, s in summary.items():
-            lo, hi = cis["top1"][m]
-            print(f"  {m:9s} top1 {s['top1']:.3f} [{lo:+.3f},{hi:+.3f}]  mrr {s['mrr']:.3f}  p@2 {s['p@2']:.3f}  "
-                  f"r@2 {s['r@2']:.3f}   chance top1 {s['chance']:.3f} mrr {s['chance_rr']:.3f}  ({s['evaluated_frames']} fr)")
-        for m, d in dsum.items():
-            print(f"  [{m}] MoF {d['mof']:.3f} NMI {d['nmi']:.3f} ARI {d['ari']:.3f} bF1 {d['b_f1']:.3f} "
-                  f"(P {d['b_prec']:.2f} R {d['b_rec']:.2f})  K {d['k_pred']:.2f} vs GT {d['k_gt']:.2f}")
+                values = values - a.debias * mu
+            values = discover.unit(values)
+            filename = f"{k:04d}-{m}.npz"
+            path = os.path.join(out_dir, filename)
+            np.savez_compressed(path, embeddings=values, source_frame_indices=idx, state_ids=labels)
+            files.append(path)
+            row["methods"][m] = {"embedding_file": filename,
+                                  "predicted_states": [states[int(i)] for i in (values @ bank.T).argmax(1)]}
+        rows.append(row)
+    index = os.path.join(out_dir, "predictions.json")
+    json.dump({"args": vars(a), "predictions": rows}, open(index, "w"), indent=1)
     if a.wandb:
-        log_wandb(a, name, res)
-    return res
-
-
-def log_wandb(a, name, res):
-    import wandb
-    dest = json.load(open(os.path.join(ROOT, "weights_and_biases", "settings.json")))
-    run = wandb.init(entity=dest["entity"], project=dest["projects"]["experiments"], name=name, job_type="discover",
-                     tags=["embedding-output", "state-discovery", "zero-shot", "proposal"],
-                     notes="State discovery from embeddings. Zero-shot: MOSCATO used only to score. " +
-                           "; ".join(f"{m}: top1 {s['top1']:.3f} MRR {s['mrr']:.3f}" for m, s in res["ranking"].items()),
-                     config={**vars(a), "videos": res["videos"], "moscato_use": "GT scoring only"})
-    for m, s in res["ranking"].items():
-        run.summary.update({f"rank/{m}/{k}": v for k, v in s.items()})
-    for m, d in res["discovery"].items():
-        run.summary.update({f"disc/{m}/{k}": v for k, v in d.items()})
-    rows = [[m, s["top1"], s["chance"], s["mrr"], s["chance_rr"], s["p@2"], s["r@2"], *res["ci_vs_frame"]["top1"].get(m, [0, 0])]
-            for m, s in res["ranking"].items()] if "ci_vs_frame" in res else []
-    run.log({"ranking": wandb.Table(columns=["method", "top1", "chance_top1", "mrr", "chance_mrr", "p@2", "r@2",
-                                             "top1_diff_ci_lo", "top1_diff_ci_hi"], data=rows),
-             "discovery": wandb.Table(columns=["method", *next(iter(res["discovery"].values())).keys()],
-                                      data=[[m, *d.values()] for m, d in res["discovery"].items()]),
-             "examples": wandb.Table(columns=["video", "object", "states", "spans"],
-                                     data=[[e["video"], e["object"], e["states"], json.dumps(e["spans"])]
-                                           for e in res["examples"]])})
-    print(f"W&B: {run.url}")
-    run.finish()
-
+        import wandb
+        dest = json.load(open(f"{ROOT}/weights_and_biases/settings.json"))
+        run = wandb.init(entity=dest["entity"], project=dest["projects"]["experiments"],
+                         name=name, job_type="predictions", config=vars(a))
+        artifact = wandb.Artifact(name.replace('/', '-'), type='predictions')
+        for path in files + [index]: artifact.add_file(path, name=os.path.basename(path))
+        run.log_artifact(artifact)
+        run.finish()
+    print(f"[saved] {out_dir}")
 
 if __name__ == "__main__":
     main()

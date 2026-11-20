@@ -79,44 +79,7 @@ def vis_smooth(X, w, sigma=3.0):
     return unit(num / np.convolve(wm, g, "same")[:, None])
 
 
-# --- evaluation of discovered states against GT state sets (frames with >= 1 GT state) ---
-
-def gt_segments(gt_sets):
-    """(evaluated frame indices, GT state-set id per evaluated frame)."""
-    idx = [t for t, g in enumerate(gt_sets) if g]
-    keys = {}
-    ids = [keys.setdefault(frozenset(gt_sets[t]), len(keys)) for t in idx]
-    return np.array(idx, int), np.array(ids, int)
-
-
 def boundaries(labels):
     return [t for t in range(1, len(labels)) if labels[t] != labels[t - 1]]
 
 
-def boundary_counts(pred_b, gt_b, tol):
-    """Greedy one-to-one matching within `tol` frames: (hits, n_pred, n_gt)."""
-    used, hits = set(), 0
-    for b in gt_b:
-        c = [p for p in pred_b if abs(p - b) <= tol and p not in used]
-        if c:
-            used.add(min(c, key=lambda p: abs(p - b)))
-            hits += 1
-    return hits, len(pred_b), len(gt_b)
-
-
-def discovery_scores(labels, gt_sets, tol=5):
-    """Clustering agreement and change timing of discovered states vs GT state sets, on evaluated frames."""
-    from scipy.optimize import linear_sum_assignment
-    from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score
-    idx, g = gt_segments(gt_sets)
-    if not len(idx):
-        return None
-    p = labels[idx]
-    M = np.zeros((p.max() + 1, g.max() + 1))
-    np.add.at(M, (p, g), 1)
-    r, c = linear_sum_assignment(-M)
-    # Boundaries in evaluated-frame positions, so gaps without GT don't count as changes.
-    hits, npb, ngb = boundary_counts(boundaries(p), boundaries(g), tol)
-    return {"mof": M[r, c].sum() / len(idx), "nmi": normalized_mutual_info_score(g, p),
-            "ari": adjusted_rand_score(g, p), "k_pred": len(np.unique(p)), "k_gt": g.max() + 1,
-            "b_hits": hits, "b_pred": npb, "b_gt": ngb}

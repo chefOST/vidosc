@@ -1,5 +1,4 @@
-"""Slider exploration (scratch). Zero-shot: prompts written from general cooking knowledge.
-MOSCATO GT used only in EVAL map below."""
+'Zero-shot slider prompts and feature loading from general cooking knowledge.'
 import os, sys, json, numpy as np
 TMP=os.path.dirname(os.path.abspath(__file__))
 ROOT=os.path.dirname(os.path.dirname(TMP))
@@ -34,25 +33,6 @@ SL={
               ["a hot {o} that is turned on", "a heated {o}"],
               ["someone turning on the {o}", "the {o} heating up"], False),
 }
-# EVAL ONLY: MOSCATO word -> slider level (eval-side choice, to confirm with user)
-EVAL={
- 'fullness': {'empty':0,'partially-empty':.5,'full':1,'stuffed':1},
- 'dirt': {'clean':0, **{w:1 for w in ['dirty','coated','covered','egg-coated','egg-covered','batter-covered',
-          'vegetable-covered','saucy','creamy','sticky','cheese-covered']}},
- 'mixed': {'mixed':1,'beaten':1,'mayonnaise-mixed':1,'smooth':1,'cracked':0},
- 'done': {'cooked':1,'solid':1,'ready-to-cook':0},
- 'cut': {'chopped':1,'grated':1,'peeled':0},
- 'heat': {'on':1,'warm':1},
- 'brown': {},
- 'open': {},
-}
-def gt_level(states, s):
-    m=EVAL[s]; v=[m[w] for w in states if w in m]
-    if not v: return None
-    if s=='mixed' and 1 in v: return 1   # cracked+beaten -> beaten
-    if s=='cut' and 1 in v: return 1
-    return max(v) if s!='fullness' else (1 if 1 in v else min(v))
-
 ENC='internvideo-mm-l14'
 def feats(vid, enc=None):
     x=np.load(f'{ROOT}/data/cache/emb/{enc or ENC}/{vid}_fps1.npy').astype(np.float32)

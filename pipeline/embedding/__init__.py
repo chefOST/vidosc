@@ -1,1 +1,1 @@
-"""A text-space vector per frame, scored by ranking candidate states (proposal)."""
+"""Text-space embedding prediction outputs."""

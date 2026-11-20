@@ -1,17 +1,4 @@
-"""Attribute pipeline: track each object as a set of attribute values per frame (form, heat, fill, ...)
-instead of one MOSCATO state, and score per attribute. Proposal, not the README metric; see
-pipeline/attributes/attributes.py and state_attributes/<dataset>.json.
-
-Methods (all run on the same features, --methods):
-  prior     no video: each attribute's most frequent value for the object in training pseudo-labels
-  state_zs  the state pipeline's zero-shot state probabilities, summed into attribute values
-  zeroshot  encoder-text similarity per attribute, prompts '{object}, {value phrase}'
-  adapt     VidOSC trunk + one head per attribute shared across objects (conditioned on the object's
-            text embedding), fine-tuned on the zeroshot attribute pseudo-labels of the selected videos
-
-Example:
-    python -m pipeline.attributes.run --videos S08_Eggs_7150991-727
-"""
+'Generate per-frame attribute predictions; all ground-truth scoring lives in chefOST-data.'
 import argparse
 import json
 import os
@@ -51,27 +38,6 @@ def parse_args():
     return p.parse_args()
 
 
-def summarize(counts, nontrivial, schema):
-    """counts: {attribute: Counter}. Micro accuracy over scored (frame, attribute) pairs, macro over
-    attributes, and per-attribute accuracy / oracle / chance / ordinal distance. The nontrivial_*
-    numbers leave out (object, attribute) pairs with a single candidate value (always correct when
-    the GT value is that candidate)."""
-    per = {}
-    for a, c in counts.items():
-        if c["frames"]:
-            per[a] = {"frames": c["frames"], "accuracy": c["correct"] / c["frames"], "oracle": c["oracle"] / c["frames"],
-                      "chance": c["chance"] / c["frames"]}
-            if schema.ordered[a]:
-                per[a]["dist"] = c["dist"] / c["frames"]
-    n = sum(c["frames"] for c in counts.values())
-    n_nt = sum(c["frames"] for c in nontrivial.values())
-    return {"micro_accuracy": sum(c["correct"] for c in counts.values()) / n if n else float("nan"),
-            "macro_accuracy": float(np.mean([v["accuracy"] for v in per.values()])) if per else float("nan"),
-            "nontrivial_accuracy": sum(c["correct"] for c in nontrivial.values()) / n_nt if n_nt else float("nan"),
-            "nontrivial_chance": sum(c["chance"] for c in nontrivial.values()) / n_nt if n_nt else float("nan"),
-            "scored": n, "nontrivial_scored": n_nt, "per_attribute": per}
-
-
 def describe(preds, t):
     """Human-readable state at frame t: 'form=mixed, location=transferred'."""
     return ", ".join(f"{a}={p[t]}" for a, p in preds.items() if p[t] is not None)
@@ -90,8 +56,8 @@ def main():
     out_dir = os.path.join(ROOT, "runs", name)
     os.makedirs(out_dir, exist_ok=True)
 
-    # 1. Features per video; per object: GT attribute values, candidates, zero-shot probabilities.
-    pairs, coverage = [], Counter()
+    # 1. Features per video; per object: candidates and zero-shot probabilities.
+    pairs = []
     for vid in a.videos:
         video = data.cmu_video(vid, os.path.join(ROOT, "data", "cmu_videos"))
         step = round(ds.src_fps / a.fps)
@@ -100,13 +66,8 @@ def main():
         raw, _ = encoders.cached_video_embeddings(enc, video, idx, ds.src_fps, cache)
         emb = raw / np.linalg.norm(raw, axis=1, keepdims=True)
         for obj in a.objects or ds.objects(vid):
-            gt_sets = ds.gt_states(vid, obj, idx)
-            for g in gt_sets:
-                for s in g:
-                    coverage["mapped" if schema.values_of(obj, s) else "unmapped"] += 1
             cands = attributes.candidates(schema, ds, vid, obj, a.values)
             pr = {"vid": vid, "obj": obj, "idx": idx, "raw": raw, "cands": cands,
-                  "gt": attributes.gt_values(schema, obj, gt_sets), "gt_states": gt_sets,
                   "obj_emb": enc.encode_texts([f"a photo of {obj}."])[0],
                   "zs": {at: scoring.state_probs(emb, scoring.text_embeddings(
                       enc, obj, [schema.phrases[at][v] for v in vs], a.templates), temperature)
@@ -137,38 +98,24 @@ def main():
         probs["adapt"] = vidosc.adapt_attributes(pairs, schema.attrs, a.ckpt, steps=a.adapt_steps, lr=a.adapt_lr,
                                                  keep=a.adapt_keep, seed=a.seed)
 
-    # 3. Decode each attribute over time, score, describe.
-    results = {"args": vars(a), "coverage": coverage["mapped"] / max(1, sum(coverage.values())), "methods": {}}
+    # 3. Save decoded attribute states and unthresholded probabilities.
+    results = {"args": vars(a), "methods": {}}
     for m in a.methods:
-        totals, nontrivial, per_pair = defaultdict(Counter), defaultdict(Counter), {}
+        per_pair = {}
         for pr in pairs:
-            preds, rows = {}, {}
+            preds, raw = {}, {}
             for at in schema.attrs:
                 vs = pr["cands"].get(at)
                 p = probs[m][(pr["vid"], pr["obj"])].get(at) if vs else None
                 preds[at] = [None] * len(pr["idx"]) if p is None else [vs[k] for k in decoders.decode(a.decoder, p)]
-                c = attributes.score(preds[at], pr["gt"][at], vs, schema.attrs[at] if schema.ordered[at] else None)
-                totals[at].update(c)
-                if vs and len(vs) > 1:
-                    nontrivial[at].update(c)
-                if c["frames"]:
-                    rows[at] = {"accuracy": c["correct"] / c["frames"], "frames": c["frames"],
-                                "gt_values": sorted(set().union(*pr["gt"][at])), "pred_values": sorted(set(preds[at]) - {None})}
+                raw[at] = {"values": vs, "probabilities": None if p is None else p.tolist()}
             per_pair[f"{pr['vid']}/{pr['obj']}"] = {
-                "per_attribute": rows,
-                "timeline": [{"t": i / ds.src_fps, "pred": describe(preds, k), "gt_states": sorted(g)}
-                             for k, (i, g) in enumerate(zip(pr["idx"], pr["gt_states"]))]}
-        s = summarize(totals, nontrivial, schema)
-        results["methods"][m] = {**s, "per_pair": per_pair}
-        print(f"\n== {m}: micro {s['micro_accuracy']:.3f}  macro {s['macro_accuracy']:.3f}  ({s['scored']} scored frame-attributes)"
-              f"  nontrivial {s['nontrivial_accuracy']:.3f} (chance {s['nontrivial_chance']:.3f}, n={s['nontrivial_scored']})")
-        for at, v in s["per_attribute"].items():
-            d = f" dist {v['dist']:.3f}" if "dist" in v else ""
-            print(f"   {at:9s} n={v['frames']:4d} acc {v['accuracy']:.3f} oracle {v['oracle']:.3f} chance {v['chance']:.3f}{d}")
-    print(f"\nGT state coverage by the schema: {results['coverage']:.3f}")
-    json.dump(results, open(os.path.join(out_dir, "results.json"), "w"), indent=1, default=str)
+                "source_frame_indices": pr["idx"], "attributes": raw,
+                "timeline": [{"t": i / ds.src_fps, "pred": describe(preds, k)} for k, i in enumerate(pr["idx"])],
+            }
+        results["methods"][m] = {"per_pair": per_pair}
+    json.dump(results, open(os.path.join(out_dir, "predictions.json"), "w"), indent=1)
     print(f"[saved] {out_dir}")
-
 
 if __name__ == "__main__":
     main()
