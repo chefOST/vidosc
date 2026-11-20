@@ -1,4 +1,4 @@
-"""Near-synonym state clusters (prediction side only; README precision is unchanged).
+"""Near-synonym state clusters for prediction-side decoding.
 
 MOSCATO's state_dict.json already maps raw synonyms to canonical states. Clusters group canonical
 states that still look alike (state_clusters/<dataset>.json, hand-drafted, each state in at most one

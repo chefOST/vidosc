@@ -7,7 +7,7 @@ state changes while the scene stays. MATCHA-style triplets in image space:
     state),  negative = a frame from before action i (same object and scene, other state).
 Loss: cosine margin, plus ||delta||^2 to stay near SigLIP. Feats: whole frames ('frame') or noun crops ('crop',
 from modal_crops.py; only the frames around actions are cropped, so the gap frames are its start/end).
-Selection on held-out EPIC participants.
+Training-loss monitoring on held-out EPIC participants.
 
     python experiments/statespace/train_gap.py --name gap-frame
 """
@@ -122,7 +122,7 @@ def train(a):
     def val():
         m.eval()
         x, p, n = m(VA), m(VP), m(VN)
-        r = {"val_acc": (cos(x, p) > cos(x, n)).float().mean().item(), "val_margin": (cos(x, p) - cos(x, n)).mean().item()}
+        r = {"validation_loss": F.relu(a.margin + cos(x, n) - cos(x, p)).mean().item()}
         m.train()
         return r
 
@@ -137,7 +137,7 @@ def train(a):
         opt.zero_grad()
         loss.backward()
         opt.step()
-        if step % a.eval_every == 0 or step == a.steps - 1:
+        if step % a.log_every == 0 or step == a.steps - 1:
             v = val()
             hist.append({"step": step, "loss": float(loss.detach()), **v})
             print(f"step {step} loss {float(loss.detach()):.4f}  " + "  ".join(f"{k} {x:.3f}" for k, x in v.items()), flush=True)
@@ -160,7 +160,7 @@ def parse(argv=None):
     p.add_argument("--margin", type=float, default=0.1)
     p.add_argument("--w_reg", type=float, default=0.0)
     p.add_argument("--seed", type=int, default=0)
-    p.add_argument("--eval_every", type=int, default=250)
+    p.add_argument("--log_every", type=int, default=250)
     return p.parse_args(argv)
 
 

@@ -1,11 +1,4 @@
-"""Attribute view of object states (proposal; README precision is unchanged).
-
-A state is a set of attribute values, e.g. 'chopped' -> form=cut, 'in-pan' -> location=in_pan.
-state_attributes/<dataset>.json defines the attributes (each a list of values, optionally ordered,
-with a phrase per value for prompting) and maps every MOSCATO state to the values it asserts.
-A frame's ground truth for an attribute is the union over its GT states; MOSCATO only asserts
-states, so an attribute is unknown (not scored) on frames where no GT state sets it.
-"""
+'Attribute vocabularies and prediction conversion for object state inference.'
 import json
 import os
 from collections import Counter, defaultdict
@@ -40,12 +33,6 @@ class Schema:
         return out
 
 
-def gt_values(schema, obj, gt_sets):
-    """{attribute: [set of GT values per frame]} (empty set = not scored at that frame)."""
-    per_frame = [schema.frame_values(obj, g) for g in gt_sets]
-    return {a: [f.get(a, set()) for f in per_frame] for a in schema.attrs}
-
-
 def value_counts(schema, ds, vid, obj):
     """{attribute: Counter(value -> frames)} from training pseudo-labels: the video's recipe for this
     object, else every recipe (as data.Moscato.state_prior)."""
@@ -77,18 +64,3 @@ def from_states(schema, obj, probs, states, attr, values):
     return (p + 1e-12) / (p + 1e-12).sum(1, keepdims=True)
 
 
-def score(pred, gt, cands, order=None):
-    """One attribute of one (video, object). pred: value or None per frame; gt: set per frame.
-    Scored frames: GT sets the attribute. Correct: the prediction is one of the GT values.
-    dist (ordered attributes, `order` = values low to high): rank gap to the nearest GT value over
-    (len(order) - 1); a missing prediction counts as 1. oracle/chance: as metrics.score, over `cands`."""
-    ev = [(p, g) for p, g in zip(pred, gt) if g]
-    cand = set(cands or [])
-    out = {"frames": len(ev), "correct": sum(p in g for p, g in ev),
-           "oracle": sum(bool(g & cand) for _, g in ev),
-           "chance": sum(len(g & cand) / len(cand) for _, g in ev) if cand else 0.0}
-    if order:
-        rank = {v: i for i, v in enumerate(order)}
-        out["dist"] = sum(1.0 if p is None else min(abs(rank[p] - rank[v]) for v in g) / (len(order) - 1)
-                          for p, g in ev)
-    return out

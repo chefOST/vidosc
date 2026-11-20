@@ -8,7 +8,7 @@ dominate. No MOSCATO data. Losses (cosine margins, MATCHA eq. 7: max(0, m + sim_
   tcn    (optional) unlabeled video incl. non-GT CMU: sim(t, t +- 1..2 s) > sim(t, t +- 20..90 s).
   reg    keeps the head near identity: mean ||delta||^2.
 
-Validation (model selection) on held-out EPIC participants (cross, img) and held-out nouns (text) only.
+Training-loss monitoring on held-out EPIC participants and held-out nouns only.
 
     python experiments/statespace/train.py --name ss-v1     # -> data/cache/statespace/<name>.pt + val json
 """
@@ -139,23 +139,21 @@ def cos(x, y):
 
 
 @torch.no_grad()
-def validate(m, D):
+def validation_loss(m, D, a):
     m.eval()
+    hinge = lambda pos, neg: F.relu(a.margin + neg - pos).mean()
     out = {}
-    v = D["Tval"]
-    if v.any():
-        a, p, n = m(D["TA"][v]), m(D["TP"][v]), m(D["TN"][v])
-        out["text_acc"] = (cos(a, p) > cos(a, n)).float().mean().item()
-    v = D["Fval"]
-    s, e, b, af = m(D["FS"][v]), m(D["FE"][v]), m(D["PB"][v]), m(D["PA"][v])
-    out["cross_acc"] = 0.5 * ((cos(e, af) > cos(e, b)).float().mean().item() + (cos(s, b) > cos(s, af)).float().mean().item())
-    en = m(D["FEn"][v])
-    out["img_acc"] = (cos(e, en) > cos(e, s)).float().mean().item()
-    ids = D["noun_id"][v]
-    vn = torch.unique(ids)
-    S = F.normalize(e, dim=-1) @ F.normalize(m(D["NN"][vn]), dim=-1).T
-    out["keep_noun"] = (vn[S.argmax(1)] == ids).float().mean().item()
-    out["score"] = np.mean([out.get("text_acc", 0.5), out["cross_acc"]])
+    mask = D["Tval"]
+    if mask.any():
+        x, p, n = m(D["TA"][mask]), m(D["TP"][mask]), m(D["TN"][mask])
+        out["validation_text_loss"] = hinge(cos(x, p), cos(x, n)).item()
+    mask = D["Fval"]
+    if mask.any():
+        start, end, before, after = (m(D[key][mask]) for key in ("FS", "FE", "PB", "PA"))
+        out["validation_cross_loss"] = (0.5 * (hinge(cos(end, after), cos(end, before)) +
+                                                       hinge(cos(start, before), cos(start, after)))).item()
+        near = m(D["FEn"][mask])
+        out["validation_image_loss"] = hinge(cos(end, near), cos(end, start)).item()
     m.train()
     return out
 
@@ -164,7 +162,7 @@ def train(a):
     D = build(a)
     torch.manual_seed(a.seed)
     m = Head(h=a.hidden, p=a.dropout)
-    print("val at init (SigLIP):", validate(m, D))
+    print("held-out loss at init:", validation_loss(m, D, a))
     opt = torch.optim.AdamW(m.parameters(), lr=a.lr, weight_decay=a.wd)
     rng = np.random.default_rng(a.seed)
     ti, fi = np.flatnonzero(~D["Tval"]), np.flatnonzero(~D["Fval"])
@@ -212,8 +210,8 @@ def train(a):
         opt.zero_grad()
         loss.backward()
         opt.step()
-        if step % a.eval_every == 0 or step == a.steps - 1:
-            v = validate(m, D)
+        if step % a.log_every == 0 or step == a.steps - 1:
+            v = validation_loss(m, D, a)
             hist.append({"step": step, "loss": float(loss.detach()), **v})
             print(f"step {step} loss {float(loss):.4f}  " + "  ".join(f"{k} {x:.3f}" for k, x in v.items()), flush=True)
     os.makedirs(OUT, exist_ok=True)
@@ -254,7 +252,7 @@ def parse(argv=None):
     p.add_argument("--no_loc", action="store_true")
     p.add_argument("--state_only", action="store_true")
     p.add_argument("--seed", type=int, default=0)
-    p.add_argument("--eval_every", type=int, default=250)
+    p.add_argument("--log_every", type=int, default=250)
     return p.parse_args(argv)
 
 

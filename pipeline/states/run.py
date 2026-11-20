@@ -1,16 +1,4 @@
-"""Track the states of given objects in a few MOSCATO videos and score against ground truth.
-
-Methods (--method):
-  prior            no video: the object's most frequent state in training pseudo-labels of the recipe (baseline)
-  zeroshot         encoder-text similarity over the object's candidate states (VidOSC's pseudo-labeling stage)
-  vidosc_changeit  VidOSC multi-task ChangeIt checkpoint off the shelf; candidates mapped to ChangeIt states
-  vidosc_adapt     the checkpoint's temporal transformer + a new head per object, fine-tuned on the zero-shot
-                   pseudo-labels of the selected videos (needs --encoder internvideo)
-
-Example:
-    python -m pipeline.states.run --videos S12_Sandwich_7150991-2470 S48_Salad_7150991-222 \
-        --encoder internvideo --method vidosc_adapt --decoder viterbi:2 --wandb
-"""
+'Track object states and save probabilities/decoded labels for scoring in chefOST-data.'
 import argparse
 import json
 import os
@@ -19,10 +7,9 @@ from collections import Counter
 
 import numpy as np
 
-from .. import ROOT, data, decoders, encoders, metrics, scoring, vidosc
+from .. import ROOT, data, decoders, encoders, scoring, vidosc
 from ..internvideo import video_size
 from . import clusters
-
 
 
 def parse_args():
@@ -55,26 +42,6 @@ def internvideo_frames(video):
     return video_size(video)[2]
 
 
-def timeline_figure(t, pred, gt_sets, states, title):
-    import matplotlib
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-    rows = sorted(set(states) | set().union(*gt_sets))
-    y = {s: i for i, s in enumerate(rows)}
-    fig, ax = plt.subplots(figsize=(10, 0.28 * len(rows) + 1.2))
-    for s in rows:
-        ts = [ti for ti, g in zip(t, gt_sets) if s in g]
-        ax.scatter(ts, [y[s]] * len(ts), marker="s", s=30, color="#bbbbbb", label="ground truth" if s == rows[0] else None)
-    ok = [p in g for p, g in zip(pred, gt_sets)]
-    ax.scatter(t, [y[p] for p in pred], s=8, c=["#1a9850" if o else "#d73027" for o in ok], label="prediction")
-    ax.set_yticks(range(len(rows)), rows, fontsize=7)
-    ax.set_xlabel("time (s)")
-    ax.set_title(title, fontsize=9)
-    ax.legend(loc="upper left", fontsize=7)
-    fig.tight_layout()
-    return fig
-
-
 def main():
     a = parse_args()
     ds = data.Moscato(a.data_root, a.dataset, cache_dir=os.path.join(ROOT, "data", "cache"))
@@ -90,7 +57,7 @@ def main():
         dest = json.load(open(os.path.join(ROOT, "weights_and_biases", "settings.json")))
         run = wandb.init(entity=dest["entity"], project=a.wandb_project or dest["projects"]["experiments"],
                          name=name, job_type=a.method, config={**vars(a), "encoder_name": enc.name,
-                                                                  "eval_frames": "object has >=1 GT state"})
+                                                                  "mode": "predictions-only"})
 
     temperature = a.temperature or getattr(enc, "logit_scale", 100.0)
     if a.method != "zeroshot" and not getattr(enc, "video_level", False):
@@ -135,7 +102,7 @@ def main():
                 continue
             zs = scoring.state_probs(emb, scoring.text_embeddings(enc, obj, states, a.templates), temperature)
             pr = {"vid": vid, "obj": obj, "idx": idx, "states": states, "zs": zs, "raw": raw,
-                  "gt": ds.gt_states(vid, obj, idx), "head_states": states}
+                  "head_states": states}
             if s2c:  # decode over clusters; members are chosen after decoding
                 pr["groups"] = clusters.group(states, s2c)
                 pr["member_zs"], pr["zs"] = zs, clusters.aggregate(zs, pr["groups"])
@@ -168,14 +135,14 @@ def main():
             pr["pred_states"], pr["probs"] = pr["states"], probs[(pr["vid"], pr["obj"])]
     timing["method_s"] += time.time() - t0
 
-    # 3. Decode over time and score.
-    totals, rows, results, figs = Counter(), [], {}, {}
+    # 3. Decode and save raw probabilities plus source-frame alignment.
+    results = {}
     for pr in pairs:
-        vid, obj, states, gt = pr["vid"], pr["obj"], pr["pred_states"], pr["gt"]
+        vid, obj, states = pr["vid"], pr["obj"], pr["pred_states"]
         t_sec = [i / ds.src_fps for i in pr["idx"]]
         t0 = time.time()
-        if pr["probs"] is None:  # nothing this method can predict for this object
-            pred = [None] * len(gt)
+        if pr["probs"] is None:
+            pred = [None] * len(pr["idx"])
         else:
             p = pr["probs"] / pr["probs"].sum(1, keepdims=True)
             seq = decoders.decode(a.decoder, p)
@@ -184,37 +151,19 @@ def main():
             else:
                 pred = [states[k] for k in seq]
         timing["decode_s"] += time.time() - t0
-        c = metrics.score(pred, gt, states)
-        totals.update(c)
-        s = metrics.summarize(c)
-        rows.append([vid, obj, len(states), len(pr.get("groups", states)), s["evaluated_frames"], s["precision"], s["oracle"], s["chance"]])
-        results[f"{vid}/{obj}"] = {"candidates": states, "t": t_sec, "pred": pred, "gt": [sorted(g) for g in gt], **s}
-        if s["evaluated_frames"] and pr["probs"] is not None:
-            figs[f"{vid}/{obj}"] = timeline_figure(t_sec, pred, gt, states,
-                                                   f"{vid} / {obj}: precision {s['precision']:.2f} (oracle {s['oracle']:.2f})")
-        print(f"{vid:28s} {obj:22s} K={len(states):3d} C={len(pr.get('groups', states)):3d} eval={s['evaluated_frames']:4d} "
-              f"precision={s['precision']:.3f} oracle={s['oracle']:.3f} chance={s['chance']:.3f}")
-
-    overall = metrics.summarize(totals)
-    # Throughput (sampled frames per second of encode + decode) only when no embeddings came from cache.
-    tput = timing["frames"] / (timing["encode_s"] + timing["method_s"] + timing["decode_s"]) \
-        if not timing["cached_videos"] else float("nan")
-    overall.update({"videos": len(a.videos), "video_object_pairs": len(rows), "throughput_fps": tput, **timing})
-    print("\n" + " ".join(f"{k}={v:.3f}" if isinstance(v, float) else f"{k}={v}" for k, v in overall.items()))
-    json.dump({"args": vars(a), "overall": overall, "per_pair": results}, open(os.path.join(out_dir, "results.json"), "w"))
-    for key, fig in figs.items():
-        fig.savefig(os.path.join(out_dir, key.replace("/", "__") + ".png"), dpi=110)
+        results[f"{vid}/{obj}"] = {
+            "candidates": states, "source_frame_indices": pr["idx"], "timestamps_seconds": t_sec,
+            "pred": pred, "probabilities": None if pr["probs"] is None else pr["probs"].tolist(),
+        }
+    path = os.path.join(out_dir, "predictions.json")
+    json.dump({"args": vars(a), "timing": dict(timing), "per_pair": results}, open(path, "w"))
     print(f"[saved] {out_dir}")
-
     if run:
         import wandb
-        cols = ["video", "object", "num_candidates", "num_clusters", "evaluated_frames", "precision", "oracle", "chance"]
-        run.log({"per_object": wandb.Table(columns=cols, data=rows),
-                 **{f"timeline/{k}": wandb.Image(f) for k, f in figs.items()}})
-        run.summary.update(overall)
-        print(f"W&B: {run.url}")
+        artifact = wandb.Artifact(name.replace('/', '-'), type='predictions')
+        artifact.add_file(path, name='predictions.json')
+        run.log_artifact(artifact)
         run.finish()
-
 
 if __name__ == "__main__":
     main()
