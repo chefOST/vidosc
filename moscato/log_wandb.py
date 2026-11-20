@@ -1,21 +1,5 @@
 #!/usr/bin/env python3
-"""Publish MOSCATO runs to Weights & Biases.
-
-Ported from chefOST-ml (branch feat/tubeletgraph-moscato-cmu-s12),
-``scripts/log_wandb.py``. The ``word_accuracy/*`` metric namespace and the
-threshold-curve / frame-table layout are unchanged, so a VidOSC+Claude run and a
-TubeletGraph run land in comparable W&B panels.
-
-Two additions on top of the port:
-
-* :func:`log_prediction` logs the *predict* stage — decode mode, segments,
-  Claude descriptions, timeline images. The original only logged evaluation,
-  which meant a run that failed before scoring left no trace.
-* Credentials no longer require ``WANDB_API_KEY`` specifically. The original
-  ran on Modal where a secret was injected; locally ``wandb login`` writes
-  ``~/.netrc`` instead, and demanding the env var rejected a perfectly good
-  login. :func:`assert_wandb_credentials` accepts either.
-"""
+'Publish saved prediction artifacts to Weights & Biases. Benchmark scoring lives in chefOST/chefOST-data.'
 
 from __future__ import annotations
 
@@ -32,7 +16,6 @@ WANDB_ENTITY = "chefOST"
 WANDB_PROJECTS = ("vidosc-experiments", "vidosc - full evals")
 WANDB_PROJECT = WANDB_PROJECTS[0]
 
-PRIMARY_METRICS = ("precision", "accuracy", "f1", "f1_max")
 
 
 def assert_wandb_credentials() -> str:
@@ -80,25 +63,6 @@ def run_config(manifest: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def metric_payload(summary: dict[str, Any]) -> dict[str, float]:
-    """Map evaluation output to one clearly grouped W&B metric namespace."""
-    missing = [key for key in PRIMARY_METRICS if key not in summary]
-    if missing:
-        raise KeyError(f"Evaluation summary is missing metrics: {missing}")
-    metrics = {
-        f"word_accuracy/{key}": float(summary[key]) for key in PRIMARY_METRICS
-    }
-    metrics.update(
-        {
-            "word_accuracy/f1_max_threshold": float(
-                summary["f1_max_threshold"]
-            ),
-            "word_accuracy/evaluated_frames": float(
-                summary["evaluated_frames"]
-            ),
-        }
-    )
-    return metrics
 
 
 def _artifact_component(value: str) -> str:
@@ -108,99 +72,6 @@ def _artifact_component(value: str) -> str:
     return component[:128]
 
 
-def log_evaluation(
-    *,
-    summary: dict[str, Any],
-    rows: list[dict[str, Any]],
-    project: str,
-    entity: str,
-    run_name: str,
-    artifact_paths: dict[str, Path],
-    config: dict[str, Any],
-) -> dict[str, str]:
-    """Log scalar cards, threshold curve, frame table, and source artifacts."""
-    assert_wandb_credentials()
-
-    import wandb
-
-    metrics = metric_payload(summary)
-    resolved_name = _artifact_component(run_name)
-    with wandb.init(
-        project=project,
-        entity=entity or None,
-        name=resolved_name,
-        job_type="evaluation",
-        config=config,
-        # decode:/prompt: mirror the prediction run's tags so a comparison can be
-        # filtered on one axis across both job types.
-        tags=[
-            "vidosc", "claude", "moscato", "cmu", "evaluation",
-            f"decode:{config.get('decode_mode', 'unknown')}",
-            f"prompt:{config.get('prompt_mode', 'unknown')}",
-        ],
-    ) as run:
-        for key, value in metrics.items():
-            run.summary[key] = value
-        run.log(metrics)
-
-        curve = summary["f1_threshold_curve"]
-        curve_table = wandb.Table(
-            columns=["threshold", "precision", "recall", "f1"],
-            data=[
-                [
-                    point["threshold"],
-                    point["precision"],
-                    point["recall"],
-                    point["f1"],
-                ]
-                for point in curve
-            ],
-        )
-        log_items: dict[str, Any] = {
-            "word_accuracy/f1_threshold_curve": curve_table,
-            "word_accuracy/f1_by_threshold": wandb.plot.line(
-                curve_table,
-                "threshold",
-                "f1",
-                title="MOSCATO micro-F1 by global threshold",
-            ),
-        }
-        if rows:
-            columns = list(rows[0])
-            log_items["evaluation/frame_predictions"] = wandb.Table(
-                columns=columns,
-                data=[[row[column] for column in columns] for row in rows],
-            )
-        run.log(log_items)
-
-        artifact_name = _artifact_component("-".join(
-            [
-                "moscato-evaluation",
-                _artifact_component(str(summary["video_id"])),
-                _artifact_component(str(summary["object"])),
-                resolved_name,
-            ]
-        ))
-        artifact = wandb.Artifact(
-            artifact_name,
-            type="evaluation",
-            metadata={
-                "video_id": summary["video_id"],
-                "object": summary["object"],
-                "metrics": metrics,
-                "ground_truth_used_for_inference": False,
-            },
-        )
-        for artifact_key, path in artifact_paths.items():
-            if path.is_file():
-                artifact.add_file(str(path), name=f"{artifact_key}/{path.name}")
-        logged_artifact = run.log_artifact(artifact, aliases=["latest"])
-        result = {
-            "run_url": run.url,
-            "run_path": run.path,
-            "artifact_name": logged_artifact.name,
-        }
-    return result
 
 
 def log_prediction(

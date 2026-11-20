@@ -12,7 +12,6 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from moscato import config, frame_mapping, segments_to_events
-from moscato.evaluate import densify, evaluate_events
 from moscato.map_states import normalize_candidate
 
 FPS = 30
@@ -108,22 +107,6 @@ def test_events_use_the_tubeletgraph_schema():
     assert events["provenance"]["ground_truth_used_for_inference"] is False
 
 
-def test_densify_agrees_with_the_frame_mapping():
-    """The ported evaluator and the frame mapping must never disagree."""
-    events = segments_to_events.build_events(
-        video_id="V", target_object="bread slices", clip_start_global=CLIP_START,
-        num_local_frames=NUM_LOCAL, fps=FPS, num_timesteps=NUM_TIMESTEPS,
-        segments=_segments(),
-    )
-    dense = densify(events, STATE_DICT)
-    assert len(dense) == NUM_LOCAL
-    by_timestep = {}
-    for segment in _segments():
-        for t in range(segment["start"], segment["end"] + 1):
-            by_timestep[t] = segment["mapped_moscato_state"]
-    for local in range(NUM_LOCAL):
-        timestep = frame_mapping.timestep_for_local_frame(local, FPS, NUM_TIMESTEPS)
-        assert dense[local] == by_timestep[timestep]
 
 
 def test_a_gap_between_segments_is_rejected():
@@ -152,57 +135,10 @@ def test_an_unmapped_segment_is_rejected():
 # Evaluator parity with the TubeletGraph implementation
 # --------------------------------------------------------------------------
 
-def test_evaluation_policy_matches_tubeletgraph():
-    gt = [[] for _ in range(CLIP_END)]
-    for frame in range(CLIP_START, CLIP_START + 1200):
-        gt[frame] = ["whole"]
-    for frame in range(CLIP_START + 1200, CLIP_END):
-        gt[frame] = ["on dish", "sliced"]
-    annotations = {"V": {"object": [[]] * CLIP_END, "state": {"bread slices": gt}}}
-
-    events = segments_to_events.build_events(
-        video_id="V", target_object="bread slices", clip_start_global=CLIP_START,
-        num_local_frames=NUM_LOCAL, fps=FPS, num_timesteps=NUM_TIMESTEPS,
-        segments=_segments(),
-    )
-    rows, summary = evaluate_events(annotations, STATE_DICT, events)
-
-    assert len(rows) == NUM_LOCAL
-    assert summary["evaluated_frames"] == NUM_LOCAL
-    assert summary["skipped_empty_gt_frames"] == 0
-    # Multi-label GT: a prediction counts if it is in the list.
-    assert summary["policy"]["multi_label"] == "prediction is correct if present in GT state list"
-    assert summary["policy"]["empty_gt"] == "skip"
-    for key in ("accuracy", "precision", "f1", "f1_max", "micro_f1", "f1_max_threshold"):
-        assert key in summary
 
 
-def test_empty_ground_truth_frames_are_skipped_not_scored():
-    gt = [[] for _ in range(CLIP_END)]
-    for frame in range(CLIP_START, CLIP_START + 30):
-        gt[frame] = ["whole"]
-    annotations = {"V": {"object": [[]] * CLIP_END, "state": {"bread slices": gt}}}
-    events = segments_to_events.build_events(
-        video_id="V", target_object="bread slices", clip_start_global=CLIP_START,
-        num_local_frames=NUM_LOCAL, fps=FPS, num_timesteps=NUM_TIMESTEPS,
-        segments=_segments(),
-    )
-    rows, summary = evaluate_events(annotations, STATE_DICT, events)
-    assert summary["evaluated_frames"] == 30
-    assert summary["skipped_empty_gt_frames"] == NUM_LOCAL - 30
-    assert summary["accuracy"] == 1.0
-    assert all(row["correct"] == "" for row in rows if row["evaluated"] == 0)
 
 
-def test_predictions_beyond_the_gt_timeline_fail_loudly():
-    annotations = {"V": {"object": [[]] * 3000, "state": {"bread slices": [["whole"]] * 3000}}}
-    events = segments_to_events.build_events(
-        video_id="V", target_object="bread slices", clip_start_global=CLIP_START,
-        num_local_frames=NUM_LOCAL, fps=FPS, num_timesteps=NUM_TIMESTEPS,
-        segments=_segments(),
-    )
-    with pytest.raises(ValueError, match="extends beyond MOSCATO"):
-        evaluate_events(annotations, STATE_DICT, events)
 
 
 # --------------------------------------------------------------------------
@@ -487,35 +423,6 @@ def test_segmentation_consumes_decoded_labels_not_raw_argmax():
     assert np.array_equal(rebuilt, ordered_labels)
 
 
-def test_ordered_segments_convert_to_the_unchanged_event_schema():
-    """Ordered output must still flow through segments_to_events untouched."""
-    from describe_states import group_segments
-
-    probs = _probs_from_labels(([INITIAL] * 5 + [END] * 5) * 6)
-    labels, _ = moscato_decode.decode("ordered", probs)
-    raw = group_segments(labels)
-
-    names = {1: "initial_state", 2: "transitioning", 3: "end_state"}
-    allowed = ["whole", "sliced", "on dish"]
-    segments = [
-        {
-            "start": int(s),
-            "end": int(e),
-            "vidosc_state": names[int(st)],
-            "claude_description": "d",
-            "mapped_moscato_state": allowed[i % len(allowed)],
-        }
-        for i, (s, e, st) in enumerate(raw)
-    ]
-    fps, num_timesteps = 30, len(labels)
-    events = segments_to_events.build_events(
-        video_id="V", target_object="o", clip_start_global=0,
-        num_local_frames=num_timesteps * fps, fps=fps,
-        num_timesteps=num_timesteps, segments=segments,
-    )
-    assert events["initial_state"] == segments[0]["mapped_moscato_state"]
-    assert len(events["transitions"]) == len(segments) - 1
-    assert len(densify(events, STATE_DICT)) == num_timesteps * fps
 
 
 # --------------------------------------------------------------------------
@@ -532,7 +439,7 @@ def test_describer_does_not_use_the_clip_scaling_helper():
     source = (
         Path(__file__).resolve().parent.parent / "moscato" / "run_experiment.py"
     ).read_text()
-    predict = source[source.index("def predict("):source.index("# ---------------------------------------------------------------------------\n# evaluate")]
+    predict = source[source.index("def predict("):source.index("# ---------------------------------------------------------------------------\n# CLI")]
     # A mention in a comment is fine (the comment explains why not to use it);
     # a call or an import is not.
     assert "extract_frames_1fps(" not in predict, (
