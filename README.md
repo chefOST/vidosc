@@ -6,7 +6,7 @@ VidOSC research for object-state tracking in procedural cooking videos.
 
 - [Organization guide](https://github.com/chefOST/.github/blob/main/profile/README.md).
 - [Project goals](https://github.com/chefOST/.github/blob/main/docs/PaperNotes.md#project-goals) and [paper notes](https://github.com/chefOST/.github/blob/main/docs/PaperNotes.md#1-vidosc).
-- [Evaluation definitions](https://github.com/chefOST/.github/blob/main/docs/Evaluation.md) and the sole [evaluation implementation](https://github.com/chefOST/chefOST-data#evaluation).
+- Evaluation: [definitions](https://github.com/chefOST/.github/blob/main/docs/Evaluation.md), [shared implementation](https://github.com/chefOST/chefOST-data#evaluation), and [full-run-evals results](https://wandb.ai/chefOST/full-run-evals).
 - [Contribution rules](https://github.com/chefOST/.github/blob/main/CONTRIBUTING.md) and [agent instructions](AGENTS.md).
 
 ## Data
@@ -18,6 +18,6 @@ Get annotations and vocabularies from [chefOST-data](https://github.com/chefOST/
 Log runs and outputs to the `chefOST` W&B projects:
 
 - Experiments: [`vidosc-experiments`](https://wandb.ai/chefOST/vidosc-experiments).
-- Full evaluations: [`vidosc - full evals`](https://wandb.ai/chefOST/vidosc%20-%20full%20evals).
+- Full-run inference outputs: [`vidosc - full evals`](https://wandb.ai/chefOST/vidosc%20-%20full%20evals).
 
 Use the exact destinations in [settings.json](weights_and_biases/settings.json).
